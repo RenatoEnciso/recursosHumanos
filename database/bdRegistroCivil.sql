@@ -3,15 +3,6 @@ CREATE DATABASE bdregistrocivil;
 
 USE bdregistrocivil;
 --  TABLAS FUERTES
-CREATE TABLE TipoActa(
-  idTipoActa INT(11) AUTO_INCREMENT NOT NULL,
-  nombre varchar(40) NOT NULL,
-  PRIMARY KEY (idTipoActa)
-);
-
-
-
-
 
 CREATE TABLE persona (
   DNI CHAR(8) NOT NULL,
@@ -23,27 +14,10 @@ CREATE TABLE persona (
   PRIMARY KEY (DNI)
 );
 create table tipoFicha(
-  idtipo int AUTO_INCREMENT PRIMARY key,
-  descripcion varchar(50)
+  idtipo int AUTO_INCREMENT not null PRIMARY KEY,
+  nombre varchar(50)
 );
 -- TABLAS DEBILES
-CREATE TABLE acta(
-  idActa  INT(11) AUTO_INCREMENT,
-  fecha_registro DATE  ,
-  hora_registro TIME  ,
-  observacion VARCHAR(30)  ,
-  archivo VARCHAR(1000)  ,
-  fecha_Acta DATE  ,
-  lugar_Acta VARCHAR(30)  ,
-  idTipoActa INT(11),
-  estado  TINYINT NOT NULL,
-  FOREIGN KEY (idTipoActa) REFERENCES TipoActa (idTipoActa),
-  FOREIGN KEY (idFolio) REFERENCES FOLIO(idFolio),
-  FOREIGN KEY (idLibro) REFERENCES LIBRO(idLibro),
-  PRIMARY KEY (idActa),
-  foreign key (idActa) references ficha_registro(idficha)
-);
-
 create table ficha_registro(
 idficha int AUTO_INCREMENT primary key,
 fecha_registro date,
@@ -52,6 +26,21 @@ idtipo int,
 foreign key (idtipo) REFERENCES tipoFicha(idtipo)
 
 );
+CREATE TABLE acta(
+  idActa  INT(11) AUTO_INCREMENT,
+  fecha_registro DATE  ,
+  hora_registro TIME  ,
+  observacion VARCHAR(30)  ,
+  archivo VARCHAR(1000)  ,
+  fecha_Acta DATE  ,
+  lugar_Acta VARCHAR(30)  ,
+  tipoActa VARCHAR(30) ,
+  estado  TINYINT NOT NULL,
+  foreign key (idActa) references ficha_registro(idficha),
+  PRIMARY KEY (idActa)
+);
+
+
 CREATE TABLE ACTA_PERSONA(
   idActaPersona int(11) AUTO_INCREMENT NOT NULL,
   idActa int(11) NOT NULL,
@@ -85,5 +74,5 @@ CREATE TABLE LISTA_SOLICITUD (
 );
 
 
-INSERT INTO TipoActa(nombre) 
+INSERT INTO tipoFicha(nombre) 
 VALUES ("Nacimiento"),("Matrimonio"),("Defunción");

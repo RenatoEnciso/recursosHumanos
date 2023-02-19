@@ -9,17 +9,9 @@ CREATE TABLE TipoActa(
   PRIMARY KEY (idTipoActa)
 );
 
-CREATE TABLE LIBRO(
-  idLibro INT AUTO_INCREMENT NOT NULL,
-  nroLibro INT(2),
-  PRIMARY KEY(idLibro)
-);
 
-CREATE TABLE FOLIO(
-  idFolio INT AUTO_INCREMENT NOT NULL,
-  nroFolio INT(2),
-  PRIMARY KEY(idFolio)
-);
+
+
 
 CREATE TABLE persona (
   DNI CHAR(8) NOT NULL,
@@ -30,7 +22,10 @@ CREATE TABLE persona (
   estado TINYINT NOT NULL,
   PRIMARY KEY (DNI)
 );
-
+create table tipoFicha(
+  idtipo int AUTO_INCREMENT PRIMARY key,
+  descripcion varchar(50)
+);
 -- TABLAS DEBILES
 CREATE TABLE acta(
   idActa  INT(11) AUTO_INCREMENT,
@@ -41,15 +36,22 @@ CREATE TABLE acta(
   fecha_Acta DATE  ,
   lugar_Acta VARCHAR(30)  ,
   idTipoActa INT(11),
-  idFolio INT(2),
-  idLibro INT(2),
   estado  TINYINT NOT NULL,
   FOREIGN KEY (idTipoActa) REFERENCES TipoActa (idTipoActa),
   FOREIGN KEY (idFolio) REFERENCES FOLIO(idFolio),
   FOREIGN KEY (idLibro) REFERENCES LIBRO(idLibro),
-  PRIMARY KEY (idActa)
+  PRIMARY KEY (idActa),
+  foreign key (idActa) references ficha_registro(idficha)
 );
 
+create table ficha_registro(
+idficha int AUTO_INCREMENT primary key,
+fecha_registro date,
+ruta_certificado longtext,
+idtipo int,
+foreign key (idtipo) REFERENCES tipoFicha(idtipo)
+
+);
 CREATE TABLE ACTA_PERSONA(
   idActaPersona int(11) AUTO_INCREMENT NOT NULL,
   idActa int(11) NOT NULL,

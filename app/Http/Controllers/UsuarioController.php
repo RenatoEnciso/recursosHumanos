@@ -19,7 +19,7 @@ class UsuarioController extends Controller
             $urlFoto = Storage::url($archivo);
             $usuario->fotoPerfil=$urlFoto;
         }else{
-            $usuario->fotoPerfil="../assets/img/profile.jpg";
+            //$usuario->fotoPerfil="../assets/img/profile.jpg";
         }
         $usuario->save();
         return redirect()->route('usuario.index');

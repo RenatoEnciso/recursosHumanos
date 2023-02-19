@@ -77,7 +77,12 @@
                                 <li class="nav-item dropdown hidden-caret">
                                     <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                                         <div class="avatar-sm">
-                                            <img src="{{ Auth::user()->fotoPerfil }}" alt="..." class="avatar-img rounded-circle">
+                                            @if(is_null(Auth::user()->fotoPerfil))
+                                                <img src="../assets/img/profile.jpg" alt="Foto de perfil" class="avatar-img rounded-circle">
+                                                
+                                            @else
+                                                <img src="{{ Auth::user()->fotoPerfil }}" alt="Foto de perfil" class="avatar-img rounded-circle">
+                                            @endif
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -85,7 +90,12 @@
                                             <li>
                                                 <div class="user-box">
                                                     <div class="avatar-lg" >
-                                                        <img src="{{ Auth::user()->fotoPerfil }}" alt="imagen perfil" width="70px" height="250px" class="avatar-img rounded">
+                                                        @if(is_null(Auth::user()->fotoPerfil))
+                                                            <img src="../assets/img/profile.jpg" alt="Foto de perfil" width="70px" height="250px" class="avatar-img rounded-circle">
+                                                            
+                                                        @else
+                                                            <img src="{{ Auth::user()->fotoPerfil }}" alt="Foto de perfil" width="70px" height="250px" class="avatar-img rounded-circle">
+                                                        @endif
                                                     </div>
                                                     <div class="u-text">
                                                         <h2>{{ Auth::user()->name }}</h2>
@@ -135,7 +145,12 @@
                         <div class="sidebar-content">
                             <div class="user">
                                 <div class="avatar-sm float-left mr-2" style="margin-top:15%">
-                                    <img src="{{ Auth::user()->fotoPerfil }}" alt="foto de perfil" class="avatar-img rounded-circle">
+                                    @if(is_null(Auth::user()->fotoPerfil))
+                                        <img src="../assets/img/profile.jpg" alt="Foto de perfil" width="70px" height="250px" class="avatar-img rounded-circle">
+                                        
+                                    @else
+                                        <img src="{{ Auth::user()->fotoPerfil }}" alt="Foto de perfil" width="70px" height="250px" class="avatar-img rounded-circle">
+                                    @endif
                                 </div>
                                 <div class="info">
                                     <a href="{{route('dashboard')}}" class="nav-link">

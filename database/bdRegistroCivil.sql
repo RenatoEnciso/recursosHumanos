@@ -87,9 +87,3 @@ CREATE TABLE LISTA_SOLICITUD (
 
 INSERT INTO TipoActa(nombre) 
 VALUES ("Nacimiento"),("Matrimonio"),("Defunción");
-
-
-INSERT INTO LIBRO(nroLibro) 
-VALUES ('1'),('2'),('3'),('4'),('5'),('6'),('7'),('8'),('9'),('10');
-INSERT INTO FOLIO(nroFolio) 
-VALUES ('1'),('2'),('3'),('4'),('5'),('6'),('7'),('8'),('9'),('10');

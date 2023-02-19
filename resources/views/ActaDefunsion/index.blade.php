@@ -35,8 +35,6 @@
                     <thead>
                     <tr>
                         <th scope="col">Codigo</th>
-                        <th scope="col">Nº Libro</th>
-                        <th scope="col">Nº Folio</th>
                         <th scope="col">Apellidos y Nombres</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">Lugar de Fallecimiento</th>
@@ -54,8 +52,6 @@
                     @foreach ($ActaDefunsion as $item)
                         <tr>
                         <td>{{$item->idActa}}</td>
-                        <td>{{$item->nroLibro}}</td>
-                        <td>{{$item->Folio->nroFolio}}</td>
                         <td>{{$item->Apellido_Paterno . " " . $item->Apellido_Materno." ".$item->Nombres}}</td>
                         <td>{{$item->fecha_Acta}}</td>
                         <td>{{$item->lugar_Acta}}</td>
@@ -63,6 +59,7 @@
                         <td>
                             <br>
                             <a href="{{ route('ActaDefunsion.archivo',$item->idActaPersona)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Ver</a>
+                            <a href="{{ route('ActaDefuncion.generada',$item->idActaPersona)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Generar</a>
                             <a href="{{ route('ActaDefunsion.edit',$item->idActaPersona) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
                             <a href="{{ route('ActaDefunsion.confirmar',$item->idActaPersona) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
                         </td>

@@ -57,6 +57,7 @@ CREATE TABLE ACTA_PERSONA(
   idActa int(11) NOT NULL,
   DNI  char(8) NOT NULL,
   estado TINYINT NOT NULL,
+  funcion varchar(20),
   FOREIGN KEY (idActa) REFERENCES acta(idActa),
   FOREIGN KEY (DNI) REFERENCES persona(DNI),
   PRIMARY KEY(idActaPersona)

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ActaNacimientoController extends Controller
 {
@@ -179,5 +180,15 @@ class ActaNacimientoController extends Controller
     public function archivo($id){
         $ActaNacimiento=Acta_Persona::findOrFail($id);
         return view('ActaNacimiento.archivo',compact('ActaNacimiento'));
+    }
+
+    public function actaGenerada($id){
+        $actaPersona= Acta_Persona::findOrFail($id);
+        $actaGenerada=Acta::findOrFail($actaPersona->idActa);
+        $fecha = date('Y-m-d');
+        $data = compact('actaGenerada','actaPersona','fecha');
+        $pdf = Pdf::loadView('ActaNacimiento.actaGenerada', $data);
+        return $pdf->stream('ActaNacimiento.pdf');
+        //return $pdf->download('ActaNacimiento.pdf');
     }
 }

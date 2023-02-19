@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ActaMatrimonioController extends Controller
 {
@@ -172,5 +173,16 @@ class ActaMatrimonioController extends Controller
 
     public function cancelar(){
         return redirect()->route('ActaMatrimonio.index')->with('datos','acciona cancelada...');
+    }
+
+    public function actaGenerada($id){
+        $ActaMatrimonio=Acta_Persona::all();
+        $actaPersona= Acta_Persona::findOrFail($id);
+        $actaGenerada=Acta::findOrFail($actaPersona->idActa);
+        $fecha = date('Y-m-d');
+        $data = compact('ActaMatrimonio','actaGenerada','actaPersona','fecha');
+        $pdf = Pdf::loadView('ActaMatrimonio.actaGenerada', $data);
+        //return $pdf->stream('ActaMatrimonio.pdf');
+        return $pdf->download('ActaMatrimonio.pdf');
     }
 }

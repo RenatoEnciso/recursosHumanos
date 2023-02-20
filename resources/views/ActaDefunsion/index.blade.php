@@ -51,6 +51,7 @@
 
                     @foreach ($ActaDefunsion as $item)
                         <tr>
+                        @if ($item % 2 == 0)
                         <td>{{$item->idActa}}</td>
                         <td>{{$item->Apellido_Paterno . " " . $item->Apellido_Materno." ".$item->Nombres}}</td>
                         <td>{{$item->fecha_Acta}}</td>
@@ -64,6 +65,8 @@
                             <a href="{{ route('ActaDefunsion.confirmar',$item->idActaPersona) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
                         </td>
                         </tr>
+                        @endif
+                        
                     @endforeach
                     @endif
                     </tbody>

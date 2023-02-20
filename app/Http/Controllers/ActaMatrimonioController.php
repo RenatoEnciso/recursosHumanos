@@ -21,10 +21,8 @@ class ActaMatrimonioController extends Controller
         $buscarpor= $request->get('buscarpor');
         $ActaMatrimonio=Acta_Persona::select('*')
         ->join('Acta','Acta.idActa','=','Acta_Persona.idActa')
-        ->join('TipoActa','TipoActa.idTipoActa','=','Acta.idTipoActa')
-        ->join('Libro','Libro.idLibro','=','Acta.idLibro')
         ->join('Persona','Persona.DNI','=','Acta_Persona.DNI')
-        ->where('TipoActa.idTipoActa','=','2')
+        ->where('TipoActa','=','2')
         ->where('Acta_Persona.estado','=','1')
         ->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
         ->paginate($this::PAGINATION);
@@ -69,7 +67,7 @@ class ActaMatrimonioController extends Controller
 
         $Acta->fecha_Acta=$request->fecha_matrimonio;
         $Acta->lugar_Acta=$request->lugar_matrimonio;
-        $Acta->idTipoActa=2;    //tipo matrimonio
+        $Acta->TipoActa=2;    //tipo matrimonio
         $Acta->estado='1';
         $Acta->save();
 

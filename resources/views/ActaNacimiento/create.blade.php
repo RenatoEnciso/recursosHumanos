@@ -9,7 +9,7 @@
             @csrf
             <div class="row">
                 <div class="col-8">
-                    <div style="display: flex">
+                    {{-- <div style="display: flex">
                         <div class="col col-6">
                             <label class="control-label">Numero de libro</label>
                             <select name="nroLibro" id="idLibro"
@@ -39,7 +39,7 @@
                                 </span>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="col-12 form-group">
                         <label class="control-label">Observación</label>

@@ -14,7 +14,7 @@
             </div>
             <div class="row">
                 <div class="col-8">
-                    <div style="display: flex">
+                    {{-- <div style="display: flex">
                         <div class="col col-6">
                             <label class="control-label">Numero de libro</label>
                             <select name="nroLibro" id="idLibro" 
@@ -46,7 +46,7 @@
                                 </span>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="col-12 form-group">
                         <label class="control-label">Detalle de la Muerte</label>
@@ -85,6 +85,22 @@
                             class="form-control @error('persona') is-invalid @enderror">
                             @foreach($personas as $item)
                                 <option value="{{$item['DNI'] }}" {{$item->DNI==$actaDefunsion->DNI?'selected':''}}>
+                                    {{$item['Nombres'] }}</option>
+                                 @endforeach
+
+                        </select>
+                        @error('persona')
+                            <span class="invalid feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-12 form-group">
+                        <label class="control-label">Persona</label>
+                        <select name="dniFamiliar" id="DNIf"
+                            class="form-control @error('persona') is-invalid @enderror">
+                            @foreach($personas as $item)
+                                <option value="{{$item['DNI'] }}" {{$item->DNI==$actaDefunsion2->DNI?'selected':''}}>
                                     {{$item['Nombres'] }}</option>
                                  @endforeach
 
@@ -141,6 +157,7 @@
     <script>
         function mensaje() {
         $('#DNI').select2();
+        $('#DNIf').select2();
         $('#idLibro').select2();
         $('#idFolio').select2();
         }

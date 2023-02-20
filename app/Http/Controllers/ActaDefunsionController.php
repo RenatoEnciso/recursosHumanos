@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Acta;
 use App\Models\Acta_Persona;
-use App\Models\Libro;
-use App\Models\Folio;
 use App\Models\Persona;
+// use App\Models\Libro;
+// use App\Models\Folio;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -20,11 +20,9 @@ class ActaDefunsionController extends Controller
     {
         $buscarpor= $request->get('buscarpor');
         $ActaDefunsion=Acta::select('*')
-        ->join('TipoActa','TipoActa.idTipoActa','=','Acta.idTipoActa')
-        ->join('Libro','Libro.idLibro','=','Acta.idLibro')
         ->join('Acta_Persona as AP','AP.idActa','=','Acta.idActa')
         ->join('Persona','Persona.DNI','=','AP.DNI')
-        ->where('TipoActa.idTipoActa','=','3')
+        ->where('TipoActa','=','3')
         ->where('AP.estado','=','1')->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
         ->paginate($this::PAGINATION);
         return view('ActaDefunsion.index',compact('ActaDefunsion','buscarpor'));
@@ -32,10 +30,10 @@ class ActaDefunsionController extends Controller
 
     public function create(){
         if (Auth::user()->rol=='Administrativo'){   //boton registrar
-            $libros=Libro::all();
-            $folios=Folio::all();
+            // $libros=Libro::all();
+            // $folios=Folio::all();
             $personas = Persona::all();
-            return view('ActaDefunsion.create',compact('personas','libros','folios'));
+            return view('ActaDefunsion.create',compact('personas'));
         }else{
             return redirect()->route('ActaDefunsion.index')->with('datos','..::No tiene Acceso ..::');
         }
@@ -43,6 +41,7 @@ class ActaDefunsionController extends Controller
     }
 
     public function store(Request $request){
+        return $request->all();
         $data=request()->validate([
             'observacion'=>'required|max:30',
             'fecha'=>'required',
@@ -63,8 +62,8 @@ class ActaDefunsionController extends Controller
         $fecha_Actual=Carbon::now();
         $Acta->fecha_registro=$fecha_Actual;
         $Acta->hora_registro=$fecha_Actual->subHour(5)->toTimeString();
-        $Acta->idLibro=$request->nroLibro;
-        $Acta->idFolio=$request->nroFolio;
+        // $Acta->idLibro=$request->nroLibro;
+        // $Acta->idFolio=$request->nroFolio;
         $Acta->observacion=$request->observacion;
         if($request->hasFile('archivo_defunsion')){
             $archivo=$request->file('archivo_defunsion')->store('ArchivosDefunsion','public');
@@ -73,14 +72,20 @@ class ActaDefunsionController extends Controller
         }
         $Acta->fecha_Acta=$request->fecha;
         $Acta->lugar_Acta=$request->lugar;
-        $Acta->idTipoActa=3;    //tipo: Defunsion
+        $Acta->TipoActa=3;    //tipo: Defunsion
         $Acta->estado='1';
         $Acta->save();
 
         $persona = Persona::findOrFail($request->dniPersona);
         $persona->estado='0';
         $persona->save();
+        $familiar = Persona::findOrFail($request->dniFamiliar);
 
+        $ActaDefunsion=new Acta_Persona();
+        $ActaDefunsion->DNI=$persona->DNI;
+        $ActaDefunsion->idActa=$Acta->idActa;
+        $ActaDefunsion->estado=1;
+        $ActaDefunsion->save();
         $ActaDefunsion=new Acta_Persona();
         $ActaDefunsion->DNI=$persona->DNI;
         $ActaDefunsion->idActa=$Acta->idActa;
@@ -92,12 +97,13 @@ class ActaDefunsionController extends Controller
 
     public function edit($id){
         if (Auth::user()->rol=='Administrativo'){   //boton editar
-            $libros=Libro::all();
-            $folios=Folio::all();
+            // $libros=Libro::all();
+            // $folios=Folio::all();
             $actaDefunsion= Acta_Persona::findOrFail($id);
+            $actaDefunsion2=Acta_Persona::findOrFail($id+1);
             $acta=Acta::findOrFail($actaDefunsion->idActa);
             $personas = Persona::all();
-            return view('ActaDefunsion.edit',compact('actaDefunsion','acta','personas','libros','folios'));
+            return view('ActaDefunsion.edit',compact('actaDefunsion','actaDefunsion2','acta','personas'));
         }else{
             return redirect()->route('ActaDefunsion.index')->with('datos','..::No tiene Acceso ..::');
         }
@@ -122,10 +128,13 @@ class ActaDefunsionController extends Controller
         $ActaDefunsion=Acta_Persona::findOrFail($id);
         $ActaDefunsion->DNI=$request->dniPersona;
         $ActaDefunsion->save();
+        $actaDefunsion2=Acta_Persona::findOrFail($id+1);
+        $ActaDefunsion2->DNI=$request->dniFamiliar;
+        $ActaDefunsion2->save();
 
         $Acta = Acta::findOrFail($ActaDefunsion->idActa);
-        $Acta->idLibro=$request->nroLibro;
-        $Acta->idFolio=$request->nroFolio;
+        // $Acta->idLibro=$request->nroLibro;
+        // $Acta->idFolio=$request->nroFolio;
         $Acta->observacion=$request->observacion;
         if($request->hasFile('archivo_defunsion')){
             $archivo=$request->file('archivo_defunsion')->store('ArchivosDefunsion','public');
@@ -152,6 +161,10 @@ class ActaDefunsionController extends Controller
         $persona = Persona::findOrFail($ActaDefunsion->Persona->DNI);
         $persona->estado=1;
         $persona->save();
+
+        $actaDefunsion2=Acta_Persona::findOrFail($id+1);
+        $ActaDefunsion->estado='0';
+        $ActaDefunsion2->save();
 
         $Acta=Acta::findOrFail($ActaDefunsion->idActa);
         $Acta->estado='0';

@@ -81,6 +81,8 @@ Route::post('ActualizarEmpleado{id}/',[RegisteredUserController::class,'update']
 Route::get('confirU{id}/',[RegisteredUserController::class,'confirmar'])->name('confirU')->middleware('auth');
 Route::post('EmpleadoEliminar{id}/', [RegisteredUserController::class, 'destroy'])->name('EliminarEmpleado');
 Route::get('Empleadocancelar/',[RegisteredUserController::class,'cancelar'])->name('EmpleadoCancelar')->middleware('auth');
-Route::get('InformeCrear', [InformeController::class, 'create'])->name('CrearInfo');
-Route::post('InformeGe/', [InformeController::class,'Generar'])->name('GenerarInfo');
+
+//REPORTES
+Route::get('Reporte/Crear', [InformeController::class, 'create'])->name('reporte.create');
+Route::post('Reporte/PDF/', [InformeController::class,'Generar'])->name('reporte.generarPDF');
 

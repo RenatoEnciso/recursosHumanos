@@ -1,13 +1,13 @@
 @extends('dashboard');
 
-@section('titulo','Generar Informe')
+@section('titulo','Generar Reporte')
 
 @section('contenido')
 
             <div class="container">
-                <h1 id="titulo" >Generar Informe</h1>
+                <h1 id="titulo" >Generar Reporte</h1>
                 <br>
-                <form method="POST" action="{{route('GenerarInfo')}}">
+                <form method="POST" action="{{route('reporte.generarPDF')}}">
                     @csrf
 
                     <div id="mensaje">
@@ -20,8 +20,7 @@
 
                     <div class="col-12 form-group">
                         <label class="control-label">Dni:</label>
-                        <select name="dni" id="dni"
-                            class="form-control @error('dni') is-invalid @enderror" >
+                        <select name="dni" id="dni" class="form-control @error('dni') is-invalid @enderror" >
                             @foreach ($personas as $item)
                                 <option value="{{ $item->DNI }}">DNI:{{ $item->DNI}} - {{ $item->Nombres }} {{ $item->Apellido_Paterno}} {{ $item->Apellido_Materno}}</option>
                             @endforeach
@@ -33,9 +32,10 @@
                             </span>
                         @enderror
                     </div>
+
                     <br>
                     <div >
-                        <button class="btn btn-primary"> <i class="fas fa-save"></i>Generar</button>
+                        <button class="btn btn-primary"> <i class="fas fa-save"></i>Generar PDF</button>
                         <a href="{{route('dashboard')}}" class="btn btn-danger" > <i class="fas fa-ban"></i>Cancelar</a>
                     </div>
                 </form>

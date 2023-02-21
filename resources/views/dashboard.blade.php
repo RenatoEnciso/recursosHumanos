@@ -205,9 +205,9 @@
 
                                 </li>
                                 <li class="nav-item">
-                                    <a  href="{{route('CrearInfo')}}">
+                                    <a  href="{{route('reporte.create')}}">
                                         <i class="fas fa-id-card"></i>
-                                        <p>Informes</p>
+                                        <p>Reportes</p>
                                     </a>
                                 </li>
                             </ul>

@@ -16,8 +16,9 @@ class InformeController extends Controller
     public function create()
     {
         $personas = Persona::all();
-        return view('Informe.create',compact('personas'));
+        return view('Reporte.create',compact('personas'));
     }
+
     public function Generar(Request $datosA)
     {
         $data = $datosA->validate(

@@ -76,3 +76,18 @@ CREATE TABLE LISTA_SOLICITUD (
 
 INSERT INTO tipoFicha(nombre) 
 VALUES ("Nacimiento"),("Matrimonio"),("Defunción");
+
+INSERT into persona( DNI,
+  Apellido_Paterno,
+  Apellido_Materno,
+  Nombres,
+  sexo,
+  estado) 
+  values
+  ('75824653','Calla','Gil','Juan','Masculino',1),
+  ('12345678','Fina','Segura','Eva','Femenino',1),
+  ('12345677','Cura','Sacristan','Rosario','Femenino',1),
+  ('12345666','Pecho','Barba','Dolores','Femenino',1),
+  ('11234567','Púlpito','Salido','Ana','Masculino',1),
+  ('11223345','Seisdedos','Pies Planos','Alfonso','Masculino',1),
+  ('11223344','Fuertes','de Barriga','Dolores','Femenino',1);

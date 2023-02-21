@@ -72,6 +72,11 @@
                             </span>
                         @enderror
                     </div>
+                    @if ($personas)
+                        nada
+                    @else
+                        si existen personas
+                    @endif
                     <div class="persona">
                         <div class="form-group">
                             <label class="control-label">N° DNI</label>

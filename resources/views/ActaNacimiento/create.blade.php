@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-8">
                                                
-                    <div class="row">
+                    <div class="row" >
                         <div class="row form-group">
                             <div class="col-sm-12 d-flex justify-content-center">
                                 <h1  class="text-center"> Datos del recien Nacido</h1>
@@ -54,12 +54,12 @@
                        
                         <div class="persona">
                             
-                            <div class="form-group">
+                            <div class="form-group" >
                                 <div class="row">
                                     <div class="col-auto">
                                         <label class="control-label">N° DNI</label>
                                         <input type="text" class="form-control @error('dni') is-invalid @enderror"
-                                            placeholder="Ingrese DNI"  name="dni">
+                                            placeholder="Ingrese DNI"  name="dni[]">
                                         @error('dni')
                                         <span class="invalid feedback" role="alert">
                                             <strong>{{$message}}</strong>
@@ -70,7 +70,7 @@
                                     <div class="col-auto">
                                         <label class="control-label">Apellido Paterno</label>
                                         <input type="text" class="form-control @error('apellido1') is-invalid @enderror" 
-                                            placeholder="Ingrese Apellido paterno"  name="Apellido1">
+                                            placeholder="Ingrese Apellido paterno"  name="Apellido1[]">
                                         @error('apellido2')
                                         <span class="invalid feedback" role="alert">
                                             <strong>{{$message}}</strong>
@@ -80,7 +80,7 @@
                                     <div class="col-auto">
                                         <label class="control-label">Apellido Materno</label>
                                         <input type="text" class="form-control @error('apellido2') is-invalid @enderror" 
-                                            placeholder="Ingrese Apellido Materno" name="Apellido2">
+                                            placeholder="Ingrese Apellido Materno" name="Apellido2[]">
                                         @error('apellido2')
                                         <span class="invalid feedback" role="alert">
                                             <strong>{{$message}}</strong>
@@ -95,7 +95,7 @@
                             <div class="form-group">
                                 <label class="control-label">Nombres Completos</label>
                                 <input type="text" class="form-control @error('nombres') is-invalid @enderror" 
-                                    placeholder="Ingrese nombres" name="nombres">
+                                    placeholder="Ingrese nombres" name="nombres[]">
                                 @error('nombres')
                                 <span class="invalid feedback" role="alert">
                                     <strong>{{$message}}</strong>
@@ -125,7 +125,7 @@
     
                     </div>
                     
-                    <div class="row">
+                    <div class="row" >
                         <div class="row form-group">
                             <div class="col-sm-12 d-flex justify-content-center">
                                 <h1  class="text-center"> Datos del Padre</h1>
@@ -137,7 +137,7 @@
                                         <div class="col-auto">
                                             <label class="control-label">N° DNI</label>
                                             <input type="text" class="form-control @error('dni') is-invalid @enderror"
-                                                placeholder="Ingrese DNI"  name="dni">
+                                                placeholder="Ingrese DNI"  name="dni[]">
                                             @error('dni')
                                             <span class="invalid feedback" role="alert">
                                                 <strong>{{$message}}</strong>
@@ -148,7 +148,7 @@
                                         <div class="col-auto">
                                             <label class="control-label">Apellido Paterno</label>
                                             <input type="text" class="form-control @error('apellido1') is-invalid @enderror" 
-                                                placeholder="Ingrese Apellido paterno"  name="Apellido1">
+                                                placeholder="Ingrese Apellido paterno"  name="Apellido1[]">
                                             @error('apellido2')
                                             <span class="invalid feedback" role="alert">
                                                 <strong>{{$message}}</strong>
@@ -158,7 +158,7 @@
                                         <div class="col-auto">
                                             <label class="control-label">Apellido Materno</label>
                                             <input type="text" class="form-control @error('apellido2') is-invalid @enderror" 
-                                                placeholder="Ingrese Apellido Materno" name="Apellido2">
+                                                placeholder="Ingrese Apellido Materno" name="Apellido2[]">
                                             @error('apellido2')
                                             <span class="invalid feedback" role="alert">
                                                 <strong>{{$message}}</strong>
@@ -173,7 +173,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Nombres Completos</label>
                                     <input type="text" class="form-control @error('nombres') is-invalid @enderror" 
-                                        placeholder="Ingrese nombres" name="nombres">
+                                        placeholder="Ingrese nombres" name="nombres[]">
                                     @error('nombres')
                                     <span class="invalid feedback" role="alert">
                                         <strong>{{$message}}</strong>
@@ -186,7 +186,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" >
                         <div class="row form-group">
                             <div class="col-sm-12 d-flex justify-content-center">
                                 <h1  class="text-center"> Datos de la madre</h1>
@@ -198,7 +198,7 @@
                                         <div class="col-auto">
                                             <label class="control-label">N° DNI</label>
                                             <input type="text" class="form-control @error('dni') is-invalid @enderror"
-                                                placeholder="Ingrese DNI"  name="dni">
+                                                placeholder="Ingrese DNI"  name="dni[]">
                                             @error('dni')
                                             <span class="invalid feedback" role="alert">
                                                 <strong>{{$message}}</strong>
@@ -209,7 +209,7 @@
                                         <div class="col-auto">
                                             <label class="control-label">Apellido Paterno</label>
                                             <input type="text" class="form-control @error('apellido1') is-invalid @enderror" 
-                                                placeholder="Ingrese Apellido paterno"  name="Apellido1">
+                                                placeholder="Ingrese Apellido paterno"  name="Apellido1[]">
                                             @error('apellido2')
                                             <span class="invalid feedback" role="alert">
                                                 <strong>{{$message}}</strong>
@@ -219,7 +219,7 @@
                                         <div class="col-auto">
                                             <label class="control-label">Apellido Materno</label>
                                             <input type="text" class="form-control @error('apellido2') is-invalid @enderror" 
-                                                placeholder="Ingrese Apellido Materno" name="Apellido2">
+                                                placeholder="Ingrese Apellido Materno" name="Apellido2[]">
                                             @error('apellido2')
                                             <span class="invalid feedback" role="alert">
                                                 <strong>{{$message}}</strong>
@@ -234,7 +234,7 @@
                                 <div class="form-group">
                                     <label class="control-label">Nombres Completos</label>
                                     <input type="text" class="form-control @error('nombres') is-invalid @enderror" 
-                                        placeholder="Ingrese nombres" name="nombres">
+                                        placeholder="Ingrese nombres" name="nombres[]">
                                     @error('nombres')
                                     <span class="invalid feedback" role="alert">
                                         <strong>{{$message}}</strong>

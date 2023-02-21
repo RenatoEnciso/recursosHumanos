@@ -34,7 +34,7 @@ class ActaNacimientoController extends Controller
         if (Auth::user()->rol=='Administrativo'){   //boton registrar
             // $libros=Libro::all();
             // $folios=Folio::all();
-            $personas = Persona::all();
+            $personas[3] = Persona::all();
             return view('ActaNacimiento.create',compact('personas'));
         }else{
             return redirect()->route('ActaNacimiento.index')->with('datos','..::No tiene Acceso ..::');
@@ -42,6 +42,7 @@ class ActaNacimientoController extends Controller
     }
 
     public function store(Request $request){
+        return $request;
         $data=request()->validate([
             'observacion'=>'required|max:30',
             'fecha_nacimiento'=>'required',
@@ -91,6 +92,7 @@ class ActaNacimientoController extends Controller
         $ActaNacimiento->estado='1';
         $ActaNacimiento->save();
 
+        
         return redirect()->route('ActaNacimiento.index')->with('datos','Registro Nuevo Guardado ...!');
     }
 

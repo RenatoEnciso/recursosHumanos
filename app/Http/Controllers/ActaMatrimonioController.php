@@ -55,8 +55,8 @@ class ActaMatrimonioController extends Controller
         $fecha_Actual=Carbon::now();
         $Acta->fecha_registro=$fecha_Actual;
         $Acta->hora_registro=$fecha_Actual->subHour(5)->toTimeString();
-        $Acta->idLibro=$request->nroLibro;
-        $Acta->idFolio=$request->nroFolio;
+        //$Acta->idLibro=$request->nroLibro;
+        //$Acta->idFolio=$request->nroFolio;
         $Acta->observacion=$request->observacion;
 
         if($request->hasFile('archivo_matrimonio')){

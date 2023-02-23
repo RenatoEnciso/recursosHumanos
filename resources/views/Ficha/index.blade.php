@@ -54,8 +54,8 @@
                                 <td>{{$item->ruta_certificado}}</td>
                                 <td>{{$item->nombre}}</td>
                                 <td>
-                                    <a href="{{ route('ActaNacimiento.edit',$item->idficha) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
-                                    <a  href="{{ route('ActaNacimiento.confirmar',$item->idficha) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
+                                    <a href="{{ route('Ficha.edit',$item->idficha) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
+                                    <a  href="{{ route('Ficha.confirmar',$item->idficha) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
                                 </td>
                             </tr>
                         @endforeach

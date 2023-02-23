@@ -157,8 +157,8 @@
                 <div class="col-12">
                     <label class="control-label">Archivo de Nacimiento</label>
                     <input type="file" class="form-control @error('archivo_nacimiento') is-invalid @enderror"
-                    placeholder="Ingrese Archivo" id="archivo_nacimiento" name="archivo_nacimiento"
-                    value="{{ $acta->archivo }}" x-data="showImage()" @change="showPreview(event)">
+                        placeholder="Ingrese Archivo" id="archivo_nacimiento" name="archivo_nacimiento"
+                        value="{{ $acta->archivo }}" x-data="showImage()" @change="showPreview(event)">
                     <iframe src="{{$acta->archivo}}" id="preview" class="object-cover h-32 mt-2 w-60" height="400vh"> </iframe>
                     @error('archivo_nacimiento')
                         <span class="invalid feedback" role="alert">

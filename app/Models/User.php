@@ -13,14 +13,11 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
 
-    protected $fillable = ['name','fotoPerfil','email','password','rol',
-    ];
-
+    protected $fillable = ['name','fotoPerfil','email','password','idRol'];
     protected $hidden = [
         'password',
         'remember_token',
     ];
-
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];

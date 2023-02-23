@@ -70,7 +70,7 @@
             <div class="mt-4">
                 <x-label for="rol" :value="__('Rol')" />
 
-                <x-input id="rol" class="block mt-1 w-full" type="text" name="rol" value="Persona" readonly required />
+                <x-input id="rol" class="block mt-1 w-full" type="text" name="idRol" value="1" readonly required />
             </div>
 
             <!-- Password -->

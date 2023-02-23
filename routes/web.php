@@ -30,10 +30,10 @@ require __DIR__.'/auth.php';
 Route::resource('usuario',UsuarioController::class);
 
 
-//ACTA DE NACIMIENTO
+//FICHAS
 Route::resource('Ficha',FichaController::class);
 Route::get('Fichacancelar',[FichaController::class,'cancelar'])->name('Ficha.cancelar');
-
+Route::get('FichaConfirmar/{id}',[FichaController::class,'confirmar'])->name('Ficha.confirmar');
 
 //ACTA DE NACIMIENTO
 Route::resource('ActaNacimiento',ActaNacimientoController::class);
@@ -79,11 +79,9 @@ Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('So
 Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('Solicitud.detalle');
 
 
-//Listar empleados y editar
+//EMPLEADOS
 Route::get('indexU', [RegisteredUserController::class, 'index'])->name('indexU');
 Route::get('editU{id}/', [RegisteredUserController::class, 'edit'])->name('editU')->middleware('auth');
-//Actualizando Empleado
-
 Route::post('ActualizarEmpleado{id}/',[RegisteredUserController::class,'update'])->name('ActualizarPassword');
 Route::get('confirU{id}/',[RegisteredUserController::class,'confirmar'])->name('confirU')->middleware('auth');
 Route::post('EmpleadoEliminar{id}/', [RegisteredUserController::class, 'destroy'])->name('EliminarEmpleado');

@@ -45,7 +45,7 @@ class FichaController extends Controller
         $ficha=new Ficha();
         $ficha->fecha_registro=$request->fecha_registro;
         if($request->hasFile('archivo_certificado')){
-            $archivo=$request->file('archivo_certificado')->store('ArchivosNacimiento','public');
+            $archivo=$request->file('archivo_certificado')->store('ArchivosCertificados','public');
             $url = Storage::url($archivo);
             $ficha->ruta_certificado=$url;
         }
@@ -54,81 +54,55 @@ class FichaController extends Controller
         return redirect()->route('Ficha.index')->with('datos','Ficha Nuevo Guardado ...!');
     }
 
-    
-    
-
     public function edit($id){
-            $ficha=Ficha::findOrFail($id);
-            $tipoFichas = TipoFicha::all();
-            return view('Ficha.edit',compact('ficha','tipoFichas'));
+        $ficha=Ficha::findOrFail($id);
+        $tipoFichas = TipoFicha::all();
+        return view('Ficha.edit',compact('ficha','tipoFichas'));
     }
 
-    
-    /*
+   
     public function update(Request $request, $id)
     {
         $data=request()->validate([
-            'observacion'=>'required|max:30',
-            'fecha_nacimiento'=>'required',
-            'lugar_nacimiento'=>'required|max:30',
+            'fecha_registro'=>'required',
+            'tipoFicha'=>'required',
+            'archivo_certificado'=>'required',
         ],
         [
-            'observacion.required'=>'La observación no puede estar vacía',
-            'observacion.max'=>'Máximo 30 carácteres para la Observacion',
-            'fecha_nacimiento.required'=>'Fecha de la Acta de Nacimiento no puede estar vacía',
-            'lugar_nacimiento.required'=>'El lugar de Nacimiento no puede estar vacío',
-            'lugar_nacimiento.max'=>'Máximo 30 carácteres para el lugar de Nacimiento',
+            'tipoFicha.required'=>'Ingrese Observacion de la Acta de Nacimiento',
+            'fecha_registro.required'=>'Ingrese una Fecha',
+            'archivo_certificado.required'=>'Ingrese el certificado',
         ]);
 
-        $ActaNacimiento=Acta_Persona::findOrFail($id);
-        $ActaNacimiento->DNI=$request->dni;
-        $ActaNacimiento->save();
 
-        $Acta = Acta::findOrFail($ActaNacimiento->idActa);
-        // $Acta->idLibro=$request->nroLibro;
-        // $Acta->idFolio=$request->nroFolio;
-        $Acta->observacion=$request->observacion;
-        if($request->hasFile('archivo_nacimiento')){
-            $archivo=$request->file('archivo_nacimiento')->store('ArchivosNacimiento','public');
+        $ficha=Ficha::findOrFail($id);
+        $ficha->fecha_registro=$request->fecha_registro;
+        if($request->hasFile('archivo_certificado')){
+            $archivo=$request->file('archivo_certificado')->store('ArchivosCertificados','public');
             $url = Storage::url($archivo);
-            $Acta->archivo=$url;
+            $ficha->ruta_certificado=$url;
         }
-        $Acta->fecha_Acta=$request->fecha_nacimiento;
-        $Acta->lugar_Acta=$request->lugar_nacimiento;
-        $Acta->save();
+        $ficha->idtipo=$request->tipoFicha;
+        $ficha->save();
+        return redirect()->route('Ficha.index')->with('datos','Ficha Actualizado ...!');
 
-        $persona=Persona::findOrFail($request->dni);
-        $persona->apellido_paterno=$request->Apellido1;
-        $persona->apellido_materno=$request->Apellido2;
-        $persona->nombres=$request->nombres;
-        $persona->sexo=$request->sexo;
-        $persona->save();
-
-        return redirect()->route('ActaNacimiento.index')->with('datos','Registro Nuevo Actualizado ...!');
     }
 
     public function destroy($id){
-        $ActaNacimiento=Acta_Persona::findOrFail($id);
-        $persona=Persona::findOrFail($ActaNacimiento->DNI);
-        $persona->estado='0';
-        $persona->save();
-        $ActaNacimiento->estado='0';
-        $ActaNacimiento->save();
+        $ficha=Ficha::findOrFail($id);
+        $ficha->delete();   //Elimina
 
-        $Acta=Acta::findOrFail($ActaNacimiento->idActa);
-        $Acta->estado='0';
-        $Acta->save();
-        return redirect()->route('ActaNacimiento.index')->with('datos','Registro Eliminado ...!');
+        return redirect()->route('Ficha.index')->with('datos','Registro Eliminado ...!');
     }
 
     public function confirmar($id){
-        if (Auth::user()->rol=='Administrativo'){   //boton eliminar
-            $ActaNacimiento=Acta_Persona::findOrFail($id);
-            return view('ActaNacimiento.confirmar',compact('ActaNacimiento'));
-        }else{
-            return redirect()->route('ActaNacimiento.index')->with('datos','..::No tiene Acceso ..::');
-        }
-    }*/
+       // if (Auth::user()->rol=='Administrativo'){   //boton eliminar
+            $ficha=Ficha::findOrFail($id);
+            return view('Ficha.confirmar',compact('ficha'));
+       // }else{
+        //    return redirect()->route('ActaNacimiento.index')->with('datos','..::No tiene Acceso ..::');
+        //}
+    }
 
     public function cancelar(){
         return redirect()->route('Ficha.index')->with('datos','acciona cancelada...');

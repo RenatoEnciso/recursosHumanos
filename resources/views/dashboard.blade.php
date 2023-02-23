@@ -159,7 +159,7 @@
                                             <span>Nombre:</span>
                                             <span><b style="color: white">{{ Auth::user()->name }}</b></span>
                                             <span>Cargo:</span>
-                                            <span class="user-level" style="color: white">{{ Auth::user()->rol }}</span>
+                                            <span class="user-level" style="color: white">{{ Auth::user()->idRol }}</span>
                                         </span>
                                     </a>
                                 </div>

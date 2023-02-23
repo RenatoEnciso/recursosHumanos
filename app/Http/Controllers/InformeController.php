@@ -36,4 +36,5 @@ class InformeController extends Controller
         $pdf = PDF::loadView('Informe.pdf',['persona'=>$persona,'solicitud'=>$solicitud,'acta'=>$acta]);
         return $pdf->stream();
     }
+    
 }

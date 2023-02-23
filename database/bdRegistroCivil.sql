@@ -78,3 +78,6 @@ CREATE TABLE LISTA_SOLICITUD (
 
 INSERT INTO tipoFicha(nombre) 
 VALUES ("Nacimiento"),("Matrimonio"),("Defunción");
+
+INSERT INTO roles(nombreRol) 
+VALUES ("MesaPartes"),("Registrador"),("Administrador");

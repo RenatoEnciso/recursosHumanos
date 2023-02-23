@@ -16,6 +16,7 @@
 
 </div>
 @endsection
+
 @section('contenido')
 
         <div class="card">
@@ -70,9 +71,7 @@
                 </table>
                 {{$ActaNacimiento->links()}}
             </div>
-
         </div>
-
 </div>
 
 @endsection

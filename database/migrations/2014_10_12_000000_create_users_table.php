@@ -20,17 +20,15 @@ return new class extends Migration
             $table->longText('fotoPerfil')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('rol');
+            $table->integer('idRol');
             $table->rememberToken();
             $table->timestamps();
+            
+            $table->foreign("idRol")->references("idRol")->on("roles");
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+  
     public function down()
     {
         Schema::dropIfExists('users');

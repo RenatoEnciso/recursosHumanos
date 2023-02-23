@@ -36,6 +36,7 @@
 
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link rel="stylesheet" href="/assets/css/demo.css">
+        
     </head>
 
         <body data-background-color="dark">
@@ -165,6 +166,12 @@
                             </div>
                             <ul class="nav nav-primary">
                                 <li class="nav-item">
+                                    <a href="{{route('Ficha.index')}}">
+                                        <i class="fas fa-id-card"></i>
+                                        <p>Ficha de Registro</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a data-toggle="collapse" href="#base">
                                         <i class="far fa-file-alt"></i>
                                         <p>Actas</p>
@@ -200,7 +207,6 @@
                                     <a  href="{{route('Solicitud.index')}}">
                                         <i class="fas fa-id-card"></i>
                                         <p>Solicitud</p>
-
                                     </a>
 
                                 </li>
@@ -210,6 +216,7 @@
                                         <p>Reportes</p>
                                     </a>
                                 </li>
+                                
                             </ul>
 
                         </div>

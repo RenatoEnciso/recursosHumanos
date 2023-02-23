@@ -8,7 +8,9 @@ use App\Http\Controllers\ActaMatrimonioController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\InformeController;
+use App\Http\Controllers\FichaController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('auth.login');
@@ -26,6 +28,12 @@ require __DIR__.'/auth.php';
 
 //USUARIO
 Route::resource('usuario',UsuarioController::class);
+
+
+//ACTA DE NACIMIENTO
+Route::resource('Ficha',FichaController::class);
+Route::get('Fichacancelar',[FichaController::class,'cancelar'])->name('Ficha.cancelar');
+
 
 //ACTA DE NACIMIENTO
 Route::resource('ActaNacimiento',ActaNacimientoController::class);
@@ -75,7 +83,6 @@ Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('So
 Route::get('indexU', [RegisteredUserController::class, 'index'])->name('indexU');
 Route::get('editU{id}/', [RegisteredUserController::class, 'edit'])->name('editU')->middleware('auth');
 //Actualizando Empleado
-
 
 Route::post('ActualizarEmpleado{id}/',[RegisteredUserController::class,'update'])->name('ActualizarPassword');
 Route::get('confirU{id}/',[RegisteredUserController::class,'confirmar'])->name('confirU')->middleware('auth');

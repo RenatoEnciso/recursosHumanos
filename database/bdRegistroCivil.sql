@@ -13,10 +13,17 @@ CREATE TABLE persona (
   estado TINYINT NOT NULL,
   PRIMARY KEY (DNI)
 );
+
 create table tipoFicha(
   idtipo int AUTO_INCREMENT not null PRIMARY KEY,
   nombre varchar(50)
 );
+
+create table roles(
+  idRol int AUTO_INCREMENT not null PRIMARY KEY,
+  nombreRol varchar(50)
+);
+
 -- TABLAS DEBILES
 create table ficha_registro(
 idficha int AUTO_INCREMENT primary key,
@@ -27,19 +34,15 @@ foreign key (idtipo) REFERENCES tipoFicha(idtipo)
 
 );
 CREATE TABLE acta(
-  idActa  INT(11) AUTO_INCREMENT,
+  idActa  INT(11),
   fecha_registro DATE  ,
-  hora_registro TIME  ,
   observacion VARCHAR(30)  ,
-  archivo VARCHAR(1000)  ,
   fecha_Acta DATE  ,
   lugar_Acta VARCHAR(30)  ,
-  tipoActa VARCHAR(30) ,
   estado  TINYINT NOT NULL,
   foreign key (idActa) references ficha_registro(idficha),
   PRIMARY KEY (idActa)
 );
-
 
 CREATE TABLE ACTA_PERSONA(
   idActaPersona int(11) AUTO_INCREMENT NOT NULL,
@@ -59,7 +62,7 @@ CREATE TABLE SOLICITUD (
   horaSolicitud TIME , 
   observacion VARCHAR(30),
   estado TINYINT not null,
-  pago TINYINT,
+  pago longtext,
   PRIMARY KEY (idSolicitud),
   FOREIGN KEY (DNISolicitante) REFERENCES persona(DNI)
 );
@@ -73,6 +76,13 @@ CREATE TABLE LISTA_SOLICITUD (
   FOREIGN KEY (idSolicitud) REFERENCES SOLICITUD(idSolicitud)
 );
 
-
 INSERT INTO tipoFicha(nombre) 
 VALUES ("Nacimiento"),("Matrimonio"),("Defunción");
+
+INSERT INTO roles(nombreRol) 
+VALUES ("MesaPartes"),("Registrador"),("Administrador");
+
+
+
+
+

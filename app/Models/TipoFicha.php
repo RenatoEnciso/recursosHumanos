@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TipoActa extends Model
+class TipoFicha extends Model
 {
     use HasFactory;
-    protected $table = 'TipoActa';
-    protected $primaryKey = 'idTipoActa';
+    protected $table = 'tipoficha';
+    protected $primaryKey = 'idtipo';
     public $timestamps = false;
     protected $fillable = ['nombre'];
+/*
+    public function Ficha(){
+        return $this->hasMany(Ficha::class,'idTipoFicha','idTipoFicha');
+    }*/
 
-    public function Acta(){
-        return $this->hasMany(Acta::class,'idTipoActa','idTipoActa');
-    }
 }

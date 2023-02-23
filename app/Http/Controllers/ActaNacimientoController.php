@@ -22,7 +22,6 @@ class ActaNacimientoController extends Controller
         $ActaNacimiento=Acta::select('*')
         ->join('Acta_Persona as AP','AP.idActa','=','Acta.idActa')
         ->join('Persona','Persona.DNI','=','AP.DNI')
-        ->where('TipoActa','=','1')
         ->where('AP.estado','=','1')
         ->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
         ->paginate($this::PAGINATION);
@@ -31,14 +30,12 @@ class ActaNacimientoController extends Controller
     }
 
     public function create(){
-        if (Auth::user()->rol=='Administrativo'){   //boton registrar
-            // $libros=Libro::all();
-            // $folios=Folio::all();
+        //if (Auth::user()->rol=='Administrativo'){   //boton registrar
             $personas[3] = Persona::all();
             return view('ActaNacimiento.create',compact('personas'));
-        }else{
-            return redirect()->route('ActaNacimiento.index')->with('datos','..::No tiene Acceso ..::');
-        }
+       // }else{
+       //     return redirect()->route('ActaNacimiento.index')->with('datos','..::No tiene Acceso ..::');
+       // }
     }
 
     public function store(Request $request){
@@ -72,8 +69,6 @@ class ActaNacimientoController extends Controller
         $fecha_Actual=Carbon::now();
         $Acta->fecha_registro=$fecha_Actual;
         $Acta->hora_registro=$fecha_Actual->subHour(5)->toTimeString();
-        // $Acta->idLibro=$request->nroLibro;
-        // $Acta->idFolio=$request->nroFolio;
         $Acta->observacion=$request->observacion;
         if($request->hasFile('archivo_nacimiento')){
             $archivo=$request->file('archivo_nacimiento')->store('ArchivosNacimiento','public');

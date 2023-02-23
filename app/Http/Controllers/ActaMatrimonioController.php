@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Acta;
 use App\Models\Acta_Persona;
-use App\Models\Libro;
-use App\Models\Folio;
+use App\Models\Ficha;
 use App\Models\Persona;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -22,7 +21,6 @@ class ActaMatrimonioController extends Controller
         $ActaMatrimonio=Acta_Persona::select('*')
         ->join('Acta','Acta.idActa','=','Acta_Persona.idActa')
         ->join('Persona','Persona.DNI','=','Acta_Persona.DNI')
-        ->where('TipoActa','=','2')
         ->where('Acta_Persona.estado','=','1')
         ->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
         ->paginate($this::PAGINATION);
@@ -30,15 +28,14 @@ class ActaMatrimonioController extends Controller
     }
 
     public function create(){
-        if (Auth::user()->rol=='Administrativo'){   //boton registrar
-            $libros=Libro::all();
-            $folios=Folio::all();
+        //if (Auth::user()->rol=='Administrativo'){   //boton registrar
             $personas = Persona::all();
-            return view('ActaMatrimonio.create',compact('personas','libros','folios'));
-        }else{
-            return redirect()->route('ActaMatrimonio.index')->with('datos','..::No tiene Acceso ..::');
-        }
+            $ficha=Ficha::all();
 
+            return view('ActaMatrimonio.create',compact('personas','ficha'));
+       // }else{
+        //    return redirect()->route('ActaMatrimonio.index')->with('datos','..::No tiene Acceso ..::');
+       // }
     }
 
     public function store(Request $request){
@@ -55,8 +52,6 @@ class ActaMatrimonioController extends Controller
         $fecha_Actual=Carbon::now();
         $Acta->fecha_registro=$fecha_Actual;
         $Acta->hora_registro=$fecha_Actual->subHour(5)->toTimeString();
-        //$Acta->idLibro=$request->nroLibro;
-        //$Acta->idFolio=$request->nroFolio;
         $Acta->observacion=$request->observacion;
 
         if($request->hasFile('archivo_matrimonio')){
@@ -91,8 +86,6 @@ class ActaMatrimonioController extends Controller
 
     public function edit($id){
         if (Auth::user()->rol=='Administrativo'){   //boton editar
-            $libros=Libro::all();
-            $folios=Folio::all();
             $personas = Persona::all();
             $ActaMatrimonio1=Acta_Persona::findOrFail($id);
             $ActaMatrimonio2=Acta_Persona::findOrFail($id+1);

@@ -17,6 +17,14 @@
 </div>
 @endsection
 
+@section('Notificacion')
+<li>
+    <div>
+        {{$numPendientes}}
+    </div>
+</li>
+@endsection
+
 @section('contenido')
         <div class="card">
             <div class="card-header">
@@ -37,6 +45,7 @@
                         <th scope="col">Codigo</th>
                         <th scope="col">Fecha de Registro</th>
                         <th scope="col">Certificado</th>
+                        <th scope="col">Estado</th>
                         <th scope="col">Tipo de Ficha</th>
                         <th scope="col">Opciones</th>
                     </tr>
@@ -52,10 +61,12 @@
                                 <td>{{$item->idficha}}</td>
                                 <td>{{$item->fecha_registro}}</td>
                                 <td>{{$item->ruta_certificado}}</td>
+                                <td>{{$item->estado}}</td>
                                 <td>{{$item->nombre}}</td>
                                 <td>
                                     <a href="{{ route('Ficha.edit',$item->idficha) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
                                     <a  href="{{ route('Ficha.confirmar',$item->idficha) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
+                                    <a href="{{ route('Ficha.crearActa',$item->idficha) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Revisar</a>
                                 </td>
                             </tr>
                         @endforeach

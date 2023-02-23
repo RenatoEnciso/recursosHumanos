@@ -29,6 +29,7 @@ create table ficha_registro(
 idficha int AUTO_INCREMENT primary key,
 fecha_registro date,
 ruta_certificado longtext,
+estado VARCHAR(30),
 idtipo int,
 foreign key (idtipo) REFERENCES tipoFicha(idtipo)
 
@@ -43,6 +44,7 @@ CREATE TABLE acta(
   foreign key (idActa) references ficha_registro(idficha),
   PRIMARY KEY (idActa)
 );
+
 
 CREATE TABLE ACTA_PERSONA(
   idActaPersona int(11) AUTO_INCREMENT NOT NULL,

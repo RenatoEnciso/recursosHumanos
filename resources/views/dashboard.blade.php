@@ -74,6 +74,9 @@
                                     </a>
                                 </li>
 
+                                @yield('Notificacion')
+                               
+
                                 {{-- Menu deplegable de Usuario --}}
                                 <li class="nav-item dropdown hidden-caret">
                                     <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
@@ -159,7 +162,7 @@
                                             <span>Nombre:</span>
                                             <span><b style="color: white">{{ Auth::user()->name }}</b></span>
                                             <span>Cargo:</span>
-                                            <span class="user-level" style="color: white">{{ Auth::user()->idRol }}</span>
+                                            <span class="user-level" style="color: white">{{ Auth::user()->idRol}}</span>
                                         </span>
                                     </a>
                                 </div>

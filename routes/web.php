@@ -29,11 +29,20 @@ require __DIR__.'/auth.php';
 //USUARIO
 Route::resource('usuario',UsuarioController::class);
 
+//USUARIOS
+Route::get('indexU', [RegisteredUserController::class, 'index'])->name('indexU');
+Route::get('editU{id}/', [RegisteredUserController::class, 'edit'])->name('editU')->middleware('auth');
+Route::post('ActualizarEmpleado{id}/',[RegisteredUserController::class,'update'])->name('ActualizarPassword');
+Route::get('confirU{id}/',[RegisteredUserController::class,'confirmar'])->name('confirU')->middleware('auth');
+Route::post('EmpleadoEliminar{id}/', [RegisteredUserController::class, 'destroy'])->name('EliminarEmpleado');
+Route::get('Empleadocancelar/',[RegisteredUserController::class,'cancelar'])->name('EmpleadoCancelar')->middleware('auth');
+
 
 //FICHAS
 Route::resource('Ficha',FichaController::class);
 Route::get('Fichacancelar',[FichaController::class,'cancelar'])->name('Ficha.cancelar');
 Route::get('FichaConfirmar/{id}',[FichaController::class,'confirmar'])->name('Ficha.confirmar');
+Route::get('FichaCrearActa/{id}',[FichaController::class,'crearActa'])->name('Ficha.crearActa');
 
 //ACTA DE NACIMIENTO
 Route::resource('ActaNacimiento',ActaNacimientoController::class);
@@ -42,7 +51,7 @@ Route::get('Actacancelar',[ActaNacimientoController::class,'cancelar'])->name('A
 Route::get('Archi_ActaNacimiento{id}/',[ActaNacimientoController::class,'archivo'])->name('ActaNacimiento.archivo');
 Route::get('ActaGenerada_ActaNacimiento{id}/',[ActaNacimientoController::class,'actaGenerada'])->name('ActaNacimiento.generada');
 
-//ACTA DE DEFUNSION
+//ACTA DE DEFUNCION
 Route::resource('ActaDefunsion',ActaDefunsionController::class);
 Route::get('Confirmar{id}/CONF', [ActaDefunsionController::class,'confirmar'])->name('ActaDefunsion.confirmar');
 Route::get('Actacancelar/CANC',[ActaDefunsionController::class,'cancelar'])->name('ActaDefunsion.cancelar');
@@ -61,31 +70,20 @@ Route::resource('Persona',PersonaController::class);
 Route::get('Personacancelar',[PersonaController::class,'cancelar'])->name('Persona.cancelar');
 Route::get('confirmarP{id}/',[PersonaController::class,'confirmar'])->name('Persona.confirmar');
 
+
 //CONSULTA
 Route::resource('Solicitud',SolicitudController::class);
 Route::get('confirmar{id}/',[SolicitudController::class,'confirmar'])->name('Solicitud.confirmar');
-
-/* Route::get('actualizar{idS}{idActaSolicitud}/',[SolicitudController::class,'updates'])->name('Solicitud.actualiza');
-Route::get('editar{idS}{idActaSolicitud}/',[SolicitudController::class,'editar'])->name('Solicitud.editar'); */
 Route::get('Solicitudcancelar',[SolicitudController::class,'cancelar'])->name('Solicitud.cancelar');
 Route::get('archivo{id}/',[SolicitudController::class,'archivo'])->name('Solicitud.archivo');
-
 Route::get('archivoGenerado/{id}/',[SolicitudController::class,'OrdenGenerado'])->name('Solicitud.archivoGenerado');
 Route::get('comprobanteGenerado/{id}/',[SolicitudController::class,'ComprobanteGenerado'])->name('Solicitud.comprobanteGenerado');
 Route::put('pago/{id}/',[SolicitudController::class,'pago'])->name('Solicitud.pago');
 Route::get('ingresarPago/{id}/',[SolicitudController::class,'ingresarPago'])->name('Solicitud.ingresarPago');
-
 Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('Solicitud.detalle');
 Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('Solicitud.detalle');
 
 
-//EMPLEADOS
-Route::get('indexU', [RegisteredUserController::class, 'index'])->name('indexU');
-Route::get('editU{id}/', [RegisteredUserController::class, 'edit'])->name('editU')->middleware('auth');
-Route::post('ActualizarEmpleado{id}/',[RegisteredUserController::class,'update'])->name('ActualizarPassword');
-Route::get('confirU{id}/',[RegisteredUserController::class,'confirmar'])->name('confirU')->middleware('auth');
-Route::post('EmpleadoEliminar{id}/', [RegisteredUserController::class, 'destroy'])->name('EliminarEmpleado');
-Route::get('Empleadocancelar/',[RegisteredUserController::class,'cancelar'])->name('EmpleadoCancelar')->middleware('auth');
 
 //REPORTES
 Route::get('Reporte/Crear', [InformeController::class, 'create'])->name('reporte.create');

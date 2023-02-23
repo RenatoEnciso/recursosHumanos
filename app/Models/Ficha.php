@@ -10,7 +10,7 @@ class Ficha extends Model
     use HasFactory;
     protected $table = 'ficha_registro';
     protected $primaryKey = 'idficha';
-    protected $fillable = ['fecha_registro','ruta_certificado','idtipo'];
+    protected $fillable = ['fecha_registro','ruta_certificado','estado','idtipo'];
     public $timestamps = false;
 
 }

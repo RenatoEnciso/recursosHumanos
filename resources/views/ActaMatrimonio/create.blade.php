@@ -10,38 +10,6 @@
             @csrf
             <div class="row">
                 <div class="col-8">
-                    <div style="display: flex">
-                        <div class="col col-6">
-                            <label class="control-label">Numero de libro</label>
-                            <select name="nroLibro" id="idLibro"
-                                class="form-control @error('libro') is-invalid @enderror">
-                                @foreach ($libros as $item)
-                                    <option value="{{ $item->idLibro }}">Libro {{ $item->nroLibro }}</option>
-                                @endforeach
-                            </select>
-                            @error('libro')
-                                <span class="invalid feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="col col-6">
-                            <label class="control-label">Numero de Folio</label>
-                            <select name="nroFolio" id="idFolio"
-                                class="form-control @error('folio') is-invalid @enderror">
-                                @foreach ($folios as $item)
-                                    <option value="{{ $item->idFolio }}">Folio {{ $item->nroFolio }}</option>
-                                @endforeach
-                            </select>
-                            @error('folio')
-                                <span class="invalid feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-
                     <div class="col-12 form-group">
                         <label class="control-label">Observación</label>
                         <input type="text" class="form-control @error('observacion') is-invalid @enderror"

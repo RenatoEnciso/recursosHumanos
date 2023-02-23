@@ -8,6 +8,8 @@ use App\Models\Ficha;
 use App\Models\TipoFicha;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 Date_default_timezone_set("America/Lima");
 
 class FichaController extends Controller
@@ -20,14 +22,29 @@ class FichaController extends Controller
         ->join('tipoficha as TF','TF.idtipo','=','ficha_registro.idtipo')
         ->where('nombre','like','%'.$buscarpor.'%')
         ->paginate($this::PAGINATION);
-        return view('Ficha.index',compact('fichas','buscarpor'));
+
+        $numPendientes = Ficha::all()->where('estado', 'Pendiente')->count();
+        return view('Ficha.index',compact('fichas','buscarpor','numPendientes'));
     }
 
     public function create(){
         $tipoFichas = TipoFicha::all();
-        //$fecha_actual=date_create("America/Lima");
         $fecha_actual=Carbon::now();
         return view('Ficha.create',compact('tipoFichas','fecha_actual'));
+    }
+
+    public function crearActa($id){
+        $ficha = Ficha::findOrFail($id);
+        $tipoActa=$ficha->idtipo;
+       
+        if($tipoActa==1){
+            return redirect()->route('ActaNacimiento.create');
+        }
+        if($tipoActa==2){
+            return redirect()->route('ActaMatrimonio.create');
+        }else{
+            return redirect()->route('ActaDefunsion.create');
+        } 
     }
 
     public function store(Request $request){
@@ -50,6 +67,7 @@ class FichaController extends Controller
             $ficha->ruta_certificado=$url;
         }
         $ficha->idtipo=$request->tipoFicha;
+        $ficha->estado="Pendiente";
         $ficha->save();
         return redirect()->route('Ficha.index')->with('datos','Ficha Nuevo Guardado ...!');
     }
@@ -74,7 +92,6 @@ class FichaController extends Controller
             'archivo_certificado.required'=>'Ingrese el certificado',
         ]);
 
-
         $ficha=Ficha::findOrFail($id);
         $ficha->fecha_registro=$request->fecha_registro;
         if($request->hasFile('archivo_certificado')){
@@ -96,12 +113,12 @@ class FichaController extends Controller
     }
 
     public function confirmar($id){
-       // if (Auth::user()->rol=='Administrativo'){   //boton eliminar
+        if (Auth::user()->rol=='Administrativo'){   //boton eliminar
             $ficha=Ficha::findOrFail($id);
             return view('Ficha.confirmar',compact('ficha'));
-       // }else{
-        //    return redirect()->route('ActaNacimiento.index')->with('datos','..::No tiene Acceso ..::');
-        //}
+        }else{
+            return redirect()->route('ActaNacimiento.index')->with('datos','..::No tiene Acceso ..::');
+        }
     }
 
     public function cancelar(){

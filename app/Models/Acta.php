@@ -11,7 +11,14 @@ class Acta extends Model
     protected $table = 'acta';
     protected $primaryKey = 'idActa';
     public $timestamps = false;
-    protected $fillable = ['fecha_registro','hora_registro','libro','folio','observacion','archivo','fecha_Acta','lugar_Acta','idTipoActa','estado'];
+    protected $fillable = [
+        'fecha_registro',
+        'observcion',
+        'lugar_ocurrencia',
+        'estado',
+        'nombreregistradorcivil',
+        'localidad'
+    ];
     public function TipoActa(){
         return $this->HasOne(TipoActa::class,'idTipoActa','idTipoActa');
     }
@@ -26,5 +33,8 @@ class Acta extends Model
     }
     public function Lista_Solicitud(){
         return $this->HasMany(Lista_Solicitud::class,'idActa','idActa');
+    }
+    public function ActaNacimiento(){
+        return $this->HasOne(ActaNacimiento::class,'idActa','idActa');
     }
 }

@@ -13,20 +13,9 @@
                        
                                              
                             <div class="row" >
-                               
-                            
-                                
-                               
                                     <div class="col-sm-12 d-flex justify-content-center">
-                                       
-                                        <h1  class="text-center"> Datos del recien Nacido</h1> 
-                                            
-                                       
+                                        <h1  class="text-center"> Datos del recien Nacido</h1>
                                     </div>
-                                    
-                           
-                          
-                           
                                 <div class="row form-group">
                                     <div class="col-auto">
                                         <label class="control-label">Observación</label>

@@ -39,7 +39,7 @@ class ActaNacimientoController extends Controller
     }
 
     public function store(Request $request){
-        return $request;
+       // return $request;
         $data=request()->validate([
             'observacion'=>'required|max:30',
             'fecha_nacimiento'=>'required',
@@ -56,16 +56,43 @@ class ActaNacimientoController extends Controller
         ]);
 
         $Acta=new Acta();
-        // persona
+        // persona niño
         $persona=new Persona();
-        $persona->dni=$request->dni;
-        $persona->apellido_paterno=$request->Apellido1;
-        $persona->apellido_materno=$request->Apellido2;
-        $persona->nombres=$request->nombres;
-        $persona->sexo=$request->sexo;
+        $persona->dni=$request->dni[0];
+        $persona->apellido_paterno=$request->Apellido1[0];
+        $persona->apellido_materno=$request->Apellido2[0];
+        $persona->nombres=$request->nombres[0];
+        $persona->sexo=$request->sexo[0];
         $persona->estado='1';
         $persona->save();
-        // fin
+        //----------------------------------
+        // persona padre
+        $persona=new Persona();
+        $persona->dni=$request->dni[1];
+        $persona->apellido_paterno=$request->Apellido1[1];
+        $persona->apellido_materno=$request->Apellido2[1];
+        $persona->nombres=$request->nombres[1];
+        $persona->sexo="Masculimo";
+        $persona->nacionalidad=$request->nacionalidad[1];
+        $persona->direccion=$request->direccion[1];
+        $persona->estado='1';
+        $persona->save();
+        //-----------------------
+
+        //persona madre
+        $persona=new Persona();
+        $persona->dni=$request->dni[2];
+        $persona->apellido_paterno=$request->Apellido1[2];
+        $persona->apellido_materno=$request->Apellido2[2];
+        $persona->nombres=$request->nombres[2];
+        $persona->sexo="Femenino";
+        $persona->nacionalidad=$request->nacionalidad[2];
+        $persona->direccion=$request->direccion[2];
+        $persona->estado='1';
+        $persona->save();
+        //--------------------------------------
+
+        //
         $fecha_Actual=Carbon::now();
         $Acta->fecha_registro=$fecha_Actual;
         $Acta->hora_registro=$fecha_Actual->subHour(5)->toTimeString();

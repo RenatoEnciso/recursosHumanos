@@ -168,12 +168,18 @@
                                 </div>
                             </div>
                             <ul class="nav nav-primary">
+
+                                @if (Auth::user()->idRol==1)
                                 <li class="nav-item">
                                     <a href="{{route('Ficha.index')}}">
                                         <i class="fas fa-id-card"></i>
                                         <p>Ficha de Registro</p>
                                     </a>
                                 </li>
+                                @else
+                                    
+                                @endif
+                                
 
                                 @if (Auth::user()->idRol==2)
                                 <li class="nav-item">

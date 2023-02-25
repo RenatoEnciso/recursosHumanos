@@ -1,3 +1,4 @@
+-- COLOCAR EN USUARIO LA   firma longtext para firma del registrador, 
 DROP DATABASE IF EXISTS bdregistrocivil;
 CREATE DATABASE bdregistrocivil;
 
@@ -5,18 +6,16 @@ USE bdregistrocivil;
 --  TABLAS FUERTES
 
 CREATE TABLE persona (
-  idPersona int primary key AUTO_INCREMENT,
-  DNI CHAR(8) ,
+  DNI CHAR(8) primary key not null,
   Apellido_Paterno VARCHAR(20)  ,
   Apellido_Materno VARCHAR(20)  ,
   Nombres VARCHAR(30)  ,
   sexo VARCHAR(20)  ,
   estadocivil varchar(20),
-  nacionalidad varchar(30)
+  nacionalidad varchar(30),
   estado TINYINT NOT NULL,
   direccion varchar(50)
 );
-
 create table tipoFicha(
   idtipo int AUTO_INCREMENT not null PRIMARY KEY,
   nombre varchar(50)
@@ -35,22 +34,15 @@ ruta_certificado longtext,
 estado VARCHAR(30),
 idtipo int,
 foreign key (idtipo) REFERENCES tipoFicha(idtipo)
-
 );
 CREATE TABLE acta(
-  idActa  INT(11),
+  idActa  INT,
   fecha_registro DATE  ,
-  observacion VARCHAR(30)  ,
-  fecha_Acta DATE  ,
+  observacion VARCHAR(30) ,
   lugar_ocurrencia VARCHAR(30)  ,
   estado  TINYINT NOT NULL,
   nombreRegistradorCivil varchar(50),
-  nombreDeclarante varchar(50),
   localidad varchar(50),
-  firma_declarante longtext,
-  firma_registrador_civil longtext,
-
-
   foreign key (idActa) references ficha_registro(idficha),
   PRIMARY KEY (idActa)
 );
@@ -58,35 +50,38 @@ CREATE TABLE acta(
 create table acta_matrimonio(
   idActa int primary key,
   fecha_matrimonio date,
-  localidad varchar(50),
-  celebrante varchar(50),
-  cargo varchar(50),
-  expediente varchar(50),
+  DNIEsposo char(08),
+  DNIEsposa char(08),
   foreign key(idacta) references acta(idacta)
 );
 
 create table acta_nacimiento(
 idActa int primary key,
 fecha_nacimiento date,
-  foreign key(idacta) references acta(idacta)
-
-
+DNIPadre char(08),
+DNIMadre char(08),
+nombres varchar(30),
+domicilio varchar(30),
+sexo varchar(30),
+foreign key(idacta) references acta(idacta)
 );
 
 create table acta_defuncion(
 idActa int primary key,
-localidad varchar(50),
-lugar_ocurrencia varchar(50),
 fecha_fallecido date,
 edad int,
 lugarNacimiento varchar(50),
+dniFallecido char(8),
+sexo varchar(30),
+nombreDeclarante varchar(50),
+ firma_declarante longtext,
   foreign key(idacta) references acta(idacta)
 );
 
 
 CREATE TABLE ACTA_PERSONA(
-  idActaPersona int(11) AUTO_INCREMENT NOT NULL,
-  idActa int(11) NOT NULL,
+  idActaPersona int AUTO_INCREMENT NOT NULL,
+  idActa int NOT NULL,
   DNI  char(8) NOT NULL,
   estado TINYINT NOT NULL,
   funcion varchar(20),
@@ -96,7 +91,7 @@ CREATE TABLE ACTA_PERSONA(
 );
 
 CREATE TABLE SOLICITUD (
-  idSolicitud  int(11) AUTO_INCREMENT NOT NULL,
+  idSolicitud  int AUTO_INCREMENT NOT NULL,
   DNISolicitante  char(8) NOT NULL,
   fechaSolicitud DATE ,
   horaSolicitud TIME , 
@@ -108,9 +103,9 @@ CREATE TABLE SOLICITUD (
 );
 
 CREATE TABLE LISTA_SOLICITUD (
-  idActaSolicitada  int(11) AUTO_INCREMENT NOT NULL,
-  idActa  INT(11) NOT NULL, 
-  idSolicitud  int(11) NOT NULL,
+  idActaSolicitada  int AUTO_INCREMENT NOT NULL,
+  idActa  INT NOT NULL, 
+  idSolicitud  int NOT NULL,
   PRIMARY KEY (idActaSolicitada),
   FOREIGN KEY (idActa) REFERENCES Acta(idActa),
   FOREIGN KEY (idSolicitud) REFERENCES SOLICITUD(idSolicitud)

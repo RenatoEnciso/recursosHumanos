@@ -46,7 +46,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if (count($personas)<=0)
+                        @if (count($personas)==0)
                             <tr>
                             <td colspan="3"><b>No hay registros</b></td>
                             </tr>

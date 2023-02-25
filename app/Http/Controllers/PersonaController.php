@@ -91,5 +91,19 @@ class PersonaController extends Controller
     public function cancelar(){
         return redirect()->route('Persona.index')->with('datos','acciona cancelada...');
     }
+    public function DniRepetido($dni_comprobar){
+        $personas=Persona::all();
+        if(count($personas)==0){
+            return false;
+        }else{
+            foreach($personas as $persona){
+                if($persona->$DNI==$dni_comprobar){
+                    return true;
+                    break;
+                }
+            }
+            return false;
+        }
+    }
 
 }

@@ -39,7 +39,7 @@ class ActaNacimientoController extends Controller
     }
 
     public function store(Request $request){
-       // return $request;
+       //return $request;
         $data=request()->validate([
             'observacion'=>'required|max:30',
             'fecha_nacimiento'=>'required',
@@ -55,10 +55,12 @@ class ActaNacimientoController extends Controller
             'archivo_nacimiento.required'=>'Ingrese el archivo de la Acta de Nacimiento',
         ]);
 
-        $Acta=new Acta();
+
+
+       
         // persona niño
         $persona=new Persona();
-        $persona->dni=$request->dni[0];
+        $persona->dni='00000001';
         $persona->apellido_paterno=$request->Apellido1[0];
         $persona->apellido_materno=$request->Apellido2[0];
         $persona->nombres=$request->nombres[0];
@@ -67,53 +69,69 @@ class ActaNacimientoController extends Controller
         $persona->save();
         //----------------------------------
         // persona padre
-        $persona=new Persona();
-        $persona->dni=$request->dni[1];
-        $persona->apellido_paterno=$request->Apellido1[1];
-        $persona->apellido_materno=$request->Apellido2[1];
-        $persona->nombres=$request->nombres[1];
-        $persona->sexo="Masculimo";
-        $persona->nacionalidad=$request->nacionalidad[1];
-        $persona->direccion=$request->direccion[1];
-        $persona->estado='1';
-        $persona->save();
+        $persona2=new Persona();
+        $persona2->dni=$request->dni[0];
+        $persona2->apellido_paterno=$request->Apellido1[1];
+        $persona2->apellido_materno=$request->Apellido2[1];
+        $persona2->nombres=$request->nombres[1];
+        $persona2->sexo="Masculino";
+        $persona2->nacionalidad=$request->nacionalidad[0];
+        $persona2->direccion=$request->direccion[0];
+        $persona2->estado='1';
+        $persona2->save();
         //-----------------------
 
         //persona madre
-        $persona=new Persona();
-        $persona->dni=$request->dni[2];
-        $persona->apellido_paterno=$request->Apellido1[2];
-        $persona->apellido_materno=$request->Apellido2[2];
-        $persona->nombres=$request->nombres[2];
-        $persona->sexo="Femenino";
-        $persona->nacionalidad=$request->nacionalidad[2];
-        $persona->direccion=$request->direccion[2];
-        $persona->estado='1';
-        $persona->save();
+        $persona3=new Persona();
+        $persona3->dni=$request->dni[1];
+        $persona3->apellido_paterno=$request->Apellido1[2];
+        $persona3->apellido_materno=$request->Apellido2[2];
+        $persona3->nombres=$request->nombres[2];
+        $persona3->sexo="Femenino";
+        $persona3->nacionalidad=$request->nacionalidad[1];
+        $persona3->direccion=$request->direccion[1];
+        $persona3->estado='1';
+        $persona3->save();
         //--------------------------------------
-
+        //Creacion de acta nacimiento con su padre
+        $Acta=new Acta();
+        $ActaNacimiento= new ActaNacimiento();
         //
+        //Guardado de datos de Acta
         $fecha_Actual=Carbon::now();
         $Acta->fecha_registro=$fecha_Actual;
-        $Acta->hora_registro=$fecha_Actual->subHour(5)->toTimeString();
         $Acta->observacion=$request->observacion;
-        if($request->hasFile('archivo_nacimiento')){
-            $archivo=$request->file('archivo_nacimiento')->store('ArchivosNacimiento','public');
-            $url = Storage::url($archivo);
-            $Acta->archivo=$url;
-        }
-        $Acta->fecha_Acta=$request->fecha_nacimiento;
-        $Acta->lugar_Acta=$request->lugar_nacimiento;
-        $Acta->TipoActa=1;    //tipo Nacimiento
+        $Acta->lugar_ocurrencia=$request->fecha_nacimiento;
         $Acta->estado='1';
+        $Acta->nombreregistradorcivil;
+        $Acta->localidad=$request->lugar_nacimiento;      
         $Acta->save();
+
+        //Guardadp de Acta Nacimiento
+        $ActaNacimiento->idacta=$Acta->idacta;
+        $ActaNacimiento->fecha_nacimiento;
+        $ActaNacimiento->DNIPadre;
+        $ActaNacimiento->DNIMadre;
+        $ActaNacimiento->nombres;
+        $ActaNacimiento->domicilio;
+        $ActaNacimiento->sexo;
+        $ActaNacimiento->save();
+        //
+        // if($request->hasFile('archivo_nacimiento')){
+        //     $archivo=$request->file('archivo_nacimiento')->store('ArchivosNacimiento','public');
+        //     $url = Storage::url($archivo);
+        //     $Acta->archivo=$url;
+       // }
+     
+       //Creacion y guardado de Acta_Persona
 
         $ActaNacimiento=new Acta_Persona();
         $ActaNacimiento->DNI=$request->dni;
         $ActaNacimiento->idActa=$Acta->idActa;
         $ActaNacimiento->estado='1';
         $ActaNacimiento->save();
-
+        
+        //
         
         return redirect()->route('ActaNacimiento.index')->with('datos','Registro Nuevo Guardado ...!');
     }

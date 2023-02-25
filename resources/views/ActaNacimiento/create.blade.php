@@ -13,9 +13,20 @@
                        
                                              
                             <div class="row" >
+                               
+                            
+                                
+                               
                                     <div class="col-sm-12 d-flex justify-content-center">
-                                        <h1  class="text-center"> Datos del recien Nacido</h1>
+                                       
+                                        <h1  class="text-center"> Datos del recien Nacido</h1> 
+                                            
+                                       
                                     </div>
+                                    
+                           
+                          
+                           
                                 <div class="row form-group">
                                     <div class="col-auto">
                                         <label class="control-label">Observación</label>
@@ -55,7 +66,16 @@
                                     
                                     <div class="form-group" >
                                         <div class="row">
-                                                
+                                            <div class="col-auto">
+                                                <label class="control-label">Localidad</label>
+                                                <input type="text" class="form-control @error('localidad') is-invalid @enderror" 
+                                                    placeholder="Ingrese Localidad del nacido"  name="localidad">
+                                                @error('localidad')
+                                                <span class="invalid feedback" role="alert">
+                                                    <strong>{{$message}}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>  
                                             <div class="col-auto">
                                                 <label class="control-label">Apellido Paterno</label>
                                                 <input type="text" class="form-control @error('apellido1') is-invalid @enderror" 

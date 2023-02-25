@@ -162,7 +162,7 @@
                                             <span>Nombre:</span>
                                             <span><b style="color: white">{{ Auth::user()->name }}</b></span>
                                             <span>Cargo:</span>
-                                            <span class="user-level" style="color: white">{{ Auth::user()->idRol}}</span>
+                                            <span class="user-level" style="color: white">{{ Auth::user()->rol->nombreRol}}</span>
                                         </span>
                                     </a>
                                 </div>
@@ -174,6 +174,8 @@
                                         <p>Ficha de Registro</p>
                                     </a>
                                 </li>
+
+                                @if (Auth::user()->idRol==2)
                                 <li class="nav-item">
                                     <a data-toggle="collapse" href="#base">
                                         <i class="far fa-file-alt"></i>
@@ -200,6 +202,10 @@
                                         </ul>
                                     </div>
                                 </li>
+                                @else
+                                    
+                                @endif
+                                
                                 <li class="nav-item">
                                     <a href="{{route('Persona.index')}}">
                                         <i class="fas fa-user-edit"></i>

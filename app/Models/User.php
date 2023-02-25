@@ -12,8 +12,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-
-    protected $fillable = ['name','fotoPerfil','email','password','idRol'];
+    public $table ='users';
+    protected $primarykey="idRol";
+    protected $fillable = ['name','fotoPerfil','email','password'];
     protected $hidden = [
         'password',
         'remember_token',
@@ -21,4 +22,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function rol(){
+        return $this->HasOne(Rol::class,'idRol','idRol');
+    }
 }

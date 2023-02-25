@@ -1,3 +1,6 @@
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
 <x-guest-layout>
     <div style="background: url(images/fondoLogin.jpg) rgba(0, 0, 0, 0.5);
     height: 100%;
@@ -69,8 +72,14 @@
             <!--Rol Address -->
             <div class="mt-4">
                 <x-label for="rol" :value="__('Rol')" />
+                <select class="form-select" name="idRol" aria-label="Default select example" id="rol">
+                    <option select>Seleccione un rol</option>
+                    <option value="1" >Mesa de Partes</option>
+                    <option value="2">Registrador</option>
+                    <option value="3">Administrador</option>
+                </select>
 
-                <x-input id="rol" class="block mt-1 w-full" type="text" name="idRol" value="1" readonly required />
+                {{-- <x-input id="rol" class="block mt-1 w-full" type="text" name="idRol" value="1" readonly required /> --}}
             </div>
 
             <!-- Password -->
@@ -105,3 +114,4 @@
     </x-auth-card>
     </div>
 </x-guest-layout>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

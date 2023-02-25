@@ -10,7 +10,7 @@ class Rol extends Model
     use HasFactory;
     public $table ='roles';
     protected $primaryKey = 'idRol';
-    protected $fillable = ['nombreRol'];
+    protected $fillable = ['nombreRol','idRol'];
     public $timestamps = false;
 
     public function usuarios(){

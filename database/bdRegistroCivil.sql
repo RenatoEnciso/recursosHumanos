@@ -5,13 +5,16 @@ USE bdregistrocivil;
 --  TABLAS FUERTES
 
 CREATE TABLE persona (
-  DNI CHAR(8) NOT NULL,
+  idPersona int primary key AUTO_INCREMENT,
+  DNI CHAR(8) ,
   Apellido_Paterno VARCHAR(20)  ,
   Apellido_Materno VARCHAR(20)  ,
   Nombres VARCHAR(30)  ,
   sexo VARCHAR(20)  ,
+  estadocivil varchar(20),
+  nacionalidad varchar(30)
   estado TINYINT NOT NULL,
-  PRIMARY KEY (DNI)
+  direccion varchar(50)
 );
 
 create table tipoFicha(
@@ -39,10 +42,45 @@ CREATE TABLE acta(
   fecha_registro DATE  ,
   observacion VARCHAR(30)  ,
   fecha_Acta DATE  ,
-  lugar_Acta VARCHAR(30)  ,
+  lugar_ocurrencia VARCHAR(30)  ,
   estado  TINYINT NOT NULL,
+  nombreRegistradorCivil varchar(50),
+  nombreDeclarante varchar(50),
+  localidad varchar(50),
+  firma_declarante longtext,
+  firma_registrador_civil longtext,
+
+
   foreign key (idActa) references ficha_registro(idficha),
   PRIMARY KEY (idActa)
+);
+
+create table acta_matrimonio(
+  idActa int primary key,
+  fecha_matrimonio date,
+  localidad varchar(50),
+  celebrante varchar(50),
+  cargo varchar(50),
+  expediente varchar(50),
+  foreign key(idacta) references acta(idacta)
+);
+
+create table acta_nacimiento(
+idActa int primary key,
+fecha_nacimiento date,
+  foreign key(idacta) references acta(idacta)
+
+
+);
+
+create table acta_defuncion(
+idActa int primary key,
+localidad varchar(50),
+lugar_ocurrencia varchar(50),
+fecha_fallecido date,
+edad int,
+lugarNacimiento varchar(50),
+  foreign key(idacta) references acta(idacta)
 );
 
 

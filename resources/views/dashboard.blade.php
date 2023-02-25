@@ -202,6 +202,14 @@
                                         </ul>
                                     </div>
                                 </li>
+
+                                <li class="nav-item">
+                                    <a  href="{{route('Solicitud.index')}}">
+                                        <i class="fas fa-id-card"></i>
+                                        <p>Solicitud</p>
+                                    </a>
+
+                                </li>
                                 @else
                                     
                                 @endif
@@ -212,13 +220,11 @@
                                         <p>Persona</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a  href="{{route('Solicitud.index')}}">
-                                        <i class="fas fa-id-card"></i>
-                                        <p>Solicitud</p>
-                                    </a>
 
-                                </li>
+
+                                
+
+
                                 <li class="nav-item">
                                     <a  href="{{route('reporte.create')}}">
                                         <i class="fas fa-id-card"></i>

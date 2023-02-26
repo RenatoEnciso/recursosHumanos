@@ -41,7 +41,7 @@
             <div class="notif-scroll scrollbar-outer">
                 @foreach ($fichasP as $ficha )
                     <div class="notif-center">
-                        <a href="{{ route('ActaNacimiento.edit',$ficha->idficha)}}">
+                        <a href="{{ route('Ficha.crearActa',$ficha->idficha)}}">
                             <div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
                             <div class="notif-content">
                                 <span class="block">
@@ -90,7 +90,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if (count($ActaNacimiento)<=0)
+                    @if (count($ActaNacimiento)>=0)
                          {{-- <tr>
                         <td colspan="3"><b>No hay registros</b></td>
                         </tr>  --}}

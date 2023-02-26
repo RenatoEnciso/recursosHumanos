@@ -40,7 +40,11 @@
                             @enderror
                         </div>
                     </div> --}}
-
+                    <div class="col-12 form-group">
+                        <label class="control-label">Código Acta</label>
+                        <input type="text" class="form-control"
+                             value={{$id}} id="idActa" name="idActa"  style="color: black; font-weight: bold" readonly>
+                    </div>
                     <div class="col-12 form-group">
                         <label class="control-label">Detalle de Muerte</label>
                         <input type="text" class="form-control @error('observacion') is-invalid @enderror"
@@ -129,8 +133,8 @@
                         <label class="control-label">Firma del declarante</label>
                         <input type="file" class="form-control @error('archivo_firma_declarante') is-invalid @enderror"
                             placeholder="Ingrese Archivo" id="archivo_firma_declarante" name="archivo_firma_declarante"
-                            value="{{ old('archivo_firma_declarante') }}" x-data="showImage()" @change="showPreview(event)">
-                        <iframe id="preview" class="object-cover  mt-2 w-60" height="100%"> </iframe>
+                            value="{{ old('archivo_firma_declarante') }}" x-data="showImage1()" @change="showPreview1(event)">
+                        <iframe id="preview1" class="object-cover  mt-2 w-60" height="100%"> </iframe>
                         @error('archivo_firma_declarante')
                             <span class="invalid feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -159,6 +163,18 @@
                     if (event.target.files.length > 0) {
                         var src = URL.createObjectURL(event.target.files[0]);
                         var preview = document.getElementById("preview");
+                        preview.src = src;
+                        preview.style.display = "block";
+                    }
+                }
+            }
+        }
+        function showImage1() {
+            return {
+                showPreview(event) {
+                    if (event.target.files.length > 0) {
+                        var src = URL.createObjectURL(event.target.files[0]);
+                        var preview = document.getElementById("preview1");
                         preview.src = src;
                         preview.style.display = "block";
                     }

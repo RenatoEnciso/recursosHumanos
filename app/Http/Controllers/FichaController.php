@@ -39,7 +39,7 @@ class FichaController extends Controller
         $tipoActa=$ficha->idtipo;
        
         if($tipoActa==1){
-            
+            //no modifquen esta parte, caraio
             return redirect()->route('ActaNacimiento.revisar',$id);
         }
         if($tipoActa==2){

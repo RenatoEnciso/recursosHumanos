@@ -64,7 +64,9 @@ class ActaNacimientoController extends Controller
        
         // persona niño
         $persona=new Persona();
-        $persona->dni='00000001';
+        $n=strlen($request->idacta);
+        $dni_niño=str_pad($request->idacta,9-$n,"0",STR_PAD_LEFT);
+        $persona->dni=$dni_niño;
         $persona->apellido_paterno=$request->Apellido1[0];
         $persona->apellido_materno=$request->Apellido2[0];
         $persona->nombres=$request->nombres[0];

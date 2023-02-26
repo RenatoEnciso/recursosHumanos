@@ -17,7 +17,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class ActaNacimientoController extends Controller
 {
-    const PAGINATION=3;
+    const PAGINATION=5;
     public function index(Request $request)
     {
         $buscarpor= $request->get('buscarpor');
@@ -27,9 +27,9 @@ class ActaNacimientoController extends Controller
         ->where('AP.estado','=','1')
         ->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
         ->paginate($this::PAGINATION);
-        $actas=Acta::select('*')->join('Ficha_registro as f','f.idficha','=','Acta.idacta')->where('f.estado','like','%pendiente%')->get();
+        //$actas=Acta::select('*')->join('Ficha_registro as f','f.idficha','=','Acta.idacta')->where('f.estado','like','%pendiente%')->get();
         $fichasP = Ficha::all()->where('estado', 'Pendiente');
-        return view('ActaNacimiento.index',compact('ActaNacimiento','buscarpor','fichasP','actas'));
+        return view('ActaNacimiento.index',compact('ActaNacimiento','buscarpor','fichasP'));
     }
 
     public function create(){
@@ -113,10 +113,10 @@ class ActaNacimientoController extends Controller
         $fecha_Actual=Carbon::now();
         $Acta->fecha_registro=$fecha_Actual;
         $Acta->observacion=$request->observacion;
-        $Acta->lugar_ocurrencia=$request->fecha_nacimiento;
+        $Acta->lugar_ocurrencia=$request->lugar_nacimiento;
         $Acta->estado='1';
-        $Acta->nombreregistradorcivil;
-        $Acta->localidad=$request->lugar_nacimiento;      
+        $Acta->nombreregistradorcivil=Auth::user()->name;
+        $Acta->localidad=$request->localidad;      
         $Acta->save();
 
         //Guardadp de Acta Nacimiento

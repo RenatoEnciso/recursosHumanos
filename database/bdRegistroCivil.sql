@@ -40,7 +40,7 @@ CREATE TABLE acta(
   fecha_registro DATE  ,
   observacion VARCHAR(30) ,
   lugar_ocurrencia VARCHAR(30)  ,
-  estado  TINYINT NOT NULL,
+  estado  TINYINT ,
   nombreRegistradorCivil varchar(50),
   localidad varchar(50),
   foreign key (idActa) references ficha_registro(idficha),

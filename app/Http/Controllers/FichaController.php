@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Acta;
 Date_default_timezone_set("America/Lima");
 
 class FichaController extends Controller
@@ -69,6 +70,10 @@ class FichaController extends Controller
         $ficha->idtipo=$request->tipoFicha;
         $ficha->estado="Pendiente";
         $ficha->save();
+        $acta=new Acta();
+       // return $ficha;
+        $acta->idacta=$ficha->idficha;
+        $acta->save();
         return redirect()->route('Ficha.index')->with('datos','Ficha Nuevo Guardado ...!');
     }
 

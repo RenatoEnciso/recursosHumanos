@@ -14,7 +14,8 @@ CREATE TABLE persona (
   estadocivil varchar(20),
   nacionalidad varchar(30),
   estado TINYINT NOT NULL,
-  direccion varchar(50)
+  direccion varchar(50),
+  fecha_nacimiento date,
 );
 create table tipoFicha(
   idtipo int AUTO_INCREMENT not null PRIMARY KEY,
@@ -70,9 +71,7 @@ create table acta_defuncion(
 idActa int primary key,
 fecha_fallecido date,
 edad int,
-lugarNacimiento varchar(50),
 dniFallecido char(8),
-sexo varchar(30),
 nombreDeclarante varchar(50),
  firma_declarante longtext,
   foreign key(idacta) references acta(idacta)

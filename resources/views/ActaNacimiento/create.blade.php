@@ -79,34 +79,9 @@
                                                     <strong>{{$message}}</strong>
                                                 </span>
                                                 @enderror
-                                            </div>  
+                                            </div> 
                                             <div class="col-auto">
-                                                <label class="control-label">Apellido Paterno</label>
-                                                <input type="text" class="form-control @error('apellido1') is-invalid @enderror" 
-                                                    placeholder="Ingrese Apellido paterno"  name="Apellido1[]">
-                                                @error('apellido2')
-                                                <span class="invalid feedback" role="alert">
-                                                    <strong>{{$message}}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                            <div class="col-auto">
-                                                <label class="control-label">Apellido Materno</label>
-                                                <input type="text" class="form-control @error('apellido2') is-invalid @enderror" 
-                                                    placeholder="Ingrese Apellido Materno" name="Apellido2[]">
-                                                @error('apellido2')
-                                                <span class="invalid feedback" role="alert">
-                                                    <strong>{{$message}}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                
-                                
-                            
-                                    <div class="form-group">
-                                        <label class="control-label">Nombres Completos</label>
+                                                <label class="control-label">Nombres</label>
                                         <input type="text" class="form-control @error('nombres') is-invalid @enderror" 
                                             placeholder="Ingrese nombres" name="nombres[]">
                                         @error('nombres')
@@ -114,8 +89,10 @@
                                             <strong>{{$message}}</strong>
                                         </span>
                                         @enderror
+                                            </div> 
+                                                                                        
+                                        </div>
                                     </div>
-                            
                                     <div class="form-group">
                                         <label class="genero_title control-label">Género:</label><br>
                                         <div class="form-check genero_caja">
@@ -145,7 +122,7 @@
                     <div class="row" >
                         <div class="row form-group">
                             <div class="col-sm-12 d-flex justify-content-center">
-                                <h1  class="text-center"> Datos del Padre</h1>
+                                <h1  class="text-center"> Datos del padre</h1>
                             </div>
                             <div class="persona">
                             
@@ -162,63 +139,10 @@
                                             @enderror
                                         </div>
             
-                                        <div class="col-auto">
-                                            <label class="control-label">Apellido Paterno</label>
-                                            <input type="text" class="form-control @error('apellido1') is-invalid @enderror" 
-                                                placeholder="Ingrese Apellido paterno"  name="Apellido1[]">
-                                            @error('apellido2')
-                                            <span class="invalid feedback" role="alert">
-                                                <strong>{{$message}}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                        <div class="col-auto">
-                                            <label class="control-label">Apellido Materno</label>
-                                            <input type="text" class="form-control @error('apellido2') is-invalid @enderror" 
-                                                placeholder="Ingrese Apellido Materno" name="Apellido2[]">
-                                            @error('apellido2')
-                                            <span class="invalid feedback" role="alert">
-                                                <strong>{{$message}}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
+                                        
+                                       
                                     </div>
-                                </div>
-                               
-                               
-                        
-                                <div class="form-group">
-                                    <label class="control-label">Nombres Completos</label>
-                                    <input type="text" class="form-control @error('nombres') is-invalid @enderror" 
-                                        placeholder="Ingrese nombres" name="nombres[]">
-                                    @error('nombres')
-                                    <span class="invalid feedback" role="alert">
-                                        <strong>{{$message}}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label">Nacionalidad</label>
-                                    <input type="text" class="form-control @error('nacionalidad') is-invalid @enderror" 
-                                        placeholder="Ingrese nacionalidad" name="nacionalidad[]">
-                                    @error('nacionalidad')
-                                    <span class="invalid feedback" role="alert">
-                                        <strong>{{$message}}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Direccion</label>
-                                    <input type="text" class="form-control @error('direccion') is-invalid @enderror" 
-                                        placeholder="Ingrese direccion" name="direccion[]">
-                                    @error('direccion')
-                                    <span class="invalid feedback" role="alert">
-                                        <strong>{{$message}}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                              
+                                </div>                             
                         
                               
                             </div>
@@ -245,62 +169,10 @@
                                             @enderror
                                         </div>
             
-                                        <div class="col-auto">
-                                            <label class="control-label">Apellido Paterno</label>
-                                            <input type="text" class="form-control @error('apellido1') is-invalid @enderror" 
-                                                placeholder="Ingrese Apellido paterno"  name="Apellido1[]">
-                                            @error('apellido2')
-                                            <span class="invalid feedback" role="alert">
-                                                <strong>{{$message}}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                        <div class="col-auto">
-                                            <label class="control-label">Apellido Materno</label>
-                                            <input type="text" class="form-control @error('apellido2') is-invalid @enderror" 
-                                                placeholder="Ingrese Apellido Materno" name="Apellido2[]">
-                                            @error('apellido2')
-                                            <span class="invalid feedback" role="alert">
-                                                <strong>{{$message}}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
+                                       
+                                    
                                     </div>
-                                </div>
-                               
-                               
-                        
-                                <div class="form-group">
-                                    <label class="control-label">Nombres Completos</label>
-                                    <input type="text" class="form-control @error('nombres') is-invalid @enderror" 
-                                        placeholder="Ingrese nombres" name="nombres[]">
-                                    @error('nombres')
-                                    <span class="invalid feedback" role="alert">
-                                        <strong>{{$message}}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Nacionalidad</label>
-                                    <input type="text" class="form-control @error('nacionalidad') is-invalid @enderror" 
-                                        placeholder="Ingrese nacionalidad" name="nacionalidad[]">
-                                    @error('nacionalidad')
-                                    <span class="invalid feedback" role="alert">
-                                        <strong>{{$message}}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Direccion</label>
-                                    <input type="text" class="form-control @error('direccion') is-invalid @enderror" 
-                                        placeholder="Ingrese direccion" name="direccion[]">
-                                    @error('direccion')
-                                    <span class="invalid feedback" role="alert">
-                                        <strong>{{$message}}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                        
+                                </div>                       
                                
                             </div>
                             

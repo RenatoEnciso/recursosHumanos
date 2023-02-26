@@ -31,6 +31,7 @@ class ActaDefunsionController extends Controller
         ->paginate($this::PAGINATION);
         $fichasP = Ficha::all()->where('estado', 'Pendiente');
         // return $ActaDefunsion;
+        // return $ActaDefunsion;
         return view('ActaDefunsion.index',compact('ActaDefunsion','buscarpor','fichasP'));
     }
 
@@ -79,7 +80,7 @@ class ActaDefunsionController extends Controller
         $ficha=Ficha::findOrFail($id);
         $ficha->estado='Aprobado';
         $ficha->save();
-       
+        
         $fecha_Actual=Carbon::now();
         $Acta->fecha_registro=$fecha_Actual;
         $Acta->observacion=$request->observacion;
@@ -95,6 +96,7 @@ class ActaDefunsionController extends Controller
         $Acta->save();
        
         // defuncion
+        // 
         
         $persona = Persona::findOrFail($request->dniPersona);
         
@@ -122,7 +124,7 @@ class ActaDefunsionController extends Controller
         // fecha_fallecido	edad	lugarNacimiento	dniFallecido		nombreDeclarante	firma_declarante	
         $ActaDefunsion=new Acta_Defunsion();
            
-       
+        $ActaDefunsion->idActa=$id;
         $ActaDefunsion->fecha_fallecido=$request->fecha_fallecido;
         // return $request->fecha_fallecido;
         $ActaDefunsion->nombreDeclarante=$familiar->Nombres ." ". $familiar->Apellido_Paterno ." ". $familiar->Apellido_Materno;
@@ -132,6 +134,7 @@ class ActaDefunsionController extends Controller
             $url = Storage::url($archivo);
             $ActaDefunsion->firma_declarante=$url;
         }
+        
         $ActaDefunsion->dniFallecido=$persona->DNI;
         $ActaDefunsion->save();
         return redirect()->route('ActaDefunsion.index')->with('datos','Registro Nuevo Guardado ...!');

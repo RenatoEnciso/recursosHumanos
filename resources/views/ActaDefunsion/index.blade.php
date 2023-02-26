@@ -97,11 +97,11 @@
 
                     @foreach ($ActaDefunsion as $item)
                         <tr>
-                        @if ($item->idActa % 2 == 0)
+                        @if ($item->idActaPersona % 2 != 0)
                         <td>{{$item->idActa}}</td>
                         <td>{{$item->Apellido_Paterno . " " . $item->Apellido_Materno." ".$item->Nombres}}</td>
-                        <td>{{$item->fecha_Acta}}</td>
-                        <td>{{$item->lugar_Acta}}</td>
+                        <td>{{$item->fecha_registro}}</td>
+                        <td>{{$item->lugar_ocurrencia}}</td>
                         <td>{{$item->DNI}}</td>
                         <td>
                             <br>

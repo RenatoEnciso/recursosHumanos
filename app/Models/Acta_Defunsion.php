@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Acta_Defunsion extends Model
 {
     use HasFactory;
-    protected $table = 'acta_defunsion';
+    protected $table = 'acta_defuncion';
     protected $primaryKey = 'idActa';
     public $timestamps = false;
     protected $fillable = [

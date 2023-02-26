@@ -43,7 +43,7 @@ class ActaNacimientoController extends Controller
     }
 
     public function store(Request $request){
-       return $request;
+    //    return $request;
         $data=request()->validate([
             'observacion'=>'required|max:30',
             'fecha_nacimiento'=>'required',
@@ -124,7 +124,7 @@ class ActaNacimientoController extends Controller
         $ActaNacimiento->fecha_nacimiento=$request->fecha_nacimiento;
         $ActaNacimiento->DNIPadre=$persona2->dni;
         $ActaNacimiento->DNIMadre=$persona3->dni;
-        $ActaNacimiento->nombres=$persona->nombres+' '+$persona2->apellido_paterno+' '+$persona3->apellido_paterno;
+        $ActaNacimiento->nombres=$persona->nombres.' '.$persona2->apellido_paterno.' '.$persona3->apellido_paterno;
         $ActaNacimiento->domicilio=$persona3->direccion;
         $ActaNacimiento->sexo=$persona->sexo;
         $ActaNacimiento->save();

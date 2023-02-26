@@ -59,41 +59,65 @@ class ActaDefunsionController extends Controller
             'archivo_defunsion.required'=>'Ingrese el archivo de la Acta de Defunsion',
         ]);
 
+ 
+        // $Acta->idLibro=$request->nroLibro;
+        // $Acta->idFolio=$request->nroFolio;
+
+
+        // general
+      
+
 
         $Acta=new Acta();
         $fecha_Actual=Carbon::now();
         $Acta->fecha_registro=$fecha_Actual;
-        $Acta->hora_registro=$fecha_Actual->subHour(5)->toTimeString();
-        // $Acta->idLibro=$request->nroLibro;
-        // $Acta->idFolio=$request->nroFolio;
         $Acta->observacion=$request->observacion;
+        $Acta->lugar_ocurrencia=$request->lugar_ocurrencia;
+        $Acta->localidad=$request->localidad;
+        $Acta->nombreRegistrador=$request->nombreRegistrador;
         if($request->hasFile('archivo_defunsion')){
             $archivo=$request->file('archivo_defunsion')->store('ArchivosDefunsion','public');
             $url = Storage::url($archivo);
             $Acta->archivo=$url;
         }
-        $Acta->fecha_Acta=$request->fecha;
-        $Acta->lugar_Acta=$request->lugar;
-        $Acta->TipoActa=3;    //tipo: Defunsion
         $Acta->estado='1';
         $Acta->save();
+
+        // defuncion
 
         $persona = Persona::findOrFail($request->dniPersona);
         $persona->estado='0';
         $persona->save();
         $familiar = Persona::findOrFail($request->dniFamiliar);
 
+        
+        
+        
+        // ACTA_PERSONA
         $ActaDefunsion=new Acta_Persona();
         $ActaDefunsion->DNI=$persona->DNI;
         $ActaDefunsion->idActa=$Acta->idActa;
         $ActaDefunsion->estado=1;
         $ActaDefunsion->save();
         $ActaDefunsion=new Acta_Persona();
-        $ActaDefunsion->DNI=$persona->DNI;
+        $ActaDefunsion->DNI=$familiar->DNI;
         $ActaDefunsion->idActa=$Acta->idActa;
         $ActaDefunsion->estado=1;
         $ActaDefunsion->save();
+        // DEFUNCION TABLA
+        // fecha_fallecido	edad	lugarNacimiento	dniFallecido		nombreDeclarante	firma_declarante	
+        $ActaDefunsion=new Acta_Defunsion();
 
+        $ActaDefunsion->fecha_fallecido=$fecha_Actual;
+        $ActaDefunsion->nombreDeclarante=$request->nombreDeclarante;
+        $ActaDefunsion->edad=$edad;
+        if($request->hasFile('archivo_firma_declarante')){
+            $archivo=$request->file('archivo_firma_declarante')->store('ArchivosDefunsion','public');
+            $url = Storage::url($archivo);
+            $ActaDefunsion->firma_declarante=$url;
+        }
+        $ActaDefunsion->dniFallecido=$persona->DNI;
+     
         return redirect()->route('ActaDefunsion.index')->with('datos','Registro Nuevo Guardado ...!');
     }
 

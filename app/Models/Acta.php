@@ -34,7 +34,7 @@ class Acta extends Model
     public function Lista_Solicitud(){
         return $this->HasMany(Lista_Solicitud::class,'idActa','idActa');
     }
-    public function ActaNacimiento(){
+    public function actaNacimiento(){
         return $this->HasOne(ActaNacimiento::class,'idActa','idActa');
     }
     public function ActaMatrimonio(){

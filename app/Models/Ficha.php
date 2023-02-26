@@ -13,4 +13,8 @@ class Ficha extends Model
     protected $fillable = ['fecha_registro','ruta_certificado','estado','idtipo'];
     public $timestamps = false;
 
+    public function acta(){
+        return $this->HasOne(Acta::class,'idficha','idActa');
+    }
+
 }

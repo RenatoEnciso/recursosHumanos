@@ -1,5 +1,5 @@
 <?php
-
+use App\Models\Ficha;
 use App\Http\Controllers\ActaNacimientoController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\SolicitudController;
@@ -17,11 +17,15 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+
+    $fichasP = Ficha::all()->where('estado', 'Pendiente');
+    return view('dashboard',compact('fichasP'));
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/dashboard', function () {
-    return view('index');
+
+        $fichasP = Ficha::all()->where('estado', 'Pendiente');
+    return view('index',compact('fichasP'));
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

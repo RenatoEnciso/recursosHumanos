@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Acta;
+use App\Models\Ficha;
 use App\Models\Acta_Persona;
 // use App\Models\Libro;
 // use App\Models\Folio;
@@ -25,14 +26,16 @@ class ActaNacimientoController extends Controller
         ->where('AP.estado','=','1')
         ->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
         ->paginate($this::PAGINATION);
-
-        return view('ActaNacimiento.index',compact('ActaNacimiento','buscarpor'));
+        $actas=Acta::select('*')->join('Ficha_registro as f','f.idficha','=','Acta.idacta')->where('f.estado','like','%pendiente%')->get();
+        $fichasP = Ficha::all()->where('estado', 'Pendiente');
+        return view('ActaNacimiento.index',compact('ActaNacimiento','buscarpor','fichasP','actas'));
     }
 
     public function create(){
         //if (Auth::user()->rol=='Administrativo'){   //boton registrar
             $personas[3] = Persona::all();
-            return view('ActaNacimiento.create',compact('personas'));
+            $fichasP = Ficha::all()->where('estado', 'Pendiente');
+            return view('ActaNacimiento.create',compact('personas','fichasP'));
        // }else{
        //     return redirect()->route('ActaNacimiento.index')->with('datos','..::No tiene Acceso ..::');
        // }
@@ -137,16 +140,17 @@ class ActaNacimientoController extends Controller
     }
 
     public function edit($id){
-        if (Auth::user()->rol=='Administrativo'){   //boton editar
+        // if (Auth::user()->rol=='Administrativo'){   //boton editar
             // $libros=Libro::all();
             // $folios=Folio::all();
             $actaNacimiento= Acta_Persona::findOrFail($id);
             $acta=Acta::findOrFail($actaNacimiento->idActa);
             $personas = Persona::all();
-            return view('ActaNacimiento.edit',compact('actaNacimiento','acta','personas'));
-        }else{
-            return redirect()->route('ActaNacimiento.index')->with('datos','..::No tiene Acceso ..::');
-        }
+            $fichasP = Ficha::all()->where('estado', 'Pendiente');
+            return view('ActaNacimiento.edit',compact('actaNacimiento','acta','personas','fichasP'));
+        // }else{
+        //     return redirect()->route('ActaNacimiento.index')->with('datos','..::No tiene Acceso ..::');
+        // }
     }
 
     public function update(Request $request, $id)
@@ -206,12 +210,12 @@ class ActaNacimientoController extends Controller
     }
 
     public function confirmar($id){
-        if (Auth::user()->rol=='Administrativo'){   //boton eliminar
+        // if (Auth::user()->rol=='Administrativo'){   //boton eliminar
             $ActaNacimiento=Acta_Persona::findOrFail($id);
             return view('ActaNacimiento.confirmar',compact('ActaNacimiento'));
-        }else{
-            return redirect()->route('ActaNacimiento.index')->with('datos','..::No tiene Acceso ..::');
-        }
+        // }else{
+        //     return redirect()->route('ActaNacimiento.index')->with('datos','..::No tiene Acceso ..::');
+        // }
     }
 
     public function cancelar(){

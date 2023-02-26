@@ -29,14 +29,14 @@ class ActaDefunsionController extends Controller
     }
 
     public function create(){
-        if (Auth::user()->rol=='Administrativo'){   //boton registrar
+        // if (Auth::user()->rol=='Administrativo'){   //boton registrar
             // $libros=Libro::all();
             // $folios=Folio::all();
             $personas = Persona::all();
             return view('ActaDefunsion.create',compact('personas'));
-        }else{
-            return redirect()->route('ActaDefunsion.index')->with('datos','..::No tiene Acceso ..::');
-        }
+        // }else{
+        //     return redirect()->route('ActaDefunsion.index')->with('datos','..::No tiene Acceso ..::');
+        // }
 
     }
 

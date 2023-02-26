@@ -21,9 +21,11 @@ class ActaMatrimonioController extends Controller
         $buscarpor= $request->get('buscarpor');
         $ActaMatrimonio=Acta_Persona::select('*')
         ->join('Acta','Acta.idActa','=','Acta_Persona.idActa')
+        ->join('ficha_registro','ficha_registro.idficha','=','Acta.idActa')//filtrado
         ->join('Persona','Persona.DNI','=','Acta_Persona.DNI')
         ->where('Acta_Persona.estado','=','1')
         ->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
+        ->where('ficha_registro.idtipo','=','2')
         ->paginate($this::PAGINATION);
         $fichasP = Ficha::all()->where('estado', 'Pendiente');
         return view('ActaMatrimonio.index',compact('ActaMatrimonio','buscarpor','fichasP'));

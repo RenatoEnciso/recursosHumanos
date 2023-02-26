@@ -27,9 +27,9 @@ class ActaNacimientoController extends Controller
         ->where('AP.estado','=','1')
         ->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
         ->paginate($this::PAGINATION);
-        //$actas=Acta::select('*')->join('Ficha_registro as f','f.idficha','=','Acta.idacta')->where('f.estado','like','%pendiente%')->get();
+        $actas=Acta::select('*')->join('Ficha_registro as f','f.idficha','=','Acta.idacta')->where('f.estado','like','%pendiente%')->get();
         $fichasP = Ficha::all()->where('estado', 'Pendiente');
-        return view('ActaNacimiento.index',compact('ActaNacimiento','buscarpor','fichasP'));
+        return view('ActaNacimiento.index',compact('ActaNacimiento','buscarpor','fichasP','actas'));
     }
 
     public function create(){
@@ -124,7 +124,7 @@ class ActaNacimientoController extends Controller
         $ActaNacimiento->fecha_nacimiento=$request->fecha_nacimiento;
         $ActaNacimiento->DNIPadre=$persona2->dni;
         $ActaNacimiento->DNIMadre=$persona3->dni;
-        $ActaNacimiento->nombres=$persona->nombres;
+        $ActaNacimiento->nombres=$persona->nombres+' '+$persona2->apellido_paterno+' '+$persona3->apellido_paterno;
         $ActaNacimiento->domicilio=$persona3->direccion;
         $ActaNacimiento->sexo=$persona->sexo;
         $ActaNacimiento->save();
@@ -150,6 +150,13 @@ class ActaNacimientoController extends Controller
         $ActaPersona1->save();
         
         //
+        $ActaPersona2= new Acta_Persona();
+        $ActaPersona2->DNI=$persona->dni;
+        $ActaPersona2->idActa=$Acta->idActa;
+        $ActaPersona2->estado='1';
+        $ActaPersona2->save();
+
+
         
         return redirect()->route('ActaNacimiento.index')->with('datos','Registro Nuevo Guardado ...!');
     }
@@ -159,10 +166,10 @@ class ActaNacimientoController extends Controller
             // $libros=Libro::all();
             // $folios=Folio::all();
             $actaNacimiento= Acta_Persona::findOrFail($id);
-            $acta=Acta::findOrFail($actaNacimiento->idActa);
-            $personas = Persona::all();
-            $fichasP = Ficha::all()->where('estado', 'Pendiente');
-            return view('ActaNacimiento.edit',compact('actaNacimiento','acta','personas','fichasP'));
+            $acta=Acta_Persona::findOrFail($actaNacimiento->idActa);
+            $personas = Persona::findorFail($actaNacimiento->idActa);
+           //$fichasP = Ficha::all()->where('estado', 'Pendiente');
+            return view('ActaNacimiento.edit',compact('actaNacimiento','acta','personas'));
         // }else{
         //     return redirect()->route('ActaNacimiento.index')->with('datos','..::No tiene Acceso ..::');
         // }

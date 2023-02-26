@@ -71,6 +71,7 @@ class ActaNacimientoController extends Controller
         $persona->apellido_materno=$request->Apellido2[0];
         $persona->nombres=$request->nombres[0];
         $persona->sexo=$request->sexo[0];
+        $persona->fecha_nacimiento=$request->fecha_nacimiento;
         $persona->estado='1';
         $persona->save();
         //----------------------------------

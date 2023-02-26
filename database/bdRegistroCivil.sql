@@ -15,7 +15,7 @@ CREATE TABLE persona (
   nacionalidad varchar(30),
   estado TINYINT NOT NULL,
   direccion varchar(50),
-  fecha_nacimiento date,
+  fecha_nacimiento date
 );
 create table tipoFicha(
   idtipo int AUTO_INCREMENT not null PRIMARY KEY,

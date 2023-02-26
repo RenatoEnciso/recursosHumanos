@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Ficha;
 
 class ActaDefunsionController extends Controller
 {
@@ -22,7 +23,7 @@ class ActaDefunsionController extends Controller
         $ActaDefunsion=Acta::select('*')
         ->join('Acta_Persona as AP','AP.idActa','=','Acta.idActa')
         ->join('Persona','Persona.DNI','=','AP.DNI')
-        ->where('TipoActa','=','3')
+        // ->where('TipoActa','=','3')
         ->where('AP.estado','=','1')->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
         ->paginate($this::PAGINATION);
         $fichasP = Ficha::all()->where('estado', 'Pendiente');
@@ -56,7 +57,7 @@ class ActaDefunsionController extends Controller
             'fecha.required'=>'Ingrese una Fecha de la Acta de Defunsion',
             'lugar.required'=>'Ingrese el lugar de Defuncion',
             'lugar.max'=>'Máximo 30 carácteres para el lugar de Extraccion',
-            'archivo_defunsion.required'=>'Ingrese el archivo de la Acta de Defunsion',
+            // 'archivo_defunsion.required'=>'Ingrese el archivo de la Acta de Defunsion',
         ]);
 
  
@@ -65,21 +66,18 @@ class ActaDefunsionController extends Controller
 
 
         // general
-      
-
-
         $Acta=new Acta();
         $fecha_Actual=Carbon::now();
         $Acta->fecha_registro=$fecha_Actual;
         $Acta->observacion=$request->observacion;
         $Acta->lugar_ocurrencia=$request->lugar_ocurrencia;
         $Acta->localidad=$request->localidad;
-        $Acta->nombreRegistrador=$request->nombreRegistrador;
-        if($request->hasFile('archivo_defunsion')){
-            $archivo=$request->file('archivo_defunsion')->store('ArchivosDefunsion','public');
-            $url = Storage::url($archivo);
-            $Acta->archivo=$url;
-        }
+        $Acta->nombreRegistrador=Auth::user()->name();
+        // if($request->hasFile('archivo_defunsion')){
+        //     $archivo=$request->file('archivo_defunsion')->store('ArchivosDefunsion','public');
+        //     $url = Storage::url($archivo);
+        //     $Acta->archivo=$url;
+        // }
         $Acta->estado='1';
         $Acta->save();
 
@@ -94,23 +92,24 @@ class ActaDefunsionController extends Controller
         
         
         // ACTA_PERSONA
-        $ActaDefunsion=new Acta_Persona();
-        $ActaDefunsion->DNI=$persona->DNI;
-        $ActaDefunsion->idActa=$Acta->idActa;
-        $ActaDefunsion->estado=1;
-        $ActaDefunsion->save();
-        $ActaDefunsion=new Acta_Persona();
-        $ActaDefunsion->DNI=$familiar->DNI;
-        $ActaDefunsion->idActa=$Acta->idActa;
-        $ActaDefunsion->estado=1;
-        $ActaDefunsion->save();
+        $ActaFallecido=new Acta_Persona();
+        $ActaFallecido->DNI=$persona->DNI;
+        $ActaFallecido->idActa=$Acta->idActa;
+        $ActaFallecido->estado=1;
+        $ActaFallecido->save();
+        $ActaRepresentante=new Acta_Persona();
+        $ActaRepresentante->DNI=$familiar->DNI;
+        $ActaRepresentante->idActa=$Acta->idActa;
+        $ActaRepresentante->estado=1;
+        $ActaRepresentante->save();
+
         // DEFUNCION TABLA
         // fecha_fallecido	edad	lugarNacimiento	dniFallecido		nombreDeclarante	firma_declarante	
         $ActaDefunsion=new Acta_Defunsion();
 
-        $ActaDefunsion->fecha_fallecido=$fecha_Actual;
-        $ActaDefunsion->nombreDeclarante=$request->nombreDeclarante;
-        $ActaDefunsion->edad=$edad;
+        $ActaDefunsion->fecha_fallecido=$request->$fecha_fallecido;
+        $ActaDefunsion->nombreDeclarante=$familiar->Nombres +" "+ $familiar->Apellido_Paterno +" "+ $familiar->Apellido_Materno;
+        $ActaDefunsion->edad=$fecha_Actual->diffInYears($persona->fecha_nacimiento);
         if($request->hasFile('archivo_firma_declarante')){
             $archivo=$request->file('archivo_firma_declarante')->store('ArchivosDefunsion','public');
             $url = Storage::url($archivo);

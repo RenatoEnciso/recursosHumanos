@@ -53,20 +53,30 @@
                     </div>
 
                     <div class="col-12 form-group">
-                        <label class="control-label">Fecha </label>
-                        <input type="date" class="form-control @error('fecha') is-invalid @enderror"
-                            id="fecha" name="fecha">
-                        @error('fecha')
+                        <label class="control-label">Fecha de defuncion</label>
+                        <input type="date" class="form-control @error('fecha_fallecido') is-invalid @enderror"
+                            id="fecha_fallecido" name="fecha_fallecido">
+                        @error('fecha_fallecido')
                             <span class="invalid feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
                     <div class="col-12 form-group">
-                        <label class="control-label">Lugar de Extraccion</label>
-                        <input type="text" class="form-control @error('lugar') is-invalid @enderror"
-                            placeholder="Ingrese lugar de fallecimiento" id="lugar" name="lugar">
-                        @error('lugar')
+                        <label class="control-label">Localidad</label>
+                        <input type="text" class="form-control @error('localidad') is-invalid @enderror"
+                            placeholder="Ingrese lugar de fallecimiento" id="localidad" name="localidad">
+                        @error('localidad')
+                            <span class="invalid feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-12 form-group">
+                        <label class="control-label">Lugar de fallecimiento</label>
+                        <input type="text" class="form-control @error('lugar_ocurrencia') is-invalid @enderror"
+                            placeholder="Ingrese lugar de fallecimiento" id="lugar_ocurrencia" name="lugar_ocurrencia">
+                        @error('lugar_ocurrencia')
                             <span class="invalid feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -102,7 +112,7 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <div class="col-12">
+                    <div class="col-12" style="padding-bottom:13vh">
                         <label class="control-label">Archivo de Defuncion</label>
                         <input type="file" class="form-control @error('archivo_defunsion') is-invalid @enderror"
                             placeholder="Ingrese Archivo" id="archivo_defunsion" name="archivo_defunsion"
@@ -115,7 +125,21 @@
                         @enderror
                         <br>
                     </div>
+                    <div class="col-12">
+                        <label class="control-label">Firma del declarante</label>
+                        <input type="file" class="form-control @error('archivo_firma_declarante') is-invalid @enderror"
+                            placeholder="Ingrese Archivo" id="archivo_firma_declarante" name="archivo_firma_declarante"
+                            value="{{ old('archivo_firma_declarante') }}" x-data="showImage()" @change="showPreview(event)">
+                        <iframe id="preview" class="object-cover  mt-2 w-60" height="100%"> </iframe>
+                        @error('archivo_firma_declarante')
+                            <span class="invalid feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <br>
+                    </div>
                 </div>
+          
 
             </div><br>
             <div class="boton_div">

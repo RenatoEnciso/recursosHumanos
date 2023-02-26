@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Acta;
+use App\Models\Acta_Matrimonio;
 use App\Models\Acta_Persona;
 use App\Models\Ficha;
 use App\Models\Persona;
@@ -27,18 +28,18 @@ class ActaMatrimonioController extends Controller
         return view('ActaMatrimonio.index',compact('ActaMatrimonio','buscarpor'));
     }
 
-    public function create(){
+    public function create($idFicha){
         //if (Auth::user()->rol=='Administrativo'){   //boton registrar
             $personas = Persona::all();
-            $ficha=Ficha::all();
+            //$ficha=Ficha::findOrFail($id);
 
-            return view('ActaMatrimonio.create',compact('personas','ficha'));
+            return view('ActaMatrimonio.create',compact('personas','idFicha'));
        // }else{
         //    return redirect()->route('ActaMatrimonio.index')->with('datos','..::No tiene Acceso ..::');
        // }
     }
 
-    public function store(Request $request){
+    public function store(Request $request, $idActa){
         $data=request()->validate([
            'Observacion'=>'max:40',
            'lugar_matrimonio'=>'max:30'
@@ -47,50 +48,61 @@ class ActaMatrimonioController extends Controller
             'Observacion.max'=>'Maximo 40 caracteres',
             'lugar_matrimonio.max'=>'Maximo 30 caracteres'
         ]);
-
         $Acta=new Acta();
         $fecha_Actual=Carbon::now();
+        //$Acta->idActa=$totalActas+1;
+        $Acta->idActa=$idActa;
         $Acta->fecha_registro=$fecha_Actual;
-        $Acta->hora_registro=$fecha_Actual->subHour(5)->toTimeString();
+        //$Acta->hora_registro=$fecha_Actual->subHour(5)->toTimeString();
         $Acta->observacion=$request->observacion;
 
-        if($request->hasFile('archivo_matrimonio')){
+        /* if($request->hasFile('archivo_matrimonio')){
             $archivo=$request->file('archivo_matrimonio')->store('Archivosmatrimonio','public');
             $url = Storage::url($archivo);
             $Acta->archivo=$url;
-        }
+        } */
 
-        $Acta->fecha_Acta=$request->fecha_matrimonio;
-        $Acta->lugar_Acta=$request->lugar_matrimonio;
-        $Acta->TipoActa=2;    //tipo matrimonio
+        //$Acta->fecha_Acta=$request->fecha_matrimonio;
+        $Acta->lugar_ocurrencia=$request->lugar_matrimonio;
+        //$Acta->TipoActa=2;    //tipo matrimonio
         $Acta->estado='1';
+        $Acta->nombreRegistradorCivil=Auth::user()->name;
         $Acta->save();
 
         $persona1 = Persona::findOrFail($request->esposa);
         $persona2 = Persona::findOrFail($request->esposo);
 
-        $ActaMatrimonio=new Acta_Persona();
-        $ActaMatrimonio->DNI=$persona1->DNI;
-        $ActaMatrimonio->idActa=$Acta->idActa;
-        $ActaMatrimonio->estado='1';
-        $ActaMatrimonio->save();
+        $Esposa=new Acta_Persona();
+        $Esposa->DNI=$persona1->DNI;
+        $Esposa->idActa=$idActa;
+        $Esposa->estado='1';
+        $Esposa->funcion='Esposa';
+        $Esposa->save();
 
-        $ActaMatrimonio=new Acta_Persona();
-        $ActaMatrimonio->DNI=$persona2->DNI;
-        $ActaMatrimonio->idActa=$Acta->idActa;
-        $ActaMatrimonio->estado='1';
+        $Esposo=new Acta_Persona();
+        $Esposo->DNI=$persona2->DNI;
+        $Esposo->idActa=$idActa;
+        $Esposo->estado='1';
+        $Esposo->funcion='Esposo';
+        $Esposo->save();
+
+        $ActaMatrimonio = new Acta_Matrimonio();
+        $ActaMatrimonio->fecha_matrimonio=$request->fecha_matrimonio;
+        $ActaMatrimonio->idActa=$idActa;
+        $ActaMatrimonio->DNIEsposo = $persona2->DNI;
+        $ActaMatrimonio->DNIEsposa = $persona1->DNI;
         $ActaMatrimonio->save();
 
         return redirect()->route('ActaMatrimonio.index')->with('datos','Registro Nuevo Guardado ...!');
     }
 
     public function edit($id){
-        if (Auth::user()->rol=='Administrativo'){   //boton editar
+        if (Auth::user()->rol->nombreRol=='Registrador'){   //boton editar
             $personas = Persona::all();
             $ActaMatrimonio1=Acta_Persona::findOrFail($id);
             $ActaMatrimonio2=Acta_Persona::findOrFail($id+1);
             $acta=Acta::findOrFail($ActaMatrimonio1->idActa);
-            return view('ActaMatrimonio.edit',compact('acta','ActaMatrimonio1','ActaMatrimonio2','personas','libros','folios'));
+            return view('ActaMatrimonio.edit',compact('acta','ActaMatrimonio1','ActaMatrimonio2','personas'));
         }else{
             return redirect()->route('ActaMatrimonio.index')->with('datos','..::No tiene Acceso ..::');
         }
@@ -106,28 +118,33 @@ class ActaMatrimonioController extends Controller
             'Observacion.max'=>'Maximo 40 caracteres',
             'lugar_matrimonio.max'=>'Maximo 30 caracteres'
         ]);
-        $ActaMatrimonio1=Acta_Persona::findOrFail($id);
-        $ActaMatrimonio2=Acta_Persona::findOrFail($id+1);
-        $ActaMatrimonio1->DNI=$request->esposa;
-        $ActaMatrimonio2->DNI=$request->esposo;
-        $ActaMatrimonio1->save();
-        $ActaMatrimonio2->save();
+        $esposa=Acta_Persona::findOrFail($id);
+        $esposo=Acta_Persona::findOrFail($id+1);
+        $esposa->DNI=$request->esposa;
+        $esposo->DNI=$request->esposo;
+        $esposa->save();
+        $esposo->save();
 
         //Modificamos el acta
-        $Acta = Acta::findOrFail($ActaMatrimonio1->idActa);
-        $Acta->idLibro=$request->nroLibro;
-        $Acta->idFolio=$request->nroFolio;
+        $Acta = Acta::findOrFail($esposa->idActa);
+        $fecha_Actual=Carbon::now();
+        $Acta->fecha_registro=$fecha_Actual;
         $Acta->observacion=$request->observacion;
+        $Acta->lugar_ocurrencia=$request->lugar_matrimonio;
+        $Acta->nombreRegistradorCivil=Auth::user()->name;
+        $Acta->save();
 
-        if($request->hasFile('archivo_matrimonio')){
+        $ActaMatrimonio = Acta_Matrimonio::findOrFail($esposa->idActa);
+        $ActaMatrimonio->fecha_matrimonio=$request->fecha_matrimonio;
+        $ActaMatrimonio->DNIEsposo = $request->esposo;
+        $ActaMatrimonio->DNIEsposa = $request->esposa;
+        $ActaMatrimonio->save();
+
+        /* if($request->hasFile('archivo_matrimonio')){
             $archivo=$request->file('archivo_matrimonio')->store('Archivosmatrimonio','public');
             $url = Storage::url($archivo);
             $Acta->archivo=$url;
-        }
-
-        $Acta->fecha_Acta=$request->fecha_matrimonio;
-        $Acta->lugar_Acta=$request->lugar_matrimonio;
-        $Acta->save();
+        } */
 
         return redirect()->route('ActaMatrimonio.index')->with('datos','Registro Nuevo Actualizado ...!');
     }
@@ -148,7 +165,7 @@ class ActaMatrimonioController extends Controller
     }
 
     public function confirmar($id){
-        if (Auth::user()->rol=='Administrativo'){   //boton eliminar
+        if (Auth::user()->rol->nombreRol=='Registrador'){   //boton eliminar
             $ActaMatrimonio=Acta_Persona::findOrFail($id);
             return view('ActaMatrimonio.confirmar',compact('ActaMatrimonio'));
         }else{

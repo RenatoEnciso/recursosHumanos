@@ -41,7 +41,7 @@ class FichaController extends Controller
             return redirect()->route('ActaNacimiento.create');
         }
         if($tipoActa==2){
-            return redirect()->route('ActaMatrimonio.create');
+            return redirect()->route('ActaMatrimonio.crear',$ficha->idficha);
         }else{
             return redirect()->route('ActaDefunsion.create');
         } 

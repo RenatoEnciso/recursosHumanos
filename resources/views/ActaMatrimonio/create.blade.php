@@ -6,10 +6,15 @@
     <div class="container">
         <br>
         <h1 id='titulo' class="{{-- card-title  --}}acta_title">REGISTRO DE ACTA DE MATRIMONIO</h1><br>
-        <form method="POST" action="{{ route('ActaMatrimonio.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('ActaMatrimonio.store', $idFicha) }}" enctype="multipart/form-data">
             @csrf
-            <div class="row">
-                <div class="col-8">
+            <div class="row" style="width: 80%; margin: 0 auto">
+                <div class="col-12">
+                    <div class="col-12 form-group">
+                        <label class="control-label">Código Acta</label>
+                        <input type="text" class="form-control"
+                             value={{$idFicha}} id="idActa" name="idActa" @disabled(true) style="color: black; font-weight: bold">
+                    </div>
                     <div class="col-12 form-group">
                         <label class="control-label">Observación</label>
                         <input type="text" class="form-control @error('observacion') is-invalid @enderror"
@@ -46,7 +51,7 @@
                         <select name="esposa" id="DNI1" class="form-control @error('persona') is-invalid @enderror">
                             @foreach ($personas as $item)
                                 @if($item->sexo=="F" && $item->estado==1)
-                                   <option value="{{ $item->DNI }}">{{ $item->Nombres }}</option> 
+                                   <option value="{{ $item->DNI }}">{{ $item->Nombres}} {{$item->Apellido_Paterno}} {{$item->Apellido_Materno}}, DNI: {{ $item->DNI }}</option> 
                                 @endif
                             @endforeach
                         </select>
@@ -64,7 +69,7 @@
                             class="form-control @error('persona') is-invalid @enderror">
                             @foreach ($personas as $item)
                                 @if($item->sexo=="M" && $item->estado==1)
-                                    <option value="{{ $item->DNI }}">{{ $item->Nombres }}</option>
+                                    <option value="{{ $item->DNI }}">{{ $item->Nombres}} {{$item->Apellido_Paterno}} {{$item->Apellido_Materno}}, DNI: {{ $item->DNI }}</option>
                                 @endif
                             @endforeach
                         </select>
@@ -75,7 +80,7 @@
                         @enderror
                     </div>
             </div>
-            <div class="col-4">
+            {{-- <div class="col-4">
                     <div class="col-12">
                         <label class="control-label">Archivo de Matrimonio</label>
                         <input type="file" class="form-control @error('archivo_matrimonio') is-invalid @enderror"
@@ -92,7 +97,7 @@
 
                         <br>
                     </div>
-            </div>
+            </div> --}}
             
         </div><br>
             

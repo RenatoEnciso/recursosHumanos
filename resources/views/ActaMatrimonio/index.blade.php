@@ -62,8 +62,8 @@
                                                 <td>{{$item2->Persona->Nombres." ".$item2->Persona->Apellido_Paterno }}</td>
                                             @endif
                                         @endforeach
-                                        <td>{{$item1->Acta->fecha_Acta}}</td>
-                                        <td>{{$item1->Acta->lugar_Acta}}</td>
+                                        <td>{{$item1->Acta->ActaMatrimonio->fecha_matrimonio}}</td>
+                                        <td>{{$item1->Acta->lugar_ocurrencia}}</td>
                                         <td>
                                             <a href="{{ route('ActaMatrimonio.archivo',$item1->idActaPersona)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Ver</a>
                                             <a href="{{ route('ActaMatrimonio.generada',$item1->idActaPersona)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Generar</a>

@@ -70,7 +70,7 @@
                 <h3 id="titulo" class="card-title">LISTADO DE ACTAS DE NACIMIENTO</h3>
             </div>
             <div class="card-body">
-            <a href="{{route('ActaNacimiento.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i>Nuevo Registro</a>
+            {{-- <a href="{{route('ActaNacimiento.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i>Nuevo Registro</a> --}}
             <div id="mensaje">
                 @if (session('datos'))
                 <div class="alert alert-warning alert-dismissible fade show mt-3 emergente" role="alert" style="color: white; background-color: rgb(183, 178, 31)" >
@@ -90,10 +90,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if (count($ActaNacimiento)>=0)
+                    {{-- @if (count($ActaNacimiento)>=0)
                          {{-- <tr>
                         <td colspan="3"><b>No hay registros</b></td>
-                        </tr>  --}}
+                        </tr>  --}} 
                     @if (count($actas)==0)
                         <tr>
                         <td colspan="3"><b>No hay registros</b></td>
@@ -116,7 +116,7 @@
                     </tr>
                 @endforeach
                     @endif
-                    @else
+                    {{-- @else
 
                     @foreach ($ActaNacimiento as $item)
                         <tr>
@@ -134,7 +134,7 @@
                         </td>
                         </tr>
                     @endforeach
-                    @endif
+                    @endif --}}
                     </tbody>
                 </table>
                 {{$ActaNacimiento->links()}}

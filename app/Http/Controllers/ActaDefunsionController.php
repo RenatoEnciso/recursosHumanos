@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Acta;
+use App\Models\Acta_Defunsion;
 use App\Models\Acta_Persona;
 use App\Models\Persona;
+
 // use App\Models\Libro;
 // use App\Models\Folio;
 use Carbon\Carbon;
@@ -21,13 +23,14 @@ class ActaDefunsionController extends Controller
     {
         $buscarpor= $request->get('buscarpor');
         $ActaDefunsion=Acta::select('*')
+        ->join('ficha_registro as f','f.idFicha','=','Acta.idActa')
         ->join('Acta_Persona as AP','AP.idActa','=','Acta.idActa')
         ->join('Persona','Persona.DNI','=','AP.DNI')
-        // ->where('TipoActa','=','3')
+        ->where('f.idtipo','=',3)
         ->where('AP.estado','=','1')->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
         ->paginate($this::PAGINATION);
         $fichasP = Ficha::all()->where('estado', 'Pendiente');
-        
+        // return $ActaDefunsion;
         return view('ActaDefunsion.index',compact('ActaDefunsion','buscarpor','fichasP'));
     }
 
@@ -35,6 +38,7 @@ class ActaDefunsionController extends Controller
         // if (Auth::user()->rol=='Administrativo'){   //boton registrar
             // $libros=Libro::all();
             // $folios=Folio::all();
+            // $fichasP = Ficha::all()->where('estado', 'Pendiente');
             $personas = Persona::all();
             return view('ActaDefunsion.create',compact('personas'));
         // }else{
@@ -44,19 +48,19 @@ class ActaDefunsionController extends Controller
     }
 
     public function store(Request $request){
-        return $request->all();
+        // return $request->all();
         $data=request()->validate([
             'observacion'=>'required|max:30',
-            'fecha'=>'required',
-            'lugar'=>'required|max:30',
-            'archivo_defunsion'=>'required',
+            // 'fecha'=>'required',
+            // 'lugar'=>'required|max:30',
+            // 'archivo_defunsion'=>'required',
         ],
         [
             'observacion.required'=>'Ingrese Observacion de la Acta de Defunsion',
             'observacion.max'=>'Máximo 30 carácteres para la Observacion',
-            'fecha.required'=>'Ingrese una Fecha de la Acta de Defunsion',
-            'lugar.required'=>'Ingrese el lugar de Defuncion',
-            'lugar.max'=>'Máximo 30 carácteres para el lugar de Extraccion',
+            // 'fecha.required'=>'Ingrese una Fecha de la Acta de Defunsion',
+            // 'lugar.required'=>'Ingrese el lugar de Defuncion',
+            // 'lugar.max'=>'Máximo 30 carácteres para el lugar de Extraccion',
             // 'archivo_defunsion.required'=>'Ingrese el archivo de la Acta de Defunsion',
         ]);
 
@@ -66,13 +70,22 @@ class ActaDefunsionController extends Controller
 
 
         // general
-        $Acta=new Acta();
+        // return $request->all();
+        $id=$request->idActa;
+       
+        $Acta= Acta::findOrFail($id);
+        // return $Acta;
+        // 
+        $ficha=Ficha::findOrFail($id);
+        $ficha->estado='Aprobado';
+        $ficha->save();
+       
         $fecha_Actual=Carbon::now();
         $Acta->fecha_registro=$fecha_Actual;
         $Acta->observacion=$request->observacion;
         $Acta->lugar_ocurrencia=$request->lugar_ocurrencia;
         $Acta->localidad=$request->localidad;
-        $Acta->nombreRegistrador=Auth::user()->name();
+        $Acta->nombreRegistradorCivil=Auth::user()->name;
         // if($request->hasFile('archivo_defunsion')){
         //     $archivo=$request->file('archivo_defunsion')->store('ArchivosDefunsion','public');
         //     $url = Storage::url($archivo);
@@ -80,14 +93,16 @@ class ActaDefunsionController extends Controller
         // }
         $Acta->estado='1';
         $Acta->save();
-
+       
         // defuncion
-
+        
         $persona = Persona::findOrFail($request->dniPersona);
+        
         $persona->estado='0';
         $persona->save();
+        
         $familiar = Persona::findOrFail($request->dniFamiliar);
-
+        
         
         
         
@@ -106,9 +121,11 @@ class ActaDefunsionController extends Controller
         // DEFUNCION TABLA
         // fecha_fallecido	edad	lugarNacimiento	dniFallecido		nombreDeclarante	firma_declarante	
         $ActaDefunsion=new Acta_Defunsion();
-
-        $ActaDefunsion->fecha_fallecido=$request->$fecha_fallecido;
-        $ActaDefunsion->nombreDeclarante=$familiar->Nombres +" "+ $familiar->Apellido_Paterno +" "+ $familiar->Apellido_Materno;
+           
+       
+        $ActaDefunsion->fecha_fallecido=$request->fecha_fallecido;
+        // return $request->fecha_fallecido;
+        $ActaDefunsion->nombreDeclarante=$familiar->Nombres ." ". $familiar->Apellido_Paterno ." ". $familiar->Apellido_Materno;
         $ActaDefunsion->edad=$fecha_Actual->diffInYears($persona->fecha_nacimiento);
         if($request->hasFile('archivo_firma_declarante')){
             $archivo=$request->file('archivo_firma_declarante')->store('ArchivosDefunsion','public');
@@ -116,7 +133,7 @@ class ActaDefunsionController extends Controller
             $ActaDefunsion->firma_declarante=$url;
         }
         $ActaDefunsion->dniFallecido=$persona->DNI;
-     
+        $ActaDefunsion->save();
         return redirect()->route('ActaDefunsion.index')->with('datos','Registro Nuevo Guardado ...!');
     }
 
@@ -224,5 +241,12 @@ class ActaDefunsionController extends Controller
         $pdf = Pdf::loadView('ActaDefunsion.actaGenerada', $data);
         //return $pdf->stream('ActaDefuncion.pdf');
         return $pdf->download('ActaDefuncion.pdf');
+    }
+    public function revisar($id){
+        $ficha = Ficha::findOrFail($id);
+        $fichasP = Ficha::all()->where('estado', 'Pendiente');
+        $personas = Persona::all();
+        return view('ActaDefunsion.create',compact('id','ficha','fichasP','personas'));
+      
     }
 }

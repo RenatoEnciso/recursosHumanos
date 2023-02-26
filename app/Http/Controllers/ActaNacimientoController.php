@@ -43,7 +43,7 @@ class ActaNacimientoController extends Controller
     }
 
     public function store(Request $request){
-       
+       return $request;
         $data=request()->validate([
             'observacion'=>'required|max:30',
             'fecha_nacimiento'=>'required',

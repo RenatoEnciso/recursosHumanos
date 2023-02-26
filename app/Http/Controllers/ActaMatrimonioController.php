@@ -25,15 +25,16 @@ class ActaMatrimonioController extends Controller
         ->where('Acta_Persona.estado','=','1')
         ->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
         ->paginate($this::PAGINATION);
-        return view('ActaMatrimonio.index',compact('ActaMatrimonio','buscarpor'));
+        $fichasP = Ficha::all()->where('estado', 'Pendiente');
+        return view('ActaMatrimonio.index',compact('ActaMatrimonio','buscarpor','fichasP'));
     }
 
     public function create($idFicha){
         //if (Auth::user()->rol=='Administrativo'){   //boton registrar
             $personas = Persona::all();
             //$ficha=Ficha::findOrFail($id);
-
-            return view('ActaMatrimonio.create',compact('personas','idFicha'));
+            $fichasP = Ficha::all()->where('estado', 'Pendiente');
+            return view('ActaMatrimonio.create',compact('personas','idFicha','fichasP'));
        // }else{
         //    return redirect()->route('ActaMatrimonio.index')->with('datos','..::No tiene Acceso ..::');
        // }
@@ -102,7 +103,8 @@ class ActaMatrimonioController extends Controller
             $ActaMatrimonio1=Acta_Persona::findOrFail($id);
             $ActaMatrimonio2=Acta_Persona::findOrFail($id+1);
             $acta=Acta::findOrFail($ActaMatrimonio1->idActa);
-            return view('ActaMatrimonio.edit',compact('acta','ActaMatrimonio1','ActaMatrimonio2','personas'));
+            $fichasP = Ficha::all()->where('estado', 'Pendiente');
+            return view('ActaMatrimonio.edit',compact('acta','ActaMatrimonio1','ActaMatrimonio2','personas','fichasP'));
         }else{
             return redirect()->route('ActaMatrimonio.index')->with('datos','..::No tiene Acceso ..::');
         }

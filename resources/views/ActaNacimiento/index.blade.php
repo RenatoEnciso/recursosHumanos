@@ -45,10 +45,32 @@
                     </thead>
                     <tbody>
                     @if (count($ActaNacimiento)<=0)
+                         {{-- <tr>
+                        <td colspan="3"><b>No hay registros</b></td>
+                        </tr>  --}}
+                    @if (count($actas)==0)
                         <tr>
                         <td colspan="3"><b>No hay registros</b></td>
-                        </tr>
-                        @else
+                        </tr>  
+                    @else
+                    @foreach ($actas as $acta)
+                    <tr>
+                    <td>{{$acta->idActa}}</td>
+                    <td>{{$acta->Apellido_Paterno . " " . $acta->Apellido_Materno." ".$acta->Nombres}}</td>
+                    <td>{{$acta->fecha_Acta}}</td>
+                    <td>{{$acta->lugar_Acta}}</td>
+                    <td>{{$acta->DNI}}</td>
+                    <td>
+                        <br>
+                        <a href="{{ route('ActaNacimiento.archivo',$acta->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Ver</a>
+                        <a href="{{ route('ActaNacimiento.generada',$acta->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Generar</a>
+                        <a href="{{ route('ActaNacimiento.edit',$acta->idActa) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
+                        <a  href="{{ route('ActaNacimiento.confirmar',$acta->idActa) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
+                    </td>
+                    </tr>
+                @endforeach
+                    @endif
+                    @else
 
                     @foreach ($ActaNacimiento as $item)
                         <tr>

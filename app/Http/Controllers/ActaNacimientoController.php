@@ -26,8 +26,9 @@ class ActaNacimientoController extends Controller
         ->where('AP.estado','=','1')
         ->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
         ->paginate($this::PAGINATION);
+        $actas=Acta::select('*')->join('Ficha_registro as f','f.idficha','=','Acta.idacta')->where('f.estado','like','%pendiente%')->get();
         $fichasP = Ficha::all()->where('estado', 'Pendiente');
-        return view('ActaNacimiento.index',compact('ActaNacimiento','buscarpor','fichasP'));
+        return view('ActaNacimiento.index',compact('ActaNacimiento','buscarpor','fichasP','actas'));
     }
 
     public function create(){

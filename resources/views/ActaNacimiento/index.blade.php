@@ -90,7 +90,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if (count($ActaNacimiento)<=0)
+                    @if (count($ActaNacimiento)>=0)
                          {{-- <tr>
                         <td colspan="3"><b>No hay registros</b></td>
                         </tr>  --}}

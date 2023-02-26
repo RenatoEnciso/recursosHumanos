@@ -8,43 +8,13 @@
     <form enctype="multipart/form-data"  method="POST" action="{{route("ActaMatrimonio.update",$ActaMatrimonio1->idActaPersona)}}">
         @method('PUT')
         @csrf
-        <div class="form-group">
-            <label class="control-label">CODIGO</label>
-            <input type="text" class="form-control"style="color: blue"  value="{{$acta->idActa}}" disabled>
-        </div>
+        
 
-        <div class="row">
-            <div class="col-8">
-                <div style="display: flex">
-                    <div class="col col-6">
-                        <label class="control-label">Numero de libro</label>
-                        <select name="nroLibro" id="idLibro" class="form-control @error('libro') is-invalid @enderror">
-                            @foreach($libros as $item)
-                                <option value="{{$item['idLibro'] }}" {{$item->idLibro==$acta->idLibro?'selected':''}}> Libro
-                                    {{$item['nroLibro'] }}</option>
-                            @endforeach
-                        </select>
-                        @error('libro')
-                            <span class="invalid feedback" role="alert">
-                                <strong>{{$message}}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="col col-6">
-                        <label class="control-label">Numero de Folio</label>
-                        <select name="nroFolio" id="idFolio" class="form-control @error('folio') is-invalid @enderror">
-                            @foreach($folios as $item)
-                                <option value="{{$item['idFolio'] }}" {{$item->idFolio==$acta->idFolio?'selected':''}}  > Folio 
-                                {{$item['nroFolio'] }}</option>
-                            @endforeach
-                        </select>
-                        @error('folio')
-                            <span class="invalid feedback" role="alert">
-                                <strong>{{$message}}</strong>
-                            </span>
-                        @enderror
-                    </div>
+        <div class="row" style="width: 80%; margin: 0 auto">
+            <div class="col-12">
+                <div class="form-group">
+                    <label class="control-label">CODIGO</label>
+                    <input type="text" class="form-control"style="color: blue"  value="{{$acta->idActa}}" disabled>
                 </div>
 
                 <div class="col-12 form-group">
@@ -61,7 +31,7 @@
                 <div class="col-12 form-group">
                     <label class="control-label">Fecha de Matrimonio</label>
                     <input type="date" class="form-control @error('fecha_matrimonio') is-invalid @enderror" id="fecha_matrimonio"
-                        name="fecha_matrimonio" value="{{$acta->fecha_Acta}}">
+                        name="fecha_matrimonio" value="{{$acta->ActaMatrimonio->fecha_matrimonio}}">
                     @error('fecha_matrimonio')
                     <span class="invalid feedback" role="alert">
                         <strong>{{$message}}</strong>
@@ -71,7 +41,7 @@
                 <div class="col-12 form-group">
                     <label class="control-label">Lugar de matrimonio</label>
                     <input type="text" class="form-control @error('lugar_matrimonio') is-invalid @enderror"
-                            value="{{$acta->lugar_Acta}}" id="lugar_matrimonio" name="lugar_matrimonio">
+                            value="{{$acta->lugar_ocurrencia}}" id="lugar_matrimonio" name="lugar_matrimonio">
                     @error('lugar_matrimonio')
                     <span class="invalid feedback" role="alert">
                         <strong>{{$message}}</strong>
@@ -84,7 +54,7 @@
                         @foreach ($personas as $item)
                             @if($item->sexo=="F" && $item->estado==1)
                                 <option value="{{$item['DNI'] }}" {{$item->DNI==$ActaMatrimonio1->DNI?'selected':''}}  >
-                                {{$item['Nombres'] }}</option>
+                                    {{$item['Nombres']}} {{$item['Apellido_Paterno']}} {{$item['Apellido_Materno']}}, DNI: {{$item['DNI']}}</option>
                             @endif
                         @endforeach
                     </select>
@@ -101,7 +71,7 @@
                         @foreach ($personas as $item)
                             @if($item->sexo=="M" && $item->estado==1)
                             <option value="{{$item['DNI'] }}" {{$item->DNI==$ActaMatrimonio2->DNI?'selected':''}}  >
-                             {{$item['Nombres']}}</option>
+                             {{$item['Nombres']}} {{$item['Apellido_Paterno']}} {{$item['Apellido_Materno']}}, DNI: {{$item['DNI']}}</option>
                              @endif
                         @endforeach
                     </select>
@@ -112,20 +82,6 @@
                     @enderror
                 </div>
 
-            </div>
-            <div class="col-4">
-                <div class="col-12">
-                    <label class="control-label">Archivo de matrimonio</label>
-                    <input type="file" class="form-control @error('archivo_matrimonio') is-invalid @enderror"
-                        placeholder="Ingrese Archivo" id="archivo_matrimonio" name="archivo_matrimonio"
-                        value="{{$ActaMatrimonio1->Acta->archivo }}" x-data="showImage()" @change="showPreview(event)">
-                        <iframe src="{{$acta->archivo}}" id="preview" class="object-cover h-32 mt-2 w-60" style="height: 350px"> </iframe>
-                    @error('archivo_matrimonio')
-                        <span class="invalid feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
             </div>
 
         </div><br>

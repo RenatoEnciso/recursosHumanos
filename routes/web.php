@@ -69,6 +69,8 @@ Route::get('Confirmar{id}/Matri', [ActaMatrimonioController::class,'confirmar'])
 Route::get('ActaMatrimoniocancelar',[ActaMatrimonioController::class,'cancelar'])->name('ActaMatrimonio.cancelar');
 Route::get('ActaMatrimonio{id}/',[ActaMatrimonioController::class,'archivo'])->name('ActaMatrimonio.archivo');
 Route::get('ActaGenerada_ActaMatrimonio{id}/',[ActaMatrimonioController::class,'actaGenerada'])->name('ActaMatrimonio.generada');
+Route::get('ActaCrear{id}/',[ActaMatrimonioController::class,'create'])->name('ActaMatrimonio.crear');
+Route::post('ActaStore{id}/',[ActaMatrimonioController::class,'store'])->name('ActaMatrimonio.store');
 
 //PERSONA
 Route::resource('Persona',PersonaController::class);

@@ -25,7 +25,9 @@ class ActaDefunsionController extends Controller
         ->where('TipoActa','=','3')
         ->where('AP.estado','=','1')->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
         ->paginate($this::PAGINATION);
-        return view('ActaDefunsion.index',compact('ActaDefunsion','buscarpor'));
+        $fichasP = Ficha::all()->where('estado', 'Pendiente');
+        
+        return view('ActaDefunsion.index',compact('ActaDefunsion','buscarpor','fichasP'));
     }
 
     public function create(){

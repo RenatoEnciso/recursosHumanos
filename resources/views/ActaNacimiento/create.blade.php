@@ -24,9 +24,13 @@
                                        
                                     </div>
                                     
-                           
-                          
-                           
+                                    <div class="row form-group">
+                                        <div class="col-auto">
+                                        <label class="control-label">IdActa</label>
+                                        <input type="text" class="form-control @error('idacta') is-invalid @enderror"
+                                          value="{{$id}}"  id="idacta" name="idacta">
+                                        </div>
+                                    </div>
                                 <div class="row form-group">
                                     <div class="col-auto">
                                         <label class="control-label">Observación</label>
@@ -316,7 +320,7 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                        <iframe id="preview" class="object-cover h-32 mt-2 w-60" height="400vh"> </iframe>
+                        <iframe id="preview"  src="{{asset($ficha->ruta_certificado)}}" class="object-cover h-32 mt-2 w-60" height="400vh"> </iframe>
                         <br>
                     </div>
                 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Acta;
+use App\Models\Actanacimiento;
 use App\Models\Ficha;
 use App\Models\Acta_Persona;
 // use App\Models\Libro;
@@ -42,12 +43,12 @@ class ActaNacimientoController extends Controller
     }
 
     public function store(Request $request){
-       //return $request;
+       
         $data=request()->validate([
             'observacion'=>'required|max:30',
             'fecha_nacimiento'=>'required',
             'lugar_nacimiento'=>'required|max:30',
-            'archivo_nacimiento'=>'required',
+           // 'archivo_nacimiento'=>'required',
         ],
         [
             'observacion.required'=>'Ingrese Observacion de la Acta de Nacimiento',
@@ -55,7 +56,7 @@ class ActaNacimientoController extends Controller
             'fecha_nacimiento.required'=>'Ingrese una Fecha de la Acta de Nacimiento',
             'lugar_nacimiento.required'=>'Ingrese el lugar de Nacimiento',
             'lugar_nacimiento.max'=>'Máximo 30 carácteres para el lugar de Nacimiento',
-            'archivo_nacimiento.required'=>'Ingrese el archivo de la Acta de Nacimiento',
+           // 'archivo_nacimiento.required'=>'Ingrese el archivo de la Acta de Nacimiento',
         ]);
 
 
@@ -97,8 +98,13 @@ class ActaNacimientoController extends Controller
         $persona3->save();
         //--------------------------------------
         //Creacion de acta nacimiento con su padre
-        $Acta=new Acta();
+        $id=$request->idacta;
+     
+        $Acta= Acta::findOrFail($id);
         $ActaNacimiento= new ActaNacimiento();
+        $ficha=Ficha::findOrFail($id);
+        $ficha->estado='Aprobado';
+        $ficha->save();
         //
         //Guardado de datos de Acta
         $fecha_Actual=Carbon::now();
@@ -111,13 +117,13 @@ class ActaNacimientoController extends Controller
         $Acta->save();
 
         //Guardadp de Acta Nacimiento
-        $ActaNacimiento->idacta=$Acta->idacta;
-        $ActaNacimiento->fecha_nacimiento;
-        $ActaNacimiento->DNIPadre;
-        $ActaNacimiento->DNIMadre;
-        $ActaNacimiento->nombres;
-        $ActaNacimiento->domicilio;
-        $ActaNacimiento->sexo;
+        $ActaNacimiento->idActa=$Acta->idActa;
+        $ActaNacimiento->fecha_nacimiento=$request->fecha_nacimiento;
+        $ActaNacimiento->DNIPadre=$persona2->dni;
+        $ActaNacimiento->DNIMadre=$persona3->dni;
+        $ActaNacimiento->nombres=$persona->nombres;
+        $ActaNacimiento->domicilio=$persona3->direccion;
+        $ActaNacimiento->sexo=$persona->sexo;
         $ActaNacimiento->save();
         //
         // if($request->hasFile('archivo_nacimiento')){
@@ -128,11 +134,17 @@ class ActaNacimientoController extends Controller
      
        //Creacion y guardado de Acta_Persona
 
-        $ActaNacimiento=new Acta_Persona();
-        $ActaNacimiento->DNI=$request->dni;
-        $ActaNacimiento->idActa=$Acta->idActa;
-        $ActaNacimiento->estado='1';
-        $ActaNacimiento->save();
+        $ActaPersona=new Acta_Persona();
+        $ActaPersona->DNI=$request->dni[0];
+        $ActaPersona->idActa=$Acta->idActa;
+        $ActaPersona->estado='1';
+        $ActaPersona->save();
+        ///
+        $ActaPersona1=new Acta_Persona();
+        $ActaPersona1->DNI=$request->dni[1];
+        $ActaPersona1->idActa=$Acta->idActa;
+        $ActaPersona1->estado='1';
+        $ActaPersona1->save();
         
         //
         
@@ -212,7 +224,8 @@ class ActaNacimientoController extends Controller
     public function confirmar($id){
         // if (Auth::user()->rol=='Administrativo'){   //boton eliminar
             $ActaNacimiento=Acta_Persona::findOrFail($id);
-            return view('ActaNacimiento.confirmar',compact('ActaNacimiento'));
+            $fichasP = Ficha::all()->where('estado', 'Pendiente');
+            return view('ActaNacimiento.confirmar',compact('ActaNacimiento','fichasP'));
         // }else{
         //     return redirect()->route('ActaNacimiento.index')->with('datos','..::No tiene Acceso ..::');
         // }
@@ -234,5 +247,12 @@ class ActaNacimientoController extends Controller
         $pdf = Pdf::loadView('ActaNacimiento.actaGenerada', $data);
         return $pdf->stream('ActaNacimiento.pdf');
         //return $pdf->download('ActaNacimiento.pdf');
+    }
+
+    public function revisar($id){
+        $ficha = Ficha::findOrFail($id);
+        $fichasP = Ficha::all()->where('estado', 'Pendiente');
+        return view('ActaNacimiento.create',compact('id','ficha','fichasP'));
+      
     }
 }

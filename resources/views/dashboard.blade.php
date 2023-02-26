@@ -5,11 +5,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <title>RENIEC</title>
         <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-        <link rel="icon" href=" /img/login/logo.png" type="image/x-icon"/>
+        <link rel="icon" href="{{asset('/img/login/logo.png')}}" type="image/x-icon"/>
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="select2-dark-adminlte-theme.css">
         <!-- Fonts and icons -->
-        <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+        <script src="{{asset('assets/js/plugin/webfont/webfont.min.js')}}"></script>
         <script>
             WebFont.load({
                 google: {"families":["Lato:300,400,700,900"]},
@@ -28,14 +28,14 @@
 
         <!-- CSS Files -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/css/estilos.css">
+        <link rel="stylesheet" href="{{asset('/css/estilos.css')}}">
 
-        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/assets/css/atlantis.min.css">
+        <link rel="stylesheet" href="{{asset('/assets/css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{asset('/assets/css/atlantis.min.css')}}">
 
 
         <!-- CSS Just for demo purpose, don't include it in your project -->
-        <link rel="stylesheet" href="/assets/css/demo.css">
+        <link rel="stylesheet" href="{{asset('/assets/css/demo.css')}}">
         
     </head>
 
@@ -46,7 +46,7 @@
                     <div class="logo-header" data-background-color="dark2">
 
                         <a href="{{route('dashboard')}}" class="logo">
-                            <img src="/images/Logo-Login.png" alt="navbar brand" class="navbar-brand" style="width:145px; padding-left: 10px" >
+                            <img src="{{asset("images/Logo-Login.png")}}" alt="navbar brand" class="navbar-brand" style="width:145px; padding-left: 10px" >
                         </a>
                         <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon">
@@ -76,55 +76,12 @@
 
                                 @yield('Notificacion')
                                
-                                @if (Auth::user()->idRol==2)
-                                <li class="nav-item dropdown hidden-caret">
-                                    <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-bell"></i>
-                                        <span class="notification">{{count($fichasP)}}</span>
-                                    </a>
-                                    <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
-                                        <li>
-                                            <div class="dropdown-title">
-                                                @if (count($fichasP)==0)
-                                                    No tienes actas por validar
-                                                @else
-                                                Tienes {{count($fichasP)}} actas por validar
-                                                @endif
-
-                                               
-                                               
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="notif-scroll scrollbar-outer">
-                                                @foreach ($fichasP as $ficha )
-                                                    <div class="notif-center">
-                                                        <a href="{{ route('ActaNacimiento.edit',$ficha->idficha)}}">
-                                                            <div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
-                                                            <div class="notif-content">
-                                                                <span class="block">
-                                                                   Acta pendite para registrar
-                                                                </span>
-                                                                <span class="time">{{$ficha->fecha_registro}}</span> 
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                @endforeach
-                                                
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <a class="see-all" href="javascript:void(0);">Ver todas las actas pendientes<i class="fa fa-angle-right"></i> </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                @endif
                                 {{-- Menu deplegable de Usuario --}}
                                 <li class="nav-item dropdown hidden-caret">
                                     <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                                         <div class="avatar-sm">
                                             @if(is_null(Auth::user()->fotoPerfil))
-                                                <img src="../assets/img/profile.jpg" alt="Foto de perfil" class="avatar-img rounded-circle">
+                                                <img src="{{asset('/assets/img/profile.jpg')}}" alt="Foto de perfil" class="avatar-img rounded-circle">
                                                 
                                             @else
                                                 <img src="{{ Auth::user()->fotoPerfil }}" alt="Foto de perfil" class="avatar-img rounded-circle">
@@ -137,7 +94,7 @@
                                                 <div class="user-box">
                                                     <div class="avatar-lg" >
                                                         @if(is_null(Auth::user()->fotoPerfil))
-                                                            <img src="../assets/img/profile.jpg" alt="Foto de perfil" width="70px" height="250px" class="avatar-img rounded-circle">
+                                                            <img src="{{asset('/assets/img/profile.jpg')}}" alt="Foto de perfil" width="70px" height="250px" class="avatar-img rounded-circle">
                                                             
                                                         @else
                                                             <img src="{{ Auth::user()->fotoPerfil }}" alt="Foto de perfil" width="70px" height="250px" class="avatar-img rounded-circle">
@@ -192,7 +149,7 @@
                             <div class="user">
                                 <div class="avatar-sm float-left mr-2" style="margin-top:15%">
                                     @if(is_null(Auth::user()->fotoPerfil))
-                                        <img src="../assets/img/profile.jpg" alt="Foto de perfil" width="70px" height="250px" class="avatar-img rounded-circle">
+                                        <img src="{{asset('/assets/img/profile.jpg')}}" alt="Foto de perfil" width="70px" height="250px" class="avatar-img rounded-circle">
                                         
                                     @else
                                         <img src="{{ Auth::user()->fotoPerfil }}" alt="Foto de perfil" width="70px" height="250px" class="avatar-img rounded-circle">

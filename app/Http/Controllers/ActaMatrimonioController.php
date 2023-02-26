@@ -24,7 +24,9 @@ class ActaMatrimonioController extends Controller
         ->where('Acta_Persona.estado','=','1')
         ->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
         ->paginate($this::PAGINATION);
-        return view('ActaMatrimonio.index',compact('ActaMatrimonio','buscarpor'));
+        $fichasP = Ficha::all()->where('estado', 'Pendiente');
+        return view('ActaMatrimonio.index',compact('ActaMatrimonio','buscarpor','fichasP'));
+        
     }
 
     public function create(){

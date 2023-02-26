@@ -16,6 +16,52 @@
 
 </div>
 @endsection
+@section('Notificacion')
+    
+@if (Auth::user()->idRol==2)
+<li class="nav-item dropdown hidden-caret">
+    <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-bell"></i>
+        <span class="notification">{{count($fichasP)}}</span>
+    </a>
+    <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
+        <li>
+            <div class="dropdown-title">
+                @if (count($fichasP)==0)
+                    No tienes actas por validar
+                @else
+                Tienes {{count($fichasP)}} actas por validar
+                @endif
+
+               
+               
+            </div>
+        </li>
+        <li>
+            <div class="notif-scroll scrollbar-outer">
+                @foreach ($fichasP as $ficha )
+                    <div class="notif-center">
+                        <a href="{{ route('ActaNacimiento.edit',$ficha->idficha)}}">
+                            <div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
+                            <div class="notif-content">
+                                <span class="block">
+                                   Acta pendite para registrar
+                                </span>
+                                <span class="time">{{$ficha->fecha_registro}}</span> 
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+                
+            </div>
+        </li>
+        <li>
+            <a class="see-all" href="javascript:void(0);">Ver todas las actas pendientes<i class="fa fa-angle-right"></i> </a>
+        </li>
+    </ul>
+</li>
+@endif
+@endsection
 
 @section('contenido')
 
@@ -62,7 +108,7 @@
                     <td>{{$acta->DNI}}</td>
                     <td>
                         <br>
-                        <a href="{{ route('ActaNacimiento.archivo',$acta->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Ver</a>
+                        <a href="{{ route('ActaNacimiento.revisar',$acta->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Validar</a>
                         <a href="{{ route('ActaNacimiento.generada',$acta->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Generar</a>
                         <a href="{{ route('ActaNacimiento.edit',$acta->idActa) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
                         <a  href="{{ route('ActaNacimiento.confirmar',$acta->idActa) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>

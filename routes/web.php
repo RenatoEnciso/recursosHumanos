@@ -54,6 +54,7 @@ Route::get('Confirmar{id}/', [ActaNacimientoController::class,'confirmar'])->nam
 Route::get('Actacancelar',[ActaNacimientoController::class,'cancelar'])->name('ActaNacimiento.cancelar');
 Route::get('Archi_ActaNacimiento{id}/',[ActaNacimientoController::class,'archivo'])->name('ActaNacimiento.archivo');
 Route::get('ActaGenerada_ActaNacimiento{id}/',[ActaNacimientoController::class,'actaGenerada'])->name('ActaNacimiento.generada');
+Route::get('/ActaNacimiento/revisar/{id}', [ActaNacimientoController::class,'revisar'])->name('ActaNacimiento.revisar');
 
 //ACTA DE DEFUNCION
 Route::resource('ActaDefunsion',ActaDefunsionController::class);

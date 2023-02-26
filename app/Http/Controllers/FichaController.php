@@ -34,17 +34,18 @@ class FichaController extends Controller
         return view('Ficha.create',compact('tipoFichas','fecha_actual'));
     }
 
-    public function crearActa($id){
+    public function crearActa(){
         $ficha = Ficha::findOrFail($id);
         $tipoActa=$ficha->idtipo;
        
         if($tipoActa==1){
-            return redirect()->route('ActaNacimiento.create');
+            
+            return redirect()->route('ActaNacimiento.create',$id);
         }
         if($tipoActa==2){
-            return redirect()->route('ActaMatrimonio.create');
+            return redirect()->route('ActaMatrimonio.create',$id);
         }else{
-            return redirect()->route('ActaDefunsion.create');
+            return redirect()->route('ActaDefunsion.create',$id);
         } 
     }
 

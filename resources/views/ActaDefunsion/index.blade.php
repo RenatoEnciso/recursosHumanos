@@ -97,7 +97,7 @@
 
                     @foreach ($ActaDefunsion as $item)
                         <tr>
-                        @if ($item % 2 == 0)
+                        @if ($item->idActa % 2 == 0)
                         <td>{{$item->idActa}}</td>
                         <td>{{$item->Apellido_Paterno . " " . $item->Apellido_Materno." ".$item->Nombres}}</td>
                         <td>{{$item->fecha_Acta}}</td>

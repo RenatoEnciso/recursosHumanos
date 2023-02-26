@@ -62,6 +62,7 @@ Route::get('Confirmar{id}/CONF', [ActaDefunsionController::class,'confirmar'])->
 Route::get('Actacancelar/CANC',[ActaDefunsionController::class,'cancelar'])->name('ActaDefunsion.cancelar');
 Route::get('Archi_defuncion{id}/',[ActaDefunsionController::class,'archivo'])->name('ActaDefunsion.archivo');
 Route::get('ActaGenerada_defuncion{id}/',[ActaDefunsionController::class,'actaGenerada'])->name('ActaDefuncion.generada');
+Route::get('/ActaDefuncion/revisar/{id}', [ActaDefunsionController::class,'revisar'])->name('ActaDefuncion.revisar');
 
 //ACTA DE MATRIMONIO
 Route::resource('ActaMatrimonio',ActaMatrimonioController::class);

@@ -270,8 +270,8 @@
                                 <h4>Theme</h4>
                                 <div class="btnSwitch">
 
-                                    <button type="button" class="changeBackgroundColor changeLogoHeaderColor changeSideBarColor changeTopBarColor" data-color="white"></button>
-                                    <button type="button" class="selected changeBackgroundColor changeLogoHeaderColor changeSideBarColor changeTopBarColor"  data-color="dark"></button>
+                                    <button type="button" class="selected  changeBackgroundColor changeLogoHeaderColor changeSideBarColor changeTopBarColor" data-color="white" click></button>
+                                    <button type="button" class="changeBackgroundColor changeLogoHeaderColor changeSideBarColor changeTopBarColor"  data-color="dark"></button>
                                 </div>
                             </div>
                             <div class="switch-block">

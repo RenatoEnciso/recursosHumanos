@@ -83,7 +83,7 @@
                                             <div class="col-auto">
                                                 <label class="control-label">Nombres</label>
                                         <input type="text" class="form-control @error('nombres') is-invalid @enderror" 
-                                            placeholder="Ingrese nombres" name="nombres[]">
+                                            placeholder="Ingrese nombres" name="nombres">
                                         @error('nombres')
                                         <span class="invalid feedback" role="alert">
                                             <strong>{{$message}}</strong>
@@ -130,13 +130,14 @@
                                     <div class="row">
                                         <div class="col-auto">
                                             <label class="control-label">N° DNI</label>
-                                            <input type="text" class="form-control @error('dni') is-invalid @enderror"
-                                                placeholder="Ingrese DNI"  name="dni[]">
-                                            @error('dni')
-                                            <span class="invalid feedback" role="alert">
-                                                <strong>{{$message}}</strong>
-                                            </span>
-                                            @enderror
+                                            
+
+                                            <select class="form-select" name="dniP" aria-label="Default select example" id="dniP">
+                                                @foreach ($personas as $p )
+                                                <option value="{{$p->DNI}}">{{$p->DNI}}</option>
+                                                @endforeach                                              
+
+                                            </select>
                                         </div>
             
                                         
@@ -160,13 +161,13 @@
                                     <div class="row">
                                         <div class="col-auto">
                                             <label class="control-label">N° DNI</label>
-                                            <input type="text" class="form-control @error('dni') is-invalid @enderror"
-                                                placeholder="Ingrese DNI"  name="dni[]">
-                                            @error('dni')
-                                            <span class="invalid feedback" role="alert">
-                                                <strong>{{$message}}</strong>
-                                            </span>
-                                            @enderror
+
+                                            <select class="form-select" name="dniM"  aria-label="Default select example" id="dniM">
+                                                @foreach ($personas as $p )
+                                                <option value="{{$p->DNI}}">{{$p->DNI}}</option>
+                                                @endforeach                                              
+
+                                            </select>
                                         </div>
             
                                        
@@ -227,9 +228,8 @@
     </script>
     <script>
         function mensaje() {
-        $('#DNI').select2();
-        $('#idLibro').select2();
-        $('#idFolio').select2();
+        $('#dniP').select2();
+        $('#dniM').select2();
         }
         setTimeout(mensaje,100);
     </script>

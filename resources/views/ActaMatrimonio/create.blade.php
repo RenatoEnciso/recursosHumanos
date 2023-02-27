@@ -9,7 +9,7 @@
         <form method="POST" action="{{ route('ActaMatrimonio.store', $idFicha) }}" enctype="multipart/form-data">
             @csrf
             <div class="row" style="width: 80%; margin: 0 auto">
-                <div class="col-12">
+                <div class="col-8">
                     <div class="col-12 form-group">
                         <label class="control-label">Código Acta</label>
                         <input type="text" class="form-control"
@@ -80,14 +80,14 @@
                         @enderror
                     </div>
             </div>
-            {{-- <div class="col-4">
+            <div class="col-4">
                     <div class="col-12">
                         <label class="control-label">Archivo de Matrimonio</label>
                         <input type="file" class="form-control @error('archivo_matrimonio') is-invalid @enderror"
                             placeholder="Ingrese Archivo" name="archivo_matrimonio"
-                            value="{{old('archivo_matrimonio') }}" x-data="showImage()" @change="showPreview(event)">
+                            value="{{old('archivo_matrimonio')}}" x-data="showImage()" @change="showPreview(event)" {{-- disabled --}}>
 
-                        <iframe id="preview" class="object-cover h-32 mt-2 w-60" height="100%"> </iframe>
+                        <iframe id="preview" class="object-cover h-32 mt-2 w-60" height="400vh" src="{{$ficha->ruta_certificado}}"> </iframe>
 
                         @error('archivo_matrimonio')
                             <span class="invalid feedback" role="alert">
@@ -97,7 +97,7 @@
 
                         <br>
                     </div>
-            </div> --}}
+            </div>
             
         </div><br>
             

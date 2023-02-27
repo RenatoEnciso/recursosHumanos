@@ -43,7 +43,7 @@ class ActaNacimientoController extends Controller
     }
 
     public function store(Request $request){
-    //    return $request;
+       return $request;
         $data=request()->validate([
             'observacion'=>'required|max:30',
             'fecha_nacimiento'=>'required',
@@ -59,47 +59,28 @@ class ActaNacimientoController extends Controller
            // 'archivo_nacimiento.required'=>'Ingrese el archivo de la Acta de Nacimiento',
         ]);
 
-
-
-       
+        $dniPadre=$request->dniP;
+        $dniMadre=$request->dniM;
+         // Buscando padres del mocoso
+         $personaP=Persona::findOrFail($dniPadre);
+         $personaM=Persona::findOrFail($dniMadre);
+        // return $personaP;
+         //-----------------------
         // persona niño
         $persona=new Persona();
         $n=strlen($request->idacta);
         $dni_niño=str_pad($request->idacta,9-$n,"0",STR_PAD_LEFT);
-        $persona->dni=$dni_niño;
-        $persona->apellido_paterno=$request->Apellido1[0];
-        $persona->apellido_materno=$request->Apellido2[0];
-        $persona->nombres=$request->nombres[0];
-        $persona->sexo=$request->sexo[0];
+        $persona->dni=(String)$dni_niño;
+        $persona->Apellido_Paterno=$personaP->Apellido_Paterno;
+        $persona->Apellido_Materno=$personaM->Apellido_Paterno;
+        $persona->nombres=$request->nombres;
+        $persona->sexo=$request->sexo;
         $persona->fecha_nacimiento=$request->fecha_nacimiento;
         $persona->estado='1';
+        $persona->direccion=$personaM->direccion;
         $persona->save();
         //----------------------------------
-        // persona padre
-        $persona2=new Persona();
-        $persona2->dni=$request->dni[0];
-        $persona2->apellido_paterno=$request->Apellido1[1];
-        $persona2->apellido_materno=$request->Apellido2[1];
-        $persona2->nombres=$request->nombres[1];
-        $persona2->sexo="Masculino";
-        $persona2->nacionalidad=$request->nacionalidad[0];
-        $persona2->direccion=$request->direccion[0];
-        $persona2->estado='1';
-        $persona2->save();
-        //-----------------------
-
-        //persona madre
-        $persona3=new Persona();
-        $persona3->dni=$request->dni[1];
-        $persona3->apellido_paterno=$request->Apellido1[2];
-        $persona3->apellido_materno=$request->Apellido2[2];
-        $persona3->nombres=$request->nombres[2];
-        $persona3->sexo="Femenino";
-        $persona3->nacionalidad=$request->nacionalidad[1];
-        $persona3->direccion=$request->direccion[1];
-        $persona3->estado='1';
-        $persona3->save();
-        //--------------------------------------
+       
         //Creacion de acta nacimiento con su padre
         $id=$request->idacta;
      
@@ -124,7 +105,7 @@ class ActaNacimientoController extends Controller
         $ActaNacimiento->fecha_nacimiento=$request->fecha_nacimiento;
         $ActaNacimiento->DNIPadre=$persona2->dni;
         $ActaNacimiento->DNIMadre=$persona3->dni;
-        $ActaNacimiento->nombres=$persona->nombres.' '.$persona2->apellido_paterno.' '.$persona3->apellido_paterno;
+        $ActaNacimiento->nombres=$persona->nombres+' '+$persona2->apellido_paterno+' '+$persona3->apellido_paterno;
         $ActaNacimiento->domicilio=$persona3->direccion;
         $ActaNacimiento->sexo=$persona->sexo;
         $ActaNacimiento->save();
@@ -138,13 +119,13 @@ class ActaNacimientoController extends Controller
        //Creacion y guardado de Acta_Persona
 
         $ActaPersona=new Acta_Persona();
-        $ActaPersona->DNI=$request->dni[0];
+        $ActaPersona->DNI=$dniPadre;
         $ActaPersona->idActa=$Acta->idActa;
         $ActaPersona->estado='1';
         $ActaPersona->save();
         ///
         $ActaPersona1=new Acta_Persona();
-        $ActaPersona1->DNI=$request->dni[1];
+        $ActaPersona1->DNI=$dniMadre;
         $ActaPersona1->idActa=$Acta->idActa;
         $ActaPersona1->estado='1';
         $ActaPersona1->save();
@@ -260,9 +241,11 @@ class ActaNacimientoController extends Controller
     }
 
     public function revisar($id){
+        $personas= Persona::all();
+       
         $ficha = Ficha::findOrFail($id);
         $fichasP = Ficha::all()->where('estado', 'Pendiente');
-        return view('ActaNacimiento.create',compact('id','ficha','fichasP'));
+        return view('ActaNacimiento.create',compact('id','ficha','fichasP','personas'));
       
     }
 }

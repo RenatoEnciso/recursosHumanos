@@ -142,7 +142,7 @@ class ActaDefunsionController extends Controller
     }
 
     public function edit($id){
-        if (Auth::user()->rol=='Administrativo'){   //boton editar
+        // if (Auth::user()->rol=='Registrador'){   //boton editar
             // $libros=Libro::all();
             // $folios=Folio::all();
             $actaDefunsion= Acta_Persona::findOrFail($id);
@@ -150,9 +150,9 @@ class ActaDefunsionController extends Controller
             $acta=Acta::findOrFail($actaDefunsion->idActa);
             $personas = Persona::all();
             return view('ActaDefunsion.edit',compact('actaDefunsion','actaDefunsion2','acta','personas'));
-        }else{
-            return redirect()->route('ActaDefunsion.index')->with('datos','..::No tiene Acceso ..::');
-        }
+        // }else{
+        //     return redirect()->route('ActaDefunsion.index')->with('datos','..::No tiene Acceso ..::');
+        // }
 
     }
 
@@ -170,13 +170,15 @@ class ActaDefunsionController extends Controller
             // 'lugar.required'=>'Ingrese el lugar de Defuncion',
             // 'lugar.max'=>'Máximo 30 carácteres para el lugar de Extraccion',
         ]);
-        
+       
         $ActaDefunsion=Acta_Persona::findOrFail($id);
         $ActaDefunsion->DNI=$request->dniPersona;
         $ActaDefunsion->save();
         $actaDefunsion2=Acta_Persona::findOrFail($id+1);
-        $ActaDefunsion2->DNI=$request->dniFamiliar;
-        $ActaDefunsion2->save();
+        
+        $actaDefunsion2->DNI=$request->dniFamiliar;
+        // return $request->dniFamiliar.' '.$actaDefunsion2->DNI;
+        $actaDefunsion2->save();
 
         $Acta = Acta::findOrFail($ActaDefunsion->idActa);
         // $Acta->idLibro=$request->nroLibro;
@@ -198,6 +200,7 @@ class ActaDefunsionController extends Controller
         $persona = Persona::findOrFail($request->dniPersona);
         $persona->estado='0';
         $persona->save();
+        $familiar = Persona::findOrFail($request->dniFamiliar);
 
         $ActaDefunsion=Acta_Defunsion::findOrFail($ActaDefunsion->idActa);
         $ActaDefunsion->fecha_fallecido=$request->fecha_fallecido;
@@ -225,8 +228,8 @@ class ActaDefunsionController extends Controller
         $persona->save();
 
         $actaDefunsion2=Acta_Persona::findOrFail($id+1);
-        $ActaDefunsion->estado='0';
-        $ActaDefunsion2->save();
+        $actaDefunsion2->estado='0';
+        $actaDefunsion2->save();
 
         $Acta=Acta::findOrFail($ActaDefunsion->idActa);
         $Acta->estado='0';
@@ -235,12 +238,12 @@ class ActaDefunsionController extends Controller
     }
 
     public function confirmar($id){
-        if (Auth::user()->rol=='Administrativo'){   //boton eliminar
+        // if (Auth::user()->rol=='Registrador'){   //boton eliminar
             $ActaDefunsion=Acta_Persona::findOrFail($id);
             return view('ActaDefunsion.confirmar',compact('ActaDefunsion'));
-        }else{
-            return redirect()->route('ActaDefunsion.index')->with('datos','..::No tiene Acceso ..::');
-        }
+        // }else{
+        //     return redirect()->route('ActaDefunsion.index')->with('datos','..::No tiene Acceso ..::');
+        // }
 
     }
 

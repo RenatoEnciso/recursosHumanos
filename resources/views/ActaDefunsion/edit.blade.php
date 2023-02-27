@@ -62,18 +62,29 @@
                     <div class="col-12 form-group">
                         <label class="control-label">Fecha de defuncion</label>
                         <input type="date" class="form-control @error('fecha_fallecido') is-invalid @enderror"
-                            id="fecha_fallecido" name="fecha_fallecido" value="{{$acta->fecha_fallecido}}">
+                            id="fecha_fallecido" name="fecha_fallecido" value="{{$acta->ActaDefunsion->fecha_fallecido}}">
                         @error('fecha_fallecido')
                             <span class="invalid feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+                        
                     </div>
                     <div class="col-12 form-group">
                         <label class="control-label">Localidad</label>
                         <input type="text" class="form-control @error('localidad') is-invalid @enderror"
                             placeholder="Ingrese lugar de fallecimiento" id="localidad" name="localidad" value="{{ $acta->localidad}}">
                         @error('localidad')
+                            <span class="invalid feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-12 form-group">
+                        <label class="control-label">Lugar de fallecimiento</label>
+                        <input type="text" class="form-control @error('lugar_ocurrencia') is-invalid @enderror"
+                            placeholder="Ingrese lugar de fallecimiento" id="lugar_ocurrencia" name="lugar_ocurrencia" value="{{ $acta->ActaDefunsion->localidad}}">
+                        @error('lugar_ocurrencia')
                             <span class="invalid feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -132,7 +143,8 @@
                         <input type="file" class="form-control @error('archivo_firma_declarante') is-invalid @enderror"
                             placeholder="Ingrese Archivo" id="archivo_firma_declarante" name="archivo_firma_declarante"
                             value="{{ old('archivo_firma_declarante') }}" x-data="showImage1()" @change="showPreview(event)">
-                        <iframe id="preview" class="object-cover  mt-2 w-60" height="100%"> </iframe>
+                        <iframe src="{{$acta->ActaDefunsion->firma_declarante}}" id="preview" class="object-cover  mt-2 w-60" height="100%" > </iframe>
+                       
                         @error('archivo_firma_declarante')
                             <span class="invalid feedback" role="alert">
                                 <strong>{{ $message }}</strong>

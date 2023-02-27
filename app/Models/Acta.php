@@ -36,4 +36,7 @@ class Acta extends Model
     public function ActaMatrimonio(){
         return $this->HasOne(Acta_Matrimonio::class,'idActa','idActa');
     }
+    public function ActaDefunsion(){
+        return $this->HasOne(Acta_Defunsion::class,'idActa','idActa');
+    }
 }

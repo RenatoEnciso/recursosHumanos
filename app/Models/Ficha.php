@@ -16,5 +16,8 @@ class Ficha extends Model
     public function acta(){
         return $this->HasOne(Acta::class,'idficha','idActa');
     }
+    public function tipo(){
+        return $this->HasOne(TipoFicha::class,'idtipo','idtipo');
+    }
 
 }

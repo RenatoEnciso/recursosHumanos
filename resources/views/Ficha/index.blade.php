@@ -44,7 +44,7 @@
                     <tr>
                         <th scope="col">Codigo</th>
                         <th scope="col">Fecha de Registro</th>
-                        <th scope="col">Certificado</th>
+                        {{-- <th scope="col">Certificado</th> --}}
                         <th scope="col">Estado</th>
                         <th scope="col">Tipo de Ficha</th>
                         <th scope="col">Opciones</th>
@@ -60,7 +60,7 @@
                             <tr>
                                 <td>{{$item->idficha}}</td>
                                 <td>{{$item->fecha_registro}}</td>
-                                <td>{{$item->ruta_certificado}}</td>
+                               {{-- // <td>{{$item->tipo->nombre}}</td> --}}
                                 <td>{{$item->estado}}</td>
                                 <td>{{$item->nombre}}</td>
                                 <td>

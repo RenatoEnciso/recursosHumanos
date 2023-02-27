@@ -21,24 +21,17 @@ class ActaNacimientoController extends Controller
     public function index(Request $request)
     {
         $buscarpor= $request->get('buscarpor');
-        $ActaNacimiento=Acta::select('*')
+        $ActaNacimiento=Acta::select('an.idActa','an.nombres','an.fecha_nacimiento','acta.lugar_ocurrencia')
         ->join('ficha_registro as f','f.idFicha','=','Acta.idActa')
         ->join('Acta_Persona as AP','AP.idActa','=','Acta.idActa')
         ->join('Persona','Persona.DNI','=','AP.DNI')
         ->join('acta_nacimiento as an','an.idActa','=','Acta.idActa')
         ->where('f.idtipo','=',1)
-        ->where('an.nombres','like','%CONCAT(Persona.nombres," ",Persona.Apellido_Paterno," ",Persona.Apellido_Materno)%')
-        ->where('AP.estado','=',1)->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
+        ->where('AP.estado','=',1)
+        ->where('an.nombres','like','%'.$buscarpor.'%')
+        ->distinct()
         ->paginate($this::PAGINATION);
 
-       $acta=Acta::select('*')
-       ->join('ficha_registro as f','f.idFicha','=','Acta.idActa')
-       ->join('Acta_Persona as AP','AP.idActa','=','Acta.idActa')
-       ->join('Persona','Persona.DNI','=','AP.DNI')
-       ->join('acta_nacimiento as an','an.idActa','=','Acta.idActa')
-       ->where('f.idtipo','=',1)
-       ->where('an.nombres','like','%Persona.nombres+" "+Persona.Apellido_Paterno+" "+Persona.Apellido_Materno%')
-       ->where('AP.estado','=','1')->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')->get();
        // $actas=Acta::select('*')->join('Ficha_registro as f','f.idficha','=','Acta.idacta')->where('f.estado','like','%pendiente%')->get();
         $fichasP = Ficha::select('*')->join('tipoficha as tf','tf.idtipo','=','ficha_registro.idtipo')->where('estado', 'Pendiente')->where('tf.nombre','=','Nacimiento')->get();
         //return $acta;

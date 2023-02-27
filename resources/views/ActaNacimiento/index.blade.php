@@ -85,7 +85,7 @@
                         <th scope="col">Apellidos y Nombres</th>
                         <th scope="col">Fecha_Nacimiento</th>
                         <th scope="col">Lugar de Nacimiento</th>
-                        <th scope="col">DNI</th>
+                       
                         <th scope="col">Opciones</th>
                     </tr>
                     </thead>
@@ -102,10 +102,10 @@
                     @foreach ($ActaNacimiento as $acta)
                     <tr>
                     <td>{{$acta->idActa}}</td>
-                    <td>{{$acta->Apellido_Paterno . " " . $acta->Apellido_Materno." ".$acta->Nombres}}</td>
-                    <td>{{$acta->fecha_Acta}}</td>
-                    <td>{{$acta->lugar_Acta}}</td>
-                    <td>{{$acta->DNI}}</td>
+                    <td>{{$acta->nombres}}</td>
+                    <td>{{$acta->fecha_nacimiento}}</td>
+                    <td>{{$acta->lugar_ocurrencia}}</td>
+                    {{-- //<td>{{$acta->DNI}}</td> --}}
                     <td>
                         <br>
                         <a href="{{ route('ActaNacimiento.revisar',$acta->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Validar</a>

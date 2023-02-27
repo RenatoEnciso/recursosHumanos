@@ -27,6 +27,7 @@ class ActaNacimientoController extends Controller
         ->join('Persona','Persona.DNI','=','AP.DNI')
         ->join('acta_nacimiento as an','an.idActa','=','Acta.idActa')
         ->where('f.idtipo','=',1)
+        ->where('an.nombres','like','%Persona.Nombres%')
         ->where('AP.estado','=','1')->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
         ->paginate($this::PAGINATION);
 

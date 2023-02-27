@@ -40,14 +40,14 @@ class SolicitudController extends Controller
     }
 
     public function create(){
-        if (Auth::user()->rol=='Administrativo'){    //boton registrar
+       // if (Auth::user()->rol=='Administrativo'){    //boton registrar
                 $actas=Acta::all();
                 $personas = Persona::all();
                 $Actas_Personas=Acta_Persona::all();
                 return view('Solicitud.create',compact('Actas_Personas','actas','personas'));
-        } else{
+       // } else{
                 return redirect()->route('Solicitud.index')->with('datos','..::No tiene Acceso ..::');
-        }
+       // }
     }
 
     public function store(Request $request){

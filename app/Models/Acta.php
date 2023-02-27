@@ -19,20 +19,16 @@ class Acta extends Model
         'nombreregistradorcivil',
         'localidad'
     ];
-    public function TipoActa(){
-        return $this->HasOne(TipoActa::class,'idTipoActa','idTipoActa');
-    }
-    public function Folio(){
-        return $this->HasOne(Folio::class,'idFolio','idFolio');
-    }
-    public function Libro(){
-        return $this->HasOne(Libro::class,'idLibro','idLibro');
-    }
+   
+    
     public function Acta_Persona(){
         return $this->HasMany(Acta_Persona::class,'idActa','idActa');
     }
     public function Lista_Solicitud(){
         return $this->HasMany(Lista_Solicitud::class,'idActa','idActa');
+    }
+    public function ficha(){
+        return $this->HasOne(Ficha::class,'idficha','idActa');
     }
     public function actaNacimiento(){
         return $this->HasOne(ActaNacimiento::class,'idActa','idActa');

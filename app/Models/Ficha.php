@@ -14,7 +14,7 @@ class Ficha extends Model
     public $timestamps = false;
 
     public function acta(){
-        return $this->HasOne(Acta::class,'idficha','idActa');
+        return $this->HasOne(Acta::class,'idActa','idficha');
     }
     public function tipo(){
         return $this->HasOne(TipoFicha::class,'idtipo','idtipo');

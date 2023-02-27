@@ -31,8 +31,8 @@
                         <select name="idActa[]" id="idActa"
                             class="form-control @error('idActa') is-invalid @enderror"  multiple="multiple">
                         @foreach ($Actas_Personas as $item)
-                            @if ($item->Acta->TipoActa->idTipoActa!='2')
-                                <option value="{{ $item->Acta->idActa }}">Acta de {{$item->Acta->TipoActa->nombre }} - {{$item->Persona->Nombres}}
+                            @if ($item->Acta->ficha->idtipo!=2)
+                                <option value="{{ $item->Acta->idActa }}">Acta de {{$item->Acta->ficha->tipo->nombre }} - {{$item->Persona->Nombres}}
                                 {{$item->Persona->Apellido_Paterno}}</option>
                             @else
                                 @if ($item->Persona->sexo=='M')

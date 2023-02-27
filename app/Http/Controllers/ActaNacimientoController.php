@@ -48,7 +48,7 @@ class ActaNacimientoController extends Controller
     }
 
     public function store(Request $request){
-       return $request;
+      
         $data=request()->validate([
             'observacion'=>'required|max:30',
             'fecha_nacimiento'=>'required',
@@ -74,8 +74,8 @@ class ActaNacimientoController extends Controller
         // persona niño
         $persona=new Persona();
         $n=strlen($request->idacta);
-        $dni_niño=str_pad($request->idacta,9-$n,"0",STR_PAD_LEFT);
-        $persona->dni=(String)$dni_niño;
+        $dni_niño=(String)str_pad($request->idacta,9-$n,"0",STR_PAD_RIGHT);
+        $persona->DNI=$dni_niño;
         $persona->Apellido_Paterno=$personaP->Apellido_Paterno;
         $persona->Apellido_Materno=$personaM->Apellido_Paterno;
         $persona->nombres=$request->nombres;
@@ -108,10 +108,10 @@ class ActaNacimientoController extends Controller
         //Guardadp de Acta Nacimiento
         $ActaNacimiento->idActa=$Acta->idActa;
         $ActaNacimiento->fecha_nacimiento=$request->fecha_nacimiento;
-        $ActaNacimiento->DNIPadre=$persona2->dni;
-        $ActaNacimiento->DNIMadre=$persona3->dni;
-        $ActaNacimiento->nombres=$persona->nombres+' '+$persona2->apellido_paterno+' '+$persona3->apellido_paterno;
-        $ActaNacimiento->domicilio=$persona3->direccion;
+        $ActaNacimiento->DNIPadre=$personaP->DNI;
+        $ActaNacimiento->DNIMadre=$personaM->DNI;
+        $ActaNacimiento->nombres=$persona->nombres.' '.$personaP->Apellido_Paterno.' '.$personaM->Apellido_Paterno;
+        $ActaNacimiento->domicilio=$personaM->direccion;
         $ActaNacimiento->sexo=$persona->sexo;
         $ActaNacimiento->save();
         //
@@ -137,7 +137,7 @@ class ActaNacimientoController extends Controller
         
         //
         $ActaPersona2= new Acta_Persona();
-        $ActaPersona2->DNI=$persona->dni;
+        $ActaPersona2->DNI=$dni_niño;
         $ActaPersona2->idActa=$Acta->idActa;
         $ActaPersona2->estado='1';
         $ActaPersona2->save();

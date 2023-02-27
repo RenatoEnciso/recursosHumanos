@@ -159,17 +159,17 @@ class ActaDefunsionController extends Controller
     {
         $data=request()->validate([
             'observacion'=>'required|max:30',
-            'fecha'=>'required',
-            'lugar'=>'required|max:30',
+            // 'fecha'=>'required',
+            // 'lugar'=>'required|max:30',
         ],
         [
             'observacion.required'=>'Ingrese Observacion de la Acta de Defunsion',
-            'observacion.max'=>'Máximo 30 carácteres para la Observacion',
-            'fecha.required'=>'Ingrese una Fecha de la Acta de Defunsion',
-            'lugar.required'=>'Ingrese el lugar de Defuncion',
-            'lugar.max'=>'Máximo 30 carácteres para el lugar de Extraccion',
+            // 'observacion.max'=>'Máximo 30 carácteres para la Observacion',
+            // 'fecha.required'=>'Ingrese una Fecha de la Acta de Defunsion',
+            // 'lugar.required'=>'Ingrese el lugar de Defuncion',
+            // 'lugar.max'=>'Máximo 30 carácteres para el lugar de Extraccion',
         ]);
-
+        
         $ActaDefunsion=Acta_Persona::findOrFail($id);
         $ActaDefunsion->DNI=$request->dniPersona;
         $ActaDefunsion->save();
@@ -180,21 +180,37 @@ class ActaDefunsionController extends Controller
         $Acta = Acta::findOrFail($ActaDefunsion->idActa);
         // $Acta->idLibro=$request->nroLibro;
         // $Acta->idFolio=$request->nroFolio;
+        $fecha_Actual=Carbon::now();
+        $Acta->fecha_registro=$fecha_Actual;
         $Acta->observacion=$request->observacion;
-        if($request->hasFile('archivo_defunsion')){
-            $archivo=$request->file('archivo_defunsion')->store('ArchivosDefunsion','public');
-            $url = Storage::url($archivo);
-            $Acta->archivo=$url;
-        }
-        $Acta->fecha_Acta=$request->fecha;
-        $Acta->lugar_Acta=$request->lugar;
+        $Acta->lugar_ocurrencia=$request->lugar_ocurrencia;
+        $Acta->localidad=$request->localidad;
+        $Acta->nombreRegistradorCivil=Auth::user()->name;
+        // if($request->hasFile('archivo_defunsion')){
+        //     $archivo=$request->file('archivo_defunsion')->store('ArchivosDefunsion','public');
+        //     $url = Storage::url($archivo);
+        //     $Acta->archivo=$url;
+        // }
+        $Acta->estado='1';
         $Acta->save();
 
         $persona = Persona::findOrFail($request->dniPersona);
         $persona->estado='0';
         $persona->save();
 
-
+        $ActaDefunsion=Acta_Defunsion::findOrFail($ActaDefunsion->idActa);
+        $ActaDefunsion->fecha_fallecido=$request->fecha_fallecido;
+        // return $request->fecha_fallecido;
+        $ActaDefunsion->nombreDeclarante=$familiar->Nombres ." ". $familiar->Apellido_Paterno ." ". $familiar->Apellido_Materno;
+        $ActaDefunsion->edad=$fecha_Actual->diffInYears($persona->fecha_nacimiento);
+        if($request->hasFile('archivo_firma_declarante')){
+            $archivo=$request->file('archivo_firma_declarante')->store('ArchivosDefunsion','public');
+            $url = Storage::url($archivo);
+            $ActaDefunsion->firma_declarante=$url;
+        }
+        
+        $ActaDefunsion->dniFallecido=$persona->DNI;
+        $ActaDefunsion->save();
         return redirect()->route('ActaDefunsion.index')->with('datos','Registro Nuevo Actualizado ...!');
     }
 

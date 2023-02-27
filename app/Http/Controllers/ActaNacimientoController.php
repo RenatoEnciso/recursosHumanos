@@ -153,11 +153,12 @@ class ActaNacimientoController extends Controller
         // if (Auth::user()->rol=='Administrativo'){   //boton editar
             // $libros=Libro::all();
             // $folios=Folio::all();
-            $actaNacimiento= Acta_Persona::findOrFail($id);
-            $acta=Acta_Persona::findOrFail($actaNacimiento->idActa);
-            $personas = Persona::findorFail($actaNacimiento->idActa);
+            $actaNacimiento= Actanacimiento::findOrFail($id);
+           
+            // $acta=Acta_Persona::findOrFail($actaNacimiento->idActa);
+             $personas = Persona::all();
            //$fichasP = Ficha::all()->where('estado', 'Pendiente');
-            return view('ActaNacimiento.edit',compact('actaNacimiento','acta','personas'));
+            return view('ActaNacimiento.edit',compact('actaNacimiento','personas'));
         // }else{
         //     return redirect()->route('ActaNacimiento.index')->with('datos','..::No tiene Acceso ..::');
         // }

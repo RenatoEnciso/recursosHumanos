@@ -83,7 +83,7 @@
                     <div class="col-12 form-group">
                         <label class="control-label">Lugar de fallecimiento</label>
                         <input type="text" class="form-control @error('lugar_ocurrencia') is-invalid @enderror"
-                            placeholder="Ingrese lugar de fallecimiento" id="lugar_ocurrencia" name="lugar_ocurrencia" value="{{ $acta->ActaDefunsion->localidad}}">
+                            placeholder="Ingrese lugar de fallecimiento" id="lugar_ocurrencia" name="lugar_ocurrencia" value="{{ $acta->lugar_ocurrencia}}">
                         @error('lugar_ocurrencia')
                             <span class="invalid feedback" role="alert">
                                 <strong>{{ $message }}</strong>

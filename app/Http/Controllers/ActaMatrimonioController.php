@@ -27,7 +27,7 @@ class ActaMatrimonioController extends Controller
         ->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
         ->where('ficha_registro.idtipo','=','2')
         ->paginate($this::PAGINATION);
-        $fichasP = Ficha::all()->where('estado', 'Pendiente');
+        $fichasP = Ficha::select('*')->join('tipoficha as tf','tf.idtipo','=','ficha_registro.idtipo')->where('estado', 'Pendiente')->where('tf.nombre','=','Matrimonio')->get();
         return view('ActaMatrimonio.index',compact('ActaMatrimonio','buscarpor','fichasP'));
     }
 
@@ -35,7 +35,7 @@ class ActaMatrimonioController extends Controller
         //if (Auth::user()->rol=='Administrativo'){   //boton registrar
             $personas = Persona::all();
             $ficha=Ficha::findOrFail($idFicha);
-            $fichasP = Ficha::all()->where('estado', 'Pendiente');
+            $fichasP = Ficha::select('*')->join('tipoficha as tf','tf.idtipo','=','ficha_registro.idtipo')->where('estado', 'Pendiente')->where('tf.nombre','=','Matrimonio')->get();
             return view('ActaMatrimonio.create',compact('personas','idFicha','fichasP','ficha'));
        // }else{
         //    return redirect()->route('ActaMatrimonio.index')->with('datos','..::No tiene Acceso ..::');

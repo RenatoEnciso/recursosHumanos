@@ -17,13 +17,6 @@
 </div>
 @endsection
 
-@section('Notificacion')
-<li>
-    <div>
-        {{$numPendientes}}
-    </div>
-</li>
-@endsection
 
 @section('contenido')
         <div class="card">

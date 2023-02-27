@@ -120,11 +120,11 @@ VALUES ("MesaPartes"),("Registrador"),("Administrador");
 Insert Into Persona
 (DNI, Apellido_Paterno , Apellido_Materno ,Nombres ,sexo ,estadocivil ,nacionalidad ,estado , direccion)
 values
-('11111111',"Fina","Segura","Eva","Femenino","Soltera","Peruana",1,"Hermanos Angulos 123"),
-('22222222','Cura','Sacristan','Rosario','Femenino','Soltera','Peruana',1,'Jose Olaya 123'),
-('33333333','Pecho','Barba','Dolores','Femenino','Soltera','Venezolana',1,'Garcilazo de la Vega 123'),
-('44444444','Seisdedos','Pies Planos','Alfonso','Masculino','Soltero','Peruano',1,'Los Incas 123'),
-('55555555','Fuertes','Barrigas','Jose','Masculino','Soltero','Ruso',1,'Los Incas 254'),
-('66666666','Amor','Jurado','Pedro','Masculino','Soltero','Peruano',1,'Los Incas 654'),
-('77777777','Marco','Gol','Miguel','Masculino','Soltero','Peruano',1,'Jose Olaya 594'),
-('88888888','Diaz','Festivo','Domingo','Masculino','Soltero','Peruano',1,'Jose Olata 789');
+('11111111',"Fina","Segura","Eva","F","Soltera","Peruana",1,"Hermanos Angulos 123"),
+('22222222','Cura','Sacristan','Rosario','F','Soltera','Peruana',1,'Jose Olaya 123'),
+('33333333','Pecho','Barba','Dolores','F','Soltera','Venezolana',1,'Garcilazo de la Vega 123'),
+('44444444','Seisdedos','Pies Planos','Alfonso','M','Soltero','Peruano',1,'Los Incas 123'),
+('55555555','Fuertes','Barrigas','Jose','M','Soltero','Ruso',1,'Los Incas 254'),
+('66666666','Amor','Jurado','Pedro','M','Soltero','Peruano',1,'Los Incas 654'),
+('77777777','Marco','Gol','Miguel','M','Soltero','Peruano',1,'Jose Olaya 594'),
+('88888888','Diaz','Festivo','Domingo','M','Soltero','Peruano',1,'Jose Olata 789');

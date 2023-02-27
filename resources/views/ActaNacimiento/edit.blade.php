@@ -136,7 +136,7 @@
                                                 <select class="form-select" name="dniP" aria-label="Default select example" id="dniP">
                                                     @foreach ($personas as $p )
                                                     @if ($p->sexo=='M' && $p->estado==1)
-                                                            @if ($actaNacimiento->DNIPadre=$p->DNI)
+                                                            @if ($actaNacimiento->DNIPadre==$p->DNI)
                                                             <option value="{{$p->DNI}}" selected>{{$p->DNI}}</option> 
                                                             @else
                                                             <option value="{{$p->DNI}}">{{$p->DNI}}</option> 

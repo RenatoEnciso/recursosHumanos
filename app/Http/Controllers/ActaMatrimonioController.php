@@ -34,9 +34,9 @@ class ActaMatrimonioController extends Controller
     public function create($idFicha){
         //if (Auth::user()->rol=='Administrativo'){   //boton registrar
             $personas = Persona::all();
-            //$ficha=Ficha::findOrFail($id);
+            $ficha=Ficha::findOrFail($idFicha);
             $fichasP = Ficha::all()->where('estado', 'Pendiente');
-            return view('ActaMatrimonio.create',compact('personas','idFicha','fichasP'));
+            return view('ActaMatrimonio.create',compact('personas','idFicha','fichasP','ficha'));
        // }else{
         //    return redirect()->route('ActaMatrimonio.index')->with('datos','..::No tiene Acceso ..::');
        // }

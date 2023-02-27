@@ -134,7 +134,10 @@
 
                                             <select class="form-select" name="dniP" aria-label="Default select example" id="dniP">
                                                 @foreach ($personas as $p )
-                                                <option value="{{$p->DNI}}">{{$p->DNI}}</option>
+                                                @if ($p->sexo=='M' && $p->estado==1)
+                                                <option value="{{$p->DNI}}">{{$p->DNI}}</option>  
+                                                @endif
+                                                
                                                 @endforeach                                              
 
                                             </select>
@@ -164,7 +167,12 @@
 
                                             <select class="form-select" name="dniM"  aria-label="Default select example" id="dniM">
                                                 @foreach ($personas as $p )
+                                                @if ($p->sexo=='F' && $p->estado==1 )
                                                 <option value="{{$p->DNI}}">{{$p->DNI}}</option>
+                                                @else
+                                                    
+                                                @endif
+                                                
                                                 @endforeach                                              
 
                                             </select>

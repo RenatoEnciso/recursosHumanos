@@ -70,7 +70,7 @@
             </div>
             <div class="card-body">
 
-                <a href="{{route('ActaMatrimonio.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i>Nuevo Registro</a>
+                {{-- <a href="{{route('ActaMatrimonio.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i>Nuevo Registro</a> --}}
 
 
                 <div id="mensaje">

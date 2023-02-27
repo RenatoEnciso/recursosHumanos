@@ -28,7 +28,7 @@ class ActaDefunsionController extends Controller
         ->join('Persona','Persona.DNI','=','AP.DNI')
         ->where('f.idtipo','=',3)
         ->where('AP.estado','=','1')->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
-        // ->where('ficha_registro.idtipo','=','3')
+        // ->where('ficha_registro.idtipo','=','3') d
         ->paginate($this::PAGINATION);
         $fichasP = Ficha::all()->where('estado', 'Pendiente');
         // return $ActaDefunsion;

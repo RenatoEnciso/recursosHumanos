@@ -6,6 +6,11 @@
 <div class="container">
     <h1 id="titulo" class="acta_title">Desea eliminar esta Acta de Nacimiento?</h1>
     <br>
+    @if (session('datos'))
+                <div class="alert alert-warning alert-dismissible fade show mt-3 emergente" role="alert" style="color: white; background-color: rgb(183, 178, 31)" >
+                    {{session('datos')}}
+                </div>
+                @endif
     <div class="info_confirmacion">
         <h2>Codigo : {{$ActaNacimiento->idActa}} - Nombres: {{$ActaNacimiento->nombres}}</h2>
     </div>

@@ -94,12 +94,12 @@
                          {{-- <tr>
                         <td colspan="3"><b>No hay registros</b></td>
                         </tr>  --}} 
-                    @if (count($actas)==0)
+                    @if (count($ActaNacimiento)==0)
                         <tr>
                         <td colspan="3"><b>No hay registros</b></td>
                         </tr>  
                     @else
-                    @foreach ($actas as $acta)
+                    @foreach ($ActaNacimiento as $acta)
                     <tr>
                     <td>{{$acta->idActa}}</td>
                     <td>{{$acta->Apellido_Paterno . " " . $acta->Apellido_Materno." ".$acta->Nombres}}</td>

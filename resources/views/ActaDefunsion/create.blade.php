@@ -133,7 +133,7 @@
                         <label class="control-label">Firma del declarante</label>
                         <input type="file" class="form-control @error('archivo_firma_declarante') is-invalid @enderror"
                             placeholder="Ingrese Archivo" id="archivo_firma_declarante" name="archivo_firma_declarante"
-                            value="{{ old('archivo_firma_declarante') }}" x-data="showImage1()" @change="showPreview1(event)">
+                            value="{{ old('archivo_firma_declarante') }}" x-data="showImage1()" @change="showPreview(event)">
                         <iframe id="preview1" class="object-cover  mt-2 w-60" height="100%"> </iframe>
                         @error('archivo_firma_declarante')
                             <span class="invalid feedback" role="alert">

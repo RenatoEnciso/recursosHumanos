@@ -22,14 +22,18 @@ class ActaNacimientoController extends Controller
     {
         $buscarpor= $request->get('buscarpor');
         $ActaNacimiento=Acta::select('*')
+        ->join('ficha_registro as f','f.idFicha','=','Acta.idActa')
         ->join('Acta_Persona as AP','AP.idActa','=','Acta.idActa')
         ->join('Persona','Persona.DNI','=','AP.DNI')
-        ->where('AP.estado','=','1')
-        ->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
+        ->join('acta_nacimiento as an','an.idActa','=','Acta.idActa')
+        ->where('f.idtipo','=',1)
+        ->where('AP.estado','=','1')->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
         ->paginate($this::PAGINATION);
-        $actas=Acta::select('*')->join('Ficha_registro as f','f.idficha','=','Acta.idacta')->where('f.estado','like','%pendiente%')->get();
+
+       
+       // $actas=Acta::select('*')->join('Ficha_registro as f','f.idficha','=','Acta.idacta')->where('f.estado','like','%pendiente%')->get();
         $fichasP = Ficha::select('*')->join('tipoficha as tf','tf.idtipo','=','ficha_registro.idtipo')->where('estado', 'Pendiente')->where('tf.nombre','=','Nacimiento')->get();
-        return view('ActaNacimiento.index',compact('ActaNacimiento','buscarpor','fichasP','actas'));
+        return view('ActaNacimiento.index',compact('ActaNacimiento','buscarpor','fichasP'));
     }
 
     public function create(){

@@ -12,9 +12,9 @@ class TipoFicha extends Model
     protected $primaryKey = 'idtipo';
     public $timestamps = false;
     protected $fillable = ['nombre'];
-/*
-    public function Ficha(){
-        return $this->hasMany(Ficha::class,'idTipoFicha','idTipoFicha');
-    }*/
+
+    public function fichas(){
+        return $this->hasMany(Ficha::class,'idtipo','idtipo');
+    }
 
 }

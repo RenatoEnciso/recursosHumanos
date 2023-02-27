@@ -233,16 +233,24 @@ class ActaNacimientoController extends Controller
        // }
      
        //Creacion y guardado de Acta_Persona
-       $ActaPersona=Acta_Persona::select('*')->where('idActa','=','4')->get();
-        $ActaPersona[0]->DNI=$dniPadre;
+       $ActaPersona=Acta_Persona::select('*')->where('idActa','=',$id)->get();
+      // $ActaPersona[0]->DNI='11223344';
+      // return $ActaPersona[0]->DNI;
+        
+        $ActaPersona[0]->estado=1;
+        $ActaPersona[0]->DNI=$padre->DNI;
+        $ActaPersona[0]->idActa=$id;
         $ActaPersona[0]->save();
         ///
-        $ActaPersona[1]->DNI=$dniMadre;
+        $ActaPersona[1]->estado=1;
+        $ActaPersona[1]->DNI=$madre->DNI;
+        $ActaPersona[1]->idActa=$id;
         $ActaPersona[1]->save();
         
         //
-        $ActaPersona[2]= new Acta_Persona();
-        $ActaPersona[2]->DNI=$dni_niño;
+        $ActaPersona[2]->estado=1;
+        $ActaPersona[2]->DNI=$niño->DNI;
+        $ActaPersona[2]->idActa=$id;
         $ActaPersona[2]->save();
 
 

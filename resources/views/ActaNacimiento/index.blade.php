@@ -108,10 +108,10 @@
                     {{-- //<td>{{$acta->DNI}}</td> --}}
                     <td>
                         <br>
-                        <a href="{{ route('ActaNacimiento.revisar',$acta->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Validar</a>
-                        <a href="{{ route('ActaNacimiento.generada',$acta->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Generar</a>
-                        <a href="{{ route('ActaNacimiento.edit',$acta->idActa) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
-                        <a  href="{{ route('ActaNacimiento.confirmar',$acta->idActa) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
+                        <a href="{{route('ActaNacimiento.revisar',$acta->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Validar</a>
+                        <a href="{{route('ActaNacimiento.generada',$acta->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Generar</a>
+                        <a href="{{route('ActaNacimiento.edit',$acta->idActa) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
+                        <a  href="{{route('ActaNacimiento.confirmar',$acta->idActa) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
                     </td>
                     </tr>
                 @endforeach

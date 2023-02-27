@@ -7,9 +7,9 @@
     <h1 id="titulo" class="acta_title">Desea eliminar esta Acta de Nacimiento?</h1>
     <br>
     <div class="info_confirmacion">
-        <h2>Codigo : {{$ActaNacimiento->idActa}} - Nombres: {{$ActaNacimiento->Persona->Nombres}}</h2>
+        <h2>Codigo : {{$ActaNacimiento->idActa}} - Nombres: {{$ActaNacimiento->nombres}}</h2>
     </div>
-    <form method="POST" action="{{route('ActaNacimiento.destroy',$ActaNacimiento->idActaPersona)}}">
+    <form method="POST" action="{{route('ActaNacimiento.destroy',$ActaNacimiento->idActa)}}">
         @method('delete')
         @csrf
         <div class="boton_div_confirmar">

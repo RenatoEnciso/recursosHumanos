@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 
 class ActaNacimientoController extends Controller
 {
@@ -205,22 +206,30 @@ class ActaNacimientoController extends Controller
     }
 
     public function destroy($id){
-        $ActaNacimiento=Acta_Persona::findOrFail($id);
-        $persona=Persona::findOrFail($ActaNacimiento->DNI);
-        $persona->estado='0';
-        $persona->save();
-        $ActaNacimiento->estado='0';
-        $ActaNacimiento->save();
+        //Actanacimiento
+        $actanacido=Actanacimiento::findOrFail($id);
+        $nombres=$actanacido->nombres;
+        $personanacida=DB::select('Select * from Persona as p WHERE concat( p.Nombres," ",p.Apellido_Paterno," ",p.Apellido_Materno) like "%"'.$nombres.'"%"');
+        $actanacido->delete();
+        
+        //Acta_Persona
+        $actaPersona=Acta_Persona::findOrFail($id);
+        $actaPersona->delete();
+        
+        //Acta
+        $acta=Acta::findOrFail($id);
+        $acta->delete();
 
-        $Acta=Acta::findOrFail($ActaNacimiento->idActa);
-        $Acta->estado='0';
-        $Acta->save();
+        //Persona 
+        $persona=Persona::findOrFail($personanacida->DNI);
+        $persona->delete();
+
         return redirect()->route('ActaNacimiento.index')->with('datos','Registro Eliminado ...!');
     }
 
     public function confirmar($id){
         // if (Auth::user()->rol=='Administrativo'){   //boton eliminar
-            $ActaNacimiento=Acta_Persona::findOrFail($id);
+            $ActaNacimiento=Actanacimiento::findOrFail($id);
             $fichasP = Ficha::all()->where('estado', 'Pendiente');
             return view('ActaNacimiento.confirmar',compact('ActaNacimiento','fichasP'));
         // }else{

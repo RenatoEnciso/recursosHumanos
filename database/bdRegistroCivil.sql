@@ -61,7 +61,7 @@ idActa int primary key,
 fecha_nacimiento date,
 DNIPadre char(08),
 DNIMadre char(08),
-nombres varchar(30),
+nombres varchar(50),
 domicilio varchar(30),
 sexo varchar(30),
 foreign key(idacta) references acta(idacta)

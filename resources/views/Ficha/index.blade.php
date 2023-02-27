@@ -59,7 +59,7 @@
                                 <td>
                                     <a href="{{ route('Ficha.edit',$item->idficha) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
                                     <a  href="{{ route('Ficha.confirmar',$item->idficha) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
-                                    <a href="{{ route('Ficha.crearActa',$item->idficha) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Revisar</a>
+                                    {{-- <a href="{{ route('Ficha.crearActa',$item->idficha) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Revisar</a> --}}
                                 </td>
                             </tr>
                         @endforeach

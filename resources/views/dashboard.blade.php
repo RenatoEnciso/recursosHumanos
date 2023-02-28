@@ -19,7 +19,11 @@
                 }
             });
         </script>
-
+<style>
+    .select2-container--default .select2-selection--single{
+    background-color:transparent !important;
+  }
+</style>
         <!-- Custom fonts for this template-->
         <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
         <link

@@ -130,7 +130,7 @@
                         <input type="file" class="form-control @error('archivo_defunsion') is-invalid @enderror"
                             placeholder="Ingrese Archivo" id="archivo_defunsion" name="archivo_defunsion"
                             value="{{ old('archivo_defunsion') }}" x-data="showImage()" @change="showPreview(event)">
-                        <iframe src="{{ $acta->archivo }}" id="preview" class="object-cover h-32 mt-2 w-60"
+                        <iframe src="{{ $acta->ficha->ruta_certificado }}" id="preview" class="object-cover h-32 mt-2 w-60"
                             height="100%"> </iframe>
                         @error('archivo_defunsion')
                             <span class="invalid feedback" role="alert">

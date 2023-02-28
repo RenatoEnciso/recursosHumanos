@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\Facade\PDF as PDF;
 use Illuminate\Support\Facades\DB;
 
 class ActaNacimientoController extends Controller
@@ -314,13 +314,14 @@ class ActaNacimientoController extends Controller
     }
 
     public function actaGenerada($id){
-        $actaPersona= Acta_Persona::findOrFail($id);
-        $actaGenerada=Acta::findOrFail($actaPersona->idActa);
-        $fecha = date('Y-m-d');
+        $actaPersona= Acta_Persona::select('*')->where('idActa','=',$id)->get();
+        $actaGenerada=Acta::findOrFail($id);
+        $fecha = date('Y-m-d'); 
         $data = compact('actaGenerada','actaPersona','fecha');
-        $pdf = Pdf::loadView('ActaNacimiento.actaGenerada', $data);
-        return $pdf->stream('ActaNacimiento.pdf');
-        //return $pdf->download('ActaNacimiento.pdf');
+        $pdf = PDF::loadView('ActaNacimiento.actaGenerada', $data);
+        return $pdf->download('ActaNacimiento.pdf');
+         //return $pdf->stream('ActaNacimiento.pdf');
+       
     }
 
     public function revisar($id){

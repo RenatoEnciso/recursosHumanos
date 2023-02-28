@@ -1,0 +1,16 @@
+table{
+    background-color: white;
+    
+    width: 80%;
+    border-collapse: collapse;
+   margin: auto;
+}
+
+th, td{
+    border:solid 1px black;
+    padding: 10px;
+}
+label{
+    color: black;
+    font-size: 100%;
+}

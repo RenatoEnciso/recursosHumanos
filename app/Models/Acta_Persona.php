@@ -11,7 +11,7 @@ class Acta_Persona extends Model
     protected $table = 'acta_persona';
     protected $primaryKey = 'idActaPersona';
     public $timestamps = false;
-    protected $fillable = ['DNI','idActa'];
+    protected $fillable = ['DNI','idActa','estado','funcion']; 
     public function Persona(){
         return $this->HasOne(Persona::class,'DNI','DNI');
     }

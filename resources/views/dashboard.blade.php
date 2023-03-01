@@ -229,6 +229,15 @@
                                         <p>Persona</p>
                                     </a>
                                 </li>
+                                @if (Auth::user()->idRol==4)
+                                <li class="nav-item">
+                                    <a href="{{route('administrador.index')}}">
+                                        <i class="fas fa-user-edit"></i>
+                                        <p>Usuarios</p>
+                                    </a>
+                                </li> 
+                                @endif
+                                
 
 
                                 

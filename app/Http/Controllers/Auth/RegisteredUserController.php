@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Rol;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -21,7 +22,8 @@ class RegisteredUserController extends Controller
     const PAGINATION = 7;
     public function create()
     {
-        return view('auth.register');
+        $roles=Rol::all();
+        return view('auth.register',compact('roles'));
     }
 
     public function index(Request $request)

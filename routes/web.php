@@ -1,6 +1,7 @@
 <?php
 use App\Models\Ficha;
 use App\Http\Controllers\ActaNacimientoController;
+use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\ActaDefunsionController;
@@ -32,6 +33,10 @@ require __DIR__.'/auth.php';
 
 //USUARIO
 Route::resource('usuario',UsuarioController::class);
+
+//Administrador
+Route::resource('administrador',AdministradorController::class);
+Route::get('Administradorcancelar',[AdministradorController::class,'cancelar'])->name('administrador.cancelar');
 
 //USUARIOS
 Route::get('indexU', [RegisteredUserController::class, 'index'])->name('indexU');

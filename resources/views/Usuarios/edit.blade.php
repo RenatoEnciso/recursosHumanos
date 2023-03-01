@@ -26,7 +26,7 @@
 
         <div class="form-group">
             <label class="control-label">Nueva Contraseña</label>
-            <input type="text" class="form-control @error('password') is-invalid @enderror" 
+            <input type="password" class="form-control @error('password') is-invalid @enderror" 
                 placeholder="Ingrese Nueva Contraseña"  name="password">
             @error('password')
             <span class="invalid feedback" role="alert">

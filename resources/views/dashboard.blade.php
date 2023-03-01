@@ -241,14 +241,16 @@
 
 
                                 
-
-
+                                @if (Auth::user()->idRol<4)
                                 <li class="nav-item">
                                     <a  href="{{route('reporte.create')}}">
                                         <i class="fas fa-id-card"></i>
                                         <p>Reportes</p>
                                     </a>
                                 </li>
+                                @endif
+
+                                
                                 
                             </ul>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Rol;
 
 class AdministradorController extends Controller
@@ -69,7 +70,8 @@ class AdministradorController extends Controller
     public function edit($id)
     {
         $usuario=User::findOrFail($id);
-        return view();
+        $roles=Rol::all();
+        return view('Usuarios.edit',compact('usuario','roles'));
     }
 
     /**
@@ -81,7 +83,14 @@ class AdministradorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       $usuario= User::findOrFail($id);
+       $usuario->name=$request->name;
+       $usuario->password=Hash::make($request->password);
+       $usuario->email=$request->email;
+       $usuario->idRol=$request->idRol;
+       $usuario->save();
+       return redirect()->route('administrador.index')->with('datos','Registro Nuevo Actualizado ...!');
+
     }
 
     /**

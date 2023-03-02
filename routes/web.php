@@ -99,5 +99,5 @@ Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('So
 
 //REPORTES
 Route::get('Reporte/Crear', [ReporteController::class, 'create'])->name('reporte.create');
-Route::post('Reporte/PDF/', [ReporteController::class,'generarPDF'])->name('reporte.generarPDF');
+Route::get('Reporte/PDF/', [ReporteController::class,'generarPDF'])->name('reporte.generarPDF');
 

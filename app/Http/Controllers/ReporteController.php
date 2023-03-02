@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Persona;
 use App\Models\Solicitud;
-use App\Models\TipoActa;
+use App\Models\Acta;
 use App\Models\Acta_Persona;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -20,21 +20,14 @@ class ReporteController extends Controller
     }
 
     public function generarPDF(){
-       /* $data = $datosA->validate(
-            [
-                'dni' => 'required|exists:Persona,dni',
-            ],
-            [
-                'dni.required' => 'Falta insertar',
-                'dni.exists' => 'El dni no existe',
-            ]
-        );*/
-        $actaPersona=Acta_Persona::select('*')->get();
-        $personas=Persona::select('*')->get();
+    
+        $ciudadanos=Acta_Persona::select('*')
+        ->join('persona as P','P.DNI','=','acta_persona.DNI')
+        ->join('ficha_registro as FR','FR.idficha','=','acta_persona.idActa')
+        ->where('FR.estado','=','Aprobado')->get();
         $fecha=date('Y-m-d');
 
-
-        $data=compact('actaPersona','personas','fecha');
+        $data=compact('ciudadanos','fecha');
         $pdf=PDF::loadView('Reporte.pdf',$data);
         //$solicitud=Solicitud::where('DNISolicitante','=',$datosA->dni)->paginate();
         //$acta=Acta_Persona::where('DNI','=',$datosA->dni)->paginate();

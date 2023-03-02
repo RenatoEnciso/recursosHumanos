@@ -9,9 +9,10 @@
 </head>
 <body>
 
-    <h1 style="text-align: center;color:red">REPORTE DE ACTAS</h1>
+    <h1 style="text-align: center;color:red">REPORTE DE ACTAS PARA ELECCIONES</h1>
     <h4>Empleado: {{Auth::user()->name}}</h4>
     <h4>Cargo: {{Auth::user()->Rol->nombreRol}}</h4>
+    <h4>Fecha: {{$fecha}}</h4>
   
     <table >
         <thead >
@@ -25,12 +26,12 @@
             </tr>
         </thead>
         <tbody >
-            @if (count($personas)<=0)
+            @if (count($ciudadanos)<=0)
                 <tr>
                     <td colspan="4"><i>:: NO HAY CIUDADANOS ::</i></td>
                 </tr>
             @else
-                @foreach ($personas as $item)
+                @foreach ($ciudadanos as $item)
                     <tr >
                         <td scope="col">{{$item->DNI}}</td>
                         <td scope="col">{{$item->Apellido_Paterno}} {{$item->Apellido_Materno}}</td>

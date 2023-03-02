@@ -4,7 +4,6 @@ namespace Illuminate\Queue;
 
 use Exception;
 use Illuminate\Bus\Batchable;
-use Illuminate\Bus\UniqueLock;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Container\Container;
@@ -114,7 +113,7 @@ class CallQueuedHandler
     protected function dispatchThroughMiddleware(Job $job, $command)
     {
         if ($command instanceof \__PHP_Incomplete_Class) {
-            throw new Exception('Job is incomplete class: '.json_encode($command));
+            throw new \Exception('Job is incomplete class: '.json_encode($command));
         }
 
         return (new Pipeline($this->container))->send($command)
@@ -201,9 +200,21 @@ class CallQueuedHandler
      */
     protected function ensureUniqueJobLockIsReleased($command)
     {
-        if ($command instanceof ShouldBeUnique) {
-            (new UniqueLock($this->container->make(Cache::class)))->release($command);
+        if (! $command instanceof ShouldBeUnique) {
+            return;
         }
+
+        $uniqueId = method_exists($command, 'uniqueId')
+                    ? $command->uniqueId()
+                    : ($command->uniqueId ?? '');
+
+        $cache = method_exists($command, 'uniqueVia')
+                    ? $command->uniqueVia()
+                    : $this->container->make(Cache::class);
+
+        $cache->lock(
+            'laravel_unique_job:'.get_class($command).$uniqueId
+        )->forceRelease();
     }
 
     /**

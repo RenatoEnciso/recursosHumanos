@@ -49,12 +49,10 @@ class ListFailedCommand extends Command
     public function handle()
     {
         if (count($jobs = $this->getFailedJobs()) === 0) {
-            return $this->components->info('No failed jobs found.');
+            return $this->comment('No failed jobs found.');
         }
 
-        $this->newLine();
         $this->displayFailedJobs($jobs);
-        $this->newLine();
     }
 
     /**
@@ -124,11 +122,6 @@ class ListFailedCommand extends Command
      */
     protected function displayFailedJobs(array $jobs)
     {
-        collect($jobs)->each(
-            fn ($job) => $this->components->twoColumnDetail(
-                sprintf('<fg=gray>%s</> %s</>', $job[4], $job[0]),
-                sprintf('<fg=gray>%s@%s</> %s', $job[1], $job[2], $job[3])
-            ),
-        );
+        $this->table($this->headers, $jobs);
     }
 }

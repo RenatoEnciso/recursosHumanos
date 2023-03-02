@@ -46,7 +46,7 @@ class StorageLinkCommand extends Command
 
         foreach ($this->links() as $link => $target) {
             if (file_exists($link) && ! $this->isRemovableSymlink($link, $this->option('force'))) {
-                $this->components->error("The [$link] link already exists.");
+                $this->error("The [$link] link already exists.");
                 continue;
             }
 
@@ -60,8 +60,10 @@ class StorageLinkCommand extends Command
                 $this->laravel->make('files')->link($target, $link);
             }
 
-            $this->components->info("The [$link] link has been connected to [$target].");
+            $this->info("The [$link] link has been connected to [$target].");
         }
+
+        $this->info('The links have been created.');
     }
 
     /**

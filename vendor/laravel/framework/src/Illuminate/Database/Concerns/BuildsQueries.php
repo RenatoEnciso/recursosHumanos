@@ -142,7 +142,7 @@ trait BuildsQueries
                 return false;
             }
 
-            $lastId = data_get($results->last(), $alias);
+            $lastId = $results->last()->{$alias};
 
             if ($lastId === null) {
                 throw new RuntimeException("The chunkById operation was aborted because the [{$alias}] column is not present in the query result.");
@@ -427,10 +427,10 @@ trait BuildsQueries
 
         if (! is_null($columns)) {
             foreach ($columns as $column) {
-                if (($position = strripos($column, ' as ')) !== false) {
-                    $original = substr($column, 0, $position);
+                if (($position = stripos($column, ' as ')) !== false) {
+                    $as = substr($column, $position, 4);
 
-                    $alias = substr($column, $position + 4);
+                    [$original, $alias] = explode($as, $column);
 
                     if ($parameter === $alias || $builder->getGrammar()->wrap($parameter) === $alias) {
                         return $original;

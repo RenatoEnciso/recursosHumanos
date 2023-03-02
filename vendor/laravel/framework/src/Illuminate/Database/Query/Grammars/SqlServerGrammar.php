@@ -97,20 +97,6 @@ class SqlServerGrammar extends Grammar
     }
 
     /**
-     * Compile the index hints for the query.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     * @param  \Illuminate\Database\Query\IndexHint  $indexHint
-     * @return string
-     */
-    protected function compileIndexHint(Builder $query, $indexHint)
-    {
-        return $indexHint->type === 'force'
-                    ? "with (index({$indexHint->index}))"
-                    : '';
-    }
-
-    /**
      * {@inheritdoc}
      *
      * @param  \Illuminate\Database\Query\Builder  $query
@@ -217,17 +203,6 @@ class SqlServerGrammar extends Grammar
         [$field, $path] = $this->wrapJsonFieldAndPath($column);
 
         return '(select count(*) from openjson('.$field.$path.')) '.$operator.' '.$value;
-    }
-
-    /**
-     * Compile a "JSON value cast" statement into SQL.
-     *
-     * @param  string  $value
-     * @return string
-     */
-    public function compileJsonValueCast($value)
-    {
-        return 'json_query('.$value.')';
     }
 
     /**
@@ -389,7 +364,7 @@ class SqlServerGrammar extends Grammar
     /**
      * Compile the random statement into SQL.
      *
-     * @param  string|int  $seed
+     * @param  string  $seed
      * @return string
      */
     public function compileRandom($seed)

@@ -19,9 +19,6 @@ use Monolog\Logger as Monolog;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-/**
- * @mixin \Illuminate\Log\Logger
- */
 class LogManager implements LoggerInterface
 {
     use ParsesLogConfiguration;
@@ -420,13 +417,7 @@ class LogManager implements LoggerInterface
     protected function prepareHandler(HandlerInterface $handler, array $config = [])
     {
         if (isset($config['action_level'])) {
-            $handler = new FingersCrossedHandler(
-                $handler,
-                $this->actionLevel($config),
-                0,
-                true,
-                $config['stop_buffering'] ?? true
-            );
+            $handler = new FingersCrossedHandler($handler, $this->actionLevel($config));
         }
 
         if (! $handler instanceof FormattableHandlerInterface) {
@@ -553,7 +544,7 @@ class LogManager implements LoggerInterface
      * Unset the given channel instance.
      *
      * @param  string|null  $driver
-     * @return void
+     * @return $this
      */
     public function forgetChannel($driver = null)
     {

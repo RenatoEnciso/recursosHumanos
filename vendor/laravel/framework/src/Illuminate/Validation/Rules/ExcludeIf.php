@@ -10,7 +10,7 @@ class ExcludeIf
     /**
      * The condition that validates the attribute.
      *
-     * @var \Closure|bool
+     * @var callable|bool
      */
     public $condition;
 

@@ -11,8 +11,7 @@ use Illuminate\Support\Arr;
 use InvalidArgumentException;
 
 /**
- * @mixin \Illuminate\Cache\Repository
- * @mixin \Illuminate\Contracts\Cache\LockProvider
+ * @mixin \Illuminate\Contracts\Cache\Repository
  */
 class CacheManager implements FactoryContract
 {

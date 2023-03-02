@@ -35,12 +35,7 @@
         <div>
             <div>
                 <div style="display: inline-block">
-                    
-                    
-                            <label> <strong> Fecha de Nacimiento: {{$actaGenerada->actanacimiento->fecha_nacimiento}}</strong> </label>
-                          
-                       
-                   
+                    <label> <strong> Fecha de Nacimiento: {{$actaGenerada->actanacimiento->fecha_nacimiento}}</strong> </label>
                 </div>
                 
             </div>
@@ -73,7 +68,7 @@
                         <th scope="col">PADRE</th>
                         <th scope="col">MADRE</th>
                     </tr>
-                    <TR>
+                    <tr>
                         <th scope="row" >Pronombres</th>
                         @foreach ($actaPersona as $acta )
                             @if ( ($actaGenerada->actanacimiento->DNIPadre==$acta->DNI))
@@ -85,21 +80,18 @@
                                 
                             @endif 
                         @endforeach
-                        
-                        
-                    </TR>
+                    </tr>
                     <tr>
                         <th scope="row" >Primer Apellido</th>
                         @foreach ($actaPersona as $acta )
-                        @if ( ($actaGenerada->actanacimiento->DNIPadre==$acta->DNI))
-                            <td>{{$acta->Persona->Apellido_Paterno}}</td>
-                        @else
-                            @if ( ($actaGenerada->actanacimiento->DNIMadre==$acta->DNI))
-                            <td>{{$acta->Persona->Apellido_Paterno}}</td>
-                            @endif
-                            
-                        @endif 
-                    @endforeach
+                            @if ( ($actaGenerada->actanacimiento->DNIPadre==$acta->DNI))
+                                <td>{{$acta->Persona->Apellido_Paterno}}</td>
+                            @else
+                                @if ( ($actaGenerada->actanacimiento->DNIMadre==$acta->DNI))
+                                <td>{{$acta->Persona->Apellido_Paterno}}</td>
+                                @endif                   
+                            @endif 
+                        @endforeach
                     </tr>
                     <tr>
                         <th scope="row" >Segundo Apellido</th>
@@ -143,14 +135,13 @@
                 
 
             </table>
-            <BR></BR>
-            <label for=""> <strong>FICHA DE REGISTRO: {{$actaGenerada->fecha_registro}}</strong>  </label> 
-            <BR></BR>
+            <br>
+            <label for=""> <strong>FECHA DE REGISTRO: {{$actaGenerada->fecha_registro}}</strong>  </label> 
+            <br>
             <label for=""> <strong>REGISTRADOR: {{$actaGenerada->nombreRegistradorCivil}} </strong> </label>
-            <BR></BR>
+            <br>
             <label for=""><strong> OBSERVACIONES: {{$actaGenerada->observacion}}</strong> </label>
           
-            <br>
         </div><br>
         <div style="text-align: center">
             <img src="images/firma.png" alt="firma" width="15%" style="margin: 0;padding: 0"><br>

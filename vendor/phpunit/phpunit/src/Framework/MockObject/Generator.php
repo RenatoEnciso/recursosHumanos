@@ -27,7 +27,6 @@ use function interface_exists;
 use function is_array;
 use function is_object;
 use function md5;
-use function method_exists;
 use function mt_rand;
 use function preg_match;
 use function preg_match_all;
@@ -147,7 +146,6 @@ EOT;
      * @throws \PHPUnit\Framework\InvalidArgumentException
      * @throws ClassAlreadyExistsException
      * @throws ClassIsFinalException
-     * @throws ClassIsReadonlyException
      * @throws DuplicateMethodException
      * @throws InvalidMethodNameException
      * @throws OriginalConstructorInvocationRequiredException
@@ -188,7 +186,7 @@ EOT;
             } catch (\ReflectionException $e) {
                 throw new ReflectionException(
                     $e->getMessage(),
-                    $e->getCode(),
+                    (int) $e->getCode(),
                     $e
                 );
             }
@@ -293,15 +291,12 @@ EOT;
      * Concrete methods to mock can be specified with the $mockedMethods parameter.
      *
      * @psalm-template RealInstanceType of object
-     *
      * @psalm-param class-string<RealInstanceType> $originalClassName
-     *
      * @psalm-return MockObject&RealInstanceType
      *
      * @throws \PHPUnit\Framework\InvalidArgumentException
      * @throws ClassAlreadyExistsException
      * @throws ClassIsFinalException
-     * @throws ClassIsReadonlyException
      * @throws DuplicateMethodException
      * @throws InvalidMethodNameException
      * @throws OriginalConstructorInvocationRequiredException
@@ -320,7 +315,7 @@ EOT;
             } catch (\ReflectionException $e) {
                 throw new ReflectionException(
                     $e->getMessage(),
-                    $e->getCode(),
+                    (int) $e->getCode(),
                     $e
                 );
             }
@@ -363,7 +358,6 @@ EOT;
      * @throws \PHPUnit\Framework\InvalidArgumentException
      * @throws ClassAlreadyExistsException
      * @throws ClassIsFinalException
-     * @throws ClassIsReadonlyException
      * @throws DuplicateMethodException
      * @throws InvalidMethodNameException
      * @throws OriginalConstructorInvocationRequiredException
@@ -446,7 +440,6 @@ EOT;
 
     /**
      * @throws ClassIsFinalException
-     * @throws ClassIsReadonlyException
      * @throws ReflectionException
      * @throws RuntimeException
      */
@@ -506,7 +499,7 @@ EOT;
         } catch (SoapFault $e) {
             throw new RuntimeException(
                 $e->getMessage(),
-                $e->getCode(),
+                (int) $e->getCode(),
                 $e
             );
         }
@@ -593,7 +586,7 @@ EOT;
         } catch (\ReflectionException $e) {
             throw new ReflectionException(
                 $e->getMessage(),
-                $e->getCode(),
+                (int) $e->getCode(),
                 $e
             );
         }
@@ -623,7 +616,7 @@ EOT;
         } catch (\ReflectionException $e) {
             throw new ReflectionException(
                 $e->getMessage(),
-                $e->getCode(),
+                (int) $e->getCode(),
                 $e
             );
         }
@@ -653,7 +646,7 @@ EOT;
         } catch (\ReflectionException $e) {
             throw new ReflectionException(
                 $e->getMessage(),
-                $e->getCode(),
+                (int) $e->getCode(),
                 $e
             );
         }
@@ -683,7 +676,7 @@ EOT;
         } catch (\ReflectionException $e) {
             throw new ReflectionException(
                 $e->getMessage(),
-                $e->getCode(),
+                (int) $e->getCode(),
                 $e
             );
         }
@@ -720,7 +713,7 @@ EOT;
                 } catch (\ReflectionException $e) {
                     throw new ReflectionException(
                         $e->getMessage(),
-                        $e->getCode(),
+                        (int) $e->getCode(),
                         $e
                     );
                 }
@@ -747,7 +740,7 @@ EOT;
                     } catch (\ReflectionException $e) {
                         throw new ReflectionException(
                             $e->getMessage(),
-                            $e->getCode(),
+                            (int) $e->getCode(),
                             $e
                         );
                     }
@@ -769,7 +762,6 @@ EOT;
 
     /**
      * @throws ClassIsFinalException
-     * @throws ClassIsReadonlyException
      * @throws ReflectionException
      * @throws RuntimeException
      */
@@ -815,7 +807,7 @@ EOT;
             } catch (\ReflectionException $e) {
                 throw new ReflectionException(
                     $e->getMessage(),
-                    $e->getCode(),
+                    (int) $e->getCode(),
                     $e
                 );
             }
@@ -823,10 +815,6 @@ EOT;
 
             if ($class->isFinal()) {
                 throw new ClassIsFinalException($_mockClassName['fullClassName']);
-            }
-
-            if (method_exists($class, 'isReadOnly') && $class->isReadOnly()) {
-                throw new ClassIsReadonlyException($_mockClassName['fullClassName']);
             }
 
             // @see https://github.com/sebastianbergmann/phpunit/issues/2995
@@ -841,7 +829,7 @@ EOT;
                 } catch (\ReflectionException $e) {
                     throw new ReflectionException(
                         $e->getMessage(),
-                        $e->getCode(),
+                        (int) $e->getCode(),
                         $e
                     );
                 }
@@ -857,7 +845,7 @@ EOT;
                         } catch (\ReflectionException $e) {
                             throw new ReflectionException(
                                 $e->getMessage(),
-                                $e->getCode(),
+                                (int) $e->getCode(),
                                 $e
                             );
                         }
@@ -898,7 +886,7 @@ EOT;
                 } catch (\ReflectionException $e) {
                     throw new ReflectionException(
                         $e->getMessage(),
-                        $e->getCode(),
+                        (int) $e->getCode(),
                         $e
                     );
                 }
@@ -937,7 +925,7 @@ EOT;
                     } catch (\ReflectionException $e) {
                         throw new ReflectionException(
                             $e->getMessage(),
-                            $e->getCode(),
+                            (int) $e->getCode(),
                             $e
                         );
                     }
@@ -1098,7 +1086,7 @@ EOT;
             } catch (TemplateException $e) {
                 throw new RuntimeException(
                     $e->getMessage(),
-                    $e->getCode(),
+                    (int) $e->getCode(),
                     $e
                 );
             }

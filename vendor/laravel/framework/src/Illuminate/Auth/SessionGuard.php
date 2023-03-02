@@ -20,7 +20,6 @@ use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Illuminate\Support\Timebox;
 use Illuminate\Support\Traits\Macroable;
 use InvalidArgumentException;
 use RuntimeException;
@@ -59,7 +58,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
      *
      * @var int
      */
-    protected $rememberDuration = 576000;
+    protected $rememberDuration = 2628000;
 
     /**
      * The session used by the guard.
@@ -90,13 +89,6 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
     protected $events;
 
     /**
-     * The timebox instance.
-     *
-     * @var \Illuminate\Support\Timebox
-     */
-    protected $timebox;
-
-    /**
      * Indicates if the logout method has been called.
      *
      * @var bool
@@ -117,20 +109,17 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
      * @param  \Illuminate\Contracts\Auth\UserProvider  $provider
      * @param  \Illuminate\Contracts\Session\Session  $session
      * @param  \Symfony\Component\HttpFoundation\Request|null  $request
-     * @param  \Illuminate\Support\Timebox|null  $timebox
      * @return void
      */
     public function __construct($name,
                                 UserProvider $provider,
                                 Session $session,
-                                Request $request = null,
-                                Timebox $timebox = null)
+                                Request $request = null)
     {
         $this->name = $name;
         $this->session = $session;
         $this->request = $request;
         $this->provider = $provider;
-        $this->timebox = $timebox ?: new Timebox;
     }
 
     /**
@@ -401,7 +390,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
      * Attempt to authenticate a user with credentials and additional callbacks.
      *
      * @param  array  $credentials
-     * @param  array|callable|null  $callbacks
+     * @param  array|callable  $callbacks
      * @param  bool  $remember
      * @return bool
      */
@@ -434,17 +423,13 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
      */
     protected function hasValidCredentials($user, $credentials)
     {
-        return $this->timebox->call(function ($timebox) use ($user, $credentials) {
-            $validated = ! is_null($user) && $this->provider->validateCredentials($user, $credentials);
+        $validated = ! is_null($user) && $this->provider->validateCredentials($user, $credentials);
 
-            if ($validated) {
-                $timebox->returnEarly();
+        if ($validated) {
+            $this->fireValidatedEvent($user);
+        }
 
-                $this->fireValidatedEvent($user);
-            }
-
-            return $validated;
-        }, 200 * 1000);
+        return $validated;
     }
 
     /**
@@ -628,12 +613,9 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
     {
         $this->session->remove($this->getName());
 
-        $this->getCookieJar()->unqueue($this->getRecallerName());
-
         if (! is_null($this->recaller())) {
-            $this->getCookieJar()->queue(
-                $this->getCookieJar()->forget($this->getRecallerName())
-            );
+            $this->getCookieJar()->queue($this->getCookieJar()
+                    ->forget($this->getRecallerName()));
         }
     }
 
@@ -948,15 +930,5 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
         $this->request = $request;
 
         return $this;
-    }
-
-    /**
-     * Get the timebox instance used by the guard.
-     *
-     * @return \Illuminate\Support\Timebox
-     */
-    public function getTimebox()
-    {
-        return $this->timebox;
     }
 }

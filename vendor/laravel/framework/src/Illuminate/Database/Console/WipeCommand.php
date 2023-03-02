@@ -53,17 +53,17 @@ class WipeCommand extends Command
         if ($this->option('drop-views')) {
             $this->dropAllViews($database);
 
-            $this->components->info('Dropped all views successfully.');
+            $this->info('Dropped all views successfully.');
         }
 
         $this->dropAllTables($database);
 
-        $this->components->info('Dropped all tables successfully.');
+        $this->info('Dropped all tables successfully.');
 
         if ($this->option('drop-types')) {
             $this->dropAllTypes($database);
 
-            $this->components->info('Dropped all types successfully.');
+            $this->info('Dropped all types successfully.');
         }
 
         return 0;

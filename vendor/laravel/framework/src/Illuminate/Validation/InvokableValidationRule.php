@@ -104,16 +104,6 @@ class InvokableValidationRule implements Rule, ValidatorAwareRule
     }
 
     /**
-     * Get the underlying invokable rule.
-     *
-     * @return \Illuminate\Contracts\Validation\InvokableRule
-     */
-    public function invokable()
-    {
-        return $this->invokable;
-    }
-
-    /**
      * Get the validation error messages.
      *
      * @return array
@@ -153,7 +143,7 @@ class InvokableValidationRule implements Rule, ValidatorAwareRule
      * Create a pending potentially translated string.
      *
      * @param  string  $attribute
-     * @param  string|null  $message
+     * @param  ?string  $message
      * @return \Illuminate\Translation\PotentiallyTranslatedString
      */
     protected function pendingPotentiallyTranslatedString($attribute, $message)

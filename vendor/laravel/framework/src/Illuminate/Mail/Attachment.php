@@ -97,7 +97,7 @@ class Attachment
                 ->as($attachment->as ?? basename($path))
                 ->withMime($attachment->mime ?? $storage->mimeType($path));
 
-            return $dataStrategy(fn () => $storage->get($path), $attachment);
+            $dataStrategy(fn () => $storage->get($path), $attachment);
         });
     }
 
@@ -150,23 +150,6 @@ class Attachment
         return $this->attachWith(
             fn ($path) => $mail->attach($path, ['as' => $this->as, 'mime' => $this->mime]),
             fn ($data) => $mail->attachData($data(), $this->as, ['mime' => $this->mime])
-        );
-    }
-
-    /**
-     * Determine if the given attachment is equivalent to this attachment.
-     *
-     * @param  \Illuminate\Mail\Attachment  $attachment
-     * @return bool
-     */
-    public function isEquivalent(Attachment $attachment)
-    {
-        return $this->attachWith(
-            fn ($path) => [$path, ['as' => $this->as, 'mime' => $this->mime]],
-            fn ($data) => [$data(), ['as' => $this->as, 'mime' => $this->mime]],
-        ) === $attachment->attachWith(
-            fn ($path) => [$path, ['as' => $attachment->as, 'mime' => $attachment->mime]],
-            fn ($data) => [$data(), ['as' => $attachment->as, 'mime' => $attachment->mime]],
         );
     }
 }

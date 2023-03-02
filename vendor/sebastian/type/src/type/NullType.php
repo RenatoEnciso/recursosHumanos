@@ -31,9 +31,6 @@ final class NullType extends Type
         return true;
     }
 
-    /**
-     * @psalm-assert-if-true NullType $this
-     */
     public function isNull(): bool
     {
         return true;

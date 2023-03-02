@@ -59,17 +59,15 @@ class DumpCommand extends Command
 
         $dispatcher->dispatch(new SchemaDumped($connection, $path));
 
-        $info = 'Database schema dumped';
+        $this->info('Database schema dumped successfully.');
 
         if ($this->option('prune')) {
             (new Filesystem)->deleteDirectory(
                 database_path('migrations'), $preserve = false
             );
 
-            $info .= ' and pruned';
+            $this->info('Migrations pruned successfully.');
         }
-
-        $this->components->info($info.' successfully.');
     }
 
     /**
@@ -94,7 +92,7 @@ class DumpCommand extends Command
      */
     protected function path(Connection $connection)
     {
-        return tap($this->option('path') ?: database_path('schema/'.$connection->getName().'-schema.sql'), function ($path) {
+        return tap($this->option('path') ?: database_path('schema/'.$connection->getName().'-schema.dump'), function ($path) {
             (new Filesystem)->ensureDirectoryExists(dirname($path));
         });
     }

@@ -36,7 +36,6 @@ class Grammar extends BaseGrammar
         'aggregate',
         'columns',
         'from',
-        'indexHint',
         'joins',
         'wheres',
         'groups',
@@ -684,17 +683,6 @@ class Grammar extends BaseGrammar
     }
 
     /**
-     * Compile a "JSON value cast" statement into SQL.
-     *
-     * @param  string  $value
-     * @return string
-     */
-    public function compileJsonValueCast($value)
-    {
-        return $value;
-    }
-
-    /**
      * Compile a "where fulltext" clause.
      *
      * @param  \Illuminate\Database\Query\Builder  $query
@@ -878,7 +866,7 @@ class Grammar extends BaseGrammar
     /**
      * Compile the random statement into SQL.
      *
-     * @param  string|int  $seed
+     * @param  string  $seed
      * @return string
      */
     public function compileRandom($seed)

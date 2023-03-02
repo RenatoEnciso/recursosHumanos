@@ -2,6 +2,7 @@
 
 namespace Egulias\EmailValidator;
 
+use Egulias\EmailValidator\EmailLexer;
 use Egulias\EmailValidator\Result\Result;
 use Egulias\EmailValidator\Parser\LocalPart;
 use Egulias\EmailValidator\Parser\DomainPart;
@@ -12,7 +13,7 @@ use Egulias\EmailValidator\Result\Reason\NoLocalPart;
 
 class EmailParser extends Parser
 {
-    public const EMAIL_MAX_LENGTH = 254;
+    const EMAIL_MAX_LENGTH = 254;
 
     /**
      * @var string

@@ -171,7 +171,8 @@ class ActaMatrimonioController extends Controller
     public function confirmar($id){
         if (Auth::user()->rol->nombreRol=='Registrador'){   //boton eliminar
             $ActaMatrimonio=Acta_Persona::findOrFail($id);
-            return view('ActaMatrimonio.confirmar',compact('ActaMatrimonio'));
+            $ActasMatrimonio=Acta_Persona::all();
+            return view('ActaMatrimonio.confirmar',compact('ActaMatrimonio','ActasMatrimonio'));
         }else{
             return redirect()->route('ActaMatrimonio.index')->with('datos','..::No tiene Acceso ..::');
         }

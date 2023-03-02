@@ -73,10 +73,11 @@
             <div class="mt-4">
                 <x-label for="rol" :value="__('Rol')" />
                 <select class="form-select" name="idRol" aria-label="Default select example" id="rol">
+
                     <option select>Seleccione un rol</option>
-                    <option value="1" >Mesa de Partes</option>
-                    <option value="2">Registrador</option>
-                    <option value="3">Administrador</option>
+                    @foreach ($roles as $r)
+                        <option value="{{$r->idRol}}">{{$r->nombreRol}}</option>
+                    @endforeach
                 </select>
 
                 {{-- <x-input id="rol" class="block mt-1 w-full" type="text" name="idRol" value="1" readonly required /> --}}

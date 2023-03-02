@@ -229,17 +229,28 @@
                                         <p>Persona</p>
                                     </a>
                                 </li>
-
-
+                                @if (Auth::user()->idRol==4)
+                                <li class="nav-item">
+                                    <a href="{{route('administrador.index')}}">
+                                        <i class="fas fa-user-edit"></i>
+                                        <p>Usuarios</p>
+                                    </a>
+                                </li> 
+                                @endif
                                 
 
 
+                                
+                                @if (Auth::user()->idRol<4)
                                 <li class="nav-item">
                                     <a  href="{{route('reporte.create')}}">
                                         <i class="fas fa-id-card"></i>
                                         <p>Reportes</p>
                                     </a>
                                 </li>
+                                @endif
+
+                                
                                 
                             </ul>
 

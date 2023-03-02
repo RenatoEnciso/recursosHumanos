@@ -16,8 +16,8 @@ class User extends Authenticatable
     protected $primarykey="id";
     protected $fillable = ['name','fotoPerfil','email','password','idRol'];
     protected $hidden = [
-        'password',
-        'remember_token',
+        'remenber_token',
+        'update_at',
     ];
     protected $casts = [
         'email_verified_at' => 'datetime',

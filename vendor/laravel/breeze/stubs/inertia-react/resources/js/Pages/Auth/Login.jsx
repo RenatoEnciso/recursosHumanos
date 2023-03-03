@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import Button from '@/Components/Button';
+import { useEffect } from 'react';
 import Checkbox from '@/Components/Checkbox';
-import Guest from '@/Layouts/Guest';
-import Input from '@/Components/Input';
-import Label from '@/Components/Label';
-import ValidationErrors from '@/Components/ValidationErrors';
-import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import GuestLayout from '@/Layouts/GuestLayout';
+import InputError from '@/Components/InputError';
+import InputLabel from '@/Components/InputLabel';
+import PrimaryButton from '@/Components/PrimaryButton';
+import TextInput from '@/Components/TextInput';
+import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -31,19 +31,18 @@ export default function Login({ status, canResetPassword }) {
     };
 
     return (
-        <Guest>
+        <GuestLayout>
             <Head title="Log in" />
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
-            <ValidationErrors errors={errors} />
-
             <form onSubmit={submit}>
                 <div>
-                    <Label forInput="email" value="Email" />
+                    <InputLabel forInput="email" value="Email" />
 
-                    <Input
-                        type="text"
+                    <TextInput
+                        id="email"
+                        type="email"
                         name="email"
                         value={data.email}
                         className="mt-1 block w-full"
@@ -51,12 +50,15 @@ export default function Login({ status, canResetPassword }) {
                         isFocused={true}
                         handleChange={onHandleChange}
                     />
+
+                    <InputError message={errors.email} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
-                    <Label forInput="password" value="Password" />
+                    <InputLabel forInput="password" value="Password" />
 
-                    <Input
+                    <TextInput
+                        id="password"
                         type="password"
                         name="password"
                         value={data.password}
@@ -64,13 +66,14 @@ export default function Login({ status, canResetPassword }) {
                         autoComplete="current-password"
                         handleChange={onHandleChange}
                     />
+
+                    <InputError message={errors.password} className="mt-2" />
                 </div>
 
                 <div className="block mt-4">
                     <label className="flex items-center">
                         <Checkbox name="remember" value={data.remember} handleChange={onHandleChange} />
-
-                        <span className="ml-2 text-sm text-gray-600">Remember me</span>
+                        <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
                     </label>
                 </div>
 
@@ -78,17 +81,17 @@ export default function Login({ status, canResetPassword }) {
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
-                            className="underline text-sm text-gray-600 hover:text-gray-900"
+                            className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                         >
                             Forgot your password?
                         </Link>
                     )}
 
-                    <Button className="ml-4" processing={processing}>
+                    <PrimaryButton className="ml-4" processing={processing}>
                         Log in
-                    </Button>
+                    </PrimaryButton>
                 </div>
             </form>
-        </Guest>
+        </GuestLayout>
     );
 }

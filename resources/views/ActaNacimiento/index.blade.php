@@ -32,6 +32,9 @@
                 @else
                 Tienes {{count($fichasP)}} actas por validar
                 @endif
+
+               
+               
             </div>
         </li>
         <li>
@@ -77,37 +80,61 @@
             </div>
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th scope="col">Codigo</th>
-                            <th scope="col">Apellidos y Nombres</th>
-                            <th scope="col">Fecha_Nacimiento</th>
-                            <th scope="col">Lugar de Nacimiento</th>
-                        
-                            <th scope="col">Opciones</th>
-                        </tr>
+                    <tr>
+                        <th scope="col">Codigo</th>
+                        <th scope="col">Apellidos y Nombres</th>
+                        <th scope="col">Fecha_Nacimiento</th>
+                        <th scope="col">Lugar de Nacimiento</th>
+                       
+                        <th scope="col">Opciones</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        @if (count($ActaNacimiento)==0)
-                            <tr>
-                            <td colspan="3"><b>No hay registros</b></td>
-                            </tr>  
-                        @else
-                            @foreach ($ActaNacimiento as $acta)
-                            <tr>
-                                <td>{{$acta->idActa}}</td>
-                                <td>{{$acta->nombres}}</td>
-                                <td>{{$acta->fecha_nacimiento}}</td>
-                                <td>{{$acta->lugar_ocurrencia}}</td>
-                                <td>
-                                    <br>
-                                    {{-- <a href="{{route('ActaNacimiento.revisar',$acta->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Validar</a> --}}
-                                    <a href="{{route('ActaNacimiento.generada',$acta->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Generar</a>
-                                    <a href="{{route('ActaNacimiento.edit',$acta->idActa) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
-                                    <a  href="{{route('ActaNacimiento.confirmar',$acta->idActa) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        @endif
+                    {{-- @if (count($ActaNacimiento)>=0)
+                         {{-- <tr>
+                        <td colspan="3"><b>No hay registros</b></td>
+                        </tr>  --}} 
+                    @if (count($ActaNacimiento)==0)
+                        <tr>
+                        <td colspan="3"><b>No hay registros</b></td>
+                        </tr>  
+                    @else
+                    @foreach ($ActaNacimiento as $acta)
+                    <tr>
+                    <td>{{$acta->idActa}}</td>
+                    <td>{{$acta->nombres}}</td>
+                    <td>{{$acta->fecha_nacimiento}}</td>
+                    <td>{{$acta->lugar_ocurrencia}}</td>
+                    {{-- //<td>{{$acta->DNI}}</td> --}}
+                    <td>
+                        <br>
+                        {{-- <a href="{{route('ActaNacimiento.revisar',$acta->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Validar</a> --}}
+                        <a href="{{route('ActaNacimiento.generada',$acta->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Generar</a>
+                        <a href="{{route('ActaNacimiento.edit',$acta->idActa) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
+                        <a  href="{{route('ActaNacimiento.confirmar',$acta->idActa) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
+                    </td>
+                    </tr>
+                @endforeach
+                    @endif
+                    {{-- @else
+
+                    @foreach ($ActaNacimiento as $item)
+                        <tr>
+                        <td>{{$item->idActa}}</td>
+                        <td>{{$item->Apellido_Paterno . " " . $item->Apellido_Materno." ".$item->Nombres}}</td>
+                        <td>{{$item->fecha_Acta}}</td>
+                        <td>{{$item->lugar_Acta}}</td>
+                        <td>{{$item->DNI}}</td>
+                        <td>
+                            <br>
+                            <a href="{{ route('ActaNacimiento.archivo',$item->idActaPersona)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Ver</a>
+                            <a href="{{ route('ActaNacimiento.generada',$item->idActaPersona)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Generar</a>
+                            <a href="{{ route('ActaNacimiento.edit',$item->idActaPersona) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
+                            <a  href="{{ route('ActaNacimiento.confirmar',$item->idActaPersona) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
+                        </td>
+                        </tr>
+                    @endforeach
+                    @endif --}}
                     </tbody>
                 </table>
                 {{$ActaNacimiento->links()}}

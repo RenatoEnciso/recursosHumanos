@@ -317,7 +317,6 @@ class ActaNacimientoController extends Controller
         $actaPersona= Acta_Persona::select('*')->where('idActa','=',$id)->get();
         $actaGenerada=Acta::findOrFail($id);
         $fecha = date('Y-m-d'); 
-        
         $data = compact('actaGenerada','actaPersona','fecha');
         $pdf = PDF::loadView('ActaNacimiento.actaGenerada', $data);
         return $pdf->download('ActaNacimiento.pdf');
@@ -333,5 +332,4 @@ class ActaNacimientoController extends Controller
         return view('ActaNacimiento.create',compact('id','ficha','fichasP','personas'));
       
     }
-
 }

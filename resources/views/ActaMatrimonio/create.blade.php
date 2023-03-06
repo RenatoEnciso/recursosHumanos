@@ -6,14 +6,14 @@
     <div class="container">
         <br>
         <h1 id='titulo' class="{{-- card-title  --}}acta_title">REGISTRO DE ACTA DE MATRIMONIO</h1><br>
-        <form method="POST" action="{{ route('ActaMatrimonio.store', $idFicha) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('ActaMatrimonio.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="row" style="width: 80%; margin: 0 auto">
                 <div class="col-8">
                     <div class="col-12 form-group">
                         <label class="control-label">Código Acta</label>
                         <input type="text" class="form-control"
-                             value={{$idFicha}} id="idActa" name="idActa" @disabled(true) style="color: black; font-weight: bold">
+                             value={{$id}} id="idActa" name="idActa" readonly style="color: black; font-weight: bold">
                     </div>
                     <div class="col-12 form-group">
                         <label class="control-label">Observación</label>

@@ -31,18 +31,18 @@ class ActaMatrimonioController extends Controller
         return view('ActaMatrimonio.index',compact('ActaMatrimonio','buscarpor','fichasP'));
     }
 
-    public function create($idFicha){
+    public function revisar($id){
         //if (Auth::user()->rol=='Administrativo'){   //boton registrar
             $personas = Persona::all();
-            $ficha=Ficha::findOrFail($idFicha);
-            $fichasP = Ficha::select('*')->join('tipoficha as tf','tf.idtipo','=','ficha_registro.idtipo')->where('estado', 'Pendiente')->where('tf.nombre','=','Matrimonio')->get();
-            return view('ActaMatrimonio.create',compact('personas','idFicha','fichasP','ficha'));
+            $ficha=Ficha::findOrFail($id);
+            $fichasP = Ficha::all()->where('estado', 'Pendiente')->where('tf.nombre','=','Matrimonio');
+            return view('ActaMatrimonio.create',compact('personas','id','fichasP','ficha'));
        // }else{
         //    return redirect()->route('ActaMatrimonio.index')->with('datos','..::No tiene Acceso ..::');
        // }
     }
 
-    public function store(Request $request, $idActa){
+    public function store(Request $request/* , $idActa */){
         $data=request()->validate([
            'Observacion'=>'max:40',
            'lugar_matrimonio'=>'max:30'
@@ -51,10 +51,15 @@ class ActaMatrimonioController extends Controller
             'Observacion.max'=>'Maximo 40 caracteres',
             'lugar_matrimonio.max'=>'Maximo 30 caracteres'
         ]);
-        $Acta=new Acta();
+
+        $id=$request->idActa;
+        $Acta= Acta::findOrFail($id);
+        //return $Acta;
+        $ficha=Ficha::findOrFail($id);
+        $ficha->estado='Aprobado';
+        $ficha->save();
+
         $fecha_Actual=Carbon::now();
-        //$Acta->idActa=$totalActas+1;
-        $Acta->idActa=$idActa;
         $Acta->fecha_registro=$fecha_Actual;
         //$Acta->hora_registro=$fecha_Actual->subHour(5)->toTimeString();
         $Acta->observacion=$request->observacion;
@@ -77,21 +82,21 @@ class ActaMatrimonioController extends Controller
 
         $Esposa=new Acta_Persona();
         $Esposa->DNI=$persona1->DNI;
-        $Esposa->idActa=$idActa;
+        $Esposa->idActa=$id;
         $Esposa->estado='1';
         $Esposa->funcion='Esposa';
         $Esposa->save();
 
         $Esposo=new Acta_Persona();
         $Esposo->DNI=$persona2->DNI;
-        $Esposo->idActa=$idActa;
+        $Esposo->idActa=$id;
         $Esposo->estado='1';
         $Esposo->funcion='Esposo';
         $Esposo->save();
 
         $ActaMatrimonio = new Acta_Matrimonio();
         $ActaMatrimonio->fecha_matrimonio=$request->fecha_matrimonio;
-        $ActaMatrimonio->idActa=$idActa;
+        $ActaMatrimonio->idActa=$id;
         $ActaMatrimonio->DNIEsposo = $persona2->DNI;
         $ActaMatrimonio->DNIEsposa = $persona1->DNI;
         $ActaMatrimonio->save();

@@ -8,7 +8,7 @@ use App\Http\Controllers\ActaDefunsionController;
 use App\Http\Controllers\ActaMatrimonioController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\InformeController;
+use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\FichaController;
 use Illuminate\Support\Facades\Route;
 
@@ -101,5 +101,5 @@ Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('So
 
 //REPORTES
 Route::get('Reporte/Crear', [ReporteController::class, 'create'])->name('reporte.create');
-Route::post('Reporte/PDF/', [ReporteController::class,'generarPDF'])->name('reporte.generarPDF');
+Route::get('Reporte/PDF/', [ReporteController::class,'generarPDF'])->name('reporte.generarPDF');
 

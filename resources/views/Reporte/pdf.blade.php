@@ -5,32 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="css/tabla.css">
 </head>
 <body>
 
-    <h1 style="text-align: center;color:red">REPORTE DE ACTAS</h1>
+    <h1 style="text-align: center;color:red">REPORTE DE ACTAS PARA ELECCIONES</h1>
     <h4>Empleado: {{Auth::user()->name}}</h4>
     <h4>Cargo: {{Auth::user()->Rol->nombreRol}}</h4>
+    <h4>Fecha: {{$fecha}}</h4>
   
     <table >
         <thead >
             <tr>
-                <th scope="col">Dni</th>
-                <th scope="col">Apellidos</th>
-                <th scope="col">Nombres</th>
-                <th colspan="3" scope="col">sexo</th>
+                <th scope="row">Dni</th>
+                <th scope="row">Apellidos</th>
+                <th scope="row">Nombres</th>
+                <th scope="row">sexo</th>
+                <th scope="row">Estado civil</th>
+                <th scope="row">Nacionalidad</th>
             </tr>
         </thead>
         <tbody >
-            @if (count($personas)<=0)
+            @if (count($ciudadanos)<=0)
                 <tr>
-                    <td>{{$item->DNI}}</td>
-                    <td>{{$item->Apellido_Paterno}} {{$item->Apellido_Materno}}</td>
-                    <td>{{$item->Nombres}}</td>
-                    <td colspan="3">{{$item->sexo}}</td>
+                    <td colspan="4"><i>:: NO HAY CIUDADANOS ::</i></td>
                 </tr>
             @else
-                @foreach ($personas as $item)
+                @foreach ($ciudadanos as $item)
                     <tr >
                         <td scope="col">{{$item->DNI}}</td>
                         <td scope="col">{{$item->Apellido_Paterno}} {{$item->Apellido_Materno}}</td>
@@ -39,10 +40,9 @@
                         <td scope="col">{{$item->estadocivil}}</td>
                         <td scope="col">{{$item->nacionalidad}}</td>
                     </tr>
-                    @endforeach
-                <p>
+                @endforeach
             @endif
         </tbody>
-    </table><br>
+    </table>
 </body>
 </html>

@@ -285,7 +285,7 @@
                                 <h4>Theme</h4>
                                 <div class="btnSwitch">
 
-                                    <button type="button" class="selected  changeBackgroundColor changeLogoHeaderColor changeSideBarColor changeTopBarColor" data-color="white" click></button>
+                                    <button type="button" class="selected  changeBackgroundColor changeLogoHeaderColor changeSideBarColor changeTopBarColor" id="inicio" data-color="white" click></button>
                                     <button type="button" class="changeBackgroundColor changeLogoHeaderColor changeSideBarColor changeTopBarColor"  data-color="dark"></button>
                                 </div>
                             </div>
@@ -301,7 +301,7 @@
                                     <button type="button" class="changeLogoHeaderColor" data-color="red"></button>
                                     <button type="button" class="changeLogoHeaderColor" data-color="white"></button>
                                     <br/>
-                                    <button type="button" class="selected changeLogoHeaderColor" data-color="dark2"></button>
+                                    <button type="button" class="selected changeLogoHeaderColor" data-color="dark2" id="inicio1"></button>
                                     <button type="button" class="changeLogoHeaderColor" data-color="blue2"></button>
                                     <button type="button" class="changeLogoHeaderColor" data-color="purple2"></button>
                                     <button type="button" class="changeLogoHeaderColor" data-color="light-blue2"></button>
@@ -336,13 +336,13 @@
                                 <div class="btnSwitch">
                                     <button type="button" class="changeSideBarColor" data-color="white"></button>
                                     <button type="button" class="changeSideBarColor" data-color="dark"></button>
-                                    <button type="button" class="selected changeSideBarColor" data-color="dark2"></button>
+                                    <button type="button" class="selected changeSideBarColor" data-color="dark2" id="inicio2"></button>
                                 </div>
                             </div>
                             <div class="switch-block">
                                 <h4>Background</h4>
                                 <div class="btnSwitch">
-                                    <button type="button" class="changeBackgroundColor" data-color="bg2"></button>
+                                    <button type="button" class="changeBackgroundColor" data-color="bg2" ></button>
                                     <button type="button" class="changeBackgroundColor " data-color="bg1"></button>
                                     <button type="button" class="changeBackgroundColor" data-color="bg3"></button>
                                     <button type="button" class="selected changeBackgroundColor" data-color="dark"></button>
@@ -459,9 +459,21 @@
              $(document).ready(function() {
                  setTimeout(function() {
                      $(".emergente").fadeOut(1000);
+            
+
                  },2000);
              });
          </script>
+         <script type="text/javascript">
+           
+                setTimeout(function() {
+
+                    document.getElementById('inicio').click();
+                    document.getElementById('inicio1').click();
+                    document.getElementById('inicio2').click();
+                },1);
+            ;
+        </script>
 
         </body>
     </html>

@@ -1,4 +1,4 @@
-@extends('dashboard');
+@extends('dashboard')
 
 @section('titulo','Generar Reporte')
 

@@ -120,12 +120,12 @@ class FichaController extends Controller
     }
 
     public function confirmar($id){
-        if (Auth::user()->rol=='Administrativo'){   //boton eliminar
+        // if (Auth::user()->rol=='Administrativo'){   //boton eliminar
             $ficha=Ficha::findOrFail($id);
             return view('Ficha.confirmar',compact('ficha'));
-        }else{
-            return redirect()->route('ActaNacimiento.index')->with('datos','..::No tiene Acceso ..::');
-        }
+        // }else{
+        //     return redirect()->route('ActaNacimiento.index')->with('datos','..::No tiene Acceso ..::');
+        // }
     }
 
     public function cancelar(){

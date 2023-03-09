@@ -137,9 +137,9 @@
                                                     @foreach ($personas as $p )
                                                     @if ($p->sexo=='M' && $p->estado==1)
                                                             @if ($actaNacimiento->DNIPadre==$p->DNI)
-                                                            <option value="{{$p->DNI}}" selected>{{$p->DNI}}</option> 
+                                                            <option value="{{$p->DNI}}" selected>{{$p->Nombres}} {{$p->Apellido_Paterno}},DNI:{{$p->DNI}}</option> 
                                                             @else
-                                                            <option value="{{$p->DNI}}">{{$p->DNI}}</option> 
+                                                            <option value="{{$p->DNI}}">{{$p->Nombres}} {{$p->Apellido_Paterno}},DNI:{{$p->DNI}}</option> 
                                                             @endif
                                                      
                                                     @endif
@@ -176,9 +176,9 @@
                                                     @if ($p->sexo=='F' && $p->estado==1 )
 
                                                         @if ($actaNacimiento->DNIMadre==$p->DNI)
-                                                        <option value="{{$p->DNI}}" selected>{{$p->DNI}}</option>
+                                                        <option value="{{$p->DNI}}" selected>{{$p->Nombres}} {{$p->Apellido_Paterno}},DNI:{{$p->DNI}}</option>
                                                         @else
-                                                            <option value="{{$p->DNI}}">{{$p->DNI}}</option>
+                                                            <option value="{{$p->DNI}}">{{$p->Nombres}} {{$p->Apellido_Paterno}},DNI:{{$p->DNI}}</option>
                                                         @endif
                                                         
                                                     @else

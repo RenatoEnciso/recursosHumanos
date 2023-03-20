@@ -100,11 +100,15 @@
                         </tr>  
                     @else
                     @foreach ($ActaNacimiento as $acta)
+                    @if ($acta->estado=="1")
                     <tr>
-                    <td>{{$acta->idActa}}</td>
-                    <td>{{$acta->nombres}}</td>
-                    <td>{{$acta->fecha_nacimiento}}</td>
-                    <td>{{$acta->lugar_ocurrencia}}</td>
+                        
+                        <td>{{$acta->idActa}}</td>
+                        <td>{{$acta->nombres}}</td>
+                        <td>{{$acta->fecha_nacimiento}}</td>
+                        <td>{{$acta->lugar_ocurrencia}}</td>
+                        
+                    
                     {{-- //<td>{{$acta->DNI}}</td> --}}
                     <td>
                         <br>
@@ -114,6 +118,7 @@
                         <a  href="{{route('ActaNacimiento.confirmar',$acta->idActa) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
                     </td>
                     </tr>
+                    @endif
                 @endforeach
                     @endif
                     {{-- @else

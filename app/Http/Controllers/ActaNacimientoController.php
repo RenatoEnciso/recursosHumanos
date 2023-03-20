@@ -258,39 +258,43 @@ class ActaNacimientoController extends Controller
     }
 
     public function destroy($id){
-
-        DB::beginTransaction();
-        try{
-           //Actanacimiento
         $actanacido=Actanacimiento::findOrFail($id);
-        $nombres=$actanacido->nombres;
-        $personanacida=DB::select('Select * from Persona as p WHERE concat( p.Nombres," ",p.Apellido_Paterno," ",p.Apellido_Materno) like "%'."$nombres".'%"');
-        $actanacido->delete();
-
-        //Acta_Persona
-        $actaPersona=DB::delete('delete from acta_persona where idActa='.$id);
-       // $actaPersona->delete();
-        
-        //Acta
-        
+        $actanacido->estado=0;
         $acta=Acta::findOrFail($id);
-        $acta->delete();
+        $acta->estado=0;
+    //     $acta->delete();
+    //     DB::beginTransaction();
+    //     try{
+    //        //Actanacimiento
+    //     $actanacido=Actanacimiento::findOrFail($id);
+    //     $nombres=$actanacido->nombres;
+    //     $personanacida=DB::select('Select * from Persona as p WHERE concat( p.Nombres," ",p.Apellido_Paterno," ",p.Apellido_Materno) like "%'."$nombres".'%"');
+    //     $actanacido->delete();
 
-        //Persona 
-        //return $personanacida[0]->DNI;
-        $persona=Persona::findOrFail($personanacida[0]->DNI);
-        $persona->delete();
+    //     //Acta_Persona
+    //     $actaPersona=DB::delete('delete from acta_persona where idActa='.$id);
+    //    // $actaPersona->delete();
+        
+    //     //Acta
+        
+    //     $acta=Acta::findOrFail($id);
+    //     $acta->delete();
 
-        DB::commit();
+    //     //Persona 
+    //     //return $personanacida[0]->DNI;
+    //     $persona=Persona::findOrFail($personanacida[0]->DNI);
+    //     $persona->delete();
+
+    //     DB::commit();
 
         return redirect()->route('ActaNacimiento.index')->with('datos','Registro Eliminado ...!');
     
 
-        } catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e){
-            DB::rollBack();
-            return redirect()->route('ActaNacimiento.confirmar',$id)->with('datos','Ocurrio un Error al Eliminar'.' '.$e);
+        // } catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e){
+        //     DB::rollBack();
+        //     return redirect()->route('ActaNacimiento.confirmar',$id)->with('datos','Ocurrio un Error al Eliminar'.' '.$e);
     
-        }
+        // }
         
         
     }

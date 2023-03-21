@@ -194,13 +194,17 @@ class ActaMatrimonioController extends Controller
     }
 
     public function actaGenerada($id){
-        $ActaMatrimonio=Acta_Persona::all();
-        $actaPersona= Acta_Persona::findOrFail($id);
-        $actaGenerada=Acta::findOrFail($actaPersona->idActa);
+       
+        
+        $actaPersona= Acta_Persona::select('*')->where('idActa','=',$id)->get();
+        
+        $actaGenerada=Acta::findOrFail($id);
         $fecha = date('Y-m-d');
-        $data = compact('ActaMatrimonio','actaGenerada','actaPersona','fecha');
+        $data = compact('actaGenerada','actaPersona','fecha');
+        //return $data;
         $pdf = Pdf::loadView('ActaMatrimonio.actaGenerada', $data);
         //return $pdf->stream('ActaMatrimonio.pdf');
         return $pdf->download('ActaMatrimonio.pdf');
+
     }
 }

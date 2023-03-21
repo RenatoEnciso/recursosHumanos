@@ -16,4 +16,7 @@ class Acta_Matrimonio extends Model
         'DNIEsposo',
         'DNIEsposa',
     ];
+    public function Acta(){
+        return $this->HasOne(Acta::class,'idActa','idActa');
+    }
 }

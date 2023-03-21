@@ -111,8 +111,8 @@
                                         <td>{{$item1->Acta->ActaMatrimonio->fecha_matrimonio}}</td>
                                         <td>{{$item1->Acta->lugar_ocurrencia}}</td>
                                         <td>
-                                            <a href="{{ route('ActaMatrimonio.archivo',$item1->idActaPersona)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Ver</a>
-                                            <a href="{{ route('ActaMatrimonio.generada',$item1->idActaPersona)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Generar</a>
+                                            <a href="{{ route('ActaMatrimonio.archivo',$item1->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Ver</a>
+                                            <a href="{{ route('ActaMatrimonio.generada',$item1->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Generar</a>
                                             <a href="{{ route('ActaMatrimonio.edit',$item1->idActaPersona) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
                                             <a href="{{ route('ActaMatrimonio.confirmar',$item1->idActaPersona) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
                                         </td>

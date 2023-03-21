@@ -18,4 +18,7 @@ class Acta_Defunsion extends Model
         'archivo_firma_declarante',
         'dniFallecido',
     ];
+    public function Acta(){
+        return $this->HasOne(Acta::class,'idActa','idActa');
+    }
 }

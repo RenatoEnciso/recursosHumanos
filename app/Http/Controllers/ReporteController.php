@@ -27,10 +27,12 @@ class ReporteController extends Controller
         ->where('FR.estado','=','Aprobado')
         ->where('P.estado','=','1')
         ->get();
-        $fecha=date('Y-m-d');
-        $nroCiudadanos=1;
 
-        $data=compact('ciudadanos','fecha','nroCiudadanos');
+        $fecha=date('Y-m-d');
+        $fecha_hoy=date_create();
+        
+        $nroCiudadanos=1;
+        $data=compact('ciudadanos','fecha','nroCiudadanos','fecha_hoy');
 
         $pdf=PDF::loadView('Reporte.pdf',$data);
         //$solicitud=Solicitud::where('DNISolicitante','=',$datosA->dni)->paginate();

@@ -31,32 +31,31 @@
         {{-- <img src="images/Logo-Login.png" alt="p" width="20%"> --}}
         <div style="text-align: center; color: rgb(6, 40, 108);">
             <h1 id="titulo" style="margin-left:10px ">Acta de Nacimiento</h1>
-        </div><br>
+        </div>
         <div>
             <div>
                 <div style="display: inline-block">
-                    
-                    
-                            <label> <strong> Fecha de Nacimiento: {{$actaGenerada->actanacimiento->fecha_nacimiento}}</strong> </label>
-                          
-                       
-                   
+                <label> 
+                    <strong> Fecha de Nacimiento: {{$actaGenerada->actanacimiento->fecha_nacimiento}}</strong> 
+                </label>
                 </div>
-                
             </div>
             <br>
+
             <div>
-                    <label for=""><strong>Localidad: {{$actaGenerada->localidad}} </strong>  </label>
-    
-            </div>
-            <br>
+                <label for=""><strong>Localidad: {{$actaGenerada->localidad}} </strong>  </label>
+            </div><br>
             <div>
               <label for=""> <strong> Lugar de Ocurrencia: {{$actaGenerada->lugar_ocurrencia}}</strong> </label>  
+            </div><br>
+            <div>
+                <label for=""> 
+                    @if ( $actaGenerada->actanacimiento->sexo=="M")
+                        <strong>Sexo: Masculino</strong>  </label>
+                    @else
+                        <strong>Sexo: Femenino</strong>  </label>
+                    @endif 
             </div>
-            <br>
-           <div>
-            <label for=""> <strong>Sexo: {{$actaGenerada->actanacimiento->sexo}}</strong>  </label>
-           </div>
             
             <br>
            
@@ -143,15 +142,15 @@
                 
 
             </table>
-            <BR></BR>
-            <label for=""> <strong>FICHA DE REGISTRO: {{$actaGenerada->fecha_registro}}</strong>  </label> 
-            <BR></BR>
-            <label for=""> <strong>REGISTRADOR: {{$actaGenerada->nombreRegistradorCivil}} </strong> </label>
-            <BR></BR>
-            <label for=""><strong> OBSERVACIONES: {{$actaGenerada->observacion}}</strong> </label>
-          
             <br>
-        </div><br>
+            <label for=""> <strong>FICHA DE REGISTRO: {{$actaGenerada->fecha_registro}}</strong>  </label> 
+            <br>
+            <label for=""> <strong>REGISTRADOR: {{$actaGenerada->nombreRegistradorCivil}} </strong> </label>
+            <br>
+            <label for=""><strong> OBSERVACIONES: {{$actaGenerada->observacion}}</strong> </label>
+            <br>
+            
+        </div>
         <div style="text-align: center">
             <img src="images/firma.png" alt="firma" width="15%" style="margin: 0;padding: 0"><br>
             <label>___________________________</label><br>

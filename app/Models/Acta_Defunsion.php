@@ -22,3 +22,5 @@ class Acta_Defunsion extends Model
         return $this->HasOne(Acta::class,'idActa','idActa');
     }
 }
+
+

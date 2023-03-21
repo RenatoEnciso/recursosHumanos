@@ -66,18 +66,8 @@ class ActaDefunsionController extends Controller
             // 'archivo_defunsion.required'=>'Ingrese el archivo de la Acta de Defunsion',
         ]);
 
- 
-        // $Acta->idLibro=$request->nroLibro;
-        // $Acta->idFolio=$request->nroFolio;
-
-
-        // general
-        // return $request->all();
         $id=$request->idActa;
-       
         $Acta= Acta::findOrFail($id);
-        // return $Acta;
-        // 
         $ficha=Ficha::findOrFail($id);
         $ficha->estado='Aprobado';
         $ficha->save();
@@ -95,12 +85,9 @@ class ActaDefunsionController extends Controller
         // }
         $Acta->estado='1';
         $Acta->save();
-       
-        // defuncion
-        // 
-        
+
+        //persona
         $persona = Persona::findOrFail($request->dniPersona);
-        
         $persona->estado='0';
         $persona->save();
         

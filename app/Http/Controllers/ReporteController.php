@@ -24,10 +24,14 @@ class ReporteController extends Controller
         $ciudadanos=Acta_Persona::select('*')
         ->join('persona as P','P.DNI','=','acta_persona.DNI')
         ->join('ficha_registro as FR','FR.idficha','=','acta_persona.idActa')
-        ->where('FR.estado','=','Aprobado')->get();
+        ->where('FR.estado','=','Aprobado')
+        ->where('P.estado','=','1')
+        ->get();
         $fecha=date('Y-m-d');
+        $nroCiudadanos=1;
 
-        $data=compact('ciudadanos','fecha');
+        $data=compact('ciudadanos','fecha','nroCiudadanos');
+
         $pdf=PDF::loadView('Reporte.pdf',$data);
         //$solicitud=Solicitud::where('DNISolicitante','=',$datosA->dni)->paginate();
         //$acta=Acta_Persona::where('DNI','=',$datosA->dni)->paginate();

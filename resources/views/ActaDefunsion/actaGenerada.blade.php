@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Acta de nacimiento</title>
+    <title>Acta de Defunción</title>
     <style>
         body{
             background-image: url("images/fondo_acta.jpg") ;
@@ -30,14 +30,14 @@
     <div class="container">
         {{-- <img src="images/Logo-Login.png" alt="p" width="20%"> --}}
         <div style="text-align: center; color: rgb(6, 40, 108);">
-            <h1 id="titulo" style="margin-left:10px ">Acta de Nacimiento</h1>
+            <h1 id="titulo" style="margin-left:10px ">Acta de Defunción</h1>
         </div><br>
         <div>
             <div>
                 <div style="display: inline-block">
                     
                     
-                            <label> <strong> Fecha de Nacimiento: {{$actaGenerada->actanacimiento->fecha_nacimiento}}</strong> </label>
+                            <label> <strong> Fecha de fallecimiento: {{$actaGenerada->ActaDefunsion->fecha_fallecido}}</strong> </label>
                           
                        
                    
@@ -54,90 +54,72 @@
               <label for=""> <strong> Lugar de Ocurrencia: {{$actaGenerada->lugar_ocurrencia}}</strong> </label>  
             </div>
             <br>
-           <div>
-            <label for=""> <strong>Sexo: {{$actaGenerada->actanacimiento->sexo}}</strong>  </label>
-           </div>
+          
             
             <br>
            
             <table >
-                <thead>
-                    <tr>
-                        <th scope="row" >Nombres</th>
-                        <th scope="col" width="80%" colspan="2" >{{$actaGenerada->actanacimiento->nombres}}</th>
-                    </tr>
-                </thead>
+               
                 <TBody>
                     <tr>
-                        <th scope="col" >DATOS DE LOS PADRES</th>
-                        <th scope="col">PADRE</th>
-                        <th scope="col">MADRE</th>
+                        <th scope="col" >DATOS </th>
+                        <th scope="col">FALLECIDO</th>
                     </tr>
                     <TR>
                         <th scope="row" >Pronombres</th>
-                        @foreach ($actaPersona as $acta )
-                            @if ( ($actaGenerada->actanacimiento->DNIPadre==$acta->DNI))
-                                <td>{{$acta->Persona->Nombres}}</td>
+                        
+                            @if ( ($actaGenerada->ActaDefunsion->dniFallecido==$actaPersona->DNI))
+                                <td>{{$actaPersona->Persona->Nombres}}</td>
                             @else
-                                @if ( ($actaGenerada->actanacimiento->DNIMadre==$acta->DNI))
-                                <td>{{$acta->Persona->Nombres}}</td>
-                                @endif
-                                
+                                                               
                             @endif 
-                        @endforeach
+                        
                         
                         
                     </TR>
                     <tr>
                         <th scope="row" >Primer Apellido</th>
-                        @foreach ($actaPersona as $acta )
-                        @if ( ($actaGenerada->actanacimiento->DNIPadre==$acta->DNI))
-                            <td>{{$acta->Persona->Apellido_Paterno}}</td>
+                       
+                        @if ( ($actaGenerada->ActaDefunsion->dniFallecido==$actaPersona->DNI))
+                            <td>{{$actaPersona->Persona->Apellido_Paterno}}</td>
                         @else
-                            @if ( ($actaGenerada->actanacimiento->DNIMadre==$acta->DNI))
-                            <td>{{$acta->Persona->Apellido_Paterno}}</td>
-                            @endif
-                            
+                                                        
                         @endif 
-                    @endforeach
                     </tr>
                     <tr>
                         <th scope="row" >Segundo Apellido</th>
-                        @foreach ($actaPersona as $acta )
-                        @if ( ($actaGenerada->actanacimiento->DNIPadre==$acta->DNI))
-                            <td>{{$acta->Persona->Apellido_Materno}}</td>
+                     
+                        @if ( ($actaGenerada->ActaDefunsion->dniFallecido==$actaPersona->DNI))
+                            <td>{{$actaPersona->Persona->Apellido_Materno}}</td>
                         @else
-                            @if ( ($actaGenerada->actanacimiento->DNIMadre==$acta->DNI))
-                            <td>{{$acta->Persona->Apellido_Materno}}</td>
-                            @endif
-                            
+                          
                         @endif 
-                    @endforeach
                     </tr>
                     <tr>
                         <th scope="row" >Nacionalidad</th>
-                        @foreach ($actaPersona as $acta )
-                            @if ( ($actaGenerada->actanacimiento->DNIPadre==$acta->DNI))
-                                <td>{{$acta->Persona->nacionalidad}}</td>
+                      
+                            @if ( ($actaGenerada->ActaDefunsion->dniFallecido==$actaPersona->DNI))
+                                <td>{{$actaPersona->Persona->nacionalidad}}</td>
                             @else
-                                @if ( ($actaGenerada->actanacimiento->DNIMadre==$acta->DNI))
-                                <td>{{$acta->Persona->nacionalidad}}</td>
-                                @endif
                                 
                             @endif 
-                        @endforeach
                     </tr>
                     <tr>
                         <th scope="row" >Documento de Identidad</th>
-                        <td>{{$actaGenerada->actanacimiento->DNIPadre}}</td>
-                        <td>{{$actaGenerada->actanacimiento->DNIMadre}}</td>
+                        <td>{{$actaGenerada->ActaDefunsion->dniFallecido}}</td>
+                 
+                    </tr>
+                    <tr>
+                        <th scope="row" >Edad</th>
+                        <td>{{$actaGenerada->ActaDefunsion->edad}}</td>
+                 
                     </tr>
                 </TBody>
                 
                 <tfoot>
                     <tr>
-                        <th scope="row" >Domicilio de la madre</th>
-                        <td colspan="2"> {{$actaGenerada->actanacimiento->domicilio}}</td>
+                        {{-- <th scope="row" >Domicilio de la madre</th>
+                        <td colspan="2"> {{$actaGenerada->actanacimiento->domicilio}}</td> --}}
                     </tr>
                 </tfoot>
                 
@@ -148,6 +130,8 @@
             <BR></BR>
             <label for=""> <strong>REGISTRADOR: {{$actaGenerada->nombreRegistradorCivil}} </strong> </label>
             <BR></BR>
+            <label for=""><strong> DECLARANTE: {{$actaGenerada->ActaDefunsion->nombreDeclarante}}</strong> </label>
+            <BR></BR>
             <label for=""><strong> OBSERVACIONES: {{$actaGenerada->observacion}}</strong> </label>
           
             <br>
@@ -156,6 +140,12 @@
             <img src="images/firma.png" alt="firma" width="15%" style="margin: 0;padding: 0"><br>
             <label>___________________________</label><br>
             <label>Director general de RENIEC</label>
+        </div>
+        <div style="text-align: center">
+            <img src="public{{$actaGenerada->ActaDefunsion->firma_declarante}}" alt="firma" width="15%" style="margin: 0;padding: 0"><br> 
+            
+            <label>___________________________</label><br>
+            <label>Firma del Declarante</label>
         </div>
     </div>
 </body>

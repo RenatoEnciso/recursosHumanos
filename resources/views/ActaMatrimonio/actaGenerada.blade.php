@@ -30,14 +30,14 @@
     <div class="container">
         {{-- <img src="images/Logo-Login.png" alt="p" width="20%"> --}}
         <div style="text-align: center; color: rgb(6, 40, 108);">
-            <h1 id="titulo" style="margin-left:10px ">Acta de Nacimiento</h1>
+            <h1 id="titulo" style="margin-left:10px ">Acta de Matrimonio</h1>
         </div><br>
         <div>
             <div>
                 <div style="display: inline-block">
                     
                     
-                            <label> <strong> Fecha de Nacimiento: {{$actaGenerada->ActaMatrimonio->fecha_matrimonio}}</strong> </label>
+                            <label> <strong> Fecha de Matrimonio: {{$actaGenerada->ActaMatrimonio->fecha_matrimonio}}</strong> </label>
                           
                        
                    
@@ -49,7 +49,7 @@
                 @if ($actaGenerada->localidad)
                 <label for=""><strong>Localidad: {{$actaGenerada->localidad}} </strong>  </label>
                 @else
-                <label for=""><strong> Localidad no registrada </strong>  </label>
+                <label for=""><strong> Localidad: no registrada </strong>  </label>
                 @endif
                     
     
@@ -116,10 +116,19 @@
                         <th scope="row">Nacionalidad</th>
                         @foreach ($actaPersona as $acta )
                             @if ( ($actaGenerada->ActaMatrimonio->DNIEsposo==$acta->DNI))
-                                <td>{{$acta->Persona->nacionalidad}}</td>
+                                @if ($acta->Persona->nacionalidad)
+                                     <td>{{$acta->Persona->nacionalidad}}</td>
+                                @else
+                                     <td>Peruano</td>
+                                @endif
+                               
                             @else
                                 @if ( ($actaGenerada->ActaMatrimonio->DNIEsposa==$acta->DNI))
-                                <td>{{$acta->Persona->nacionalidad}}</td>
+                                    @if ($acta->Persona->nacionalidad)
+                                        <td>{{$acta->Persona->nacionalidad}}</td>
+                                    @else
+                                        <td>Peruana</td>
+                                    @endif
                                 @endif
                                 
                             @endif 
@@ -137,10 +146,18 @@
                         <th scope="row" >Estado Civil</th>
                         @foreach ($actaPersona as $acta )
                             @if ( ($actaGenerada->ActaMatrimonio->DNIEsposo==$acta->DNI))
-                                <td>{{$acta->Persona->estadocivil}}</td>
+                                 @if ($acta->Persona->estadocivil)
+                                     <td>{{$acta->Persona->estadocivil}}</td>
+                                @else
+                                     <td>Soltero</td>
+                                @endif
                             @else
                                 @if ( ($actaGenerada->ActaMatrimonio->DNIEsposa==$acta->DNI))
-                                <td>{{$acta->Persona->estadocivil}}</td>
+                                    @if ($acta->Persona->estadocivil)
+                                        <td>{{$acta->Persona->estadocivil}}</td>
+                                    @else
+                                        <td>Soltera</td>
+                                    @endif
                                 @endif
                                 
                             @endif 

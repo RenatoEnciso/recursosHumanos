@@ -33,6 +33,9 @@
     <table class="formato_tabla">
         <thead >
             <tr>
+                <th scope="row" colspan="8">LISTA DE CIUDADANOS HABILITADOS</th>
+            </tr>
+            <tr>
                 <th scope="row">N°</th>
                 <th scope="row">Dni</th>
                 <th scope="row">Apellidos</th>

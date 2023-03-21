@@ -20,7 +20,7 @@ class ReporteController extends Controller
     }
 
     public function generarPDF(){
-    
+        
         $ciudadanos=Acta_Persona::select('*')
         ->join('persona as P','P.DNI','=','acta_persona.DNI')
         ->join('ficha_registro as FR','FR.idficha','=','acta_persona.idActa')

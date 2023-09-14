@@ -40,6 +40,7 @@
                         <th scope="col">DNI</th>
                         <th scope="col">fecha</th>
                         <th scope="col">observacion</th>
+                        <th scope="col">estado</th>
                         <th scope="col">Opciones</th>
                     </tr>
                     </thead>
@@ -59,6 +60,13 @@
                         
                         <td>{{$item->fecha}}</td>
                         <td>{{$item->observacion}}</td>
+                        <td>@if ($item->estado==1)
+                            Aprobado
+                        @else
+                            Rechazado
+                        @endif
+                        
+                            </td>
                         <td>
                             <br>
                             {{-- <a href="{{ route('ActaDefunsion.archivo',$item->idActaPersona)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Ver</a> --}}

@@ -42,13 +42,12 @@ class PackageDiscoverCommand extends Command
      */
     public function handle(PackageManifest $manifest)
     {
-        $this->components->info('Discovering packages');
-
         $manifest->build();
 
-        collect($manifest->manifest)
-            ->keys()
-            ->each(fn ($description) => $this->components->task($description))
-            ->whenNotEmpty(fn () => $this->newLine());
+        foreach (array_keys($manifest->manifest) as $package) {
+            $this->line("Discovered Package: <info>{$package}</info>");
+        }
+
+        $this->info('Package manifest generated successfully.');
     }
 }

@@ -52,7 +52,6 @@ class Email extends Message
 
     private ?string $htmlCharset = null;
     private array $attachments = [];
-    private ?AbstractPart $cachedBody = null; // Used to avoid wrong body hash in DKIM signatures with multiple parts (e.g. HTML + TEXT) due to multiple boundaries.
 
     /**
      * @return $this
@@ -268,7 +267,6 @@ class Email extends Message
             throw new \TypeError(sprintf('The body must be a string, a resource or null (got "%s").', get_debug_type($body)));
         }
 
-        $this->cachedBody = null;
         $this->text = $body;
         $this->textCharset = $charset;
 
@@ -299,7 +297,6 @@ class Email extends Message
             throw new \TypeError(sprintf('The body must be a string, a resource or null (got "%s").', get_debug_type($body)));
         }
 
-        $this->cachedBody = null;
         $this->html = $body;
         $this->htmlCharset = $charset;
 
@@ -330,7 +327,6 @@ class Email extends Message
             throw new \TypeError(sprintf('The body must be a string or a resource (got "%s").', get_debug_type($body)));
         }
 
-        $this->cachedBody = null;
         $this->attachments[] = ['body' => $body, 'name' => $name, 'content-type' => $contentType, 'inline' => false];
 
         return $this;
@@ -341,7 +337,6 @@ class Email extends Message
      */
     public function attachFromPath(string $path, string $name = null, string $contentType = null): static
     {
-        $this->cachedBody = null;
         $this->attachments[] = ['path' => $path, 'name' => $name, 'content-type' => $contentType, 'inline' => false];
 
         return $this;
@@ -358,7 +353,6 @@ class Email extends Message
             throw new \TypeError(sprintf('The body must be a string or a resource (got "%s").', get_debug_type($body)));
         }
 
-        $this->cachedBody = null;
         $this->attachments[] = ['body' => $body, 'name' => $name, 'content-type' => $contentType, 'inline' => true];
 
         return $this;
@@ -369,7 +363,6 @@ class Email extends Message
      */
     public function embedFromPath(string $path, string $name = null, string $contentType = null): static
     {
-        $this->cachedBody = null;
         $this->attachments[] = ['path' => $path, 'name' => $name, 'content-type' => $contentType, 'inline' => true];
 
         return $this;
@@ -380,7 +373,6 @@ class Email extends Message
      */
     public function attachPart(DataPart $part): static
     {
-        $this->cachedBody = null;
         $this->attachments[] = ['part' => $part];
 
         return $this;
@@ -439,13 +431,9 @@ class Email extends Message
      */
     private function generateBody(): AbstractPart
     {
-        if (null !== $this->cachedBody) {
-            return $this->cachedBody;
-        }
-
         $this->ensureValidity();
 
-        [$htmlPart, $otherParts, $relatedParts] = $this->prepareParts();
+        [$htmlPart, $attachmentParts, $inlineParts] = $this->prepareParts();
 
         $part = null === $this->text ? null : new TextPart($this->text, $this->textCharset);
         if (null !== $htmlPart) {
@@ -456,19 +444,19 @@ class Email extends Message
             }
         }
 
-        if ($relatedParts) {
-            $part = new RelatedPart($part, ...$relatedParts);
+        if ($inlineParts) {
+            $part = new RelatedPart($part, ...$inlineParts);
         }
 
-        if ($otherParts) {
+        if ($attachmentParts) {
             if ($part) {
-                $part = new MixedPart($part, ...$otherParts);
+                $part = new MixedPart($part, ...$attachmentParts);
             } else {
-                $part = new MixedPart(...$otherParts);
+                $part = new MixedPart(...$attachmentParts);
             }
         }
 
-        return $this->cachedBody = $part;
+        return $part;
     }
 
     private function prepareParts(): ?array
@@ -479,49 +467,35 @@ class Email extends Message
         if (null !== $html) {
             $htmlPart = new TextPart($html, $this->htmlCharset, 'html');
             $html = $htmlPart->getBody();
-            preg_match_all('(<img\s+[^>]*src\s*=\s*(?:([\'"])cid:(.+?)\\1|cid:([^>\s]+)))i', $html, $names);
+            preg_match_all('(<img\s+[^>]*src\s*=\s*(?:([\'"])cid:([^"]+)\\1|cid:([^>\s]+)))i', $html, $names);
             $names = array_filter(array_unique(array_merge($names[2], $names[3])));
         }
 
-        // usage of reflection is a temporary workaround for missing getters that will be added in 6.2
-        $nameRef = new \ReflectionProperty(TextPart::class, 'name');
-        $nameRef->setAccessible(true);
-        $otherParts = $relatedParts = [];
+        $attachmentParts = $inlineParts = [];
         foreach ($this->attachments as $attachment) {
-            $part = $this->createDataPart($attachment);
-            if (isset($attachment['part'])) {
-                $attachment['name'] = $nameRef->getValue($part);
-            }
-
-            $related = false;
             foreach ($names as $name) {
+                if (isset($attachment['part'])) {
+                    continue;
+                }
                 if ($name !== $attachment['name']) {
                     continue;
                 }
-                if (isset($relatedParts[$name])) {
+                if (isset($inlineParts[$name])) {
                     continue 2;
                 }
-                $part->setDisposition('inline');
-                $html = str_replace('cid:'.$name, 'cid:'.$part->getContentId(), $html, $count);
-                if ($count) {
-                    $related = true;
-                }
+                $attachment['inline'] = true;
+                $inlineParts[$name] = $part = $this->createDataPart($attachment);
+                $html = str_replace('cid:'.$name, 'cid:'.$part->getContentId(), $html);
                 $part->setName($part->getContentId());
-
-                break;
+                continue 2;
             }
-
-            if ($related) {
-                $relatedParts[$attachment['name']] = $part;
-            } else {
-                $otherParts[] = $part;
-            }
+            $attachmentParts[] = $this->createDataPart($attachment);
         }
         if (null !== $htmlPart) {
             $htmlPart = new TextPart($html, $this->htmlCharset, 'html');
         }
 
-        return [$htmlPart, $otherParts, array_values($relatedParts)];
+        return [$htmlPart, $attachmentParts, array_values($inlineParts)];
     }
 
     private function createDataPart(array $attachment): DataPart

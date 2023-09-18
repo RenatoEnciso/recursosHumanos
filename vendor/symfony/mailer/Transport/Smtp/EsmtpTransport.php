@@ -100,9 +100,15 @@ class EsmtpTransport extends SmtpTransport
 
     protected function doHeloCommand(): void
     {
-        if (!$capabilities = $this->callHeloCommand()) {
+        try {
+            $response = $this->executeCommand(sprintf("EHLO %s\r\n", $this->getLocalDomain()), [250]);
+        } catch (TransportExceptionInterface $e) {
+            parent::doHeloCommand();
+
             return;
         }
+
+        $capabilities = $this->getCapabilities($response);
 
         /** @var SocketStream $stream */
         $stream = $this->getStream();
@@ -116,7 +122,14 @@ class EsmtpTransport extends SmtpTransport
                 throw new TransportException('Unable to connect with STARTTLS.');
             }
 
-            $capabilities = $this->callHeloCommand();
+            try {
+                $response = $this->executeCommand(sprintf("EHLO %s\r\n", $this->getLocalDomain()), [250]);
+                $capabilities = $this->getCapabilities($response);
+            } catch (TransportExceptionInterface $e) {
+                parent::doHeloCommand();
+
+                return;
+            }
         }
 
         if (\array_key_exists('AUTH', $capabilities)) {
@@ -124,26 +137,10 @@ class EsmtpTransport extends SmtpTransport
         }
     }
 
-    private function callHeloCommand(): array
+    private function getCapabilities(string $ehloResponse): array
     {
-        try {
-            $response = $this->executeCommand(sprintf("EHLO %s\r\n", $this->getLocalDomain()), [250]);
-        } catch (TransportExceptionInterface $e) {
-            try {
-                parent::doHeloCommand();
-
-                return [];
-            } catch (TransportExceptionInterface $ex) {
-                if (!$ex->getCode()) {
-                    throw $e;
-                }
-
-                throw $ex;
-            }
-        }
-
         $capabilities = [];
-        $lines = explode("\r\n", trim($response));
+        $lines = explode("\r\n", trim($ehloResponse));
         array_shift($lines);
         foreach ($lines as $line) {
             if (preg_match('/^[0-9]{3}[ -]([A-Z0-9-]+)((?:[ =].*)?)$/Di', $line, $matches)) {

@@ -11,11 +11,9 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\ParallelTesting;
 use Illuminate\Support\Str;
-use Illuminate\View\Component;
 use Mockery;
 use Mockery\Exception\InvalidCountException;
 use PHPUnit\Framework\TestCase as BaseTestCase;
-use PHPUnit\Util\Annotation\Registry;
 use Throwable;
 
 abstract class TestCase extends BaseTestCase
@@ -83,8 +81,6 @@ abstract class TestCase extends BaseTestCase
      */
     protected function setUp(): void
     {
-        static::$latestResponse = null;
-
         Facade::clearResolvedInstances();
 
         if (! $this->app) {
@@ -129,10 +125,6 @@ abstract class TestCase extends BaseTestCase
 
         if (isset($uses[DatabaseMigrations::class])) {
             $this->runDatabaseMigrations();
-        }
-
-        if (isset($uses[DatabaseTruncation::class])) {
-            $this->truncateDatabaseTables();
         }
 
         if (isset($uses[DatabaseTransactions::class])) {
@@ -218,34 +210,13 @@ abstract class TestCase extends BaseTestCase
         $this->afterApplicationCreatedCallbacks = [];
         $this->beforeApplicationDestroyedCallbacks = [];
 
-        $this->originalExceptionHandler = null;
-        $this->originalDeprecationHandler = null;
-
         Artisan::forgetBootstrappers();
-        Component::flushCache();
-        Component::forgetComponentsResolver();
-        Component::forgetFactory();
         Queue::createPayloadUsing(null);
         HandleExceptions::forgetApp();
 
         if ($this->callbackException) {
             throw $this->callbackException;
         }
-    }
-
-    /**
-     * Clean up the testing environment before the next test case.
-     *
-     * @return void
-     */
-    public static function tearDownAfterClass(): void
-    {
-        static::$latestResponse = null;
-
-        (function () {
-            $this->classDocBlocks = [];
-            $this->methodDocBlocks = [];
-        })->call(Registry::getInstance());
     }
 
     /**
@@ -290,20 +261,5 @@ abstract class TestCase extends BaseTestCase
                 }
             }
         }
-    }
-
-    /**
-     * This method is called when a test method did not execute successfully.
-     *
-     * @param  \Throwable  $exception
-     * @return void
-     */
-    protected function onNotSuccessfulTest(Throwable $exception): void
-    {
-        parent::onNotSuccessfulTest(
-            is_null(static::$latestResponse)
-                ? $exception
-                : static::$latestResponse->transformNotSuccessfulException($exception)
-        );
     }
 }

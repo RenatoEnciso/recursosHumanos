@@ -43,7 +43,7 @@ class MailMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $type = 'Mailable';
+    protected $type = 'Mail';
 
     /**
      * Execute the console command.
@@ -87,11 +87,7 @@ class MailMakeCommand extends GeneratorCommand
      */
     protected function buildClass($name)
     {
-        $class = str_replace(
-            '{{ subject }}',
-            Str::headline(str_replace($this->getNamespace($name).'\\', '', $name)),
-            parent::buildClass($name)
-        );
+        $class = parent::buildClass($name);
 
         if ($this->option('markdown') !== false) {
             $class = str_replace(['DummyView', '{{ view }}'], $this->getView(), $class);
@@ -166,6 +162,7 @@ class MailMakeCommand extends GeneratorCommand
     {
         return [
             ['force', 'f', InputOption::VALUE_NONE, 'Create the class even if the mailable already exists'],
+
             ['markdown', 'm', InputOption::VALUE_OPTIONAL, 'Create a new Markdown template for the mailable', false],
         ];
     }

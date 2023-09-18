@@ -4,6 +4,7 @@ namespace Illuminate\Console\Scheduling;
 
 use Illuminate\Console\Application;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(name: 'schedule:test')]
@@ -42,8 +43,6 @@ class ScheduleTestCommand extends Command
      */
     public function handle(Schedule $schedule)
     {
-        $phpBinary = Application::phpBinary();
-
         $commands = $schedule->events();
 
         $commandNames = [];
@@ -53,47 +52,29 @@ class ScheduleTestCommand extends Command
         }
 
         if (empty($commandNames)) {
-            return $this->components->info('No scheduled commands have been defined.');
+            return $this->comment('No scheduled commands have been defined.');
         }
 
         if (! empty($name = $this->option('name'))) {
-            $commandBinary = $phpBinary.' '.Application::artisanBinary();
+            $commandBinary = Application::phpBinary().' '.Application::artisanBinary();
 
             $matches = array_filter($commandNames, function ($commandName) use ($commandBinary, $name) {
                 return trim(str_replace($commandBinary, '', $commandName)) === $name;
             });
 
             if (count($matches) !== 1) {
-                $this->components->info('No matching scheduled command found.');
-
-                return;
+                return $this->error('No matching scheduled command found.');
             }
 
             $index = key($matches);
         } else {
-            $index = array_search($this->components->choice('Which command would you like to run?', $commandNames), $commandNames);
+            $index = array_search($this->choice('Which command would you like to run?', $commandNames), $commandNames);
         }
 
         $event = $commands[$index];
 
-        $summary = $event->getSummaryForDisplay();
+        $this->line('<info>['.Carbon::now()->format('c').'] Running scheduled command:</info> '.$event->getSummaryForDisplay());
 
-        $command = $event instanceof CallbackEvent
-            ? $summary
-            : trim(str_replace($phpBinary, '', $event->command));
-
-        $description = sprintf(
-            'Running [%s]%s',
-            $command,
-            $event->runInBackground ? ' in background' : '',
-        );
-
-        $this->components->task($description, fn () => $event->run($this->laravel));
-
-        if (! $event instanceof CallbackEvent) {
-            $this->components->bulletList([$event->getSummaryForDisplay()]);
-        }
-
-        $this->newLine();
+        $event->run($this->laravel);
     }
 }

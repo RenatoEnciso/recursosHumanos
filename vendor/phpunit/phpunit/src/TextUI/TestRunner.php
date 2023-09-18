@@ -27,7 +27,6 @@ use function is_string;
 use function mt_srand;
 use function range;
 use function realpath;
-use function sort;
 use function sprintf;
 use function time;
 use PHPUnit\Framework\Exception;
@@ -55,6 +54,7 @@ use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\FilterMapper;
 use PHPUnit\TextUI\XmlConfiguration\Configuration;
 use PHPUnit\TextUI\XmlConfiguration\Loader;
 use PHPUnit\TextUI\XmlConfiguration\PhpHandler;
+use PHPUnit\Util\Color;
 use PHPUnit\Util\Filesystem;
 use PHPUnit\Util\Log\JUnit;
 use PHPUnit\Util\Log\TeamCity;
@@ -308,7 +308,7 @@ final class TestRunner extends BaseTestRunner
                     } catch (ReflectionException $e) {
                         throw new Exception(
                             $e->getMessage(),
-                            $e->getCode(),
+                            (int) $e->getCode(),
                             $e
                         );
                     }
@@ -326,7 +326,18 @@ final class TestRunner extends BaseTestRunner
             $this->printer->setShowProgressAnimation(!$arguments['noInteraction']);
         }
 
-        $this->write(Version::getVersionString() . "\n");
+        if ($arguments['colors'] !== DefaultResultPrinter::COLOR_NEVER) {
+            $this->write(
+                'PHPUnit ' .
+                Version::id() .
+                ' ' .
+                Color::colorize('bg-blue,fg-white', '#StandWith') .
+                Color::colorize('bg-yellow', 'Ukraine') .
+                "\n"
+            );
+        } else {
+            $this->write(Version::getVersionString() . "\n");
+        }
 
         foreach ($arguments['listeners'] as $listener) {
             $result->addListener($listener);
@@ -572,9 +583,6 @@ final class TestRunner extends BaseTestRunner
             $warnings[] = 'Directives printerClass and testdox are mutually exclusive';
         }
 
-        $warnings = array_merge($warnings, $suite->warnings());
-        sort($warnings);
-
         foreach ($warnings as $warning) {
             $this->writeMessage('Warning', $warning);
         }
@@ -648,6 +656,18 @@ final class TestRunner extends BaseTestRunner
             if ($extension instanceof BeforeFirstTestHook) {
                 $extension->executeBeforeFirstTest();
             }
+        }
+
+        $testSuiteWarningsPrinted = false;
+
+        foreach ($suite->warnings() as $warning) {
+            $this->writeMessage('Warning', $warning);
+
+            $testSuiteWarningsPrinted = true;
+        }
+
+        if ($testSuiteWarningsPrinted) {
+            $this->write(PHP_EOL);
         }
 
         $suite->run($result);
@@ -1008,19 +1028,17 @@ final class TestRunner extends BaseTestRunner
                 $arguments['excludeGroups'] = array_diff($groupConfiguration->exclude()->asArrayOfStrings(), $groupCliArgs);
             }
 
-            if (!isset($this->arguments['noExtensions'])) {
-                $extensionHandler = new ExtensionHandler;
+            $extensionHandler = new ExtensionHandler;
 
-                foreach ($arguments['configurationObject']->extensions() as $extension) {
-                    $extensionHandler->registerExtension($extension, $this);
-                }
-
-                foreach ($arguments['configurationObject']->listeners() as $listener) {
-                    $arguments['listeners'][] = $extensionHandler->createTestListenerInstance($listener);
-                }
-
-                unset($extensionHandler);
+            foreach ($arguments['configurationObject']->extensions() as $extension) {
+                $extensionHandler->registerExtension($extension, $this);
             }
+
+            foreach ($arguments['configurationObject']->listeners() as $listener) {
+                $arguments['listeners'][] = $extensionHandler->createTestListenerInstance($listener);
+            }
+
+            unset($extensionHandler);
 
             foreach ($arguments['unavailableExtensions'] as $extension) {
                 $arguments['warnings'][] = sprintf(

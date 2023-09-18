@@ -20,6 +20,7 @@ use function count;
 use function explode;
 use function get_class;
 use function is_array;
+use function is_file;
 use function sort;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Runner\PhptTestCase;
@@ -76,7 +77,7 @@ final class CodeCoverage
     private $ignoreDeprecatedCode = false;
 
     /**
-     * @var null|PhptTestCase|string|TestCase
+     * @var PhptTestCase|string|TestCase
      */
     private $currentId;
 
@@ -485,16 +486,9 @@ final class CodeCoverage
                 continue;
             }
 
-            $linesToBranchMap = $this->analyser()->executableLinesIn($filename);
-
             $data->keepLineCoverageDataOnlyForLines(
                 $filename,
-                array_keys($linesToBranchMap)
-            );
-
-            $data->markExecutableLineByBranch(
-                $filename,
-                $linesToBranchMap
+                $this->analyser()->executableLinesIn($filename)
             );
         }
     }
@@ -524,7 +518,7 @@ final class CodeCoverage
         );
 
         foreach ($uncoveredFiles as $uncoveredFile) {
-            if ($this->filter->isFile($uncoveredFile)) {
+            if (is_file($uncoveredFile)) {
                 $this->append(
                     RawCodeCoverageData::fromUncoveredFile(
                         $uncoveredFile,
@@ -549,7 +543,7 @@ final class CodeCoverage
         $this->driver->start();
 
         foreach ($uncoveredFiles as $uncoveredFile) {
-            if ($this->filter->isFile($uncoveredFile)) {
+            if (is_file($uncoveredFile)) {
                 include_once $uncoveredFile;
             }
         }
@@ -650,7 +644,7 @@ final class CodeCoverage
             } catch (\ReflectionException $e) {
                 throw new ReflectionException(
                     $e->getMessage(),
-                    $e->getCode(),
+                    (int) $e->getCode(),
                     $e
                 );
             }

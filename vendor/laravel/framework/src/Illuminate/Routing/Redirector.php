@@ -114,6 +114,19 @@ class Redirector
     }
 
     /**
+     * Set the intended url.
+     *
+     * @param  string  $url
+     * @return $this
+     */
+    public function setIntendedUrl($url)
+    {
+        $this->session->put('url.intended', $url);
+
+        return $this;
+    }
+
+    /**
      * Create a new redirect response to the given path.
      *
      * @param  string  $path
@@ -249,28 +262,5 @@ class Redirector
     public function setSession(SessionStore $session)
     {
         $this->session = $session;
-    }
-
-    /**
-     * Get the "intended" URL from the session.
-     *
-     * @return string|null
-     */
-    public function getIntendedUrl()
-    {
-        return $this->session->get('url.intended');
-    }
-
-    /**
-     * Set the "intended" URL in the session.
-     *
-     * @param  string  $url
-     * @return $this
-     */
-    public function setIntendedUrl($url)
-    {
-        $this->session->put('url.intended', $url);
-
-        return $this;
     }
 }

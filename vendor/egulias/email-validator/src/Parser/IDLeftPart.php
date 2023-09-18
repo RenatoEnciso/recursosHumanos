@@ -3,6 +3,7 @@
 namespace Egulias\EmailValidator\Parser;
 
 use Egulias\EmailValidator\Result\Result;
+use Egulias\EmailValidator\Parser\LocalPart;
 use Egulias\EmailValidator\Result\InvalidEmail;
 use Egulias\EmailValidator\Result\Reason\CommentsInIDRight;
 

@@ -9,7 +9,7 @@ trait InstallsApiStack
     /**
      * Install the API Breeze stack.
      *
-     * @return int|null
+     * @return void
      */
     protected function installApiStack()
     {
@@ -17,10 +17,10 @@ trait InstallsApiStack
 
         // Controllers...
         $files->ensureDirectoryExists(app_path('Http/Controllers/Auth'));
-        $files->copyDirectory(__DIR__.'/../../stubs/api/app/Http/Controllers/Auth', app_path('Http/Controllers/Auth'));
+        $files->copyDirectory(__DIR__.'/../../stubs/api/App/Http/Controllers/Auth', app_path('Http/Controllers/Auth'));
 
         // Middleware...
-        $files->copyDirectory(__DIR__.'/../../stubs/api/app/Http/Middleware', app_path('Http/Middleware'));
+        $files->copyDirectory(__DIR__.'/../../stubs/api/App/Http/Middleware', app_path('Http/Middleware'));
 
         $this->replaceInFile('// \Laravel\Sanctum\Http', '\Laravel\Sanctum\Http', app_path('Http/Kernel.php'));
 
@@ -32,11 +32,10 @@ trait InstallsApiStack
 
         // Requests...
         $files->ensureDirectoryExists(app_path('Http/Requests/Auth'));
-        $files->copyDirectory(__DIR__.'/../../stubs/api/app/Http/Requests/Auth', app_path('Http/Requests/Auth'));
+        $files->copyDirectory(__DIR__.'/../../stubs/api/App/Http/Requests/Auth', app_path('Http/Requests/Auth'));
 
         // Providers...
-        $files->copyDirectory(__DIR__.'/../../stubs/api/app/Providers', app_path('Providers'));
-        $this->replaceInFile("HOME = '/home'", "HOME = '/dashboard'", app_path('Providers/RouteServiceProvider.php'));
+        $files->copyDirectory(__DIR__.'/../../stubs/api/App/Providers', app_path('Providers'));
 
         // Routes...
         copy(__DIR__.'/../../stubs/api/routes/api.php', base_path('routes/api.php'));
@@ -63,16 +62,14 @@ trait InstallsApiStack
         );
 
         // Tests...
-        if (! $this->installTests()) {
-            return 1;
-        }
+        $this->installTests();
 
         $files->delete(base_path('tests/Feature/Auth/PasswordConfirmationTest.php'));
 
         // Cleaning...
         $this->removeScaffoldingUnnecessaryForApis();
 
-        $this->components->info('Breeze scaffolding installed successfully.');
+        $this->info('Breeze scaffolding installed successfully.');
     }
 
     /**
@@ -86,7 +83,7 @@ trait InstallsApiStack
 
         // Remove frontend related files...
         $files->delete(base_path('package.json'));
-        $files->delete(base_path('vite.config.js'));
+        $files->delete(base_path('webpack.mix.js'));
 
         // Remove Laravel "welcome" view...
         $files->delete(resource_path('views/welcome.blade.php'));

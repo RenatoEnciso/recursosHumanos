@@ -14,13 +14,6 @@ trait HasTimestamps
     public $timestamps = true;
 
     /**
-     * The list of models classes that have timestamps temporarily disabled.
-     *
-     * @var array
-     */
-    protected static $ignoreTimestampsOn = [];
-
-    /**
      * Update the model's update timestamp.
      *
      * @param  string|null  $attribute
@@ -41,17 +34,6 @@ trait HasTimestamps
         $this->updateTimestamps();
 
         return $this->save();
-    }
-
-    /**
-     * Update the model's update timestamp without raising any events.
-     *
-     * @param  string|null  $attribute
-     * @return bool
-     */
-    public function touchQuietly($attribute = null)
-    {
-        return static::withoutEvents(fn () => $this->touch($attribute));
     }
 
     /**
@@ -131,7 +113,7 @@ trait HasTimestamps
      */
     public function usesTimestamps()
     {
-        return $this->timestamps && ! static::isIgnoringTimestamps($this::class);
+        return $this->timestamps;
     }
 
     /**
@@ -172,53 +154,5 @@ trait HasTimestamps
     public function getQualifiedUpdatedAtColumn()
     {
         return $this->qualifyColumn($this->getUpdatedAtColumn());
-    }
-
-    /**
-     * Disable timestamps for the current class during the given callback scope.
-     *
-     * @param  callable  $callback
-     * @return mixed
-     */
-    public static function withoutTimestamps(callable $callback)
-    {
-        return static::withoutTimestampsOn([static::class], $callback);
-    }
-
-    /**
-     * Disable timestamps for the given model classes during the given callback scope.
-     *
-     * @param  array  $models
-     * @param  callable  $callback
-     * @return mixed
-     */
-    public static function withoutTimestampsOn($models, $callback)
-    {
-        static::$ignoreTimestampsOn = array_values(array_merge(static::$ignoreTimestampsOn, $models));
-
-        try {
-            return $callback();
-        } finally {
-            static::$ignoreTimestampsOn = array_values(array_diff(static::$ignoreTimestampsOn, $models));
-        }
-    }
-
-    /**
-     * Determine if the given model is ignoring timestamps / touches.
-     *
-     * @param  string|null  $class
-     * @return bool
-     */
-    public static function isIgnoringTimestamps($class = null)
-    {
-        $class ??= static::class;
-
-        foreach (static::$ignoreTimestampsOn as $ignoredClass) {
-            if ($class === $ignoredClass || is_subclass_of($class, $ignoredClass)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

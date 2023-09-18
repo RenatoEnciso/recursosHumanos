@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\ViewException;
 use Laravel\Octane\Events\RequestReceived;
-use Laravel\Octane\Events\RequestTerminated;
 use Laravel\Octane\Events\TaskReceived;
 use Laravel\Octane\Events\TickReceived;
 use Monolog\Logger;
@@ -121,7 +120,6 @@ class IgnitionServiceProvider extends ServiceProvider
             return Flare::make()
                 ->setApiToken(config('flare.key') ?? '')
                 ->setBaseUrl(config('flare.base_url', 'https://flareapp.io/api'))
-                ->applicationPath(base_path())
                 ->setStage(app()->environment())
                 ->setContextProviderDetector(new LaravelContextProviderDetector())
                 ->registerMiddleware($this->getFlareMiddleware())
@@ -149,11 +147,7 @@ class IgnitionServiceProvider extends ServiceProvider
 
         $this->app->singleton(SolutionProviderRepositoryContract::class, fn () => $solutionProviderRepository);
 
-        $this->app->singleton(
-            Ignition::class,
-            fn () => (new Ignition())
-                ->applicationPath(base_path())
-        );
+        $this->app->singleton(Ignition::class, fn () => (new Ignition()));
     }
 
     protected function registerRecorders(): void
@@ -172,8 +166,8 @@ class IgnitionServiceProvider extends ServiceProvider
             function (Application $app): QueryRecorder {
                 return new QueryRecorder(
                     $app,
-                    config('flare.flare_middleware.' . AddQueries::class . '.report_query_bindings', true),
-                    config('flare.flare_middleware.' . AddQueries::class . '.maximum_number_of_collected_queries', 200)
+                    config()->get('flare.flare_middleware.' . AddQueries::class . '.report_query_bindings'),
+                    config()->get('flare.flare_middleware.' . AddQueries::class . '.maximum_number_of_collected_queries')
                 );
             }
         );
@@ -181,7 +175,7 @@ class IgnitionServiceProvider extends ServiceProvider
         $this->app->singleton(JobRecorder::class, function (Application $app): JobRecorder {
             return new JobRecorder(
                 $app,
-                config('flare.flare_middleware.' . AddJobs::class . '.max_chained_job_reporting_depth', 5)
+                config()->get('flare.flare_middleware.' . AddJobs::class . '.max_chained_job_reporting_depth')
             );
         });
     }
@@ -245,9 +239,15 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function startRecorders(): void
     {
-        foreach ($this->app->config['ignition.recorders'] ?? [] as $recorder) {
-            $this->app->make($recorder)->start();
-        }
+        // TODO: Ignition feature toggles
+
+        $this->app->make(DumpRecorder::class)->start();
+
+        $this->app->make(LogRecorder::class)->start();
+
+        $this->app->make(QueryRecorder::class)->start();
+
+        $this->app->make(JobRecorder::class)->start();
     }
 
     protected function configureQueue(): void
@@ -262,7 +262,6 @@ class IgnitionServiceProvider extends ServiceProvider
         // When using a sync queue this also reports the queued reports from previous exceptions.
         $queue->before(function () {
             $this->resetFlareAndLaravelIgnition();
-            app(Flare::class)->sendReportsImmediately();
         });
 
         // Send queued reports (and reset) after executing a queue job.
@@ -322,10 +321,6 @@ class IgnitionServiceProvider extends ServiceProvider
         });
 
         $this->app['events']->listen(TickReceived::class, function () {
-            $this->resetFlareAndLaravelIgnition();
-        });
-
-        $this->app['events']->listen(RequestTerminated::class, function () {
             $this->resetFlareAndLaravelIgnition();
         });
     }

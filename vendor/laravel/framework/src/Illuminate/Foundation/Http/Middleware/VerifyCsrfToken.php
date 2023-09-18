@@ -34,7 +34,7 @@ class VerifyCsrfToken
     /**
      * The URIs that should be excluded from CSRF verification.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $except = [];
 
@@ -146,7 +146,7 @@ class VerifyCsrfToken
      * Get the CSRF token from the request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return string|null
+     * @return string
      */
     protected function getTokenFromRequest($request)
     {

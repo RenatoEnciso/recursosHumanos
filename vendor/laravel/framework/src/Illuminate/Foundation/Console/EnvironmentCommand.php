@@ -40,9 +40,6 @@ class EnvironmentCommand extends Command
      */
     public function handle()
     {
-        $this->components->info(sprintf(
-            'The application environment is [%s].',
-            $this->laravel['env'],
-        ));
+        $this->line('<info>Current application environment:</info> <comment>'.$this->laravel['env'].'</comment>');
     }
 }

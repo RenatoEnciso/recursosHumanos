@@ -16,7 +16,7 @@ use function sort;
 final class UnionType extends Type
 {
     /**
-     * @psalm-var non-empty-list<Type>
+     * @psalm-var list<Type>
      */
     private $types;
 
@@ -52,12 +52,6 @@ final class UnionType extends Type
         $types = [];
 
         foreach ($this->types as $type) {
-            if ($type->isIntersection()) {
-                $types[] = '(' . $type->name() . ')';
-
-                continue;
-            }
-
             $types[] = $type->name();
         }
 
@@ -77,31 +71,9 @@ final class UnionType extends Type
         return false;
     }
 
-    /**
-     * @psalm-assert-if-true UnionType $this
-     */
     public function isUnion(): bool
     {
         return true;
-    }
-
-    public function containsIntersectionTypes(): bool
-    {
-        foreach ($this->types as $type) {
-            if ($type->isIntersection()) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * @psalm-return non-empty-list<Type>
-     */
-    public function types(): array
-    {
-        return $this->types;
     }
 
     /**

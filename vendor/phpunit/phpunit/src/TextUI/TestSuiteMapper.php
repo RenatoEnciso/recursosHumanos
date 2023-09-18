@@ -95,7 +95,7 @@ final class TestSuiteMapper
         } catch (FrameworkException $e) {
             throw new RuntimeException(
                 $e->getMessage(),
-                $e->getCode(),
+                (int) $e->getCode(),
                 $e
             );
         }

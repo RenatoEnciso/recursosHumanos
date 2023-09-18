@@ -49,7 +49,7 @@ class EventGenerateCommand extends Command
             }
         }
 
-        $this->components->info('Events and listeners generated successfully.');
+        $this->info('Events and listeners generated successfully.');
     }
 
     /**

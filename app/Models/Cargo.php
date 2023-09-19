@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rol extends Model
+class Cargo extends Model
 {
     use HasFactory;
-    public $table ='roles';
-    protected $primaryKey = 'idRol';
-    protected $fillable = ['nombreRol','idRol','estado'];
+    public $table ='cargo';
+    protected $primaryKey = 'idCargo';
+    protected $fillable = ['descripcion','estado','idCargo'];
     public $timestamps = false;
 
     public function usuarios(){
-        return $this->HasMany(User::class,'idRol','idRol');
+        return $this->HasMany(Oferta::class,'idCargo','idCargo');
     }
     
 }

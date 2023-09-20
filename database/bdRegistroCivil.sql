@@ -114,7 +114,7 @@ INSERT INTO tipoFicha(nombre)
 VALUES ("Nacimiento"),("Matrimonio"),("Defunción");
 
 INSERT INTO roles(nombreRol) 
-VALUES ("MesaPartes"),("Registrador"),("Administrador"),("Administrador de Sistemas");
+VALUES ("MesaPartes"),("Registrador"),("Administrador"),("Administrador de Sistemas"),("Invitado");
 
 
 Insert Into Persona

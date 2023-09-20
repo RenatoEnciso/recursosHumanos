@@ -1,4 +1,9 @@
 <x-guest-layout>
+    <div style="background: url(images/fondoLogin.jpg) rgba(0, 0, 0, 0.5); 
+    height: 100%;
+    background-repeat: no-repeat; 
+    background-size: cover;
+    background-blend-mode: darken ">
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
@@ -45,4 +50,5 @@
             </div>
         </form>
     </x-auth-card>
+</div>
 </x-guest-layout>

@@ -208,6 +208,7 @@
                                                     <span class="sub-item">Acta de Defuncion</span>
                                                 </a>
                                             </li>
+                                            
                                         </ul>
                                     </div>
                                 </li>
@@ -236,6 +237,26 @@
                                         <p>Usuarios</p>
                                     </a>
                                 </li> 
+                                @endif
+                                @if (Auth::user()->idRol==5)
+                                <li class="nav-item"> 
+                                    <a href="{{route('Oferta.index')}}">
+                                        <i class="fa fa-address-card-o"></i>
+                                        <p class="sub-item">oferta</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('Postulacion.index')}}">
+                                        <i class="fa fa-archive"></i>
+                                        <p class="sub-item">Postulacion</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('Entrevista.index')}}">
+                                        <i class="fa fa-address-book-o"></i>
+                                        <p class="sub-item">Entrevista</p>
+                                    </a>
+                                </li>
                                 @endif
                                 
 

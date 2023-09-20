@@ -10,15 +10,15 @@ class Entrevista extends Model
     use HasFactory;
     public $table ='entrevista';
     protected $primaryKey = 'idEntrevista';
-    protected $fillable = ['idEntrevista','DNI','idOferta','fecha','observacion','estado'];
+    protected $fillable = ['idEntrevista','idPostulacion','fecha','observacion','estado'];
     public $timestamps = false;
 
-    public function oferta(){
-        return $this->HasOne(Oferta::class,'idOferta','idOferta');
+    public function Postulacion(){
+        return $this->HasOne(Postulacion::class,'idPostulacion','idPostulacion');
     }
-    public function persona(){
-        return $this->HasOne(Persona::class,'DNI','DNI');
-    }
+    // public function persona(){
+    //     return $this->HasOne(Persona::class,'DNI','DNI');
+    // }
 
     // public function entrevista(){
     //     return $this->HasMany(Entrevista::class,'idOferta','idOferta');

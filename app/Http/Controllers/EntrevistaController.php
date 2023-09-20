@@ -1,7 +1,14 @@
 <?php
 
-namespace App\Http\Controller;
+namespace App\Http\Controllers;
+
+
+
+
 use App\Models\Entrevista;
+use App\Models\Persona;
+use App\Models\Postulacion;
+use App\Models\Oferta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class EntrevistaController extends Controller
@@ -10,11 +17,12 @@ class EntrevistaController extends Controller
 
     public function index(Request $request){
         $busqueda=$request->get('buscarpor');
-        $Entrevistas=Entrevista::select('idEntrevista','DNI','p.Nombres','idOferta','observacion','estado')
-        ->join('Persona as p','Persona.DNI','=','DNI')
-        ->join('Oferta as o','Oferta.idOferta','=','idOferta')
-        ->where('estado','=',1)
-        ->where('p.Nombres','like','%'.$buscarpor.'%')
+        $Entrevistas=Entrevista::select('idEntrevista','Entrevista.idPostulacion','Entrevista.fecha','p.DNI','observacion','Entrevista.estado')
+        ->join('Postulacion as p','p.idPostulacion','=','Entrevista.idPostulacion')
+        // ->join('Persona as pe','p.DNI','=','pe.DNI')
+        
+        ->where('p.DNI','like','%'.$busqueda.'%')
+        // ->where('estado','=',1)
         ->distinct()
         ->paginate($this::PAGINATION);
         return view('Entrevista.index',compact('Entrevistas','busqueda'));
@@ -22,21 +30,21 @@ class EntrevistaController extends Controller
 
     public function create()
     {
-        if (Auth::user()->Entrevista=='Encargado contrato'){   //boteon registrar
-
-            return view('Entrevista.create');
-        } else{
-            return redirect()->route('Entrevista.index')->with('datos','..::No tiene Acceso ..::');
-        }
+        // if (Auth::user()->Entrevista=='Encargado contrato'){   //boteon registrar
+            $postulacion = Postulacion::all();
+            $ofertas = Oferta::all();
+            return view('Entrevista.create',compact('postulacion'));
+        // } else{
+        //     return redirect()->route('Entrevista.index')->with('datos','..::No tiene Acceso ..::');
+        // }
     }
 
     public function store(Request $request)
     {
             $data=request()->validate([
                     ]);
-                    $Entrevista=new Persona();
-                    $Entrevista->DNI=$request->DNI;
-                    $Entrevista->idOferta=$request->idOferta;
+                    $Entrevista=new Entrevista();
+                    $Entrevista->idPostulacion=$request->idPostulacion;
                     $Entrevista->fecha=$request->fecha;
                     $Entrevista->observacion=$request->observacion;
                     $Entrevista->estado='1';
@@ -72,8 +80,8 @@ class EntrevistaController extends Controller
     public function destroy($id)
     {
             $Entrevista=Entrevista::findOrFail($id);
-            $persona->estado='0';
-            $persona->save();
+            $Entrevista->estado='0';
+            $Entrevista->save();
             return redirect()->route('Entrevista.index')->with('datos','Registro Eliminado..');
     }
 
@@ -92,12 +100,12 @@ class EntrevistaController extends Controller
         return redirect()->route('Entrevista.index')->with('datos','acciona cancelada...');
     }
     // public function DniRepetido($dni_comprobar){
-    //     $personas=Persona::all();
-    //     if(count($personas)==0){
+    //     $Entrevistas=Entrevista::all();
+    //     if(count($Entrevistas)==0){
     //         return false;
     //     }else{
-    //         foreach($personas as $persona){
-    //             if($persona->$DNI==$dni_comprobar){
+    //         foreach($Entrevistas as $Entrevista){
+    //             if($Entrevista->$DNI==$dni_comprobar){
     //                 return true;
     //                 break;
     //             }

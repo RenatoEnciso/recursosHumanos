@@ -10,6 +10,9 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\FichaController;
+use App\Http\Controllers\OfertaController;
+use App\Http\Controllers\EntrevistaController;
+use App\Http\Controllers\PostulacionController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -103,3 +106,9 @@ Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('So
 Route::get('Reporte/Crear', [ReporteController::class, 'create'])->name('reporte.create');
 Route::get('Reporte/PDF/', [ReporteController::class,'generarPDF'])->name('reporte.generarPDF');
 
+//OFERTAS
+Route::resource('Oferta',OfertaController::class);
+//ENTREVISTA
+Route::resource('Entrevista',EntrevistaController::class);
+//ENTREVISTA
+Route::resource('Postulacion',PostulacionController::class);

@@ -12,6 +12,17 @@ use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\FichaController;
 use Illuminate\Support\Facades\Route;
 
+//R
+
+Route::get('/r', function () {
+    return view('auth.loginr');
+});
+
+// Route::get('/register', function() {
+//     return view('auth.registerr');
+// });
+
+//
 
 Route::get('/', function () {
     return view('auth.login');

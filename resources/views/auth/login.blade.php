@@ -28,9 +28,9 @@
                 Consulta Actas
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Acta Nacimiento</a></li>
-                <li><a class="dropdown-item" href="#">Acta Defuncion</a></li>
-                <li><a class="dropdown-item" href="#">Acta Matrimonio</a></li>
+                <li><a class="dropdown-item" href="{{route('ConsultaNacimiento')}}">Acta Nacimiento</a></li>
+                <li><a class="dropdown-item" href="{{route('ConsultaDefuncion')}}">Acta Defuncion</a></li>
+                <li><a class="dropdown-item" href="{{route('ConsultaMatrimonio')}}">Acta Matrimonio</a></li>
             </ul>
             </div>
             @if (Route::has('register'))

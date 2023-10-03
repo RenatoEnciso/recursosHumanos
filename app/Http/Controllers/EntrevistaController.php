@@ -22,7 +22,7 @@ class EntrevistaController extends Controller
         // ->join('Persona as pe','p.DNI','=','pe.DNI')
         
         ->where('p.DNI','like','%'.$busqueda.'%')
-        // ->where('estado','=',1)
+        ->where('Entrevista.estado','=',1)
         ->distinct()
         ->paginate($this::PAGINATION);
         return view('Entrevista.index',compact('Entrevistas','busqueda'));
@@ -54,12 +54,13 @@ class EntrevistaController extends Controller
 
     public function edit($id)
     {
-        if (Auth::user()->Entrevista=='Encargado contrato'){ //boton editar
+        // if (Auth::user()->Entrevista=='Encargado contrato'){ //boton editar
             $Entrevista=Entrevista::findOrFail($id);
-            return view('Entrevista.edit',compact('Entrevista'));
-        }else{
-            return redirect()->route('Entrevista.index')->with('datos','..::No tiene Acceso ..::');
-        }
+            $postulacion = Postulacion::all();
+            return view('Entrevista.edit',compact('Entrevista','postulacion'));
+        // }else{
+        //     return redirect()->route('Entrevista.index')->with('datos','..::No tiene Acceso ..::');
+        // }
     }
 
     public function update(Request $request, $id)
@@ -87,12 +88,12 @@ class EntrevistaController extends Controller
 
 
     public function confirmar($id){
-        if (Auth::user()->Entrevista=='Encargado contrato'){ //boton eliminar
+        // if (Auth::user()->Entrevista=='Encargado contrato'){ //boton eliminar
             $Entrevista=Entrevista::findOrFail($id);
             return view('Entrevista.confirmar',compact('Entrevista'));
-        }else{
-            return redirect()->route('Entrevista.index')->with('datos','..::No tiene Acceso ..::');
-        }
+        // }else{
+        //     return redirect()->route('Entrevista.index')->with('datos','..::No tiene Acceso ..::');
+        // }
     }
 
 

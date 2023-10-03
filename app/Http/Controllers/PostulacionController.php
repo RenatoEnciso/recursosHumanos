@@ -22,7 +22,7 @@ class PostulacionController extends Controller
         ->join('Oferta as o','o.idOFerta','=','Postulacion.idOFerta')
         
         ->where('p.Nombres','like','%'.$busqueda.'%')
-        // ->where('estado','=',1)
+        ->where('Postulacion.estado','=',1)
         ->distinct()
         ->paginate($this::PAGINATION);
         return view('Postulacion.index',compact('Postulacions','busqueda'));
@@ -55,12 +55,14 @@ class PostulacionController extends Controller
 
     public function edit($id)
     {
-        if (Auth::user()->Postulacion=='Encargado contrato'){ //boton editar
+        // if (Auth::user()->Postulacion=='Encargado contrato'){ //boton editar
             $Postulacion=Postulacion::findOrFail($id);
-            return view('Postulacion.edit',compact('Postulacion'));
-        }else{
-            return redirect()->route('Postulacion.index')->with('datos','..::No tiene Acceso ..::');
-        }
+            $personas = Persona::all();
+            $ofertas = Oferta::all();
+            return view('Postulacion.edit',compact('Postulacion','personas','ofertas'));
+        // }else{
+        //     return redirect()->route('Postulacion.index')->with('datos','..::No tiene Acceso ..::');
+        // }
     }
 
     public function update(Request $request, $id)
@@ -70,10 +72,9 @@ class PostulacionController extends Controller
         ]);
         $Postulacion=Postulacion::findOrFail($id);
         $Postulacion->DNI=$request->DNI;
-        $Postulacion->idPostulacion=$request->idPostulacion;
-        $Postulacion->fecha=$request->fecha;
-        $Postulacion->observacion=$request->observacion;
-        $Postulacion->estado=$request->estado;
+                    $Postulacion->idOferta=$request->idOferta;
+                    $Postulacion->fecha=$request->fecha;
+                    $Postulacion->curriculum=$request->curriculum;
         $Postulacion->save();
         return redirect()->route('Postulacion.index')->with('datos','Registro Actualizado exitosamente...');
     }
@@ -88,12 +89,12 @@ class PostulacionController extends Controller
 
 
     public function confirmar($id){
-        if (Auth::user()->Postulacion=='Encargado contrato'){ //boton eliminar
+        // if (Auth::user()->Postulacion=='Encargado contrato'){ //boton eliminar
             $Postulacion=Postulacion::findOrFail($id);
             return view('Postulacion.confirmar',compact('Postulacion'));
-        }else{
-            return redirect()->route('Postulacion.index')->with('datos','..::No tiene Acceso ..::');
-        }
+        // }else{
+        //     return redirect()->route('Postulacion.index')->with('datos','..::No tiene Acceso ..::');
+        // }
     }
 
 

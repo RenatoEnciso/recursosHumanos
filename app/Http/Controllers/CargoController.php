@@ -1,7 +1,14 @@
 <?php
 
-namespace App\Http\Controller;
+namespace App\Http\Controllers;
+
+
+
+
 use App\Models\Cargo;
+
+use App\Models\Postulacion;
+use App\Models\Oferta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class CargoController extends Controller
@@ -18,19 +25,19 @@ class CargoController extends Controller
 
     public function create()
     {
-        if (Auth::user()->Cargo=='Encargado de RRHH'){   //boteon registrar
+        // if (Auth::user()->Cargo=='Encargado de RRHH'){   //boteon registrar
 
             return view('Cargo.create');
-        } else{
-            return redirect()->route('Cargo.index')->with('datos','..::No tiene Acceso ..::');
-        }
+        // } else{
+        //     return redirect()->route('Cargo.index')->with('datos','..::No tiene Acceso ..::');
+        // }
     }
 
     public function store(Request $request)
     {
             $data=request()->validate([
                     ]);
-                    $Cargo=new Persona();
+                    $Cargo=new Cargo();
                     $Cargo->descripcion=$request->descripcion;
                     $Cargo->estado='1';
                     $Cargo->save();
@@ -39,12 +46,12 @@ class CargoController extends Controller
 
     public function edit($id)
     {
-        if (Auth::user()->Cargo=='Encargado de RRHH'){ //boton editar
+        // if (Auth::user()->Cargo=='Encargado de RRHH'){ //boton editar
             $Cargo=Cargo::findOrFail($id);
             return view('Cargo.edit',compact('Cargo'));
-        }else{
-            return redirect()->route('Cargo.index')->with('datos','..::No tiene Acceso ..::');
-        }
+        // }else{
+        //     return redirect()->route('Cargo.index')->with('datos','..::No tiene Acceso ..::');
+        // }
     }
 
     public function update(Request $request, $id)
@@ -61,19 +68,19 @@ class CargoController extends Controller
     public function destroy($id)
     {
             $Cargo=Cargo::findOrFail($id);
-            $persona->estado='0';
-            $persona->save();
+            $Cargo->estado='0';
+            $Cargo->save();
             return redirect()->route('Cargo.index')->with('datos','Registro Eliminado..');
     }
 
 
     public function confirmar($id){
-        if (Auth::user()->Cargo=='Administrador de Sistemas'){ //boton eliminar
+        // if (Auth::user()->Cargo=='Administrador de Sistemas'){ //boton eliminar
             $Cargo=Cargo::findOrFail($id);
             return view('Cargo.confirmar',compact('Cargo'));
-        }else{
-            return redirect()->route('Cargo.index')->with('datos','..::No tiene Acceso ..::');
-        }
+        // }else{
+        //     return redirect()->route('Cargo.index')->with('datos','..::No tiene Acceso ..::');
+        // }
     }
 
 
@@ -81,12 +88,12 @@ class CargoController extends Controller
         return redirect()->route('Cargo.index')->with('datos','acciona cancelada...');
     }
     // public function DniRepetido($dni_comprobar){
-    //     $personas=Persona::all();
-    //     if(count($personas)==0){
+    //     $Cargos=Cargo::all();
+    //     if(count($Cargos)==0){
     //         return false;
     //     }else{
-    //         foreach($personas as $persona){
-    //             if($persona->$DNI==$dni_comprobar){
+    //         foreach($Cargos as $Cargo){
+    //             if($Cargo->$DNI==$dni_comprobar){
     //                 return true;
     //                 break;
     //             }

@@ -257,6 +257,12 @@
                                         <p class="sub-item">Entrevista</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{route('Cargo.index')}}">
+                                        <i class="fa fa-address-book-o"></i>
+                                        <p class="sub-item">Cargo</p>
+                                    </a>
+                                </li>
                                 @endif
                                 
 

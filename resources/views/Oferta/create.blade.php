@@ -22,13 +22,23 @@
 
                 <div class="col-8 form-group">
                     <label class="control-label">Fecha de inicio</label>
-                    <input type="date" class="form-control" value="" id="fecha_registro" 
+                    <input type="date" class="form-control @error('fecha_inicio') is-invalid @enderror" 
                         name="fecha_inicio" >
+                    @error('fecha_inicio')
+                        <span class="invalid feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="col-8 form-group">
                     <label class="control-label">Fecha de fin</label>
-                    <input type="date" class="form-control" value="" id="fecha_fin" 
+                    <input type="date" class="form-control @error('fecha_fin') is-invalid @enderror"  
                         name="fecha_fin" >
+                    @error('fecha_fin')
+                        <span class="invalid feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
       
 

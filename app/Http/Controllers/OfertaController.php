@@ -14,13 +14,16 @@ use Illuminate\Support\Facades\Auth;
 
 class OfertaController extends Controller
 {
+    
     const PAGINATION=7;
 
     public function index(Request $request){
-        $busqueda=$request->get('buscarpor');
+        $busqueda=$request->get('busqueda');
+        // return $busqueda;
         $Ofertas=Oferta::where('descripcion','like','%'.$busqueda.'%')
         ->where('estado','=','1')
         ->paginate($this::PAGINATION);
+        
         return view('Oferta.index',compact('Ofertas','busqueda'));
     }
 
@@ -29,6 +32,9 @@ class OfertaController extends Controller
         // if (Auth::user()->Oferta=='Encargado contrato'){   //boteon registrar
             $cargos = Cargo::all();
             $fecha_actual=Carbon::now();
+            $fecha_actual->setLocale('es'); 
+            $fecha_actual->setTimezone('America/Lima');
+            // return $fecha_actual;
             return view('Oferta.create',compact('cargos','fecha_actual'));
         // } else{
         //     return redirect()->route('Oferta.index')->with('datos','..::No tiene Acceso ..::');
@@ -37,6 +43,25 @@ class OfertaController extends Controller
 
     public function store(Request $request)
     {
+        // Carbon::
+        // return $request->all
+        $data=request()->validate([
+            'descripcion'=>'required|max:30',
+            // 'fecha_inicio'=>'required',
+            'fecha_inicio' => 'required|after_or_equal:yesterday',
+            'fecha_fin'=>'required|before_or_equal:'.Carbon::parse($request->fecha_inicio)->addMonth(1)->format('Y-m-d'),
+        //    'archivo_nacimiento'=>'required',
+           
+        ],
+        [
+          
+            'descripcion.max'=>'Máximo 30 carácteres para la descripcion',
+            'fecha_inicio.required'=>'Ingrese una fecha de inicio',
+            // 'fecha_inicio.after_or_equal'=>'No se permite fechas menores a la actual',
+            'fecha_fin.required'=>'Ingrese una fecha de fin',
+            // 'lugar_nacimiento.max'=>'Máximo 30 carácteres para el lugar de Nacimiento',
+           // 'archivo_nacimiento.required'=>'Ingrese el archivo de la Acta de Nacimiento',
+        ]);
             $data=request()->validate([
                     ]);
                     $Oferta=new Oferta();
@@ -52,18 +77,42 @@ class OfertaController extends Controller
 
     public function edit($id)
     {
-        if (Auth::user()->Oferta=='Encargado contrato'){ //boton editar
+        // if (Auth::user()->Oferta=='Encargado contrato'){ //boton editar
             $Oferta=Oferta::findOrFail($id);
-            return view('Oferta.edit',compact('Oferta'));
-        }else{
-            return redirect()->route('Oferta.index')->with('datos','..::No tiene Acceso ..::');
-        }
+            $cargos = Cargo::all();
+            $fecha_actual=Carbon::now();
+            $fecha_actual->setLocale('es'); 
+            $fecha_actual->setTimezone('America/Lima');
+            $fecha_actual=$fecha_actual->toDateString();
+            // return $fecha_actual;
+            return view('Oferta.edit',compact('Oferta','cargos','fecha_actual'));
+        // }else{
+        //     return redirect()->route('Oferta.index')->with('datos','..::No tiene Acceso ..::');
+        // }
     }
 
     public function update(Request $request, $id)
     {
         $data=request()->validate([
-
+            'descripcion'=>'required|max:30',
+            // 'fecha_inicio'=>'required',
+            'fecha_inicio' => 'required|after_or_equal:yesterday',
+            'fecha_fin'=>'required|before_or_equal:'.Carbon::parse($request->fecha_inicio)->addMonth(1)->format('Y-m-d'),
+            // 'descripcion'=>'required|max:30',
+            // // 'fecha_inicio'=>'required',
+            // 'fecha_inicio' => 'required|after_or_equal:yesterday',
+        //     'fecha_fin'=>'required|before_or_equal:'.Carbon::parse($request->fecha_inicio)->addMonth(1)->format('Y-m-d'),
+        // //    'archivo_nacimiento'=>'required',
+           
+        ],
+        [
+          
+        //     'descripcion.max'=>'Máximo 30 carácteres para la descripcion',
+        //     'fecha_inicio.required'=>'Ingrese una fecha de inicio',
+        //     // 'fecha_inicio.after_or_equal'=>'No se permite fechas menores a la actual',
+        //     'fecha_fin.required'=>'Ingrese una fecha de fin',
+        //     // 'lugar_nacimiento.max'=>'Máximo 30 carácteres para el lugar de Nacimiento',
+        //    // 'archivo_nacimiento.required'=>'Ingrese el archivo de la Acta de Nacimiento',
         ]);
         $Oferta=Oferta::findOrFail($id);
         $Oferta->descripcion=$request->descripcion;
@@ -85,12 +134,12 @@ class OfertaController extends Controller
 
 
     public function confirmar($id){
-        if (Auth::user()->Oferta=='Encargado contrato'){ //boton eliminar
+        // if (Auth::user()->Oferta=='Encargado contrato'){ //boton eliminar
             $Oferta=Oferta::findOrFail($id);
             return view('Oferta.confirmar',compact('Oferta'));
-        }else{
-            return redirect()->route('Oferta.index')->with('datos','..::No tiene Acceso ..::');
-        }
+        // }else{
+        //     return redirect()->route('Oferta.index')->with('datos','..::No tiene Acceso ..::');
+        // }
     }
 
 

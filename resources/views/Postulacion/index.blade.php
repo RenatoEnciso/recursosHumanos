@@ -62,10 +62,10 @@
                             <br>
                             {{-- <a href="{{ route('ActaDefunsion.archivo',$item->idActaPersona)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Ver</a> --}}
                            
-                            {{-- <a href="{{ route('Postulacion.edit',$item->idPostulacion) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
-                            <a href="{{ route('Postulacion.confirmar',$item->idPostulacion) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a> --}}
-                            <a href="" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
-                            <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
+                            <a href="{{ route('Postulacion.edit',$item->idPostulacion) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
+                            <a href="{{ route('Postulacion.confirmar',$item->idPostulacion) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
+                            {{-- <a href="" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
+                            <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a> --}}
                         </td>
                         </tr>
                       

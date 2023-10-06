@@ -250,7 +250,13 @@
                                 </li>
                                 @endif
 
-                                
+                                <li class="nav-item">
+                                    <a  href="">
+                                        <i class="fas fa-id-card"></i>
+                                        <p>Solicitudes DNI</p>
+                                    </a>
+
+                                </li>
                                 
                             </ul>
 

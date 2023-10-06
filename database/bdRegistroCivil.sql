@@ -13,6 +13,9 @@ CREATE TABLE persona (
   sexo VARCHAR(20)  ,
   estadocivil varchar(20),
   nacionalidad varchar(30),
+  departamento varchar(50),
+  provincia    varchar(50),
+  distrito      varchar(50),
   estado TINYINT NOT NULL,
   direccion varchar(50),
   fecha_nacimiento date
@@ -116,7 +119,6 @@ VALUES ("Nacimiento"),("Matrimonio"),("Defunción");
 INSERT INTO roles(nombreRol) 
 VALUES ("MesaPartes"),("Registrador"),("Administrador"),("Administrador de Sistemas");
 
-
 Insert Into Persona
 (DNI, Apellido_Paterno , Apellido_Materno ,Nombres ,sexo ,estadocivil ,nacionalidad ,estado , direccion,fecha_nacimiento)
 values
@@ -128,3 +130,48 @@ values
 ('66666666','Amor','Jurado','Pedro','M','Soltero','Peruano',1,'Los Incas 654','1972-03-02'),
 ('77777777','Marco','Gol','Miguel','M','Soltero','Peruano',1,'Jose Olaya 594','1973-03-02'),
 ('88888888','Diaz','Festivo','Domingo','M','Soltero','Peruano',1,'Jose Olata 789','1968-03-02');
+
+create table TIPO_DNI(
+  idTipoDni   int AUTO_INCREMENT NOT NULL,
+  tipoDNI varchar(50)
+);
+
+INSERT INTO TIPO_DNI(tipoDNI) VALUES ("Original"),("Duplicado");
+
+CREATE TABLE TIPO_SOLICTUD_DNI(
+  idTipoSolicitud int AUTO_INCREMENT NOT NULL,
+  tipoSolicitud  varchar(50)
+);
+
+INSERT INTO TIPO_SOLICTUD_DNI(tipoSolicitud) VALUES ("Primera Vez"),("Duplicado"),("Renovacion")
+
+CREATE TABLE SOLICITUD_DNI(
+  idSolicitud  int AUTO_INCREMENT NOT NULL,
+  idTipoSolicitud   int NOT NULL,
+  DNI           char(8) NOT NULL,
+  idUsuario       int NULL,
+  solComentario      varchar(250),
+  solEstado          TINYINT,
+  solFecha            datetime
+);
+
+CREATE TABLE DNI(
+  DNI       char(8) NOT NULL,
+  idTipoDni             int NOT NULL,
+  dniFechaInscripcion   datetime,
+  dniFechaEmision       datetime,
+  dniFechaCaducidad     datetime,
+  dniEstado             TINYINT
+);
+
+
+
+
+
+
+
+
+
+
+
+

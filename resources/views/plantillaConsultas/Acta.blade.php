@@ -9,19 +9,22 @@
   </head>
 <body>
     <nav class="navbar bg-dark " data-bs-theme="dark">
-        <div class="container-fluid">
+        <div class="container-fluid d-inline">
           
             <a class="navbar-brand">
               
               <img src="{{asset('images/Logo-Login.png')}}" alt="Logo" width="150" height="60" class="d-inline-block align-text-top">
-               @yield('subtitulo') 
+             
+                @yield('subtitulo') 
+              
+              
             </a>
 
           
         </div>
       </nav>
 
-    <div class="container-fluid">
+    <div class="container border mx-auto my-4" style="width:700px;">
         @yield('cuerpo')
             
       
@@ -30,7 +33,7 @@
 
     <footer class="text-center text-white fixed-bottom" style="background-color: #21081a;">
         <!-- Grid container -->
-        <div class="container p-4"></div>
+        <div class="container"></div>
         <!-- Grid container -->
       
         <!-- Copyright -->
@@ -38,7 +41,7 @@
           © 2023 Copyright: RENIEC -GTI - SGIS
          
         </div>
-        <!-- Copyright -->
+       
       </footer>
 
 </body>

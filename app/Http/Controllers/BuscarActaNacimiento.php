@@ -11,7 +11,13 @@ class BuscarActaNacimiento extends Controller
         return view('SubSistemaConsultas.ConsultaActa.Nacimiento.consultar');
     }
 
-    public function search(){
+    public function search(Request $request){
+        $this->validate($request,
+        ['fecha'=>'required|date',
+        'primer_apellido'=>'required|',
+        'segundo_apellido'=>'required',
+        'prenombres'=>'required']
+        );
         
     }
 }

@@ -28,7 +28,7 @@ class BuscarActaNacimiento extends Controller
         on a.idActa=ap.idActa
         inner join acta_nacimiento as am
         on am.idActa=a.idActa
-        where year(am.fecha_nacimiento)=$request->ano and
+        where am.fecha_nacimiento=$request->fecha and
         p.apellido_paterno='$request->primer_apellido' and
         p.apellido_materno='$request->segundo_apellido' and
         p.nombres='$request->prenombres'

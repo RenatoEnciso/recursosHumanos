@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Acta_Defunsion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BuscarActaDefuncion extends Controller
 {
@@ -19,6 +21,21 @@ class BuscarActaDefuncion extends Controller
         'prenombres'=>'required']
         );
         
+       $dato= DB::select("select * from acta_defuncion as a 
+       inner join persona as p
+        on a.dniFallecido=p.DNI 
+          where year(a.fecha_fallecido)=$request->ano and 
+            p.apellido_paterno='$request->primer_apellido' and
+             p.apellido_materno='$request->segundo_apellido' and
+              p.nombres='$request->prenombres'");
+
+        if($dato){
+            $mensaje="Acta ubicada en RENIEC";
+            return $mensaje;
+
+        }
+        $mensaje="Acta no se encuentra, acercarse a registrar el acta de nacimiento";
+       return $mensaje;
     
 
     }

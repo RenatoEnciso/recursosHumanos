@@ -7,21 +7,26 @@ use Illuminate\Support\Facades\DB;
 
 class BuscarActaNacimiento extends Controller
 {
-    public function index(){
+    public function index()
+    {
 
         return view('SubSistemaConsultas.ConsultaActa.Nacimiento.consultar');
     }
 
-    public function search(Request $request){
-        $this->validate($request,
-        ['fecha'=>'required|date',
-        'primer_apellido'=>'required|',
-        'segundo_apellido'=>'required',
-        'prenombres'=>'required']
+    public function search(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'fecha' => 'required|date',
+                'primer_apellido' => 'required|',
+                'segundo_apellido' => 'required',
+                'prenombres' => 'required'
+            ]
         );
         return $request;
 
-        $dato= DB::select("select * from persona as p
+        $dato = DB::select("select * from persona as p
         inner join acta_persona as ap
         on p.dni=ap.dni
         inner join acta as a
@@ -33,14 +38,12 @@ class BuscarActaNacimiento extends Controller
         p.apellido_materno='$request->segundo_apellido' and
         p.nombres='$request->prenombres'
         ");
-
-        if($dato){
-            $mensaje="Acta ubicada en RENIEC";
-            return $mensaje;
-
+        if ($dato) {
+            $success = 'Acta ubicada en RENIEC';
+            return redirect()->route('ConsultaNacimiento')->with('success', $success);
         }
-        $mensaje="Acta no se encuentra, acercarse a registrar el acta de nacimiento";
-       return $mensaje;
-        
+
+        $alert = "Acta no se encuentra, acercarse a registrar el acta de nacimiento";
+        return redirect()->route('ConsultaNacimiento')->with('alert', $alert);
     }
 }

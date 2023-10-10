@@ -35,13 +35,13 @@
 
 
         @if (session('success'))
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success text-center" role="alert">
                 {{'success'}}
             </div>
         @else
         
             @if (session('alert'))
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-danger text-center" role="alert">
               {{session('alert')}}
              </div>
             @endif

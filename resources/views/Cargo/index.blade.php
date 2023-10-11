@@ -36,7 +36,7 @@
                     <thead>
                     <tr>
                         <th scope="col">Codigo</th>
-                        <th scope="col">descripcion</th>
+                        <th scope="col">Descripción</th>
                         <th scope="col">Opciones</th>
                     </tr>
                     </thead>

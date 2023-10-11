@@ -5,8 +5,8 @@
 
 @section('contenido')
     <div class="container">
-        <br><br><br><br><br>
-        <div class="shadow-lg py-4 bg-body-tertiary rounded">
+        {{-- <br><br><br><br><br> --}}
+        <div class="shadow-lg py-4 bg-body-tertiary rounded" style="margin-top:8vh">
             <h1 id="titulo" class="acta_title">Registro Oferta </h1>
             <form method="POST" action="{{ route('Oferta.store') }}" enctype="multipart/form-data">
                 @csrf

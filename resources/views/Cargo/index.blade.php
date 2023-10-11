@@ -21,7 +21,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h3 id="titulo"  class="card-title">CargoS</h3>
+                <h3 id="titulo"  class="card-title">CARGOS</h3>
             </div>
             <div class="card-body">
             <a href="{{route('Cargo.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i>Nuevo Registro</a>
@@ -53,14 +53,48 @@
                         <td>{{$item->idCargo}}</td>
                         <td>{{$item->descripcion}}</td>
                         <td>
-                            <br>
+                         
                             <a href="{{ route('Cargo.edit',$item->idCargo) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
                             {{-- <a href="{{ route('ActaDefunsion.archivo',$item->idActaPersona)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Ver</a> --}}
                            
                             {{-- <a href="{{ route('Cargo.edit',$item->idCargo) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
                             <a href="{{ route('Cargo.confirmar',$item->idCargo) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a> --}}
                             {{-- <a href="" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a> --}}
-                            <a href="{{ route('Cargo.confirmar',$item->idCargo) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
+                            {{-- <a href="{{ route('Cargo.confirmar',$item->idCargo) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a> --}}
+                            <button   class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$item->idCargo}}">
+                                <i class="fas fa-trash"></i>Eliminar
+                              </button>
+                      
+                            
+                            
+                              <!-- Modal -->
+                              <div class="modal fade " id="staticBackdrop{{$item->idCargo}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Oferta</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <span>
+                                            Codigo : {{$item->idCargo}}
+                                      <br> Cargo: {{$item->descripcion}}
+                                    
+                                        </span>
+                                      
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                     
+                                      <form method="POST" action="{{route('Oferta.destroy',$item->idCargo)}}">
+                                        @method('delete')
+                                        @csrf
+                                            <button class="btn btn-danger"><i class="fas fa-check-square"></i> SI</button>
+                                        </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                         </td>
                         </tr>
                       

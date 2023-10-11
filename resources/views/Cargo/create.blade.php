@@ -4,35 +4,39 @@
 
 
 @section('contenido')
-    <div class="container">
-        <h1 id="titulo" class="acta_title">REGISTRO Cargo </h1>
-        <form method="POST" action="{{ route('Cargo.store') }}" enctype="multipart/form-data">
-            @csrf
-            <div class="row">
-                <div class="col-8 form-group">
-                    <label class="control-label">descripción</label>
-                    <input type="text" class="form-control @error('descripcion') is-invalid @enderror"
-                        placeholder="Ingrese descripcion"  name="descripcion">
-                    @error('descripcion')
-                        <span class="invalid feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-
-                <div class="col-8 form-group flex">
-                    <div>
-                        <button class="btn btn-primary boton"><i class="fas fa-save"></i> GUARDAR</button>
-                    </div>
-                    <div></div>
-                    <div>
-                        <a href="/Cargo" class="btn btn-danger boton"><i class="fas fa-ban"></i> CANCELAR</a>
-                        {{-- <a href="{{route('Cargo.cancelar') }}" class="btn btn-danger boton"><i class="fas fa-ban"></i> CANCELAR</a> --}}
+    <div class="container ">
+        {{-- <br><br><br><br><br> --}}
+        <div class="shadow-lg py-4 bg-body-tertiary rounded "style="margin-top:18vh" >
+            <h1 id="titulo" class="acta_title">Registro Cargo </h1>
+            <form method="POST" action="{{ route('Cargo.store') }}" enctype="multipart/form-data">
+                @csrf
+                <div class="row justify-content-center">
+                    <div class="col-8 form-group">
+                        <label class="control-label">Descripción</label>
+                            <textarea  type="text" class="form-control @error('descripcion') is-invalid @enderror"
+                                placeholder="Ingrese descripcion"  name="descripcion" ></textarea >
+                        @error('descripcion')
+                            <span class="invalid feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
-            </div>
+                <div class="boton_div">
+                    <div class="col-8 form-group flex">
+                        <div>
+                            <button class="btn btn-primary boton"><i class="fas fa-save"></i> GUARDAR</button>
+                        </div>
+                        <div></div>
+                        <div>
+                            <a href="{{route('Cargo.cancelar') }}" class="btn btn-danger boton"><i class="fas fa-ban"></i> CANCELAR</a> 
+                            {{-- <a href="{{route('Oferta.cancelar') }}" class="btn btn-danger boton"><i class="fas fa-ban"></i> CANCELAR</a> --}}
+                        </div>
+                    </div>
+                </div>
 
-        </form>
+            </form>
+        </div>
     </div>
 
     <script>

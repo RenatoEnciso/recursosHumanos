@@ -46,7 +46,7 @@ require __DIR__.'/auth.php';
     Route::get('consulta_matrimonio', [BuscarActaMatrimonio::class,'index'])->name('ConsultaMatrimonio');
     Route::post('validar_matrimonio',[BuscarActaMatrimonio::class,'search'])->name('SearchMatrimonio');
     //Salir de Acta
-
+    Route::get('regresar',[BuscarActaDefuncion::class,'regresar'])->name('regresar');
 
 //USUARIO
 Route::resource('usuario',UsuarioController::class);

@@ -14,7 +14,7 @@
             placeholder="Fecha(dd/mm/yyy)" value="{{old('fecha')}}">
         @error('fecha')
             <div class="invalid-feedback">
-                Ingresar la fecha de nacimiento
+                {{$message}}
             </div>
         @enderror
         <div class="row">
@@ -24,7 +24,7 @@
                     name="primer_apellido" placeholder="Primer Apellido" value="{{old('primer_apellido')}}">
                 @error('primer_apellido')
                     <div class="invalid-feedback">
-                        Ingresar el primer apellido
+                        {{$message}}
                     </div>
                 @enderror
             </div>
@@ -34,7 +34,7 @@
                     name="segundo_apellido" placeholder="Segundo Apellido" value="{{old('segundo_apellido')}}">
                 @error('segundo_apellido')
                     <div class="invalid-feedback">
-                        Ingresar el segundo apellido
+                        {{$message}}
                     </div>
                 @enderror
             </div>
@@ -45,13 +45,13 @@
                 placeholder="Prenombres" value="{{old('prenombres')}}" >
             @error('prenombres')
                 <div class="invalid-feedback">
-                    Ingresar el nombres del nacido
+                    {{$message}}
                 </div>
             @enderror
         </div>
         <div class="row mx-5">
             <div class="col-6">
-                <button type="" class="btn btn-danger px-5">Salir</button>
+                <a type="button" href="{{route('regresar')}}" class="btn btn-danger px-5">Salir</a>
             </div>
             <div class="col-6">
                 <button type="submit" class="btn btn-success px-3">Consultar</button>

@@ -20,9 +20,16 @@ class BuscarActaDefuncion extends Controller
       $request,
       [
         'ano' => 'required|numeric',
-        'primer_apellido' => 'required|',
+        'primer_apellido' => 'required',
         'segundo_apellido' => 'required',
         'prenombres' => 'required'
+      ],
+      [
+        'ano.required'=>'Ingresar el año',
+        'ano.numeric'=>'Ingresar numero de 4 digitos',
+        'primer_apellido.required'=>'Ingresa el primer apellido',
+        'segundo_apellido.required'=>'Ingresar el segundo apellido',
+        'prenombres.required'=>'Ingresar los nombres'
       ]
     );
 
@@ -41,5 +48,10 @@ class BuscarActaDefuncion extends Controller
 
     $alert = "Acta no se encuentra, acercarse a registrar el acta de nacimiento";
     return redirect()->route('ConsultaDefuncion')->with('alert', $alert);
+  }
+
+  public function regresar()
+  {
+      return view('auth.login');
   }
 }

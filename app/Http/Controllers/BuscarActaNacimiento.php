@@ -19,9 +19,16 @@ class BuscarActaNacimiento extends Controller
             $request,
             [
                 'fecha' => 'required|date',
-                'primer_apellido' => 'required|',
+                'primer_apellido' => 'required',
                 'segundo_apellido' => 'required',
                 'prenombres' => 'required'
+            ],
+            [
+                'fecha.required'=>'Seleccionar la fecha',
+                'fecha.date'=>'Solo ingresar dato en formato fecha',
+                'primer_apellido.required'=>'Ingresar  el primer apellido',
+                'segundo_apellido.required'=>'Ingresar el segundo apellido',
+                'prenombres.required'=>'Ingresar los nombres'
             ]
         );
         return $request;
@@ -45,5 +52,9 @@ class BuscarActaNacimiento extends Controller
 
         $alert = "Acta no se encuentra, acercarse a registrar el acta de nacimiento";
         return redirect()->route('ConsultaNacimiento')->with('alert', $alert);
+    }
+    public function regresar()
+    {
+        return view('auth.login');
     }
 }

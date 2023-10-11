@@ -23,6 +23,14 @@ class BuscarActaMatrimonio extends Controller
                 'primer_apellido' => 'required|',
                 'segundo_apellido' => 'required',
                 'prenombres' => 'required'
+            ],
+            [
+               'ano.required'=>'Ingresar el año',
+               'ano.numeric'=>'Ingresar solo numeros' ,
+               'mes.required'=>'Seleccionar el mes',
+               'primer_apellido.required'=>'Ingresar el primer nombre',
+               'segundo_apellido.required'=>'Ingresar el segundo nombre',
+               'prenombres.required'=>'Ingresar los nombres',
             ]
         );
 
@@ -46,5 +54,9 @@ class BuscarActaMatrimonio extends Controller
 
         $alert = "Acta no se encuentra, acercarse a registrar el acta de nacimiento";
         return redirect()->route('ConsultaDefuncion')->with('alert', $alert);
+    }
+    public function regresar()
+    {
+        return view('auth.login');
     }
 }

@@ -19,11 +19,11 @@
             <a class="navbar-brand">
                 <div class="row">
                     <div class="col-auto">
-                        <img src="{{ asset('images/Logo-Login.png') }}" alt="Logo" width="150" height="60"
+                        <img src="{{ asset('images/Logo-Login.png') }}" alt="Logo" width="220" height="90"
                         class="d-inline-block align-text-top">
                     </div>
                     
-                    <div class="col-auto py-4">
+                    <div class="col-auto my-auto" style="font-size: 24px;">
                         @yield('subtitulo')
                     </div>
                 </div>

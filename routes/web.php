@@ -10,6 +10,10 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\FichaController;
+use App\Http\Controllers\OfertaController;
+use App\Http\Controllers\EntrevistaController;
+use App\Http\Controllers\PostulacionController;
+use App\Http\Controllers\CargoController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -103,3 +107,20 @@ Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('So
 Route::get('Reporte/Crear', [ReporteController::class, 'create'])->name('reporte.create');
 Route::get('Reporte/PDF/', [ReporteController::class,'generarPDF'])->name('reporte.generarPDF');
 
+//OFERTAS
+Route::resource('Oferta',OfertaController::class);
+Route::get('Confirmar{id}/Oferta', [OfertaController::class,'confirmar'])->name('Oferta.confirmar');
+Route::get('Ofertacancelar',[OfertaController::class,'cancelar'])->name('Oferta.cancelar');
+//ENTREVISTA
+Route::resource('Entrevista',EntrevistaController::class);
+Route::get('Confirmar{id}/Entrevista', [EntrevistaController::class,'confirmar'])->name('Entrevista.confirmar');
+Route::get('Entrevistacancelar',[EntrevistaController::class,'cancelar'])->name('Entrevista.cancelar');
+//POSTULACION
+Route::resource('Postulacion',PostulacionController::class);
+Route::get('Confirmar{id}/Postulacion', [PostulacionController::class,'confirmar'])->name('Postulacion.confirmar');
+Route::get('Postulacioncancelar',[PostulacionController::class,'cancelar'])->name('Postulacion.cancelar');
+
+//CARGO
+Route::resource('Cargo',CargoController::class);
+Route::get('Confirmar{id}/Cargo', [CargoController::class,'confirmar'])->name('Cargo.confirmar');
+Route::get('Cargocancelar',[CargoController::class,'cancelar'])->name('Cargo.cancelar');

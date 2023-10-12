@@ -3,7 +3,7 @@ DROP DATABASE IF EXISTS bdregistrocivil;
 CREATE DATABASE bdregistrocivil;
 
 USE bdregistrocivil;
---  TABLAS FUERTES
+--  TABLAS FUERTESs
 
 CREATE TABLE persona (
   DNI CHAR(8) primary key not null,

@@ -7,6 +7,7 @@
         <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
         <link rel="icon" href="{{asset('/img/login/logo.png')}}" type="image/x-icon"/>
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://kit.fontawesome.com/7920972db5.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="select2-dark-adminlte-theme.css">
         <!-- Fonts and icons -->
         <script src="{{asset('assets/js/plugin/webfont/webfont.min.js')}}"></script>
@@ -31,6 +32,7 @@
             rel="stylesheet">
 
         <!-- CSS Files -->
+        {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> --}}
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="{{asset('/css/estilos.css')}}">
 
@@ -208,6 +210,7 @@
                                                     <span class="sub-item">Acta de Defuncion</span>
                                                 </a>
                                             </li>
+                                            
                                         </ul>
                                     </div>
                                 </li>
@@ -237,6 +240,41 @@
                                     </a>
                                 </li> 
                                 @endif
+                                @if (Auth::user()->idRol==5)
+                                <li class="nav-item">
+                                    <a href="{{route('Cargo.index')}}">
+                                        <i class="fa-regular fa-address-card"></i>
+                                        <p class="sub-item">Cargo</p>
+                                    </a>
+                                </li>
+                                @endif
+                                @if (Auth::user()->idRol==5)
+                                <li class="nav-item"> 
+                                    <a href="{{route('Oferta.index')}}">
+                                        <i class="fa-regular fa-address-book"></i>
+                                        <p class="sub-item">Oferta</p>
+                                    </a>
+                                </li>
+                                @endif
+                                @if (Auth::user()->idRol==5)
+                                <li class="nav-item">
+                                    <a href="{{route('Postulacion.index')}}">
+                                        {{-- <i class="fa-solid fa-address-book"></i>
+                                        <i class="fa fa-person-chalkboard"></i> --}}
+                                        <i class="fa-solid fa-person-chalkboard"></i>
+                                        <p class="sub-item">Postulación</p>
+                                    </a>
+                                </li>
+                                @endif
+                                @if (Auth::user()->idRol==5)
+                                <li class="nav-item">
+                                    <a href="{{route('Entrevista.index')}}">
+                                        <i class="fa-sharp fa-solid fa-laptop-file"></i>
+                                        <p class="sub-item">Entrevista</p>
+                                    </a>
+                                </li>
+                                @endif
+                                
                                 
 
 
@@ -474,7 +512,7 @@
                 },1);
             ;
         </script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         </body>
     </html>
 </x-app-layout>

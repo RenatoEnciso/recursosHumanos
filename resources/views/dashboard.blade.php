@@ -241,6 +241,14 @@
                                 </li> 
                                 @endif
                                 @if (Auth::user()->idRol==5)
+                                <li class="nav-item">
+                                    <a href="{{route('Cargo.index')}}">
+                                        <i class="fa-regular fa-address-card"></i>
+                                        <p class="sub-item">Cargo</p>
+                                    </a>
+                                </li>
+                                @endif
+                                @if (Auth::user()->idRol==5)
                                 <li class="nav-item"> 
                                     <a href="{{route('Oferta.index')}}">
                                         <i class="fa-regular fa-address-book"></i>
@@ -266,14 +274,7 @@
                                     </a>
                                 </li>
                                 @endif
-                                @if (Auth::user()->idRol==5)
-                                <li class="nav-item">
-                                    <a href="{{route('Cargo.index')}}">
-                                        <i class="fa-regular fa-address-card"></i>
-                                        <p class="sub-item">Cargo</p>
-                                    </a>
-                                </li>
-                                @endif
+                                
                                 
 
 

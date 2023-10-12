@@ -10,6 +10,7 @@ use App\Models\Oferta;
 use App\Models\Postulacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 class PostulacionController extends Controller
 {
     const PAGINATION=7;
@@ -43,11 +44,17 @@ class PostulacionController extends Controller
     {
             $data=request()->validate([
                     ]);
+               
                     $Postulacion=new Postulacion();
                     $Postulacion->DNI=$request->DNI;
                     $Postulacion->idOferta=$request->idOferta;
                     $Postulacion->fecha=$request->fecha;
-                    $Postulacion->curriculum=$request->curriculum;
+                    if($request->hasFile('curriculum')){
+                        $archivo=$request->file('curriculum')->store('ArchivosCurriculum','public');
+                        $url = Storage::url($archivo);
+                        $Postulacion->curriculum=$url;
+                    }
+                    // $Postulacion->curriculum=$request->curriculum;
                     $Postulacion->estado='1';
                     $Postulacion->save();
                     return redirect()->route('Postulacion.index')->with('datos','Registrados exitosamente...');

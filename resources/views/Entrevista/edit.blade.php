@@ -4,81 +4,88 @@
 
 @section('contenido')
     <div class="container">
-        <h1 id="titulo" class="acta_title">Editar entrevista</h1>
-        <form method="POST" action="{{ route('Entrevista.update', $Entrevista->idEntrevista) }}">
-            @method('PUT')
-            @csrf
-            <div class="form-group">
-                <label class="control-label">CODIGO</label>
-                <input type="text" class="form-control" style="color: blue" value="{{ $Entrevista->idEntrevista }}" disabled>
-            </div>
-            <div class="row">
-                <div class="col-12 form-group">
-                    <label class="control-label">observacion</label>
-                    <input type="text" class="form-control @error('observacion') is-invalid @enderror"
-                        placeholder="Ingrese observacion"  name="observacion" value="{{ $Entrevista->observacion}}">
-                    @error('observacion')
-                        <span class="invalid feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-
-               
-                <div class="col-8 form-group">
-                    <label class="control-label">Fecha</label>
-                    <input type="date" class="form-control"  value="{{ $Entrevista->fecha}}" id="fecha" 
-                        name="fecha" >
-                </div>
-      
-                <div class="col-8 form-group">
-                    <label class="control-label">Postulacion</label>
-                    <select name="idPostulacion" id="idPostulacion" class="form-control">
-                        @foreach ($postulacion as $item)
-                               <option value="{{ $item->idPostulacion}}">{{ $item->idPostulacion }} ,Nombres:{{ $item->DNI }} 
-                                {{$Entrevista->idPostulacion== $item->idPostulacion?'selected':''}}
-                               </option> 
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-8 form-group">
-                    <label class="control-label">estado</label>
-                    <select name="estado" id="estado" class="form-control">
-                        
-                               <option value="1"
-                               {{$Entrevista->estado==1 ?'selected':''}}
-                               >Aprobado</option> 
-                               <option value="0"
-                               {{$Entrevista->estado==0 ?'selected':''}}
-                               >Rechazado</option> 
-                        
-                    </select>
-                </div>
-
-               
-
-    
-
-                <div class="col-8 form-group flex">
-                    <div>
-                        <button class="btn btn-primary boton"><i class="fas fa-save"></i> GUARDAR</button>
+        <div class="shadow-lg py-4 bg-body-tertiary rounded" style="margin-top:8vh">
+            <h1 id="titulo" class="acta_title">Editar entrevista</h1>
+            <form method="POST" action="{{ route('Entrevista.update', $Entrevista->idEntrevista) }}">
+                @method('PUT')
+                @csrf
+                <div class="row justify-content-center">
+                    <div class="col-2 form-group">
+                        <label class="control-label">Codigo</label>
+                        <input type="text" class="form-control" style="color: blue" value="{{ $Entrevista->idEntrevista }}" disabled>
                     </div>
-                    <div></div>
-                    <div>
-                        <a href="/Entrevista" class="btn btn-danger boton"><i class="fas fa-ban"></i> CANCELAR</a>
-                        {{-- <a href="{{route('Entrevista.cancelar') }}" class="btn btn-danger boton"><i class="fas fa-ban"></i> CANCELAR</a> --}}
+                    <div class="col-6 form-group">
+                        
+                        <label class="control-label">Observación</label>
+                            <textarea  type="text" class="form-control @error('observacion') is-invalid @enderror"
+                                placeholder="Ingrese observación"  name="observacion" ></textarea >
+                        @error('observacion')
+                            <span class="invalid feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
-            </div><br>
-            <div class="boton_div">
-                <div>
-                    <button class="btn btn-primary boton"><i class="fas fa-save"></i> GRABAR</button>
+            
+                <div class="row justify-content-center">
+
+                    <div class="col-2 form-group">
+                        <label class="control-label">Fecha</label>
+                        <input type="date" class="form-control"  value="{{ $Entrevista->fecha}}" id="fecha" 
+                            name="fecha" >
+                    </div>
+        
+                    <div class="col-4 form-group">
+                        <label class="control-label">Postulación</label>
+                        <select name="idPostulacion" id="idPostulacion" class="form-control">
+                            @foreach ($postulacion as $item)
+                                <option value="{{ $item->idPostulacion}}"  {{$Entrevista->idPostulacion== $item->idPostulacion  ?'selected':''}}>{{ $item->idPostulacion }} ,Nombres:{{ $item->DNI }} 
+                                   
+                                </option> 
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-2 form-group">
+                        <label class="control-label">estado</label>
+                        <select name="estado" id="estado" class="form-control">
+                            
+                                <option value="1"
+                                {{$Entrevista->estado==1 ?'selected':''}}
+                                >Aprobado</option> 
+                                <option value="0"
+                                {{$Entrevista->estado==0 ?'selected':''}}
+                                >Rechazado</option> 
+                            
+                        </select>
+                    </div>
+
+                
+
+        
+
+                    {{-- <div class="col-8 form-group flex">
+                        <div>
+                            <button class="btn btn-primary boton"><i class="fas fa-save"></i> GUARDAR</button>
+                        </div>
+                        <div></div>
+                        <div>
+                            <a href="/Entrevista" class="btn btn-danger boton"><i class="fas fa-ban"></i> CANCELAR</a>
+                            href="{{route('Entrevista.cancelar') }}" class="btn btn-danger boton"><i class="fas fa-ban"></i> CANCELAR</a> 
+                        </div>
+                    </div> --}}
+                </div><br>
+                <div class="boton_div">
+                    <div class="col-8 form-group flex">
+                        <div>
+                            <button class="btn btn-primary boton"><i class="fas fa-save"></i> GRABAR</button>
+                        </div>
+                        <div>
+                            <a href="{{ route('Entrevista.cancelar') }}" class="btn btn-danger boton"><i class="fas fa-ban"></i> CANCELAR</a>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <a href="{{ route('Entrevista.cancelar') }}" class="btn btn-danger boton"><i class="fas fa-ban"></i> CANCELAR</a>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
     <script>
         function showImage() {

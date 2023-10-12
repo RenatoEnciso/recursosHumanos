@@ -21,7 +21,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h3 id="titulo"  class="card-title">EntrevistaS</h3>
+                <h3 id="titulo"  class="card-title">ENTREVISTAS</h3>
             </div>
             <div class="card-body">
             <a href="{{route('Entrevista.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i>Nuevo Registro</a>
@@ -36,11 +36,11 @@
                     <thead>
                     <tr>
                         <th scope="col">Codigo</th>
-                        <th scope="col">idPostulacion</th>
+                        <th scope="col">Postulación</th>
                         <th scope="col">DNI</th>
-                        <th scope="col">fecha</th>
-                        <th scope="col">observacion</th>
-                        <th scope="col">estado</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Observacion</th>
+                        <th scope="col">Estado</th>
                         <th scope="col">Opciones</th>
                     </tr>
                     </thead>
@@ -61,18 +61,56 @@
                         <td>{{$item->fecha}}</td>
                         <td>{{$item->observacion}}</td>
                         <td>@if ($item->estado==1)
-                            Aprobado
+                            <i class="fa-solid fa-check"></i> 
+                             {{-- Aprobado --}}
                         @else
-                            Rechazado
+                             <i class="fa-solid fa-xmark"></i> 
+                             {{-- Rechazado --}}
                         @endif
                         
                             </td>
                         <td>
-                            <br>
+                            
                             {{-- <a href="{{ route('ActaDefunsion.archivo',$item->idActaPersona)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Ver</a> --}}
                            
                             <a href="{{ route('Entrevista.edit',$item->idEntrevista) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
-                            <a href="{{ route('Entrevista.confirmar',$item->idEntrevista) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
+                            
+                            {{-- <a href="{{ route('Entrevista.confirmar',$item->idEntrevista) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a> --}}
+                            
+                            <button   class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$item->idEntrevista}}">
+                                <i class="fas fa-trash"></i>Eliminar
+                              </button>
+                      
+                            
+                            
+                              <!-- Modal -->
+                              <div class="modal fade " id="staticBackdrop{{$item->idEntrevista}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Postulación</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <span>
+                                        Codigo : {{$item->idEntrevista}}
+                                      <br> Postulante: {{$item->Postulacion->DNI}}
+                                      <br> Observación:  {{$item->observacion}}
+                                        </span>
+                                      
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                     
+                                      <form method="POST" action="{{route('Oferta.destroy',$item->idEntrevista)}}">
+                                        @method('delete')
+                                        @csrf
+                                            <button class="btn btn-danger"><i class="fas fa-check-square"></i> SI</button>
+                                        </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             {{-- <a href="" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
                             <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a> --}}
                         </td>

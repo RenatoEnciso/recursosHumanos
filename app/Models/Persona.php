@@ -26,4 +26,7 @@ class Persona extends Model
     public function Solicitud(){
         return $this->hasMany(Solicitud::class,'DNISolicitante','DNI');
     }
+    public function SolicitudDNI(){
+        return $this->hasMany(SolicitudDNI::class,'DNI','DNI');
+    }
 }

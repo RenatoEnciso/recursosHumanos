@@ -10,6 +10,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\FichaController;
+use App\Http\Controllers\SolicitudDNIController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -18,14 +19,12 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-
     $fichasP = Ficha::all()->where('estado', 'Pendiente');
     return view('dashboard',compact('fichasP'));
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/dashboard', function () {
-
-        $fichasP = Ficha::all()->where('estado', 'Pendiente');
+    $fichasP = Ficha::all()->where('estado', 'Pendiente');
     return view('index',compact('fichasP'));
 })->middleware(['auth'])->name('dashboard');
 
@@ -85,7 +84,7 @@ Route::get('Personacancelar',[PersonaController::class,'cancelar'])->name('Perso
 Route::get('confirmarP{id}/',[PersonaController::class,'confirmar'])->name('Persona.confirmar');
 
 
-//CONSULTA
+//SOLICITUD
 Route::resource('Solicitud',SolicitudController::class);
 Route::get('confirmar{id}/',[SolicitudController::class,'confirmar'])->name('Solicitud.confirmar');
 Route::get('Solicitudcancelar',[SolicitudController::class,'cancelar'])->name('Solicitud.cancelar');
@@ -97,9 +96,11 @@ Route::get('ingresarPago/{id}/',[SolicitudController::class,'ingresarPago'])->na
 Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('Solicitud.detalle');
 Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('Solicitud.detalle');
 
-
-
 //REPORTES
 Route::get('Reporte/Crear', [ReporteController::class, 'create'])->name('reporte.create');
 Route::get('Reporte/PDF/', [ReporteController::class,'generarPDF'])->name('reporte.generarPDF');
 
+//SOLICITUD DNI
+Route::resource('solicitud-dni', SolicitudDNIController::class);
+Route::get('form-validacion', [SolicitudDNIController::class,'inicio'])->name('solicitudDNI.inicio');
+Route::post('valida-datos', [SolicitudDNIController::class,'validar'])->name('solicitudDNI.validar');

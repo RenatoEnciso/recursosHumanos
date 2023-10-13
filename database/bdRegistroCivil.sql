@@ -131,6 +131,7 @@ values
 ('77777777','Marco','Garcia','Miguel','M','Soltero',"La libertad","Trujillo","Florencia de Mora",1,'Jose Olaya 594','1973-03-02'),
 ('88888888','Diaz','Festivo','Domingo','M','Soltero',"La libertad","Trujillo","Trujillo",1,'Jose Olata 789','1968-03-02');
 
+-- Nuevas tablas
 create table TIPO_DNI(
   idTipoDni   int AUTO_INCREMENT PRIMARY KEY,
   tipoDNI varchar(50)
@@ -139,26 +140,29 @@ create table TIPO_DNI(
 INSERT INTO TIPO_DNI(tipoDNI) VALUES ("Original"),("Duplicado");
 
 
-CREATE TABLE TIPO_SOLICTUD_DNI(
+CREATE TABLE TIPO_SOLICITUD_DNI(
   idTipoSolicitud int AUTO_INCREMENT PRIMARY KEY,
   tipoSolicitud  varchar(50)
 );
 
-INSERT INTO TIPO_SOLICTUD_DNI(tipoSolicitud) VALUES ("Primera Vez"),("Duplicado"),("Renovacion")
+INSERT INTO TIPO_SOLICITUD_DNI(tipoSolicitud) VALUES ("Primera Vez"),("Duplicado"),("Renovacion");
 
 
 CREATE TABLE SOLICITUD_DNI(
-  idSolicitud  int AUTO_INCREMENT PRIMARY KEY,
+  idSolicitud    int AUTO_INCREMENT PRIMARY KEY,
   idTipoSolicitud   int NOT NULL,
-  DNI           char(8) NOT NULL,
-  idUsuario       int NULL,
+  DNI             char(8) NOT NULL,
+  file_foto       varchar(255),
+  file_voucher    varchar(255),
+  cod_servicio_agua   varchar(20),
+  cod_servicio_luz   varchar(20),
   solComentario      varchar(250),
   solEstado          TINYINT,
   solFecha            datetime
 );
 
 alter table SOLICITUD_DNI
-  ADD FOREIGN KEY (idTipoSolicitud) REFERENCES TIPO_SOLICTUD_DNI(idTipoSolicitud),
+  ADD FOREIGN KEY (idTipoSolicitud) REFERENCES TIPO_SOLICITUD_DNI(idTipoSolicitud),
   ADD FOREIGN KEY (DNI) REFERENCES Persona(DNI);
 
 ALTER TABLE SOLICITUD_DNI

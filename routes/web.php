@@ -112,15 +112,18 @@ Route::resource('Oferta',OfertaController::class);
 Route::get('Confirmar{id}/Oferta', [OfertaController::class,'confirmar'])->name('Oferta.confirmar');
 Route::get('Ofertacancelar',[OfertaController::class,'cancelar'])->name('Oferta.cancelar');
 //ENTREVISTA
+Route::get('Entrevista{id}/Entrevista', [EntrevistaController::class,'createP'])->name('Entrevista.createP');
 Route::resource('Entrevista',EntrevistaController::class);
 Route::get('Confirmar{id}/Entrevista', [EntrevistaController::class,'confirmar'])->name('Entrevista.confirmar');
 Route::get('Entrevistacancelar',[EntrevistaController::class,'cancelar'])->name('Entrevista.cancelar');
 //POSTULACION
 Route::resource('Postulacion',PostulacionController::class);
+Route::get('CreateP{id}/Postulacion', [PostulacionController::class,'createP'])->name('Postulacion.createP');
 Route::get('Confirmar{id}/Postulacion', [PostulacionController::class,'confirmar'])->name('Postulacion.confirmar');
 Route::get('Postulacioncancelar',[PostulacionController::class,'cancelar'])->name('Postulacion.cancelar');
 
 //CARGO
+
 Route::resource('Cargo',CargoController::class);
 Route::get('Confirmar{id}/Cargo', [CargoController::class,'confirmar'])->name('Cargo.confirmar');
 Route::get('Cargocancelar',[CargoController::class,'cancelar'])->name('Cargo.cancelar');

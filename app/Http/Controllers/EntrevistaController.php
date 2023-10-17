@@ -33,7 +33,20 @@ class EntrevistaController extends Controller
         // if (Auth::user()->Entrevista=='Encargado contrato'){   //boteon registrar
             $postulacion = Postulacion::all();
             $ofertas = Oferta::all();
+
             return view('Entrevista.create',compact('postulacion'));
+        // } else{
+        //     return redirect()->route('Entrevista.index')->with('datos','..::No tiene Acceso ..::');
+        // }
+    }
+
+    public function createP($id)
+    {
+        // if (Auth::user()->Entrevista=='Encargado contrato'){   //boteon registrar
+            $postulaciones = Postulacion::all();
+            $postulacion = Postulacion::findOrFail($id);
+            $oferta = Oferta::all();
+            return view('Entrevista.createP',compact('postulaciones','oferta','postulacion'));
         // } else{
         //     return redirect()->route('Entrevista.index')->with('datos','..::No tiene Acceso ..::');
         // }

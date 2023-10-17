@@ -43,6 +43,7 @@
                         <th scope="col"style="font-weight: bold;">Fin</th>
                         <th scope="col"style="font-weight: bold;">Cargo</th>
                         <th scope="col"style="font-weight: bold;">Monto</th>
+                        <th scope="col"style="font-weight: bold;">Archivos</th>
                         <th scope="col"style="font-weight: bold;">Opciones</th>
                     </tr>
                     </thead>
@@ -62,6 +63,55 @@
                         <td>{{$item->fecha_fin}}</td>
                         <td>{{$item->cargo->descripcion}}</td>
                         <td>S/.{{$item->monto}}</td>
+                        <td>
+                        <button   class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdropr{{$item->idOferta}}">
+                            <i class="fa-solid fa-file-circle-check"></i>Requisito de postulante
+                        </button>
+                        <button   class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdropm{{$item->idOferta}}">
+                            <i class="fa-solid fa-file-circle-check"></i>Manual de postulante
+                        </button>
+                        
+                        
+                        <!-- Modal -->
+                        <div class="modal fade " id="staticBackdropr{{$item->idOferta}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Requisitos de {{$item->descripcion}}</h1>
+                            
+                                </div>
+                                <div class="modal-body">
+                              
+                                    <iframe  src="{{$item->requisitos}}" class="object-cover  mt-2 " height="500vh" width="450vh" frameborder="0" scrolling=""> </iframe>
+                                
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="modal fade " id="staticBackdropm{{$item->idOferta}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Manual de {{$item->descripcion}}</h1>
+                            
+                                </div>
+                                <div class="modal-body">
+                              
+                                    <iframe  src="{{$item->manualPostulante}}" class="object-cover  mt-2 " height="500vh" width="450vh" frameborder="0" scrolling=""> </iframe>
+                                
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </td>
                         <td >
                      
                             <a href="{{ route('Oferta.edit',$item->idOferta) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>

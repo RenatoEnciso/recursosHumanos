@@ -24,7 +24,7 @@
                 <h3 id="titulo"  class="card-title">POSTULACIONES</h3>
             </div>
             <div class="card-body">
-            <a href="{{route('Postulacion.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i>Nuevo registro</a>
+            {{-- <a href="{{route('Postulacion.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i>Nuevo registro</a> --}}
             <div id="mensaje">
                 @if (session('datos'))
                 <div class="alert alert-warning alert-dismissible fade show mt-3 emergente" role="alert" style="color: white; background-color: rgb(183, 178, 31) ">
@@ -92,6 +92,7 @@
                                 {{-- <a href="{{ route('ActaDefunsion.archivo',$item->idActaPersona)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Ver</a> --}}
                             
                                 <a href="{{ route('Postulacion.edit',$item->idPostulacion) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
+                                <a href="{{ route('Entrevista.createP',$item->idPostulacion) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Entrevistar</a>
                                 {{-- <a href="{{ route('Postulacion.confirmar',$item->idPostulacion) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a> --}}
                                 {{-- <a href="" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
                                 <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a> --}}

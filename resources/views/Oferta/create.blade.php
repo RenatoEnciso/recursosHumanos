@@ -75,7 +75,7 @@
                             </div>
                         </div>
                         <div class="row justify-content-center">
-                            <div class="col-8 form-group">
+                            <div class="col-4 form-group">
                                 <label class="control-label">Cargo</label>
                                 <select name="idCargo" id="idCargo" class="form-control">
                                     @foreach ($cargos as $item)
@@ -83,7 +83,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-8 form-group">
+                            <div class="col-2 form-group">
                                 <label class="control-label">Monto(S/.)</label>
                                 <input type="text" class="form-control @error('monto') is-invalid @enderror"
                                     placeholder="Ingrese monto"  name="monto">
@@ -92,6 +92,14 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                            <div class="col-2 form-group">
+                                <label class="control-label">Tipo</label>
+                                <select name="convocatoria" id="convocatoria" class="form-control">
+                                
+                                        <option value="1">CAS</option> 
+                                        <option value="2">Práctica</option> 
+                                </select>
                             </div>
                             <div class="boton_div">
                                 <div class="col-8 form-group flex">
@@ -167,7 +175,7 @@
             </form>  
         </div>
     </div>
-    <script>
+
 
     <script>
         function showImage() {

@@ -67,7 +67,7 @@
                         </div>
                 
                         <div class="row justify-content-center">
-                            <div class="col-8 form-group">
+                            <div class="col-4 form-group">
                                 <label class="control-label" >Cargo</label>
                                 <select name="idCargo" id="idCargo" class="form-control">
                                     @foreach ($cargos as $item)
@@ -77,7 +77,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-8 form-group">
+                            <div class="col-2 form-group">
                                 <label class="control-label">Monto(S/.)</label>
                                 <input type="text" class="form-control @error('monto') is-invalid @enderror"
                                     placeholder="Ingrese monto"  name="monto" value="{{$Oferta->monto}}"> 
@@ -86,6 +86,15 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                            <div class="col-2 form-group">
+                                <label class="control-label" >Tipo</label>
+                                <select name="convocatoria" id="convocatoria" class="form-control" readonly>
+                             
+                                    <option value="1" {{$Oferta->convocatoria==1?'selected':''}}>CAS</option> 
+                                        <option value="2" {{$Oferta->convocatoria==2?'selected':''}}>Práctica</option> 
+                        
+                                </select>
                             </div>
                             <div class="boton_div">
                                 <div class="col-8 form-group flex">
@@ -115,6 +124,7 @@
                             @enderror
                             <iframe id="preview" src="{{$Oferta->requisitos}}"  class="object-cover h-32 mt-2 " height="400vh"  width="100%" ></iframe> </iframe>
                             </div>
+                            
                             <div class="col-4 form-group">
                                 <label class="control-label">Manual de postulante</label>
                                 <input type="file" class="form-control @error('manualPostulante') is-invalid @enderror"

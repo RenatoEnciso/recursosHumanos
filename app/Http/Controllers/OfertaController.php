@@ -24,7 +24,7 @@ class OfertaController extends Controller
         ->where('estado','=','1')
         ->paginate($this::PAGINATION);
         
-        return view('Oferta.indexP',compact('Ofertas','busqueda'));
+        return view('Oferta.index',compact('Ofertas','busqueda'));
     }
 
     public function create()
@@ -75,6 +75,7 @@ class OfertaController extends Controller
                     $Oferta->fecha_fin=$request->fecha_fin;
                     $Oferta->idCargo=$request->idCargo;
                     $Oferta->monto=$request->monto;
+                    $Oferta->convocatoria=$request->convocatoria;
                     if($request->hasFile('manualPostulante')){
                         $archivo=$request->file('manualPostulante')->store('ArchivosManualPostulante','public');
                         $url = Storage::url($archivo);
@@ -134,6 +135,7 @@ class OfertaController extends Controller
         $Oferta->fecha_inicio=$request->fecha_inicio;
         $Oferta->fecha_fin=$request->fecha_fin;
         $Oferta->idCargo=$request->idCargo;
+        $Oferta->convocatoria=$request->convocatoria;
         $Oferta->monto=$request->monto;
         if($request->hasFile('manualPostulante')){
             $archivo=$request->file('manualPostulante')->store('ArchivosManualPostulante','public');

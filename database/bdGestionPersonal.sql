@@ -17,6 +17,7 @@ create table oferta(
   resultados varchar(80) DEFAULT NULL,
 ----------------------------------------------------------------
   estado tinyint(4) DEFAULT NULL,
+  convocatoria boolean DEFAULT null,
   foreign key(idCargo) references cargo(idCargo)
 );
 

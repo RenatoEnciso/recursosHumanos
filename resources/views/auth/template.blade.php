@@ -69,7 +69,12 @@
     body {
         margin: 0; 
         font-family: sans-serif;
-        background: url(images/fondoLogin.jpg);
+        background: linear-gradient(
+            217deg,
+            rgba(162,59,53,.84),
+            rgba(255, 0, 0, 0) 70.71%
+            ), linear-gradient(127deg, rgba(7,100,126,.84), rgba(0, 255, 0, 0) 70.71%),
+            linear-gradient(336deg, rgba(167,173,175,.84), rgba(0, 0, 255, 0) 70.71%);
         background-size: cover;
         color: var(--submain-color)
     }

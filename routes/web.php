@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 
 //R
 
-Route::get('/r', function () {
-    return view('auth.loginr');
-});
+// Route::get('/r', function () {
+//     return view('auth.homer');
+// });
 
 // Route::get('/register', function() {
 //     return view('auth.registerr');
@@ -25,7 +25,7 @@ Route::get('/r', function () {
 //
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('auth.home');
 });
 
 Route::get('/dashboard', function () {

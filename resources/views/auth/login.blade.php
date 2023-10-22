@@ -16,7 +16,7 @@
     <footer>
         <a href="{{ route('login') }}" class='active'>
             <div class="active">
-                <i class='fas fa-user-lock'></i>
+                <i class='fas fa-user-alt'></i>
             </div>
             <span >Iniciar sesión</span> 
         </a>

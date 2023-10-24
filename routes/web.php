@@ -1,5 +1,6 @@
 <?php
 use App\Models\Ficha;
+
 use App\Http\Controllers\ActaNacimientoController;
 use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\PersonaController;
@@ -16,6 +17,8 @@ use App\Http\Controllers\PostulacionController;
 use App\Http\Controllers\CargoController;
 use Illuminate\Support\Facades\Route;
 
+//borrar
+use App\Models\User;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -32,6 +35,12 @@ Route::get('/dashboard', function () {
         $fichasP = Ficha::all()->where('estado', 'Pendiente');
     return view('index',compact('fichasP'));
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/probarFace', function () {
+
+        $usarios = User::all();
+        return view('Asistencia/index',compact('usarios'));
+});
 
 require __DIR__.'/auth.php';
 

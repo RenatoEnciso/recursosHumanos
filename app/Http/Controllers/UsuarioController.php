@@ -15,7 +15,7 @@ class UsuarioController extends Controller
     public function update($id, Request $request){
         $usuario=User::findOrFail($id);
         if($request->hasFile('file_fotoPerfil')){
-            $archivo=$request->file('file_fotoPerfil')->store('archivosFotoPerfil','public');
+            $archivo=$request->file('file_fotoPerfil')->storeAs('archivosFotoPerfil',$id.".jpg",'public');
             $urlFoto = Storage::url($archivo);
             $usuario->fotoPerfil=$urlFoto;
         }else{

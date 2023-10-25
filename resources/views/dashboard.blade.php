@@ -174,6 +174,14 @@
                             </div>
                             <ul class="nav nav-primary">
 
+                                @if (Auth::user()->idRol==5)
+                                <li class="nav-item">
+                                    <a href="{{route('Ficha.index')}}">
+                                        <i class="fa-solid fa-users" ></i>
+                                        <p>Gestión de Usuario</p>
+                                    </a>
+                                </li>
+                                @else
                                 @if (Auth::user()->idRol==1)
                                 <li class="nav-item">
                                     <a href="{{route('Ficha.index')}}">
@@ -240,6 +248,7 @@
                                     </a>
                                 </li> 
                                 @endif
+                                {{-- Primer sprint de gestion personal --}}
                                 @if (Auth::user()->idRol==5)
                                 <li class="nav-item">
                                     <a href="{{route('Cargo.index')}}">
@@ -274,11 +283,30 @@
                                     </a>
                                 </li>
                                 @endif
-                                
+                                {{-- Fin Primer sprint de gestion personal --}}
+                                {{-- Segundo sprint de gestion personal --}}
+                                @if (Auth::user()->idRol==5)
+                                <li class="nav-item">
+                                    <a href="{{route('Horario.index')}}">
+                                        <i class="fa-sharp fa-solid fa-laptop-file"></i>
+                                        <p class="sub-item">Horario</p>
+                                    </a>
+                                </li>
+                                @endif
+
+                                {{-- Fin Segundo sprint de gestion personal --}}
                                 
 
 
-                                
+
+
+
+
+
+
+
+
+
                                 @if (Auth::user()->idRol<4)
                                 <li class="nav-item">
                                     <a  href="{{route('reporte.create')}}">

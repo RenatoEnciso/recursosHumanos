@@ -4,13 +4,12 @@
 
 @section('contenido')
     <div class="container">
-        <h1 id="titulo"  class="card-title">REGISTRO DE SOLICITUD</h1>
-        <form method="POST" action="{{ route('Solicitud.store') }}" enctype="multipart/form-data">
-            @csrf
-            <div class="row">
-                <div class="col-8">
-                    
-                    <div class="col-12 form-group">
+        <div class="shadow-lg py-4 bg-body-tertiary rounded "style="margin-top:18vh; margin-bottom:18vh">
+            <h1 id="titulo"  class="row justify-content-center">REGISTRO DE SOLICITUD</h1>
+            <form method="POST" action="{{ route('Solicitud.store') }}" enctype="multipart/form-data">
+                @csrf
+                <div class="row justify-content-center">
+                    <div class="col-8 form-group">
                         <label class="control-label">Solicitante</label>
                         <select name="DNISolicitante" id="DNISolicitante"
                             class="form-control @error('DNISolicitante') is-invalid @enderror" >
@@ -26,7 +25,7 @@
                         @enderror
                     </div>
 
-                    <div class="col-12 form-group">
+                    <div class="col-8 form-group">
                         <label class="control-label">ACTAS A SOLICITAR</label>
                         <select name="idActa[]" id="idActa"
                             class="form-control @error('idActa') is-invalid @enderror"  multiple="multiple">
@@ -38,7 +37,7 @@
                                 @if ($item->Persona->sexo=='M')
                                     @foreach ($item->Acta->Acta_Persona as $item2)
                                         @if (($item->Persona->DNI)!=($item2->Persona->DNI))
-                                        <option value="{{ $item->Acta->idActa }}">Acta de {{$item->Acta->TipoActa->nombre }} - {{$item->Persona->Nombres}}
+                                        <option value="{{ $item->Acta->idActa }}">Acta de {{$item->Acta->ficha->tipo->nombre }} - {{$item->Persona->Nombres}}
                                             {{$item->Persona->Apellido_Paterno}}  y {{$item2->Persona->Nombres}}
                                             {{$item2->Persona->Apellido_Paterno}}</option> 
                                         @endif
@@ -53,7 +52,7 @@
                             </span>
                         @enderror
                     </div>
-                    <div class="col-12 form-group">
+                    <div class="col-8 form-group">
                         <label class="control-label">Observación</label>
                         <input type="text" class="form-control @error('observacion') is-invalid @enderror"
                             placeholder="Ingrese Observación" id="observacion" name="observacion">
@@ -64,7 +63,7 @@
                         @enderror
                     </div>
 
-                    <div class="col-12 form-group">
+                    <div class="col-8 form-group">
                         <?php $fcha = date("Y-m-d");?>
                         <label class="control-label">Fecha de Solicitud</label>
                         <input type="date" class="form-control @error('fechaSolicitud') is-invalid @enderror"
@@ -74,12 +73,21 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                    </div>  
+                    </div> 
                 </div>
-            </div>
-            <button class="btn btn-primary"><i class="fas fa-save"></i>Grabar</button>
-            <a href="{{ route('Solicitud.cancelar') }}" class="btn btn-danger"><i class="fas fa-ban"></i>Cancelar</a>
-        </form>
+                <div class="boton_div">
+                    <div class="col-8 form-group flex">
+                        <div>
+                            <button class="btn btn-primary boton"><i class="fas fa-save"></i> GRABAR</button>
+                        </div>
+                        
+                        <div>
+                            <a href="{{route('Solicitud.cancelar') }}" class="btn btn-danger boton"><i class="fas fa-ban"></i> CANCELAR</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
     <script>
         function showImage() {

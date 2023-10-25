@@ -27,8 +27,9 @@ class ActaMatrimonioController extends Controller
         ->where('Persona.Apellido_Paterno','like','%'.$buscarpor.'%')
         ->where('ficha_registro.idtipo','=','2')
         ->paginate($this::PAGINATION);
+        $ActasMatrimonio=Acta_Persona::all();
         $fichasP = Ficha::select('*')->join('tipoficha as tf','tf.idtipo','=','ficha_registro.idtipo')->where('estado', 'Pendiente')->where('tf.nombre','=','Matrimonio')->get();
-        return view('ActaMatrimonio.index',compact('ActaMatrimonio','buscarpor','fichasP'));
+        return view('ActaMatrimonio.index',compact('ActaMatrimonio','buscarpor','fichasP','ActasMatrimonio'));
     }
 
     public function revisar($id){

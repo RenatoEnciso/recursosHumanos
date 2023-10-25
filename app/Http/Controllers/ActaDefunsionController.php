@@ -101,11 +101,13 @@ class ActaDefunsionController extends Controller
         $ActaFallecido->DNI=$persona->DNI;
         $ActaFallecido->idActa=$Acta->idActa;
         $ActaFallecido->estado=1;
+        $ActaFallecido->funcion="Fallecido";
         $ActaFallecido->save();
         $ActaRepresentante=new Acta_Persona();
         $ActaRepresentante->DNI=$familiar->DNI;
         $ActaRepresentante->idActa=$Acta->idActa;
         $ActaRepresentante->estado=1;
+        $ActaFallecido->funcion="Representante";
         $ActaRepresentante->save();
 
         // DEFUNCION TABLA
@@ -132,8 +134,8 @@ class ActaDefunsionController extends Controller
         // if (Auth::user()->rol=='Registrador'){   //boton editar
             // $libros=Libro::all();
             // $folios=Folio::all();
-            $actaDefunsion= Acta_Persona::findOrFail($id);
-            $actaDefunsion2=Acta_Persona::findOrFail($id+1);
+            $actaDefunsion= Acta_Persona::findOrFail($id-1);
+            $actaDefunsion2=Acta_Persona::findOrFail($id);
             $acta=Acta::findOrFail($actaDefunsion->idActa);
             $personas = Persona::all();
             return view('ActaDefunsion.edit',compact('actaDefunsion','actaDefunsion2','acta','personas'));

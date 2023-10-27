@@ -181,7 +181,7 @@
                                         <p>Gestión de Usuario</p>
                                     </a>
                                 </li>
-                                @else
+                                @endif
                                 @if (Auth::user()->idRol==1)
                                 <li class="nav-item">
                                     <a href="{{route('Ficha.index')}}">
@@ -189,9 +189,9 @@
                                         <p>Ficha de Registro</p>
                                     </a>
                                 </li>
-                                @else
-                                    
                                 @endif
+                                    
+                              
                                 
 
                                 @if (Auth::user()->idRol==2)
@@ -230,7 +230,7 @@
                                     </a>
 
                                 </li>
-                                @else
+                     
                                     
                                 @endif
                                 
@@ -240,6 +240,7 @@
                                         <p>Persona</p>
                                     </a>
                                 </li>
+                                
                                 @if (Auth::user()->idRol==4)
                                 <li class="nav-item">
                                     <a href="{{route('administrador.index')}}">
@@ -287,10 +288,10 @@
                                 {{-- Segundo sprint de gestion personal --}}
                                 @if (Auth::user()->idRol==5)
                                 <li class="nav-item">
-                                    <a href="{{route('Horario.index')}}">
+                                    {{-- <a href="{{route('Horario.index')}}">
                                         <i class="fa-sharp fa-solid fa-laptop-file"></i>
                                         <p class="sub-item">Horario</p>
-                                    </a>
+                                    </a> --}}
                                 </li>
                                 @endif
 
@@ -309,10 +310,10 @@
 
                                 @if (Auth::user()->idRol<4)
                                 <li class="nav-item">
-                                    <a  href="{{route('reporte.create')}}">
+                                    {{-- <a  href="{{route('reporte.create')}}">
                                         <i class="fas fa-id-card"></i>
                                         <p>Reportes</p>
-                                    </a>
+                                    </a> --}}
                                 </li>
                                 @endif
 

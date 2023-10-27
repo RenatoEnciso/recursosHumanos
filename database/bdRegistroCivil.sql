@@ -153,10 +153,12 @@ CREATE TABLE SOLICITUD_DNI(
   idTipoSolicitud   int NOT NULL,
   DNI             char(8) NOT NULL,
   file_foto       varchar(255),
+  valida_foto      TINYINT(1),
   file_voucher    varchar(255),
+  valida_voucher    TINYINT(1),
   cod_servicio_agua   varchar(20),
   cod_servicio_luz   varchar(20),
-  solComentario      varchar(250),
+  solMotivo      varchar(250),
   solEstado          TINYINT,
   solFecha            datetime
 );

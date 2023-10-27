@@ -6,13 +6,10 @@ use App\Models\Acta;
 use App\Models\Actanacimiento;
 use App\Models\Ficha;
 use App\Models\Acta_Persona;
-// use App\Models\Libro;
-// use App\Models\Folio;
 use App\Models\Persona;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\PDF as PDF;
 use Illuminate\Support\Facades\DB;
 

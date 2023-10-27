@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4ef925300e371576eb9dee7e507198d4
+class ComposerStaticInit1527bcc353ce3751d4f38af5ba2cad95
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -366,8 +366,8 @@ class ComposerStaticInit4ef925300e371576eb9dee7e507198d4
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -582,6 +582,7 @@ class ComposerStaticInit4ef925300e371576eb9dee7e507198d4
         'App\\Http\\Controllers\\ReporteController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReporteController.php',
         'App\\Http\\Controllers\\RolController' => __DIR__ . '/../..' . '/app/Http/Controllers/RolController.php',
         'App\\Http\\Controllers\\SolicitudController' => __DIR__ . '/../..' . '/app/Http/Controllers/SolicitudController.php',
+        'App\\Http\\Controllers\\SolicitudDNIController' => __DIR__ . '/../..' . '/app/Http/Controllers/SolicitudDNIController.php',
         'App\\Http\\Controllers\\UsuarioController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsuarioController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -611,7 +612,9 @@ class ComposerStaticInit4ef925300e371576eb9dee7e507198d4
         'App\\Models\\Postulacion' => __DIR__ . '/../..' . '/app/Models/Postulacion.php',
         'App\\Models\\Rol' => __DIR__ . '/../..' . '/app/Models/Rol.php',
         'App\\Models\\Solicitud' => __DIR__ . '/../..' . '/app/Models/Solicitud.php',
+        'App\\Models\\SolicitudDNI' => __DIR__ . '/../..' . '/app/Models/SolicitudDNI.php',
         'App\\Models\\TipoFicha' => __DIR__ . '/../..' . '/app/Models/TipoFicha.php',
+        'App\\Models\\TipoSolicitudDni' => __DIR__ . '/../..' . '/app/Models/TipoSolicitudDni.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
@@ -6055,9 +6058,9 @@ class ComposerStaticInit4ef925300e371576eb9dee7e507198d4
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4ef925300e371576eb9dee7e507198d4::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4ef925300e371576eb9dee7e507198d4::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4ef925300e371576eb9dee7e507198d4::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1527bcc353ce3751d4f38af5ba2cad95::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1527bcc353ce3751d4f38af5ba2cad95::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1527bcc353ce3751d4f38af5ba2cad95::$classMap;
 
         }, null, ClassLoader::class);
     }

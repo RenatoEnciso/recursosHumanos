@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\FichaController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SolicitudDNIController;
 
 //borrar
 use App\Models\User;
@@ -112,4 +113,10 @@ Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('So
 //REPORTES
 Route::get('Reporte/Crear', [ReporteController::class, 'create'])->name('reporte.create');
 Route::get('Reporte/PDF/', [ReporteController::class,'generarPDF'])->name('reporte.generarPDF');
+
+//SOLICITUD DNI
+Route::resource('solicitud-dni', SolicitudDNIController::class);
+Route::get('form-validacion', [SolicitudDNIController::class,'inicio'])->name('solicitudDNI.inicio');
+Route::post('valida-datos', [SolicitudDNIController::class,'validar'])->name('solicitudDNI.validar');
+
 

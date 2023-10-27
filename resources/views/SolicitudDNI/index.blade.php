@@ -10,10 +10,9 @@
                     <i class="fa fa-search search-icon"></i>
                 </button>
             </div>
-            {{-- <input type="text" placeholder="Buscar por DNI" class="form-control" value="{{$buscarpor}}" name="buscarpor" > --}}
+         <input type="text" placeholder="Buscar por DNI" class="form-control" value="{{$buscarpor}}" name="buscarpor" >
         </div>
     </form>
-
 </div>
 @endsection
 @section('contenido')
@@ -36,8 +35,9 @@
                         <thead>
                         <tr>
                             <th scope="col">Codigo</th>
-                            <th scope="col">DNI</th>
+                            <th scope="col">Nombres</th>
                             <th scope="col">Tipo Solicitud</th>
+                            <th scope="col">Estado</th>
                             <th scope="col">Opciones</th>
                         </tr>
                         </thead>
@@ -51,13 +51,15 @@
                             @foreach ($solicitudes as $item)
                                 <tr>
                                     <td>{{$item->idSolicitud}}</td>
-                                    <td>{{$item->Persona->DNI}}</td>
+                                    <td>{{$item->Persona->Nombres}}</td>
                                     <td>{{$item->TipoSolicitudDni->tipoSolicitud}}</td>
+                                    <td>{{$item->solEstado}}</td>
                                     <td>
                                         <br>
-                                         {{-- @if ($item->pago==0)
-                                            <a href="{{ route('Solicitud.archivoGenerado',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa "></i> Generar Orden</a>
-                                            <a href="{{ route('Solicitud.ingresarPago',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa "></i> Ingresar Pago</a>
+                                       
+                                            <a href="{{ route('solicitud-dni.edit',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa "></i> Editar</a>
+                                            <a href="{{ route('solicitud-dni.edit',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa "></i>Revisar</a>
+                                    {{-- @if ($item->pago==0)
                                         @else
                                         <a href="{{ route('Solicitud.detalle',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Detalle </a>
                                         <a href="{{ route('Solicitud.comprobanteGenerado',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa "></i> Generar Comprobante de Pago</a>
@@ -72,5 +74,6 @@
                     </table>
                      {{$solicitudes->links()}}
                 </div>
+            
             </div>
 @endsection

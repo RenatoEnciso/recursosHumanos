@@ -38,8 +38,9 @@
                 </div>
                 <div class="col-4">
                     <label class="control-label">Tipo de Solicitud</label>
-                    <input name="cod_luz" id="" class="form-control" value="DNI AZUL por primera vez" >
-                    @error('cod_luz')
+                    <input name="tipoSolicitud" id="" class="form-control" value="1">
+                    <div>DNI AZUL Por Primera vez</div>
+                    @error('tipoSolicitud')
                         <div class="alert alert-danger" >{{ $message }}</div>
                     @enderror
                 </div>
@@ -56,7 +57,7 @@
                 </div>
                 
                 <div class="col-6">
-                    <input type="checkbox">
+                    <input type="checkbox" name="valida_foto">
                     <label for="">¿Foto actual correcto?</label>
                 </div>
             
@@ -70,7 +71,7 @@
                     <iframe id="preview2" class="object-cover h-32 mt-2 w-60" height="400vh"> </iframe>
                 </div>
                 <div class="col-6">
-                    <input type="checkbox">
+                    <input type="checkbox" name="valida_voucher">
                     <label for="">¿Voucher correcto?</label>
                 </div>
             </div>

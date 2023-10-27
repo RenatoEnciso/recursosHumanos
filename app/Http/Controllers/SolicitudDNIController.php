@@ -2,23 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SolDniPrimeraVezCreateRequest;
 use App\Models\Persona;
-use App\Models\Solicitud;
 use App\Models\SolicitudDNI;
 use DateTime;
-use Faker\Provider\ar_EG\Person;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-use function PHPUnit\Framework\isEmpty;
-
 class SolicitudDNIController extends Controller
 {
     const PAGINATION=10;
-    public function inicio(Request $request){
+   /* public function inicio(Request $request){
         return view('ciudadano.index');
-    }
+    }*/
 
     public function index(Request $request){
         $buscarpor= $request->get('buscarpor');
@@ -28,57 +25,52 @@ class SolicitudDNIController extends Controller
         return view('SolicitudDNI.index',compact('solicitudes','buscarpor'));
     }
     
-
     public function create(){
-
         return view('SolicitudDNI.create');
     }
     
     public function edit($id){
-        return view('SolicitudDNI.edit');
+        $solicitud=SolicitudDNI::find($id);
+        return view('SolicitudDNI.edit', compact('solicitud'));
     }
     
-    public function store(Request $request){
-        $data=request()->validate([
-            'DNI'=>'required',
-            'file_foto'=>'required',
-            'file_voucher'=>'required',
-            'cod_agua'=>'required',
-            'cod_luz'=>'required',
-        ],
-        [
-            'DNI.required'=>'Ingrese Numero de DNI',
-            'file_foto.required'=>'Inngrese la foto actual tamaño pasaporte',
-            'file_voucher.required'=>'Ingrese un vocuher',
-            'cod_agua.required'=>'Ingrese el codigo de servicio de agua',
-            'cod_luz.required'=>'Ingrese el codigo de servicio de luz',
-        ]);
-
+    public function store(SolDniPrimeraVezCreateRequest $request){
         $persona=Persona::find($request->DNI);
         if($persona){
             $solicitud=new SolicitudDNI();
-            $solicitud->idTipoSolicitud='1';
+            if($request->tipoSolicitud==1){
+                $solicitud->idTipoSolicitud='1';
+                $solicitud->cod_servicio_agua=$request->cod_agua;
+                $solicitud->cod_servicio_luz=$request->cod_luz;
+            }else if($request->tipoSolicitud==2){
+                $solicitud->idTipoSolicitud='2';
+            }
             $solicitud->DNI=$persona->DNI;
-            if ($request->hasFile('file_foto')) {
-                $archivoFoto = $request->file('file_foto')->store('ArchivosDNI', 'public');
-                $urlFoto = Storage::url($archivoFoto);
+            $foto = $request->file('file_foto'); 
+            if ($foto) {            
+                $nombreArchivo = $solicitud->persona->Nombres.'.'.$foto->getClientOriginalExtension();
+                Storage::put('public/primeraVez/FotosDNI/' . $nombreArchivo, file_get_contents($foto));   //guardar en storage
+                $urlFoto = Storage::url('public/primeraVez/FotosDNI/' . $nombreArchivo);  //obtener url de foto
                 $solicitud->file_foto = $urlFoto;
             }
-        
-            if ($request->hasFile('file_voucher')) {
-                $archivoVoucher = $request->file('file_voucher')->store('ArchivosDNI', 'public');
-                $urlVoucher = Storage::url($archivoVoucher);
-                $solicitud->file_voucher = $urlVoucher;
+
+            $voucher=$request->file('file_voucher');
+            if ($voucher) {
+                $nombreArchivo = $solicitud->persona->Nombres.'.'.$voucher->getClientOriginalExtension();
+                Storage::put('public/primeraVez/voucherDNI/' . $nombreArchivo, file_get_contents($voucher));   //guardar en storage
+                $urlVoucher = Storage::url('public/primeraVez/voucherDNI/' . $nombreArchivo);  //obtener url de foto
+                $solicitud->file_Voucher = $urlVoucher;
             }
-            $solicitud->cod_servicio_agua=$request->cod_agua;
-            $solicitud->cod_servicio_luz=$request->cod_luz;
-            $solicitud->solComentario=$request->comentario;
+
+            $solicitud->valida_foto=0;
+            $solicitud->valida_voucher=0;
+            $solicitud->solMotivo=$request->motivo;
             $solicitud->solEstado='Pendiente';
             $solicitud->solFecha=new DateTime();
             $solicitud->save();
-            return redirect()->route('soicitud-dni.index')->with('notifica','La solicitud de DNI AZUL fue exitosa');
+            return redirect()->route('solicitud-dni.index')->with('notifica','La solicitud de DNI AZUL fue exitosa');
         }else{
-            return redirect()->route('soicitud-dni.create')->with('notifica','La solicitud No pudo realizarse');
+            return redirect()->route('solicitud-dni.create')->with('notifica','La solicitud No pudo realizarse');
         }
     }
 

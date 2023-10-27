@@ -11,7 +11,8 @@ class Postulacion extends Model
     use HasFactory;
     public $table ='postulacion';
     protected $primaryKey = 'idPostulacion';
-    protected $fillable = ['idPostulacion','DNI','idOferta','fecha','curriculum','estado'];
+    protected $fillable = ['idPostulacion','DNI','idOferta','fecha','curriculum','estado','email','telefono','titulo','pais','institucion',
+    'areaEstudio','nivelEstudio','estadoEstudio'];
     public $timestamps = false;
 
     public function oferta(){

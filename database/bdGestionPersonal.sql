@@ -11,7 +11,14 @@ create table oferta(
   fecha_inicio date DEFAULT NULL,
   fecha_fin date DEFAULT NULL,
   monto float default NULL,
+  -- s
+
+  requisitos varchar(80) DEFAULT NULL,
+  manualPostulante varchar(80) DEFAULT NULL,
+  resultados varchar(80) DEFAULT NULL,
+  -- s
   estado tinyint(4) DEFAULT NULL,
+  convocatoria boolean DEFAULT null,
   foreign key(idCargo) references cargo(idCargo)
 );
 
@@ -21,6 +28,17 @@ create table postulacion(
   idOferta int not null,
   fecha date DEFAULT NULL,
   curriculum varchar(80) DEFAULT NULL,
+  -- s
+  email varchar(80) DEFAULT NULL,
+  telefono char(9) NOT NULL,
+  -- s
+  titulo varchar(30) DEFAULT NULL,
+  pais varchar(20) DEFAULT NULL,
+  institucion varchar(30) DEFAULT NULL,
+  areaEstudio varchar(30) DEFAULT NULL,
+  nivelEstudio varchar(30) DEFAULT NULL,
+  estadoEstudio varchar(30) DEFAULT NULL, 
+  foto varchar(30) DEFAULT NULL,
   estado tinyint(4) DEFAULT NULL,
   foreign key(idOferta) references oferta(idOferta),
   foreign key(DNI) references persona(DNI)

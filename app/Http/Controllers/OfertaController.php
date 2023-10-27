@@ -10,7 +10,7 @@ use App\Models\Cargo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Storage;
 
 class OfertaController extends Controller
 {
@@ -29,6 +29,7 @@ class OfertaController extends Controller
 
     public function create()
     {
+        
         // if (Auth::user()->Oferta=='Encargado contrato'){   //boteon registrar
             $cargos = Cargo::all();
             $fecha_actual=Carbon::now();
@@ -43,13 +44,17 @@ class OfertaController extends Controller
 
     public function store(Request $request)
     {
+        // return $request->all();
         // Carbon::
         // return $request->all
+        // 'resultados'
         $data=request()->validate([
             'descripcion'=>'required|max:30',
             // 'fecha_inicio'=>'required',
             'fecha_inicio' => 'required|after_or_equal:yesterday',
             'fecha_fin'=>'required|before_or_equal:'.Carbon::parse($request->fecha_inicio)->addMonth(1)->format('Y-m-d'),
+            'requisitos'=>'required',
+            'manualPostulante'=>'required',
         //    'archivo_nacimiento'=>'required',
            
         ],
@@ -70,6 +75,17 @@ class OfertaController extends Controller
                     $Oferta->fecha_fin=$request->fecha_fin;
                     $Oferta->idCargo=$request->idCargo;
                     $Oferta->monto=$request->monto;
+                    $Oferta->convocatoria=$request->convocatoria;
+                    if($request->hasFile('manualPostulante')){
+                        $archivo=$request->file('manualPostulante')->store('ArchivosManualPostulante','public');
+                        $url = Storage::url($archivo);
+                        $Oferta->manualPostulante=$url;
+                    }
+                    if($request->hasFile('requisitos')){
+                        $archivo=$request->file('requisitos')->store('ArchivosRequisitos','public');
+                        $url = Storage::url($archivo);
+                        $Oferta->requisitos=$url;
+                    }
                     $Oferta->estado='1';
                     $Oferta->save();
                     return redirect()->route('Oferta.index')->with('datos','Registrados exitosamente...');
@@ -119,7 +135,18 @@ class OfertaController extends Controller
         $Oferta->fecha_inicio=$request->fecha_inicio;
         $Oferta->fecha_fin=$request->fecha_fin;
         $Oferta->idCargo=$request->idCargo;
+        $Oferta->convocatoria=$request->convocatoria;
         $Oferta->monto=$request->monto;
+        if($request->hasFile('manualPostulante')){
+            $archivo=$request->file('manualPostulante')->store('ArchivosManualPostulante','public');
+            $url = Storage::url($archivo);
+            $Oferta->manualPostulante=$url;
+        }
+        if($request->hasFile('requisitos')){
+            $archivo=$request->file('requisitos')->store('ArchivosRequisitos','public');
+            $url = Storage::url($archivo);
+            $Oferta->requisitos=$url;
+        }
         $Oferta->save();
         return redirect()->route('Oferta.index')->with('datos','Registro Actualizado exitosamente...');
     }
@@ -145,6 +172,15 @@ class OfertaController extends Controller
 
     public function cancelar(){
         return redirect()->route('Oferta.index')->with('datos','acciona cancelada...');
+    }
+
+    public function archivo($id){
+        $Oferta=Oferta::findOrFail($id);
+        $cargos = Cargo::all();
+            $fecha_actual=Carbon::now();
+            $fecha_actual->setLocale('es'); 
+            $fecha_actual->setTimezone('America/Lima');
+        return view('Oferta.archivo',compact('cargos','fecha_actual'));
     }
     // public function DniRepetido($dni_comprobar){
     //     $Ofertas=Oferta::all();

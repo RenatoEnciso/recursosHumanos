@@ -29,6 +29,17 @@ class PostulacionController extends Controller
         return view('Postulacion.index',compact('Postulacions','busqueda'));
     }
 
+    public function createP($id)
+    {
+        // if (Auth::user()->Postulacion=='Encargado contrato'){   //boteon registrar
+            $personas = Persona::all();
+            $oferta = Oferta::findOrFail($id);
+            $ofertas = Oferta::all();
+            return view('Postulacion.createP',compact('personas','oferta','ofertas'));
+        // } else{
+        //     return redirect()->route('Postulacion.index')->with('datos','..::No tiene Acceso ..::');
+        // }
+    }
     public function create()
     {
         // if (Auth::user()->Postulacion=='Encargado contrato'){   //boteon registrar
@@ -49,15 +60,25 @@ class PostulacionController extends Controller
                     $Postulacion->DNI=$request->DNI;
                     $Postulacion->idOferta=$request->idOferta;
                     $Postulacion->fecha=$request->fecha;
+
                     if($request->hasFile('curriculum')){
                         $archivo=$request->file('curriculum')->store('ArchivosCurriculum','public');
                         $url = Storage::url($archivo);
                         $Postulacion->curriculum=$url;
                     }
+                    $Postulacion->email=$request->email;
+                    $Postulacion->telefono=$request->telefono;
+                    $Postulacion->titulo=$request->titulo;
+                    $Postulacion->pais=$request->pais;
+                    $Postulacion->institucion=$request->institucion;
+                    $Postulacion->areaEstudio=$request->areaEstudio;
+                    $Postulacion->nivelEstudio=$request->nivelEstudio;
+                    $Postulacion->estadoEstudio=$request->estadoEstudio;
+                  
                     // $Postulacion->curriculum=$request->curriculum;
                     $Postulacion->estado='1';
                     $Postulacion->save();
-                    return redirect()->route('Postulacion.index')->with('datos','Registrados exitosamente...');
+                    return redirect()->route('OFerta.index')->with('datos','Registrados exitosamente...');
     }
 
     public function edit($id)
@@ -82,8 +103,17 @@ class PostulacionController extends Controller
                     $Postulacion->idOferta=$request->idOferta;
                     $Postulacion->fecha=$request->fecha;
                     $Postulacion->curriculum=$request->curriculum;
+                    $Postulacion->email=$request->email;
+                    $Postulacion->telefono=$request->telefono;
+                    $Postulacion->titulo=$request->titulo;
+                    $Postulacion->pais=$request->pais;
+                    $Postulacion->institucion=$request->institucion;
+                    $Postulacion->areaEstudio=$request->areaEstudio;
+                    $Postulacion->nivelEstudio=$request->nivelEstudio;
+                    $Postulacion->estadoEstudio=$request->estadoEstudio;
         $Postulacion->save();
-        return redirect()->route('Postulacion.index')->with('datos','Registro Actualizado exitosamente...');
+        
+        return redirect()->route('OFerta.index')->with('datos','Registro Actualizado exitosamente...');
     }
 
     public function destroy($id)

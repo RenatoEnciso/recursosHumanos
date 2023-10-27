@@ -1,5 +1,6 @@
 <?php
 use App\Models\Ficha;
+
 use App\Http\Controllers\ActaNacimientoController;
 use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\PersonaController;
@@ -16,6 +17,8 @@ use App\Http\Controllers\PostulacionController;
 use App\Http\Controllers\CargoController;
 use Illuminate\Support\Facades\Route;
 
+//borrar
+use App\Models\User;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -32,6 +35,17 @@ Route::get('/dashboard', function () {
         $fichasP = Ficha::all()->where('estado', 'Pendiente');
     return view('index',compact('fichasP'));
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/probarFace', function () {
+
+        $usarios = User::all();
+        return view('Asistencia/index',compact('usarios'));
+});
+Route::get('/inicio', function () {
+
+    // $usarios = User::all();
+    return view('Auth.home');
+});
 
 require __DIR__.'/auth.php';
 
@@ -112,15 +126,18 @@ Route::resource('Oferta',OfertaController::class);
 Route::get('Confirmar{id}/Oferta', [OfertaController::class,'confirmar'])->name('Oferta.confirmar');
 Route::get('Ofertacancelar',[OfertaController::class,'cancelar'])->name('Oferta.cancelar');
 //ENTREVISTA
+Route::get('Entrevista{id}/Entrevista', [EntrevistaController::class,'createP'])->name('Entrevista.createP');
 Route::resource('Entrevista',EntrevistaController::class);
 Route::get('Confirmar{id}/Entrevista', [EntrevistaController::class,'confirmar'])->name('Entrevista.confirmar');
 Route::get('Entrevistacancelar',[EntrevistaController::class,'cancelar'])->name('Entrevista.cancelar');
 //POSTULACION
 Route::resource('Postulacion',PostulacionController::class);
+Route::get('CreateP{id}/Postulacion', [PostulacionController::class,'createP'])->name('Postulacion.createP');
 Route::get('Confirmar{id}/Postulacion', [PostulacionController::class,'confirmar'])->name('Postulacion.confirmar');
 Route::get('Postulacioncancelar',[PostulacionController::class,'cancelar'])->name('Postulacion.cancelar');
 
 //CARGO
+
 Route::resource('Cargo',CargoController::class);
 Route::get('Confirmar{id}/Cargo', [CargoController::class,'confirmar'])->name('Cargo.confirmar');
 Route::get('Cargocancelar',[CargoController::class,'cancelar'])->name('Cargo.cancelar');

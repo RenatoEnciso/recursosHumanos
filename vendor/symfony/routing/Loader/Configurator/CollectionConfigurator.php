@@ -23,8 +23,8 @@ class CollectionConfigurator
     use Traits\HostTrait;
     use Traits\RouteTrait;
 
-    private RouteCollection $parent;
-    private ?CollectionConfigurator $parentConfigurator;
+    private $parent;
+    private $parentConfigurator;
     private ?array $parentPrefixes;
     private string|array|null $host = null;
 
@@ -115,9 +115,6 @@ class CollectionConfigurator
         return $this;
     }
 
-    /**
-     * This method overrides the one from LocalizedRouteTrait.
-     */
     private function createRoute(string $path): Route
     {
         return (clone $this->route)->setPath($path);

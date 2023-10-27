@@ -41,6 +41,11 @@ Route::get('/probarFace', function () {
         $usarios = User::all();
         return view('Asistencia/index',compact('usarios'));
 });
+Route::get('/inicio', function () {
+
+    // $usarios = User::all();
+    return view('Auth.home');
+});
 
 require __DIR__.'/auth.php';
 

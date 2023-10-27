@@ -127,4 +127,8 @@ class SolicitudDNIController extends Controller
      
     }
 
+    public function cancelar(){
+        return redirect()->route('solicitud-dni.index');
+    }
+
 }

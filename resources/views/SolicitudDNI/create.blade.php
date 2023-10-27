@@ -29,10 +29,17 @@
                         <div class="alert alert-danger" >{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="col-12">
+                <div class="col-8">
                     <label class="control-label">Motivo de solicitud</label>
-                    <input name="motivo" id="" class="form-control" >
+                    <input name="motivo" id="" class="form-control" value="Por cumplir los 17 años de edad">
                     @error('motivo')
+                        <div class="alert alert-danger" >{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-4">
+                    <label class="control-label">Tipo de Solicitud</label>
+                    <input name="cod_luz" id="" class="form-control" value="DNI AZUL por primera vez" >
+                    @error('cod_luz')
                         <div class="alert alert-danger" >{{ $message }}</div>
                     @enderror
                 </div>
@@ -47,6 +54,12 @@
                     @enderror
                     <iframe id="preview1" class="object-cover h-32 mt-2 w-60" height="400vh"> </iframe>
                 </div>
+                
+                <div class="col-6">
+                    <input type="checkbox">
+                    <label for="">¿Foto actual correcto?</label>
+                </div>
+            
                 <div class="col-6 ">
                     <label class="control-label">Voucher </label>
                     <input type="file" class="form-control "placeholder="Ingrese Voucher" id="" name="file_voucher"
@@ -56,10 +69,14 @@
                     @enderror
                     <iframe id="preview2" class="object-cover h-32 mt-2 w-60" height="400vh"> </iframe>
                 </div>
+                <div class="col-6">
+                    <input type="checkbox">
+                    <label for="">¿Voucher correcto?</label>
+                </div>
             </div>
             <div class="d-flex flex-row justify-content-around">
                 <button class="btn btn-primary"><i class="fas fa-save"></i>Grabar</button>
-                <a href="" class="btn btn-danger"><i class="fas fa-ban"></i>Cancelar</a>
+                <a href="{{route('solicitud-dni.cancelar')}}" class="btn btn-danger"><i class="fas fa-ban"></i>Cancelar</a>
             </div>
                 @if (session('notifica'))
                 <div class="alert alert-warning alert-dismissible fade show mt-3 emergente" role="alert" style="color: white; background-color: rgb(183, 178, 31)" >

@@ -10,7 +10,7 @@
             <div class="form-row">
                 <div class="col-4">
                     <label class="control-label">DNI</label>
-                    <input name="DNI" id=""" class="form-control" >
+                    <input name="DNI" id="" class="form-control" >
                     @error('DNI')
                         <div class="alert alert-danger" >{{ $message }}</div>
                     @enderror
@@ -30,9 +30,9 @@
                     @enderror
                 </div>
                 <div class="col-12">
-                    <label class="control-label">Descripcion</label>
-                    <input name="comentario" id="" class="form-control" >
-                    @error('comentario')
+                    <label class="control-label">Motivo de solicitud</label>
+                    <input name="motivo" id="" class="form-control" >
+                    @error('motivo')
                         <div class="alert alert-danger" >{{ $message }}</div>
                     @enderror
                 </div>

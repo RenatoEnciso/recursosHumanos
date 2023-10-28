@@ -31,7 +31,17 @@ class SolicitudDNIController extends Controller
     
     public function edit($id){
         $solicitud=SolicitudDNI::find($id);
-        return view('SolicitudDNI.edit', compact('solicitud'));
+        $fechaNac= new DateTime($solicitud->persona->fecha_nacimiento);
+        $fechaSolicitud=new DateTime($solicitud->solFecha);    
+        $intervalo=date_diff($fechaSolicitud,$fechaNac);
+        $edad = $intervalo->y;
+        if($edad <17)
+            $condEdad='El Ciudadano aún no cumple con la edad suficiente para DNI Azul';
+        if($edad >=17 && $edad <=20)
+            $condEdad='El Ciudadano Cumple con la edad suficiente para obtener el DNI Azul por priemra vez';
+        if($edad >20)
+            $condEdad='El Ciudadano Sobre pasa la edad para tramite Normal del DNI Azul';
+        return view('SolicitudDNI.edit', compact('solicitud','edad','condEdad'));
     }
     
     public function store(SolDniPrimeraVezCreateRequest $request){

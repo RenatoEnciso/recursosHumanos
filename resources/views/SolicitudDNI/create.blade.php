@@ -53,14 +53,8 @@
                     @error('file_foto')
                         <span class="alert alert-danger" role="alert">{{ $message }} </span>
                     @enderror
-                    <iframe id="preview1" class="object-cover h-32 mt-2 w-60" height="400vh"> </iframe>
+                    <img id="preview1" class="object-cover h-32 mt-2 w-60" height="400vh"> 
                 </div>
-                
-                <div class="col-6">
-                    <input type="checkbox" name="valida_foto">
-                    <label for="">¿Foto actual correcto?</label>
-                </div>
-            
                 <div class="col-6 ">
                     <label class="control-label">Voucher </label>
                     <input type="file" class="form-control "placeholder="Ingrese Voucher" id="" name="file_voucher"
@@ -68,11 +62,7 @@
                     @error('file_voucher')
                         <span class="alert alert-danger" role="alert">{{ $message }} </span>
                     @enderror
-                    <iframe id="preview2" class="object-cover h-32 mt-2 w-60" height="400vh"> </iframe>
-                </div>
-                <div class="col-6">
-                    <input type="checkbox" name="valida_voucher">
-                    <label for="">¿Voucher correcto?</label>
+                    <img id="preview2" class="object-cover h-32 mt-2 w-60" height="400vh">
                 </div>
             </div>
             <div class="d-flex flex-row justify-content-around">

@@ -38,7 +38,7 @@ create table postulacion(
   areaEstudio varchar(30) DEFAULT NULL,
   nivelEstudio varchar(30) DEFAULT NULL,
   estadoEstudio varchar(30) DEFAULT NULL, 
-  foto varchar(30) DEFAULT NULL,
+  foto varchar(50) DEFAULT NULL,
   estado tinyint(4) DEFAULT NULL,
   foreign key(idOferta) references oferta(idOferta),
   foreign key(DNI) references persona(DNI)
@@ -65,3 +65,67 @@ INSERT INTO cargo (descripcion,estado) VALUES
 ('Encargado contrato',1),
 ('Encargado de mantenimiento',1),
 ('Administrador',1)
+
+--2 Sprint
+create table horario(
+  idHorario int not null auto_increment primary key,
+  hora_inicio time not null,
+  hora_fin time not null,
+  dia int not null,
+  estado tinyint(4) DEFAULT NULL
+);
+
+create table trabajador(
+  idTrabajador int not null auto_increment primary key,
+  seguro varchar(30) not null,
+  ONP boolean not null,
+  DNI char(8) NOT NULL,
+  correoPersonal varchar(30) DEFAULT NULL,
+  telefono char(9) NOT NULL,
+  direccion varchar(30) DEFAULT NULL,
+  estado tinyint(4) DEFAULT NULL,
+  foreign key(DNI) references persona(DNI)
+  );
+
+ALTER TABLE users
+ADD idTrabajador int DEFAULT 0;
+
+create table contrato(
+  idContrato int not null auto_increment primary key,
+  descripcion varchar(80) DEFAULT NULL,
+  fecha_inicio date DEFAULT NULL,
+  fecha_fin date DEFAULT NULL,
+  diasVacaciones int not null,
+  idEntrevista int NOT NULL,
+  idTrabajador int NOT NULL,
+  archivoContrato varchar(150) DEFAULT NULL,
+  estado tinyint(4) DEFAULT NULL,
+  foreign key(idTrabajador) references trabajador(idTrabajador),
+  foreign key(idEntrevista) references entrevista(idEntrevista)
+  );
+
+create table contrato_horario(
+  idContratoHorario int not null auto_increment primary key,
+  lugar varchar(30) DEFAULT NULL,
+  idContrato int NOT NULL,
+  idHorario int NOT NULL,
+  estado tinyint(4) DEFAULT NULL,
+  foreign key(idContrato) references contrato(idContrato),
+  foreign key(idHorario) references horario(idHorario)
+  );
+
+
+create table vacacion(
+  idVacacion int not null auto_increment primary key,
+  descripcion varchar(80) DEFAULT NULL,
+  fecha_inicio date DEFAULT NULL,
+  fecha_fin date DEFAULT NULL,
+  idTrabajador int NOT NULL,
+  estado tinyint(4) DEFAULT NULL,
+  foreign key(idTrabajador) references trabajador(idTrabajador)
+  );
+
+
+
+
+

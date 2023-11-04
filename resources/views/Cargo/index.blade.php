@@ -24,7 +24,7 @@
                 <h3 id="titulo"  class="card-title">CARGOS</h3>
             </div>
             <div class="card-body">
-            <a href="{{route('Cargo.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i>Nuevo Registro</a>
+            <a href="{{route('Cargo.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i>Nuevo Registro</a>div
             <div id="mensaje">
                 @if (session('datos'))
                 <div class="alert alert-warning alert-dismissible fade show mt-3 emergente" role="alert" style="color: white; background-color: rgb(183, 178, 31) ">

@@ -16,6 +16,11 @@ use App\Http\Controllers\EntrevistaController;
 use App\Http\Controllers\PostulacionController;
 use App\Http\Controllers\CargoController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HorarioController;
+use App\Http\Controllers\TrabajadorController;
+use App\Http\Controllers\ContratoController;
+use App\Http\Controllers\ContratoHorarioController;
+use App\Http\Controllers\VacacionController;
 
 //borrar
 use App\Models\User;
@@ -121,6 +126,8 @@ Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('So
 Route::get('Reporte/Crear', [ReporteController::class, 'create'])->name('reporte.create');
 Route::get('Reporte/PDF/', [ReporteController::class,'generarPDF'])->name('reporte.generarPDF');
 
+//1 Sprint Gestion Personal
+
 //OFERTAS
 Route::resource('Oferta',OfertaController::class);
 Route::get('Confirmar{id}/Oferta', [OfertaController::class,'confirmar'])->name('Oferta.confirmar');
@@ -141,3 +148,40 @@ Route::get('Postulacioncancelar',[PostulacionController::class,'cancelar'])->nam
 Route::resource('Cargo',CargoController::class);
 Route::get('Confirmar{id}/Cargo', [CargoController::class,'confirmar'])->name('Cargo.confirmar');
 Route::get('Cargocancelar',[CargoController::class,'cancelar'])->name('Cargo.cancelar');
+
+//2 Sprint Gestion Personal
+//HORARIO
+
+
+Route::resource('Horario',HorarioController::class);
+Route::get('Confirmar{id}/Horario', [HorarioController::class,'confirmar'])->name('Horario.confirmar');
+Route::get('Horariocancelar',[HorarioController::class,'cancelar'])->name('Horario.cancelar');
+
+//TRABAJADOR
+Route::resource('Trabajador',TrabajadorController::class);
+Route::get('Confirmar{id}/Trabajador', [TrabajadorController::class,'confirmar'])->name('Trabajador.confirmar');
+Route::get('Trabajadorcancelar',[TrabajadorController::class,'cancelar'])->name('Trabajador.cancelar');
+
+//CONTRATO
+Route::resource('Contrato',ContratoController::class);
+Route::get('CreateP{id}/Contrato', [ContratoController::class,'createP'])->name('Contrato.createP');
+Route::get('Confirmar{id}/Contrato', [ContratoController::class,'confirmar'])->name('Contrato.confirmar');
+Route::get('Contratocancelar',[ContratoController::class,'cancelar'])->name('Contrato.cancelar');
+
+// //CONTRATO
+// Route::resource('Contrato',ContratoController::class);
+// Route::get('Confirmar{id}/Contrato', [ContratoController::class,'confirmar'])->name('Contrato.confirmar');
+// Route::get('Ofertacancelar',[ContratoController::class,'cancelar'])->name('Contrato.cancelar');
+
+//CONTRATO_HORARIO
+Route::resource('ContratoHorario',ContratoHorarioController::class);
+Route::get('Confirmar{id}/ContratoHorario', [ContratoHorarioController::class,'confirmar'])->name('ContratoHorario.confirmar');
+Route::get('ContratoHorariocancelar',[ContratoHorarioController::class,'cancelar'])->name('ContratoHorario.cancelar');
+
+//VACACION
+Route::resource('Vacacion',VacacionController::class);
+Route::get('Confirmar{id}/Vacacion', [VacacionController::class,'confirmar'])->name('Vacacion.confirmar');
+Route::get('Vacacioncancelar',[VacacionController::class,'cancelar'])->name('Vacacion.cancelar');
+
+
+

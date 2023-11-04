@@ -177,7 +177,8 @@
                                 @if (Auth::user()->idRol==5)
                                 <li class="nav-item">
                                     <a href="{{route('Ficha.index')}}">
-                                        <i class="fa-solid fa-users" ></i>
+                                        {{-- <i class="fa-solid fa-users" ></i> --}}
+                                        <i class="fa-solid fa-users-gear"></i>
                                         <p>Gestión de Usuario</p>
                                     </a>
                                 </li>
@@ -288,16 +289,41 @@
                                 {{-- Segundo sprint de gestion personal --}}
                                 @if (Auth::user()->idRol==5)
                                 <li class="nav-item">
-                                    {{-- <a href="{{route('Horario.index')}}">
-                                        <i class="fa-sharp fa-solid fa-laptop-file"></i>
+                                    <a href="{{route('Trabajador.index')}}">
+                                        <i class="fa-solid fa-person-dots-from-line"></i>
+                                        {{-- <i class="fa-solid fa-chalkboard-user"></i> --}}
+                                        <p class="sub-item">Trabajador</p>
+                                    </a>
+                                </li>
+                                @endif
+                                @if (Auth::user()->idRol==5)
+                                <li class="nav-item">
+                                    <a href="{{route('Horario.index')}}">
+                                        <i class="fa-regular fa-calendar-days"></i>
                                         <p class="sub-item">Horario</p>
-                                    </a> --}}
+                                    </a>
+                                </li>
+                                @endif
+                                @if (Auth::user()->idRol==5)
+                                <li class="nav-item">
+                                    <a href="{{route('Vacacion.index')}}">
+                                        <i class="fa-regular fa-calendar-xmark"></i>
+                                        <p class="sub-item">Vacacion</p>
+                                    </a>
+                                </li>
+                                @endif
+                                @if (Auth::user()->idRol==5)
+                                <li class="nav-item">
+                                    <a href="{{route('Contrato.index')}}">
+                                        <i class="fa-solid fa-file-signature"></i>
+                                        <p class="sub-item">Contrato</p>
+                                    </a>
                                 </li>
                                 @endif
 
                                 {{-- Fin Segundo sprint de gestion personal --}}
                                 
-
+                                
 
 
 

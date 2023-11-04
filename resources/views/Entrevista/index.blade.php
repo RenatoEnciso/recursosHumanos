@@ -74,7 +74,7 @@
                             {{-- <a href="{{ route('ActaDefunsion.archivo',$item->idActaPersona)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Ver</a> --}}
                            
                             <a href="{{ route('Entrevista.edit',$item->idEntrevista) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
-                            
+                            <a href="{{ route('Contrato.createP',$item->idEntrevista) }}" class="btn btn-info btn-sm"><i class="fa-solid fa-file-signature"></i>Contratar</a>
                             {{-- <a href="{{ route('Entrevista.confirmar',$item->idEntrevista) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a> --}}
                             
                             <button   class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$item->idEntrevista}}">

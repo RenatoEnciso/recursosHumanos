@@ -35,7 +35,7 @@
                         <button class="btn btn-primary boton"><i class="fas fa-save"></i> GRABAR</button>
                     </div>
                     <div>
-                        <a href="{{ route('ActaDefunsion.cancelar') }}" class="btn btn-danger boton"><i class="fas fa-ban"></i> CANCELAR</a>
+                        <a href="{{ route('Cargo.cancelar') }}" class="btn btn-danger boton"><i class="fas fa-ban"></i> CANCELAR</a>
                     </div>
                 </div>
             </form>

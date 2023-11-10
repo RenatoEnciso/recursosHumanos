@@ -9,8 +9,12 @@ use App\Http\Controllers\ActaDefunsionController;
 use App\Http\Controllers\ActaMatrimonioController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\BuscarActaDefuncion;
+use App\Http\Controllers\BuscarActaMatrimonio;
+use App\Http\Controllers\BuscarActaNacimiento;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\FichaController;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SolicitudDNIController;
 
@@ -43,6 +47,19 @@ Route::get('/inicio', function () {
 });
 
 require __DIR__.'/auth.php';
+
+//CONSULTAACTAS
+    //ACTADEFUNCION
+    Route::get('consulta_defuncion',[BuscarActaDefuncion::class,'index'])->name('ConsultaDefuncion');
+    Route::post('validar_defuncion',[BuscarActaDefuncion::class,'search'])->name('SearchDefuncion');
+    //ACTANACIMIENTO
+    Route::get('consulta_nacimiento',[BuscarActaNacimiento::class,'index'])->name('ConsultaNacimiento');
+    Route::post('validar_nacimiento',[BuscarActaNacimiento::class,'search'])->name('SearchNacimiento');
+    //ACTAMATRIMONIO
+    Route::get('consulta_matrimonio', [BuscarActaMatrimonio::class,'index'])->name('ConsultaMatrimonio');
+    Route::post('validar_matrimonio',[BuscarActaMatrimonio::class,'search'])->name('SearchMatrimonio');
+    //Salir de Acta
+    Route::get('regresar',[BuscarActaDefuncion::class,'regresar'])->name('regresar');
 
 //USUARIO
 Route::resource('usuario',UsuarioController::class);

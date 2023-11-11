@@ -183,5 +183,7 @@ Route::resource('Vacacion',VacacionController::class);
 Route::get('Confirmar{id}/Vacacion', [VacacionController::class,'confirmar'])->name('Vacacion.confirmar');
 Route::get('Vacacioncancelar',[VacacionController::class,'cancelar'])->name('Vacacion.cancelar');
 
+//CAMBIAMOS
+
 
 

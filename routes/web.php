@@ -114,3 +114,4 @@ Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('So
 Route::get('Reporte/Crear', [ReporteController::class, 'create'])->name('reporte.create');
 Route::get('Reporte/PDF/', [ReporteController::class,'generarPDF'])->name('reporte.generarPDF');
 
+//err

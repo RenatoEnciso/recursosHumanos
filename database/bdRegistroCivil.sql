@@ -28,6 +28,12 @@ create table roles(
   idRol int AUTO_INCREMENT not null PRIMARY KEY,
   nombreRol varchar(50)
 );
+INSERT INTO tipoFicha(nombre) 
+VALUES ("Nacimiento"),("Matrimonio"),("Defunción");
+
+INSERT INTO roles(nombreRol) 
+VALUES ("MesaPartes"),("Registrador"),("Administrador"),("Administrador de Sistemas"),("Invitado");
+
 
 -- TABLAS DEBILES
 create table ficha_registro(
@@ -112,12 +118,6 @@ CREATE TABLE LISTA_SOLICITUD (
   FOREIGN KEY (idActa) REFERENCES Acta(idActa),
   FOREIGN KEY (idSolicitud) REFERENCES SOLICITUD(idSolicitud)
 );
-
-INSERT INTO tipoFicha(nombre) 
-VALUES ("Nacimiento"),("Matrimonio"),("Defunción");
-
-INSERT INTO roles(nombreRol) 
-VALUES ("MesaPartes"),("Registrador"),("Administrador"),("Administrador de Sistemas");
 
 Insert Into Persona
 (DNI, Apellido_Paterno , Apellido_Materno ,Nombres ,sexo ,estadocivil ,departamento,provincia,distrito,estado , direccion,fecha_nacimiento)

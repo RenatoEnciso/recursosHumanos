@@ -182,7 +182,7 @@ Route::get('ContratoHorariocancelar',[ContratoHorarioController::class,'cancelar
 Route::resource('Vacacion',VacacionController::class);
 Route::get('Confirmar{id}/Vacacion', [VacacionController::class,'confirmar'])->name('Vacacion.confirmar');
 Route::get('Vacacioncancelar',[VacacionController::class,'cancelar'])->name('Vacacion.cancelar');
-
+//Inicio 3 sprint
 
 
 

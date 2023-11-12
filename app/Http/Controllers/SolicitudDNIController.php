@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Storage;
 
 class SolicitudDNIController extends Controller
 {
-    const PAGINATION=10;
-   /* public function inicio(Request $request){
+    const PAGINATION=10; 
+    public function inicio(Request $request){
         return view('ciudadano.index');
-    }*/
+    }
 
     public function index(Request $request){
         $buscarpor= $request->get('buscarpor');

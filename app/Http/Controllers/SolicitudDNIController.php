@@ -85,7 +85,92 @@ class SolicitudDNIController extends Controller
     }
 
     public function update(Request $request, $id){
+        $solicitud=SolicitudDNI::find($id);
+        if($request->tipoSolicitud==1){
+            //$solicitud->idTipoSolicitud='1';
+            $solicitud->cod_servicio_agua=$request->cod_agua;
+            $solicitud->cod_servicio_luz=$request->cod_luz;
+        }else if($request->tipoSolicitud==2){
+            //$solicitud->idTipoSolicitud='2';
+        }
+
+        $foto = $request->file('file_foto'); 
+        if ($foto) {            
+            $nombreArchivo = $solicitud->persona->Nombres.'.'.$foto->getClientOriginalExtension();
+            Storage::put('public/primeraVez/FotosDNI/' . $nombreArchivo, file_get_contents($foto));   //guardar en storage
+            $urlFoto = Storage::url('public/primeraVez/FotosDNI/' . $nombreArchivo);  //obtener url de foto
+            $solicitud->file_foto = $urlFoto;
+        }
+
+        $voucher=$request->file('file_voucher');
+        if ($voucher) {
+            $nombreArchivo = $solicitud->persona->Nombres.'.'.$voucher->getClientOriginalExtension();
+            Storage::put('public/primeraVez/voucherDNI/' . $nombreArchivo, file_get_contents($voucher));   
+            $urlVoucher = Storage::url('public/primeraVez/voucherDNI/' . $nombreArchivo); 
+            $solicitud->file_Voucher = $urlVoucher;
+        }
+
+        $solicitud->solMotivo=$request->motivo;
+        if($request->valida_voucher==true)
+            $solicitud->valida_voucher=1;
+
+        if($request->valida_foto==true)
+            $solicitud->valida_foto=1;
+        
+        $solicitud->solEstado='Pendiente';
+        $solicitud->save();
         return view('ciudadano.index');
+    }
+
+    
+    public function review($id){
+        $solicitud=SolicitudDNI::find($id);
+        $solicitud=SolicitudDNI::find($id);
+        $fechaNac= new DateTime($solicitud->persona->fecha_nacimiento);
+        $fechaSolicitud=new DateTime($solicitud->solFecha);    
+        $intervalo=date_diff($fechaSolicitud,$fechaNac);
+        $edad = $intervalo->y;
+        if($edad <17)
+            $condEdad='El Ciudadano aún no cumple con la edad suficiente para DNI Azul';
+        if($edad >=17 && $edad <=20)
+            $condEdad='El Ciudadano Cumple con la edad suficiente para obtener el DNI Azul por priemra vez';
+        if($edad >20)
+            $condEdad='El Ciudadano Sobre pasa la edad para tramite Normal del DNI Azul';
+        return view('SolicitudDNI.review', compact('solicitud','edad','condEdad'));
+        /*if($request->tipoSolicitud==1){
+            //$solicitud->idTipoSolicitud='1';
+            $solicitud->cod_servicio_agua=$request->cod_agua;
+            $solicitud->cod_servicio_luz=$request->cod_luz;
+        }else if($request->tipoSolicitud==2){
+            //$solicitud->idTipoSolicitud='2';
+        }
+
+        $foto = $request->file('file_foto'); 
+        if ($foto) {            
+            $nombreArchivo = $solicitud->persona->Nombres.'.'.$foto->getClientOriginalExtension();
+            Storage::put('public/primeraVez/FotosDNI/' . $nombreArchivo, file_get_contents($foto));   //guardar en storage
+            $urlFoto = Storage::url('public/primeraVez/FotosDNI/' . $nombreArchivo);  //obtener url de foto
+            $solicitud->file_foto = $urlFoto;
+        }
+
+        $voucher=$request->file('file_voucher');
+        if ($voucher) {
+            $nombreArchivo = $solicitud->persona->Nombres.'.'.$voucher->getClientOriginalExtension();
+            Storage::put('public/primeraVez/voucherDNI/' . $nombreArchivo, file_get_contents($voucher));   
+            $urlVoucher = Storage::url('public/primeraVez/voucherDNI/' . $nombreArchivo); 
+            $solicitud->file_Voucher = $urlVoucher;
+        }
+
+        $solicitud->solMotivo=$request->motivo;
+        if($request->valida_voucher==true)
+            $solicitud->valida_voucher=1;
+
+        if($request->valida_foto==true)
+            $solicitud->valida_foto=1;
+        
+        $solicitud->solEstado='Pendiente';
+        $solicitud->save();*/
+        //return view('SolicitudDNI.review');
     }
     
     public function destroy($id){
@@ -104,7 +189,8 @@ class SolicitudDNIController extends Controller
         [
             'dni.required'=>'Ingrese el Numero de DNI',
             'fechaNacimiento.required'=>'Ingrese una Fecha de Nacimiento',
-            'departamento.required'=>'Ingrese el departamento de nacimiento',
+            'departamento.required'=>'Ingrese el departamento de
+             nacimiento',
             'provincia.required'=>'Ingrese la provincia de nacimiento',
             'distrito.required'=>'Ingrese el distrito de nacimiento',
         ]);
@@ -126,11 +212,9 @@ class SolicitudDNIController extends Controller
             $mensaje="Los datos no son validados";
             return redirect()->route('solicitudDNI.inicio')->with('respuesta',$mensaje);
         }
-     
     }
 
     public function cancelar(){
         return redirect()->route('solicitud-dni.index');
     }
-
 }

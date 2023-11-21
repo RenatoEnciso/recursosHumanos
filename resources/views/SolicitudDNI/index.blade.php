@@ -16,7 +16,6 @@
 </div>
 @endsection
 @section('contenido')
-
             <div class="card">
                 <div class="card-header">
                     <h3 id="titulo" class="card-title">DNI AZUL POR PRIMERA VEZ</h3>
@@ -58,7 +57,7 @@
                                         <br>
                                        
                                             <a href="{{ route('solicitud-dni.edit',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa "></i> Editar</a>
-                                            <a href="{{ route('solicitud-dni.edit',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa "></i>Revisar</a>
+                                            <a href="{{ route('solicitud-dni.review',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa "></i>Revisar</a>
                                     {{-- @if ($item->pago==0)
                                         @else
                                         <a href="{{ route('Solicitud.detalle',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Detalle </a>

@@ -3,68 +3,77 @@
 @section('titulo', 'Registro de Solicitud DNI')
 
 @section('contenido')
-    <div class="container">
-        <h1 id="titulo"  class="card-title">REGISTRO DE SOLICITUD DNI AZUL</h1>
-        <form method="POST" action="{{ route('solicitud-dni.store') }}" enctype="multipart/form-data">
-            @csrf
-            <div class="form-row">
-                <div class="col-4">
-                    <label class="control-label">DNI</label>
-                    <input name="DNI" id="" class="form-control" >
-                    @error('DNI')
-                        <div class="alert alert-danger" >{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="col-4">
-                    <label class="control-label">codigo de sumnisitro de Agua</label>
-                    <input name="cod_agua" id="" class="form-control" >
-                    @error('cod_agua')
-                        <div class="alert alert-danger" >{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="col-4">
-                    <label class="control-label">codigo de sumnisitro de Luz</label>
-                    <input name="cod_luz" id="" class="form-control" >
-                    @error('cod_luz')
-                        <div class="alert alert-danger" >{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="col-8">
-                    <label class="control-label">Motivo de solicitud</label>
-                    <input name="motivo" id="" class="form-control" value="Por cumplir los 17 años de edad">
-                    @error('motivo')
-                        <div class="alert alert-danger" >{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="col-4">
-                    <label class="control-label">Tipo de Solicitud</label>
-                    <input name="tipoSolicitud" id="" class="form-control" value="1">
-                    <div>DNI AZUL Por Primera vez</div>
-                    @error('tipoSolicitud')
-                        <div class="alert alert-danger" >{{ $message }}</div>
-                    @enderror
-                </div>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                <h1 id="titulo"  class="card-title text-center" >REGISTRO DE SOLICITUD DNI AZUL</h1>
             </div>
-            <div class="form-row">
-                <div class="col-6">
-                    <label class="control-label">Foto actual</label>
-                    <input type="file" class="form-control"placeholder="Ingrese foto" id="" name="file_foto"
-                        value="{{ old('file_foto') }}" x-data="showImage1()" @change="showPreview1(event)" >
-                    @error('file_foto')
-                        <span class="alert alert-danger" role="alert">{{ $message }} </span>
-                    @enderror
-                    <img id="preview1" class="object-cover h-32 mt-2 w-60" height="400vh"> 
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ route('solicitud-dni.store') }}" enctype="multipart/form-data">
+                @csrf
+                <div class="form-row">
+                    <div class="col-4">
+                        <label class="control-label">DNI</label>
+                        <input name="DNI" id="" class="form-control" >
+                        @error('DNI')
+                            <div class="alert alert-danger" >{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-4">
+                        <label class="control-label">codigo de sumnisitro de Agua</label>
+                        <input name="cod_agua" id="" class="form-control" >
+                        @error('cod_agua')
+                            <div class="alert alert-danger" >{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-4">
+                        <label class="control-label">codigo de sumnisitro de Luz</label>
+                        <input name="cod_luz" id="" class="form-control" >
+                        @error('cod_luz')
+                            <div class="alert alert-danger" >{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-8">
+                        <label class="control-label">Motivo de solicitud</label>
+                        <input name="motivo" id="" class="form-control" value="Por cumplir los 17 años de edad">
+                        @error('motivo')
+                            <div class="alert alert-danger" >{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-4">
+                        <label class="control-label">Tipo de Solicitud</label>
+                        <input name="tipoSolicitud" id="" class="form-control" value="1">
+                        <div>DNI AZUL Por Primera vez</div>
+                        @error('tipoSolicitud')
+                            <div class="alert alert-danger" >{{ $message }}</div>
+                        @enderror
+                    </div>
                 </div>
-                <div class="col-6 ">
-                    <label class="control-label">Voucher </label>
-                    <input type="file" class="form-control "placeholder="Ingrese Voucher" id="" name="file_voucher"
-                        value="{{ old('file_voucher') }}" x-data="showImage2()" @change="showPreview2(event)" >
-                    @error('file_voucher')
-                        <span class="alert alert-danger" role="alert">{{ $message }} </span>
-                    @enderror
-                    <img id="preview2" class="object-cover h-32 mt-2 w-60" height="400vh">
+                <div class="form-row">
+                    <div class="col-6">
+                        <label class="control-label">Foto actual</label>
+                        <input type="file" class="form-control"placeholder="Ingrese foto" id="" name="file_foto"
+                            value="{{ old('file_foto') }}" x-data="showImage1()" @change="showPreview1(event)" >
+                        @error('file_foto')
+                            <span class="alert alert-danger" role="alert">{{ $message }} </span>
+                        @enderror
+                        <img id="preview1" class="object-cover h-32 mt-2 w-60" height="400vh"> 
+                    </div>
+                    <div class="col-6 ">
+                        <label class="control-label">Voucher </label>
+                        <input type="file" class="form-control "placeholder="Ingrese Voucher" id="" name="file_voucher"
+                            value="{{ old('file_voucher') }}" x-data="showImage2()" @change="showPreview2(event)" >
+                        @error('file_voucher')
+                            <span class="alert alert-danger" role="alert">{{ $message }} </span>
+                        @enderror
+                        <img id="preview2" class=""  width="100%" >
+                    </div>
                 </div>
-            </div>
+            </form>
+        </div>
+        <div class="card-footer">
             <div class="d-flex flex-row justify-content-around">
                 <button class="btn btn-primary"><i class="fas fa-save"></i>Grabar</button>
                 <a href="{{route('solicitud-dni.cancelar')}}" class="btn btn-danger"><i class="fas fa-ban"></i>Cancelar</a>
@@ -74,8 +83,9 @@
                     {{session('notifica')}}
                 </div>
                 @endif
-        </form>
+        </div>
     </div>
+</div>
     <script>
         function showImage1() {
             return {

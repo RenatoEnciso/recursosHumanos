@@ -117,7 +117,7 @@ Route::get('Reporte/PDF/', [ReporteController::class,'generarPDF'])->name('repor
 //SOLICITUD DNI
 Route::resource('solicitud-dni', SolicitudDNIController::class);
 Route::get('solicitud-dni-cancelar', [SolicitudDNIController::class,'cancelar'])->name('solicitud-dni.cancelar');
+Route::get('solicitud-dni/{id}/revisar', [SolicitudDNIController::class,'review'])->name('solicitud-dni.review');
 Route::get('form-validacion', [SolicitudDNIController::class,'inicio'])->name('solicitudDNI.inicio');
 Route::post('valida-datos', [SolicitudDNIController::class,'validar'])->name('solicitudDNI.validar');
-
 

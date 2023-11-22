@@ -126,6 +126,53 @@ create table vacacion(
   );
 
 
+--3 Sprint
+create table Cese(
+  idCese int not null auto_increment primary key,
+  fechaRegistro date DEFAULT NULL,
+  idContrato int not null,
+  archivoCese varchar(150) DEFAULT NULL,
+  foreign key(idContrato) references contrato (idContrato)
+);
+create table Permiso(
+  idPermiso int not null auto_increment primary key,
+  fechaRegistro date DEFAULT NULL,
+  idContratoHorario int not null,
+  descripcion varchar(80) DEFAULT NULL,
+  archivoPermiso varchar(150) DEFAULT NULL,
+  foreign key(idContratoHorario) references contrato_horario(idContratoHorario)
+);
+-- DUDA
+create table asistencia(
+  idAsistencia int not null auto_increment primary key,
+  horaRegistroEntrada varchar(80) DEFAULT NULL,
+  horaRegistroSalida date DEFAULT NULL,
+  fechaRegistro date DEFAULT NULL,
+  idContratoHorario int not null,
+  foreign key(idContratoHorario) references contrato_horario(idContratoHorario)
+  );
+
+-- VER COMO HACER QUE SI ESTA INCPACITADO UNA PERSONA , AL PONER SU NOMBRE PONER COMO REMPLAZO
+  CREATE TABLE HoraExtra(
+  idHoraExtra INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  idTrabajador INT NOT NULL,
+  fecha DATE DEFAULT NULL,
+  hora_inicio TIME DEFAULT NULL,
+  hora_fin TIME DEFAULT NULL,
+  estado TINYINT(4) DEFAULT NULL,
+  descripcion varchar(80) DEFAULT NULL,
+  FOREIGN KEY(idTrabajador) REFERENCES trabajador(idTrabajador)
+);
+
+  create table Sueldo(
+  idSuedo int not null auto_increment primary key,
+  fechaRegistro date DEFAULT NULL,
+  idContrato int not null,
+  monto flot not null,
+  foreign key(idContrato) references contrato (idContrato)
+  );
+
+
 
 
 

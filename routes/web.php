@@ -63,6 +63,8 @@ Route::get('Administradorcancelar',[AdministradorController::class,'cancelar'])-
 
 //USUARIOS
 Route::get('indexU', [RegisteredUserController::class, 'index'])->name('indexU');
+Route::get('crearUsuario', [RegisteredUserController::class, 'create'])->name('crearUsuario');
+Route::post('nuevoUsuario', [RegisteredUserController::class, 'storeP'])->name('nuevoUsuario');
 Route::get('editU{id}/', [RegisteredUserController::class, 'edit'])->name('editU')->middleware('auth');
 Route::post('ActualizarEmpleado{id}/',[RegisteredUserController::class,'update'])->name('ActualizarPassword');
 Route::get('confirU{id}/',[RegisteredUserController::class,'confirmar'])->name('confirU')->middleware('auth');

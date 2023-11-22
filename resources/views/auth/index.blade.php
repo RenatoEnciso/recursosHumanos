@@ -21,6 +21,7 @@
         <div class="card-header">
             <h3 id="titulo"  class="card-title">Lista de Empleados</h3>
         </div>
+        <a href="{{ route('crearUsuario') }}" class="btn btn-primary"><i class="fas fa-plus"></i>Nuevo Registro</a>
         <div class="card-body">
 
             <div id="mensaje">

@@ -79,7 +79,13 @@ video.addEventListener("play", async () => {
       });
       drawBox.draw(canvas);
       if(result.label==persona.value){
-        console.log("Es renato.FIN");
+        console.log("Es FIN");
+        // Obtén una referencia al botón por su ID
+        var btnAsistencia = document.getElementById("btnAsistencia");
+
+        // Simula un clic en el botón
+        btnAsistencia.click();
+
         //manda que haga click el boton 
       }
       console.log(result.label);

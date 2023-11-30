@@ -38,13 +38,24 @@
                     
                     <div class="col-3 form-group">
                         <label for="horaVariable1" class="control-label">Hora inicio:</label>
-                        <input type="time" id="horaVariable1" name="hora_inicio" class="form-control" value={{$Horario->hora_inicio}} >
+                        <input type="time" id="horaVariable1" name="hora_inicio" class="form-control @error('hora_inicio') is-invalid @enderror" value={{$Horario->hora_inicio}} >
                     </div> 
+                    @error('hora_inicio')
+                                            <span class="invalid feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+
+                                        
                     <div class="col-3 form-group">
                         <label for="horaVariable2" class="control-label">Hora fin:</label>
-                        <input type="time" id="horaVariable2" name="hora_fin" class="form-control" value={{$Horario->hora_fin}}>
-                    
+                        <input type="time" id="horaVariable2" name="hora_fin" class="form-control @error('hora_fin') is-invalid @enderror" value={{$Horario->hora_fin}}>
                     </div> 
+                    @error('hora_fin')
+                                            <span class="invalid feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                 </div>
                 
                         

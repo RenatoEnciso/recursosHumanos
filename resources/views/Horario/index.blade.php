@@ -10,7 +10,7 @@
                     <i class="fa fa-search search-icon"></i>
                 </button>
             </div>
-            <input type="text" placeholder="Buscar por descripcion" class="form-control" value="{{$busqueda}}" name="busqueda" >
+            <input type="text" placeholder="Buscar por día" class="form-control" value="{{$busqueda}}" name="busqueda" >
         </div>
     </form>
 
@@ -21,7 +21,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h3 id="titulo"  class="card-title">Horarios</h3>
+                <h3 id="titulo"  class="card-title">HORARIOS</h3>
             </div>
             <div class="card-body">
             <a href="{{route('Horario.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i>Nuevo Registro</a>
@@ -57,7 +57,10 @@
                         <td>{{$item->idHorario}}</td>
                         <td>{{$item->hora_inicio}}</td>
                         <td>{{$item->hora_fin}}</td>
-                        <td>{{$item->dia}}</td>
+                        @php
+                            $dias=['Lunes', 'Martes',  "Miercoles","Jueves", "Viernes"  ,  "Sabado" ,  "Domingo"]
+                        @endphp
+                        <td>{{$dias[$item->dia-1]}}</td>
                         <td>
                          
                             <a href="{{ route('Horario.edit',$item->idHorario) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
@@ -92,7 +95,7 @@
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                      
-                                      <form method="POST" action="{{route('Oferta.destroy',$item->idHorario)}}">
+                                      <form method="POST" action="{{route('Horario.destroy',$item->idHorario)}}">
                                         @method('delete')
                                         @csrf
                                             <button class="btn btn-danger"><i class="fas fa-check-square"></i> SI</button>

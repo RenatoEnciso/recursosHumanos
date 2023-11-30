@@ -23,20 +23,22 @@
                     </div>
                     <div class="col-3 form-group">
                         <label class="control-label">Trabajador</label>
-                                        <select name="idTrabajador" id="idTrabajador" class="form-control @error('idTrabajador') is-invalid @enderror"  >
-                                       
-                                            @foreach ($trabajadores as $item)
-                                                <option value="{{ $item->idtrabajador}}"
-                                                   
-                                                    >{{ $item->DNI}}-{{ $item->persona->Nombres}} {{ $item->persona->Apellido_Paterno}} {{ $item->persona->Apellido_Materno}}</option> 
+                        <select name="idContrato" id="idContrato" class="form-control @error('idContrato') is-invalid @enderror"  >
+                          
+                            @foreach ($contratos as $item)
+                                                <option value="{{$item->idContrato}}"
+                                                    
+                                                    >{{$item->trabajador->DNI}}-{{ $item->trabajador->persona->Nombres}} {{ $item->trabajador->persona->Apellido_Paterno}} {{ $item->trabajador->persona->Apellido_Materno}}</option> 
                                             @endforeach
-                                        </select>
-                                        @error('idTrabajador')
-                                            <span class="invalid feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                         @enderror
+                        </select>
+                            @error('idTrabajador')
+                                <span class="invalid feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                     </div>
+                                       
+                  
 
                 </div>
                 <div class="row justify-content-center">

@@ -11,7 +11,7 @@
                     <i class="fa fa-search search-icon"></i>
                 </button>
             </div>
-            <input type="text" placeholder="Buscar por descripcion" class="form-control" value="{{$busqueda}}" name="busqueda" >
+            <input type="text" placeholder="Buscar por nombres y DNI" class="form-control" value="{{$busqueda}}" name="busqueda" >
         </div>
     </form>
 
@@ -41,6 +41,7 @@
                         <th scope="col" style="font-weight: bold;">Seguro</th>
                         <th scope="col"style="font-weight: bold;">Tipo de aporte</th>
                         <th scope="col"style="font-weight: bold;">DNI</th>
+                        <th scope="col"style="font-weight: bold;">Nombres</th>
                         <th scope="col"style="font-weight: bold;">Direccion</th>
                         <th scope="col"style="font-weight: bold;">Telefono</th>
                         <th scope="col"style="font-weight: bold;">Correo</th>
@@ -65,7 +66,7 @@
                             AFP
                         @endif
                            </td>
-                        <td>{{$item->DNI}}</td>
+                        <td>{{$item->DNI}}</td> <td>{{$item->persona->Apellido_Paterno}} {{$item->persona->Apellido_Materno}} {{$item->persona->Nombres}}</td>
                         <td>{{$item->direccion}}</td>
                         <td>{{$item->telefono}}</td>
                         <td>{{$item->correoPersonal}}</td>

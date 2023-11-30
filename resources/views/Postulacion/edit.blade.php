@@ -32,7 +32,7 @@
                                     </div>
                                     <div class="col form-group">
                                         <label class="control-label">Fecha</label>
-                                        <input type="date" class="form-control" value="" id="fecha" 
+                                        <input type="date" class="form-control"  id="fecha" 
                                             name="fecha" value="{{$Postulacion->fecha}}">
                                     </div>
                                 </div>
@@ -74,6 +74,32 @@
                                         <iframe id="preview"   class="object-cover h-32 mt-2 w-60" height="400vh"> </iframe>
                                         <br>
                                     </div> --}}
+                                    <div class="row justify-content-center">
+                    
+                    
+                                        <div class="col-6 form-group">
+                                            <label class="control-label">Email address</label>
+                                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="floatingInput"  name="email" id="email" value="{{$Postulacion->email}}">
+                                            @error('email')
+                                                <span class="invalid feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                             @enderror
+                                          </div>
+                    
+                                        <div class="col-6 form-group">
+                                            <label class="control-label">Teléfono</label>
+                                        
+                                            <input type="text" class="form-control @error('telefono') is-invalid @enderror" value="{{$Postulacion->telefono}}" id="telefono" 
+                                                name="telefono" >
+                                            @error('telefono')
+                                                <span class="invalid feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                             @enderror
+                                        </div>
+                                        
+                                    </div>
                                     <div class="row justify-content-center">
             
                                         <div class="col-8 form-group">

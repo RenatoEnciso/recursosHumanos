@@ -97,11 +97,14 @@ class RegisteredUserController extends Controller
     {
 
         $Usuarios = User::findOrFail($id);
-        if (Auth::user()->rol == 'Administrativo') {    //boton editar
-            return view('auth.edit', compact('Usuarios'));
-        } else {
-            return redirect()->route('indexU')->with('datos', '..::NO ES EL ADMINISTRADOR DEL SISTEMA ..::');
-        }
+        $roles=Rol::all();
+  
+        // return view('auth.register',compact());
+        // if (Auth::user()->rol == 'Administrativo') {    //boton editar
+            return view('auth.edit', compact('Usuarios','roles'));
+        // } else {
+        //     return redirect()->route('indexU')->with('datos', '..::NO ES EL ADMINISTRADOR DEL SISTEMA ..::');
+        // }
     }
 
     public function update(Request $request, $id)

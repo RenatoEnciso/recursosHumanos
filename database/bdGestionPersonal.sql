@@ -49,6 +49,8 @@ create table entrevista(
   idPostulacion int NOT NULL,
   fecha date DEFAULT NULL,
   observacion varchar(80) DEFAULT NULL,
+   -- 0->Pendiente,1->Aceptado,2->Rechazado
+  estadoEntrevista int not null,
   estado tinyint(4) DEFAULT NULL,
   foreign key(idPostulacion) references Postulacion(idPostulacion)
 
@@ -120,27 +122,36 @@ create table vacacion(
   descripcion varchar(80) DEFAULT NULL,
   fecha_inicio date DEFAULT NULL,
   fecha_fin date DEFAULT NULL,
-  idTrabajador int NOT NULL,
+  idContrato int NOT NULL,
   estado tinyint(4) DEFAULT NULL,
-  foreign key(idTrabajador) references trabajador(idTrabajador)
+  foreign key(idContrato) references contrato(idContrato)
   );
 
 
 --3 Sprint
-create table Cese(
+create table cese(
   idCese int not null auto_increment primary key,
   fechaRegistro date DEFAULT NULL,
   idContrato int not null,
+  observacion varchar(80) DEFAULT NULL,
   archivoCese varchar(150) DEFAULT NULL,
+  estado tinyint(4) DEFAULT NULL,
   foreign key(idContrato) references contrato (idContrato)
 );
-create table Permiso(
+create table permiso(
   idPermiso int not null auto_increment primary key,
   fechaRegistro date DEFAULT NULL,
-  idContratoHorario int not null,
-  descripcion varchar(80) DEFAULT NULL,
+  idContrato int not null,
+  fecha_inicio DATE DEFAULT NULL,
+  fecha_fin DATE DEFAULT NULL,
+  motivo varchar(80) DEFAULT NULL,
+  -- 1->Enfermedad,2->personal
+  tipo_permiso int  NOT NULL, 
+ -- 0->Pendiente,1->Aceptado,2->Rechazado
+  estadoPermiso  int NULL ,
+  estado tinyint(4) DEFAULT NULL,
   archivoPermiso varchar(150) DEFAULT NULL,
-  foreign key(idContratoHorario) references contrato_horario(idContratoHorario)
+  FOREIGN KEY(idContrato) REFERENCES contrato(idContrato)
 );
 -- DUDA
 create table asistencia(
@@ -148,29 +159,30 @@ create table asistencia(
   horaRegistroEntrada varchar(80) DEFAULT NULL,
   horaRegistroSalida date DEFAULT NULL,
   fechaRegistro date DEFAULT NULL,
-  idContratoHorario int not null,
-  foreign key(idContratoHorario) references contrato_horario(idContratoHorario)
+  idContrato int not null,
+  estado tinyint(4) DEFAULT NULL,
+  FOREIGN KEY(idContrato) REFERENCES contrato(idContrato)
   );
 
--- VER COMO HACER QUE SI ESTA INCPACITADO UNA PERSONA , AL PONER SU NOMBRE PONER COMO REMPLAZO
+-- VER COMO HACER QUE SI ESTA INCPACITADO UNA PERSONA , AL PONER SU NOMBRE PONER COMO REMPLAZO  CAMMBIAR
   CREATE TABLE HoraExtra(
   idHoraExtra INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  idTrabajador INT NOT NULL,
+  idContrato INT NOT NULL,
   fecha DATE DEFAULT NULL,
   hora_inicio TIME DEFAULT NULL,
   hora_fin TIME DEFAULT NULL,
   estado TINYINT(4) DEFAULT NULL,
   descripcion varchar(80) DEFAULT NULL,
-  FOREIGN KEY(idTrabajador) REFERENCES trabajador(idTrabajador)
+  FOREIGN KEY(idContrato) REFERENCES contrato(idContrato)
 );
 
-  create table Sueldo(
-  idSuedo int not null auto_increment primary key,
-  fechaRegistro date DEFAULT NULL,
-  idContrato int not null,
-  monto flot not null,
-  foreign key(idContrato) references contrato (idContrato)
-  );
+  -- create table Sueldo(
+  -- idSuedo int not null auto_increment primary key,
+  -- fechaRegistro date DEFAULT NULL,
+  -- idContrato int not null,
+  -- monto flot not null,
+  -- foreign key(idContrato) references contrato (idContrato)
+  -- );
 
 
 

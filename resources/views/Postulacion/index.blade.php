@@ -37,6 +37,7 @@
                     <tr>
                         <th scope="col">Codigo</th>
                         <th scope="col">DNI</th>
+                        <th scope="col">Nombre</th>
                         <th scope="col">Oferta</th>
                         <th scope="col">Cargo</th>
                         <th scope="col">Fecha</th>
@@ -56,6 +57,7 @@
                       
                             <td>{{$item->idPostulacion}}</td>
                             <td>{{$item->DNI}}</td>
+                            <td>{{$item->persona->Apellido_Paterno}} {{$item->persona->Apellido_Materno}} {{$item->persona->Nombres}}</td>
                             <td>{{$item->idOferta}} {{$item->oferta->descripcion}}</td>
                             <td>{{$item->oferta->cargo->descripcion}}</td>
                             <td>{{$item->fecha}}</td>
@@ -121,7 +123,7 @@
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                          
-                                          <form method="POST" action="{{route('Oferta.destroy',$item->idPostulacion)}}">
+                                          <form method="POST" action="{{route('Postulacion.destroy',$item->idPostulacion)}}">
                                             @method('delete')
                                             @csrf
                                                 <button class="btn btn-danger"><i class="fas fa-check-square"></i> SI</button>

@@ -24,7 +24,7 @@
                 <h3 id="titulo"  class="card-title">CONTRATOS</h3>
             </div>
             <div class="card-body">
-            <a href="{{route('Contrato.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i>Nuevo registro</a>
+            {{-- <a href="{{route('Contrato.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i>Nuevo registro</a> --}}
             <div id="mensaje">
                 @if (session('datos'))
                 <div class="alert alert-warning alert-dismissible fade show mt-3 emergente" role="alert" style="color: white; background-color: rgb(183, 178, 31) ">
@@ -60,7 +60,7 @@
                             <td>{{$item->fecha_inicio}}</td>
                             <td>{{$item->fecha_fin}}</td>
                             <td>{{$item->diasVacaciones}}</td>
-                            <td>{{$item->trabajador->DNI}}</td>
+                            <td> {{$item->trabajador->persona->Apellido_Paterno}} {{$item->trabajador->persona->Apellido_Materno}} {{$item->trabajador->persona->Nombres}}-DNI:{{$item->trabajador->DNI}}</td>
                             <td>{{$item->entrevista->Postulacion->oferta->cargo->descripcion}}</td>
                             <td>
                                 <button   class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdropp{{$item->idContrato}}">
@@ -125,7 +125,7 @@
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                          
-                                          <form method="POST" action="{{route('Oferta.destroy',$item->idContrato)}}">
+                                          <form method="POST" action="{{route('Contrato.destroy',$item->idContrato)}}">
                                             @method('delete')
                                             @csrf
                                                 <button class="btn btn-danger"><i class="fas fa-check-square"></i> SI</button>

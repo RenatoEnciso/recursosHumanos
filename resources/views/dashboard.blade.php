@@ -176,10 +176,10 @@
 
                                 @if (Auth::user()->idRol==5)
                                 <li class="nav-item">
-                                    <a href="{{route('Ficha.index')}}">
+                                    <a  href="{{route('indexU')}}" >
                                         {{-- <i class="fa-solid fa-users" ></i> --}}
                                         <i class="fa-solid fa-users-gear"></i>
-                                        <p>Gestión de Usuario</p>
+                                        <p>Gestión de Usuarios</p>
                                     </a>
                                 </li>
                                 @endif
@@ -323,7 +323,14 @@
 
                                 {{-- Fin Segundo sprint de gestion personal --}}
                                 
-                                
+                                @if (Auth::user()->idRol==5)
+                                <li class="nav-item">
+                                    <a href="{{route('Asistencias.index')}}">
+                                        <i class="fa-solid fa-file-signature"></i>
+                                        <p class="sub-item">Asistencia</p>
+                                    </a>
+                                </li>
+                                @endif
 
 
 

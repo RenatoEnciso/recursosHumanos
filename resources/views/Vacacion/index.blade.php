@@ -10,7 +10,7 @@
                     <i class="fa fa-search search-icon"></i>
                 </button>
             </div>
-            <input type="text" placeholder="Buscar por descripcion" class="form-control" value="{{$busqueda}}" name="busqueda" >
+            <input type="text" placeholder="Buscar por trabajador" class="form-control" value="{{$busqueda}}" name="busqueda" >
         </div>
     </form>
 
@@ -21,7 +21,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h3 id="titulo"  class="card-title">Vacaciones</h3>
+                <h3 id="titulo"  class="card-title">VACACIONES</h3>
             </div>
             <div class="card-body">
             <a href="{{route('Vacacion.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i>Nuevo Registro</a>
@@ -40,6 +40,7 @@
                         <th scope="col">Inicio</th>
                         <th scope="col">Fin</th>
                         <th scope="col">Trabajador</th>
+                        <th scope="col">Descripcion</th>
                         <th scope="col">Opciones</th>
                     </tr>
                     </thead>
@@ -55,7 +56,10 @@
                         <td>{{$item->idVacacion}}</td>
                         <td>{{$item->fecha_inicio}}</td>
                         <td>{{$item->fecha_fin}}</td>
-                        <td>{{$item->trabajador->DNI}}</td>
+                        <td>{{$item->contrato->trabajador->persona->Apellido_Paterno}} {{$item->contrato->trabajador->persona->Apellido_Materno}} {{$item->contrato->trabajador->persona->Nombres}}
+                            {{-- , DNI:{{$item->trabajador->DNI}}  --}}
+                        </td>
+                        <td>{{$item->descripcion}}</td>
                         <td>
                          
                             <a href="{{ route('Vacacion.edit',$item->idVacacion) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
@@ -76,21 +80,20 @@
                                 <div class="modal-dialog modal-dialog-centered">
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Oferta</h1>
+                                      <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Vacacion</h1>
                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <span>
                                             Codigo : {{$item->idVacacion}}
-                                      <br> Vacacion: {{$item->descripcion}}
-                                    
+                                      <br> Vacacion: {{$item->descripcion}}                                   
                                         </span>
                                       
                                     </div>
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                      
-                                      <form method="POST" action="{{route('Oferta.destroy',$item->idVacacion)}}">
+                                      <form method="POST" action="{{route('Vacacion.destroy',$item->idVacacion)}}">
                                         @method('delete')
                                         @csrf
                                             <button class="btn btn-danger"><i class="fas fa-check-square"></i> SI</button>

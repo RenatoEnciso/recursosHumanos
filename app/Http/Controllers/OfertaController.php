@@ -24,7 +24,7 @@ class OfertaController extends Controller
         ->where('estado','=','1')
         ->paginate($this::PAGINATION);
         
-        return view('Oferta.indexP',compact('Ofertas','busqueda'));
+        return view('Oferta.index',compact('Ofertas','busqueda'));
     }
 
     public function create()
@@ -53,8 +53,6 @@ class OfertaController extends Controller
             // 'fecha_inicio'=>'required',
             'fecha_inicio' => 'required|after_or_equal:yesterday',
             'fecha_fin'=>'required|before_or_equal:'.Carbon::parse($request->fecha_inicio)->addMonth(1)->format('Y-m-d'),
-            'requisitos'=>'required',
-            'manualPostulante'=>'required',
         //    'archivo_nacimiento'=>'required',
            
         ],
@@ -114,6 +112,7 @@ class OfertaController extends Controller
             // 'fecha_inicio'=>'required',
          
             'fecha_fin'=>'required|before_or_equal:'.Carbon::parse($request->fecha_inicio)->addMonth(1)->format('Y-m-d'),
+
             // 'descripcion'=>'required|max:30',
             // // 'fecha_inicio'=>'required',
             // 'fecha_inicio' => 'required|after_or_equal:yesterday',

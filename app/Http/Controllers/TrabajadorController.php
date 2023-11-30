@@ -17,16 +17,23 @@ class TrabajadorController extends Controller
     
     const PAGINATION=7;
 
-    public function index(Request $request){
-        $busqueda=$request->get('busqueda');
-        // return $busqueda;
-        $Trabajadores=Trabajador::where('DNI','like','%'.$busqueda.'%')
-        ->where('estado','=','1')
-        ->paginate($this::PAGINATION);
-        
-        return view('Trabajador.index',compact('Trabajadores','busqueda'));
-    }
+    public function index(Request $request)
+{
+    $busqueda = $request->get('busqueda');
 
+    $Trabajadores = Trabajador::where('estado', '=', '1')
+        ->where(function ($query) use ($busqueda) {
+            $query->where('DNI', 'like', '%' . $busqueda . '%')
+                ->orWhereHas('persona', function ($subquery) use ($busqueda) {
+                    $subquery->where('Nombres', 'like', '%' . $busqueda . '%')
+                        ->orWhere('Apellido_Paterno', 'like', '%' . $busqueda . '%')
+                        ->orWhere('Apellido_Materno', 'like', '%' . $busqueda . '%');
+                });
+        })
+        ->paginate($this::PAGINATION);
+
+    return view('Trabajador.index', compact('Trabajadores', 'busqueda'));
+}
     public function create()
     {
         
@@ -99,26 +106,13 @@ class TrabajadorController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data=request()->validate([
-            // 'descripcion'=>'required|max:30',
-            // // 'fecha_inicio'=>'required',
-         
-            // 'fecha_fin'=>'required|before_or_equal:'.Carbon::parse($request->fecha_inicio)->addMonth(1)->format('Y-m-d'),
-            // 'descripcion'=>'required|max:30',
-            // // 'fecha_inicio'=>'required',
-            // 'fecha_inicio' => 'required|after_or_equal:yesterday',
-        //     'fecha_fin'=>'required|before_or_equal:'.Carbon::parse($request->fecha_inicio)->addMonth(1)->format('Y-m-d'),
-        // //    'archivo_nacimiento'=>'required',
-           
-        ],
-        [
-          
-        //     'descripcion.max'=>'Máximo 30 carácteres para la descripcion',
-        //     'fecha_inicio.required'=>'Ingrese una fecha de inicio',
-        //     // 'fecha_inicio.after_or_equal'=>'No se permite fechas menores a la actual',
-        //     'fecha_fin.required'=>'Ingrese una fecha de fin',
-        //     // 'lugar_nacimiento.max'=>'Máximo 30 carácteres para el lugar de Nacimiento',
-        //    // 'archivo_nacimiento.required'=>'Ingrese el archivo de la Acta de Nacimiento',
+        $data = $request->validate([
+            'seguro' => 'required',
+            'ONP' => 'required',
+            'DNI' => 'required|size:8', // Ajusta el tamaño según tus requisitos
+            'correoPersonal' => 'required|email',
+            'telefono' => 'required|numeric|digits:9', // Ajusta el número de dígitos según tus requisitos
+            'direccion' => 'required|max:255', // Ajusta el máximo de caracteres según tus requisitos
         ]);
         $Trabajador=Trabajador::findOrFail($id);
         $Trabajador->seguro=$request->seguro;

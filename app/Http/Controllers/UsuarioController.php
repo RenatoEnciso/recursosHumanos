@@ -22,7 +22,7 @@ class UsuarioController extends Controller
             //$usuario->fotoPerfil="../assets/img/profile.jpg";
         }
         $usuario->save();
-        return redirect()->route('usuario.index');
+         return redirect()->route('usuario.index');
     }
 
 /*    

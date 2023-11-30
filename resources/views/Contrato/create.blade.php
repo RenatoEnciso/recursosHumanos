@@ -4,10 +4,17 @@
 
 
 @section('contenido')
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <div class="container">
         <div class="shadow-lg py-4 bg-body-tertiary rounded" style="margin-top:8vh">
             
             <h1 id="titulo" class="acta_title">Registro Contrato</h1>
+            @if (session('error'))
+                <div class="alert alert-warning alert-dismissible fade show mt-3 emergente" role="alert" style="color: white; background-color: rgb(183, 178, 31) ">
+                    {{session('error')}}
+                </div>
+                @endif
             1 trabajador-2 horario 3-datos generales de contrato
             {{-- INCIIO --}}
             {{-- <form method="POST" action="{{ route('Contrato.store') }}" enctype="multipart/form-data">
@@ -389,6 +396,12 @@
                                         >{{ $item->hora_inicio}}-{{ $item->hora_fin}}. {{ $dias[$item->dia-1]}}</option> 
                                 @endforeach
                             </select>
+                            @error('eventos.*.hora_inicio')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                            @error('eventos.*.hora_fin')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         
                         @error('idTrabajador')
@@ -437,7 +450,7 @@
                               
                                     <label for="dias1" class="control-label">Días:</label>
                                     <select id="dias1" name="eventos[0][dias][]" multiple  class="form-control dias">
-                                        <option value="1">Lunes</option>
+                                        <option value="1" selected>Lunes</option>
                                         <option value="2">Martes</option>
                                         <option value="3">Miercoles</option>
                                         <option value="4">Jueves</option>
@@ -622,7 +635,9 @@ selectHorario.addEventListener("change", function() {
                 // Si el valor de la opción del select actual está en los valores seleccionados del primer select, oculta la opción
                 if (Array.from(selectHorario.selectedOptions).map(opt => opt.value).includes(selects[i].options[j].value)) {
                     selects[i].options[j].style.display = "none";
+                    // selects[i].options[(j+1].style.display = "none";
                     selects[i].options[j].removeAttribute("selected");
+                    // selects[i].options[j + 1].selected = true;
                 } else {
                     // Si no, muestra la opción
                     selects[i].options[j].style.display = "block";
@@ -836,6 +851,39 @@ selectHorario.addEventListener("change", function() {
         }
         setTimeout(mensaje,100);
     </script>
+   <script>
+    $(document).ready(function() {
+        $("#crearButton").click(function() {
+            var errores = false;
+
+            // Itera sobre cada evento y verifica la relación entre hora_inicio y hora_fin
+            $("input[name^='eventos']").each(function(index, element) {
+                var horaInicioStr = $(element).parent().find("input[name$='[hora_inicio]']").val();
+                var horaFinStr = $(element).parent().find("input[name$='[hora_fin]']").val();
+
+                if (horaInicioStr && horaFinStr) {
+                    var horaInicio = new Date("1970-01-01T" + horaInicioStr);
+                    var horaFin = new Date("1970-01-01T" + horaFinStr);
+
+                    // Compara las horas de inicio y fin
+                    if (horaInicio >= horaFin) {
+                        alert("La hora de fin debe ser mayor que la hora de inicio para cada evento.");
+                        errores = true;
+                        return false; // Detener la iteración si hay un error
+                    }
+                }
+            });
+
+            // Si no hay errores, envía el formulario
+            if (!errores) {
+                $("form").submit();
+            }
+        });
+
+        // Otro código que puedas tener...
+    });
+</script>
+
    
 
 @endsection

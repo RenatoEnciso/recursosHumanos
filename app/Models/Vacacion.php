@@ -10,11 +10,11 @@ class Vacacion extends Model
     use HasFactory;
     public $table ='vacacion';
     protected $primaryKey = 'idVacacion';
-    protected $fillable = ['idVacacion','fecha_inicio','fecha_fin','idTrabajador','descripcion','estado'];
+    protected $fillable = ['idVacacion','fecha_inicio','fecha_fin','idContrato','descripcion','estado'];
     public $timestamps = false;
 
-    public function trabajador(){
-        return $this->HasOne(Trabajador::class,'idTrabajador','idTrabajador');
+    public function contrato(){
+        return $this->HasOne(Contrato::class,'idContrato','idContrato');
     }
 
     // public function entrevista(){

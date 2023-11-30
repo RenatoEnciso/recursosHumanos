@@ -1,7 +1,8 @@
 <?php
 use App\Models\Ficha;
-
+use App\Models\Oferta;
 use App\Http\Controllers\ActaNacimientoController;
+use App\Http\Controllers\AsistenciaController;
 use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\SolicitudController;
@@ -24,8 +25,22 @@ use App\Http\Controllers\VacacionController;
 
 //borrar
 use App\Models\User;
-
+// Route::get('/', function () {
+//     return view('auth.login');
+// });
 Route::get('/', function () {
+    return view('Externo.index');
+});
+// Route::get('Trabajar{$id}/Postulacion', [PostulacionController::class, 'indexP'])->name('indexT');
+// Route::get('Trabajar{id}/Postulacion', [PostulacionController::class, 'indexP'])->name('indexT');
+Route::get('Trabajar/Postulacion', [PostulacionController::class, 'indexP'])->name('indexT');
+
+
+// Route::get('/trabajo', function () {
+//     $Ofertas = Oferta::all()->where('estado', '=','1');
+//     return view('Externo.Trabajar',compact('Ofertas'));
+// });
+Route::get('/login', function () {
     return view('auth.login');
 });
 
@@ -42,9 +57,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/probarFace', function () {
-
-        $usarios = User::all();
-        return view('Asistencia/index',compact('usarios'));
+        $usuarios = User::all();
+        return view('Asistencia.index',compact('usuarios'));
 });
 Route::get('/inicio', function () {
 
@@ -185,6 +199,9 @@ Route::resource('Vacacion',VacacionController::class);
 Route::get('Confirmar{id}/Vacacion', [VacacionController::class,'confirmar'])->name('Vacacion.confirmar');
 Route::get('Vacacioncancelar',[VacacionController::class,'cancelar'])->name('Vacacion.cancelar');
 //Inicio 3 sprint
+
+//ASISTENCIA
+Route::resource('Asistencias',AsistenciaController::class);
 
 
 

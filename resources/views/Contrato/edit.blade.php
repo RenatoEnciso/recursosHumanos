@@ -443,7 +443,7 @@
                                 </div>
                                 <div></div>
                                 <div>
-                                    <a href="/Oferta" class="btn btn-danger boton"><i class="fas fa-ban"></i> CANCELAR</a>
+                                    <a href="Contrato.index" class="btn btn-danger boton"><i class="fas fa-ban"></i> CANCELAR</a>
                                     {{-- <a href="{{route('Entrevista.cancelar') }}" class="btn btn-danger boton"><i class="fas fa-ban"></i> CANCELAR</a> --}}
                                 </div>
                             </div>

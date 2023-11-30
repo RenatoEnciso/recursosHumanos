@@ -14,12 +14,12 @@
                 <div class="row justify-content-center">
                     <div class="col-2 form-group">
                         <label class="control-label">Codigo</label>
-                        <input type="text" class="form-control" style="color: blue" value="{{ $Vacacion->idVacacion }}" disabled>
+                        <input type="text" class="form-control" style="color: blue" value="{{$Vacacion->idVacacion}}" disabled>
                     </div>
                     <div class="col-5 form-group">
                         <label class="control-label">Descripción</label>
                             <textarea  type="text" class="form-control @error('descripcion') is-invalid @enderror"
-                                placeholder="Ingrese descripcion"  name="descripcion" >{{$Vacacion->descripcion}}"</textarea >
+                                placeholder="Ingrese descripcion"  name="descripcion" >{{$Vacacion->descripcion}}</textarea >
                         @error('descripcion')
                             <span class="invalid feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -28,19 +28,14 @@
                     </div>
                     <div class="col-3 form-group">
                         <label class="control-label">Trabajador</label>
-                                        <select name="idTrabajador" id="idTrabajador" class="form-control @error('idTrabajador') is-invalid @enderror"  >
-                                       
-                                            @foreach ($trabajadores as $item)
-                                                <option value="{{ $item->idtrabajador}}"
-                                                    {{$Vacacion->idtrabajador==$item->idtrabajador?'selected':''}}
-                                                    >{{ $item->DNI}}-{{ $item->persona->Nombres}} {{ $item->persona->Apellido_Paterno}} {{ $item->persona->Apellido_Materno}}</option> 
+                        <select name="idContrato" id="idContrato" class="form-control @error('idContrato') is-invalid @enderror"  >
+                          
+                            @foreach ($contratos as $item)
+                                                <option value="{{$item->idContrato}}"
+                                                    {{$Vacacion->idContrato=$item->idContrato?'selected':''}}
+                                                    >{{$item->trabajador->DNI}}-{{ $item->trabajador->persona->Nombres}} {{ $item->trabajador->persona->Apellido_Paterno}} {{ $item->trabajador->persona->Apellido_Materno}}</option> 
                                             @endforeach
-                                        </select>
-                                        @error('idTrabajador')
-                                            <span class="invalid feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                         @enderror
+                        </select>
                     </div>
 
                 </div>
@@ -75,7 +70,7 @@
                         <button class="btn btn-primary boton"><i class="fas fa-save"></i> GRABAR</button>
                     </div>
                     <div>
-                        <a href="{{ route('ActaDefunsion.cancelar') }}" class="btn btn-danger boton"><i class="fas fa-ban"></i> CANCELAR</a>
+                        <a href="{{ route('Vacacion.cancelar') }}" class="btn btn-danger boton"><i class="fas fa-ban"></i> CANCELAR</a>
                     </div>
                 </div>
             </form>

@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-2 form-group">
                         <label class="control-label">Estado</label>
-                        <select name="estado" id="estado" class="form-control">
+                        <select name="estadoEntrevista" id="estadoEntrevista" class="form-control">
                             
                                 <option value="1">Aprobado</option> 
                                 <option value="0">Rechazado</option> 

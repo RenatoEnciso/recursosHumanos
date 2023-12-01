@@ -9,16 +9,21 @@ class Contrato extends Model
 {
     use HasFactory;
     public $table ='contrato';
-    protected $primaryKey = 'idHorario';
-    protected $fillable = ['idHorario','hora_inicio','hora_fin','estado','dia'];
+    protected $primaryKey = 'idContrato';
+    protected $fillable = ['idContrato','fecha_inicio','fecha_fin','diasVacaciones','archivoContrato','estado','idEntrevista','idTrabajador','descripcion'];
     public $timestamps = false;
 
     // public function cargo(){
     //     return $this->HasOne(Cargo::class,'idCargo','idCargo');
     // }
-
+    public function trabajador(){
+        return $this->HasOne(Trabajador::class,'idTrabajador','idTrabajador');
+    }
     public function entrevista(){
-        return $this->HasMany(Contrato::class,'Nhorario','Nhorario');
+        return $this->HasOne(Entrevista::class,'idEntrevista','idEntrevista');
+    }
+    public function ContratoHorario(){
+        return $this->HasMany(ContratoHorario::class,'idContrato','idContrato');
     }
     
 }

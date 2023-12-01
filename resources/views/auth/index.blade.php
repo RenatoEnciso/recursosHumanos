@@ -19,10 +19,11 @@
 @section('contenido')
     <div class="card">
         <div class="card-header">
-            <h3 id="titulo"  class="card-title">Lista de Empleados</h3>
+            <h3 id="titulo"  class="card-title">LISTA DE USUARIOS</h3>
         </div>
+       
         <div class="card-body">
-
+            <a href="{{ route('crearUsuario') }}" class="btn btn-primary"><i class="fas fa-plus"></i>Nuevo Registro</a>
             <div id="mensaje">
                 @if (session('datos'))
                 <div class="alert alert-warning alert-dismissible fade show mt-3 emergente" role="alert" style="color: white; background-color: rgb(183, 178, 31)" >
@@ -30,6 +31,7 @@
                 </div>
                 @endif
             </div>
+            
 
             <table class="table">
                 <thead>
@@ -37,7 +39,7 @@
                     <th scope="col">id</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Correo</th>
-                    <th scope="col">Rol Empleado</th>
+                    <th scope="col">Rol</th>
                     <th scope="col">Opciones</th>
                 </tr>
                 </thead>
@@ -53,7 +55,7 @@
                         <td>{{$item->id}}</td>
                         <td>{{$item->name}}</td>
                         <td>{{$item->email}}</td>
-                        <td>{{$item->rol}}</td>
+                        <td>{{$item->rol->nombreRol}}</td>
                         <td>
                             <a href="{{ route('editU',$item->id) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
                             <a href="{{ route('confirU',$item->id)}}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>

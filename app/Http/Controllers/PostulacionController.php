@@ -29,13 +29,24 @@ class PostulacionController extends Controller
         return view('Postulacion.index',compact('Postulacions','busqueda'));
     }
 
+    public function indexP(Request $request){
+        $busqueda=$request->get('buscarpor');
+        // return "hola";
+        // $busqueda=$id;
+        $Ofertas=Oferta::where('descripcion','like','%'.$busqueda.'%')
+        ->where('estado','=','1')
+        ->paginate($this::PAGINATION);
+        return view('Externo.Trabajar',compact('Ofertas','busqueda'));
+    }
+
+
     public function createP($id)
     {
         // if (Auth::user()->Postulacion=='Encargado contrato'){   //boteon registrar
             $personas = Persona::all();
             $oferta = Oferta::findOrFail($id);
             $ofertas = Oferta::all();
-            return view('Postulacion.createP',compact('personas','oferta','ofertas'));
+            return view('Externo.createP',compact('personas','oferta','ofertas'));
         // } else{
         //     return redirect()->route('Postulacion.index')->with('datos','..::No tiene Acceso ..::');
         // }
@@ -54,6 +65,16 @@ class PostulacionController extends Controller
     public function store(Request $request)
     {
             $data=request()->validate([
+                'idOferta' => 'required|exists:oferta,idOferta',
+                'fecha' => 'required|date',
+                'email' => 'required',
+                'telefono' => 'required|numeric',
+                'titulo' => 'required|string',
+                'pais' => 'required|string',
+                'institucion' => 'required|string',
+                'areaEstudio' => 'required|string',
+                'nivelEstudio' => 'required|string',
+                'estadoEstudio' => 'required|string',
                     ]);
                
                     $Postulacion=new Postulacion();
@@ -78,7 +99,10 @@ class PostulacionController extends Controller
                     // $Postulacion->curriculum=$request->curriculum;
                     $Postulacion->estado='1';
                     $Postulacion->save();
-                    return redirect()->route('OFerta.index')->with('datos','Registrados exitosamente...');
+                    // return redirect()->route('Externo.index')->with('datos','Registrados exitosamente...');
+                    // return redirect()->route('Postulacion.createP')->with('datos','Registrados exitosamente...');
+                    $Ofertas = Oferta::all()->where('estado', '=','1');
+                    return  redirect()->route('indexT');
     }
 
     public function edit($id)
@@ -96,7 +120,16 @@ class PostulacionController extends Controller
     public function update(Request $request, $id)
     {
         $data=request()->validate([
-
+            'idOferta' => 'required|exists:oferta,idOferta',
+            'fecha' => 'required|date',
+            'email' => 'required',
+            'telefono' => 'required|numeric',
+            'titulo' => 'required|string',
+            'pais' => 'required|string',
+            'institucion' => 'required|string',
+            'areaEstudio' => 'required|string',
+            'nivelEstudio' => 'required|string',
+            'estadoEstudio' => 'required|string',
         ]);
         $Postulacion=Postulacion::findOrFail($id);
         $Postulacion->DNI=$request->DNI;
@@ -113,7 +146,7 @@ class PostulacionController extends Controller
                     $Postulacion->estadoEstudio=$request->estadoEstudio;
         $Postulacion->save();
         
-        return redirect()->route('OFerta.index')->with('datos','Registro Actualizado exitosamente...');
+        return redirect()->route('Postulacion.index')->with('datos','Registro Actualizado exitosamente...');
     }
 
     public function destroy($id)

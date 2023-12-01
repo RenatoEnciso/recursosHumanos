@@ -49,18 +49,16 @@ class OfertaController extends Controller
         // return $request->all
         // 'resultados'
         $data=request()->validate([
-            'descripcion'=>'required|max:30',
+            'descripcion'=>'required|max:80',
             // 'fecha_inicio'=>'required',
             'fecha_inicio' => 'required|after_or_equal:yesterday',
             'fecha_fin'=>'required|before_or_equal:'.Carbon::parse($request->fecha_inicio)->addMonth(1)->format('Y-m-d'),
-            'requisitos'=>'required',
-            'manualPostulante'=>'required',
         //    'archivo_nacimiento'=>'required',
            
         ],
         [
           
-            'descripcion.max'=>'Máximo 30 carácteres para la descripcion',
+            'descripcion.max'=>'Máximo 80 carácteres para la descripcion',
             'fecha_inicio.required'=>'Ingrese una fecha de inicio',
             // 'fecha_inicio.after_or_equal'=>'No se permite fechas menores a la actual',
             'fecha_fin.required'=>'Ingrese una fecha de fin',
@@ -110,10 +108,11 @@ class OfertaController extends Controller
     public function update(Request $request, $id)
     {
         $data=request()->validate([
-            'descripcion'=>'required|max:30',
+            'descripcion'=>'required|max:80',
             // 'fecha_inicio'=>'required',
          
             'fecha_fin'=>'required|before_or_equal:'.Carbon::parse($request->fecha_inicio)->addMonth(1)->format('Y-m-d'),
+
             // 'descripcion'=>'required|max:30',
             // // 'fecha_inicio'=>'required',
             // 'fecha_inicio' => 'required|after_or_equal:yesterday',

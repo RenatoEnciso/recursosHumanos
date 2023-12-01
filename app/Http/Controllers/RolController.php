@@ -31,6 +31,7 @@ class RolController extends Controller
     public function store(Request $request)
     {
             $data=request()->validate([
+                'nombreRol' => 'required',
                     ]);
                     $rol=new Persona();
                     $rol->nombreRol=$request->nombreRol;
@@ -52,7 +53,7 @@ class RolController extends Controller
     public function update(Request $request, $id)
     {
         $data=request()->validate([
-
+            'nombreRol' => 'required',
         ]);
         $rol=Rol::findOrFail($id);
         $rol->nombreRol=$request->nombreRol;

@@ -16,7 +16,7 @@ class CargoController extends Controller
     const PAGINATION=7;
 
     public function index(Request $request){
-        $busqueda=$request->get('buscarpor');
+        $busqueda=$request->get('busqueda');
         $Cargos=Cargo::where('descripcion','like','%'.$busqueda.'%')
         ->where('estado','=','1')
         ->paginate($this::PAGINATION);
@@ -36,6 +36,7 @@ class CargoController extends Controller
     public function store(Request $request)
     {
             $data=request()->validate([
+                'descripcion' => 'required|max:80',
                     ]);
                     $Cargo=new Cargo();
                     $Cargo->descripcion=$request->descripcion;
@@ -57,7 +58,7 @@ class CargoController extends Controller
     public function update(Request $request, $id)
     {
         $data=request()->validate([
-
+            'descripcion' => 'required|max:80',
         ]);
         $Cargo=Cargo::findOrFail($id);
         $Cargo->descripcion=$request->descripcion;

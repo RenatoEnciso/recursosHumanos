@@ -23,6 +23,7 @@ class RegisteredUserController extends Controller
     public function create()
     {
         $roles=Rol::all();
+  
         return view('auth.register',compact('roles'));
     }
 
@@ -65,16 +66,45 @@ class RegisteredUserController extends Controller
         return redirect(RouteServiceProvider::HOME);
     }
 
+    public function storeP(Request $request)
+     {
+  
+         $request->validate([
+             'name' => ['required', 'string', 'max:255'],
+             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+         ]);
+ 
+         $user = User::create([
+             'name' => $request->name,
+             'email' => $request->email,
+             'password' => Hash::make($request->password),
+             'idRol' => $request->idRol,
+         ]);
+ 
+         // event(new Registered($user));
+ 
+         // Auth::login($user);
+ 
+         // return redirect(RouteServiceProvider::HOME);
+         $busqueda = $request->get('buscarpor');
+         $Usuarios = User::where('name', 'like', '%' . $busqueda . '%')->paginate($this::PAGINATION);;
+         return view('auth.index', compact('Usuarios', 'busqueda'));
+     }
+
 
     public function edit($id)
     {
 
         $Usuarios = User::findOrFail($id);
-        if (Auth::user()->rol == 'Administrativo') {    //boton editar
-            return view('auth.edit', compact('Usuarios'));
-        } else {
-            return redirect()->route('indexU')->with('datos', '..::NO ES EL ADMINISTRADOR DEL SISTEMA ..::');
-        }
+        $roles=Rol::all();
+  
+        // return view('auth.register',compact());
+        // if (Auth::user()->rol == 'Administrativo') {    //boton editar
+            return view('auth.edit', compact('Usuarios','roles'));
+        // } else {
+        //     return redirect()->route('indexU')->with('datos', '..::NO ES EL ADMINISTRADOR DEL SISTEMA ..::');
+        // }
     }
 
     public function update(Request $request, $id)

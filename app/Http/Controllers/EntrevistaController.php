@@ -55,11 +55,16 @@ class EntrevistaController extends Controller
     public function store(Request $request)
     {
             $data=request()->validate([
+                'idPostulacion' => 'required|exists:postulacion,idPostulacion',
+                'fecha' => 'required|date',
+                'observacion' => 'nullable|string|max:80',
+                'estadoEntrevista' => 'required',
                     ]);
                     $Entrevista=new Entrevista();
                     $Entrevista->idPostulacion=$request->idPostulacion;
                     $Entrevista->fecha=$request->fecha;
                     $Entrevista->observacion=$request->observacion;
+                    $Entrevista->estadoEntrevista=$request->estadoEntrevista;
                     $Entrevista->estado='1';
                     $Entrevista->save();
                     return redirect()->route('Entrevista.index')->with('datos','Registrados exitosamente...');
@@ -79,14 +84,16 @@ class EntrevistaController extends Controller
     public function update(Request $request, $id)
     {
         $data=request()->validate([
-
+            'fecha' => 'required|date',
+            'observacion' => 'nullable|string|max:80',
+            'estadoEntrevista' => 'required',
         ]);
         $Entrevista=Entrevista::findOrFail($id);
-        $Entrevista->DNI=$request->DNI;
-        $Entrevista->idOferta=$request->idOferta;
+        $Entrevista->idPostulacion=$request->idPostulacion;
         $Entrevista->fecha=$request->fecha;
         $Entrevista->observacion=$request->observacion;
-        $Entrevista->estado=$request->estado;
+        $Entrevista->estadoEntrevista=$request->estadoEntrevista;
+        // $Entrevista->estado=$request->estado;
         $Entrevista->save();
         return redirect()->route('Entrevista.index')->with('datos','Registro Actualizado exitosamente...');
     }

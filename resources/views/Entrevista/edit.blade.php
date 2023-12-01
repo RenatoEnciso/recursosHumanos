@@ -18,7 +18,7 @@
                         
                         <label class="control-label">Observación</label>
                             <textarea  type="text" class="form-control @error('observacion') is-invalid @enderror"
-                                placeholder="Ingrese observación"  name="observacion" ></textarea >
+                                placeholder="Ingrese observación"  name="observacion" >{{$Entrevista->observacion}}</textarea >
                         @error('observacion')
                             <span class="invalid feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -47,17 +47,18 @@
                     </div>
                     <div class="col-2 form-group">
                         <label class="control-label">estado</label>
-                        <select name="estado" id="estado" class="form-control">
+                        <select name="estadoEntrevista" id="estadoEntrevista" class="form-control">
                             
                                 <option value="1"
-                                {{$Entrevista->estado==1 ?'selected':''}}
+                                {{$Entrevista->estadoEntrevista==1 ?'selected':''}}
                                 >Aprobado</option> 
                                 <option value="0"
-                                {{$Entrevista->estado==0 ?'selected':''}}
+                                {{$Entrevista->estadoEntrevista==0 ?'selected':''}}
                                 >Rechazado</option> 
                             
                         </select>
                     </div>
+      
 
                 
 

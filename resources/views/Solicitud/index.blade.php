@@ -77,6 +77,4 @@
                     {{$Solicitud->links()}}
                 </div>
             </div>
-
-
 @endsection

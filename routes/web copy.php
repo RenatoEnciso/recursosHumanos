@@ -10,21 +10,18 @@ use App\Http\Controllers\ActaDefunsionController;
 use App\Http\Controllers\ActaMatrimonioController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\BuscarActaDefuncion;
-use App\Http\Controllers\BuscarActaMatrimonio;
-use App\Http\Controllers\BuscarActaNacimiento;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\FichaController;
-use Illuminate\Routing\Router;
+use App\Http\Controllers\OfertaController;
+use App\Http\Controllers\EntrevistaController;
+use App\Http\Controllers\PostulacionController;
+use App\Http\Controllers\CargoController;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\TrabajadorController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\ContratoHorarioController;
 use App\Http\Controllers\VacacionController;
-use App\Http\Controllers\SolicitudDNIController;
-
 
 //borrar
 use App\Models\User;
@@ -48,12 +45,14 @@ Route::get('/login', function () {
 });
 
 Route::get('/dashboard', function () {
+
     $fichasP = Ficha::all()->where('estado', 'Pendiente');
     return view('dashboard',compact('fichasP'));
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/dashboard', function () {
-    $fichasP = Ficha::all()->where('estado', 'Pendiente');
+
+        $fichasP = Ficha::all()->where('estado', 'Pendiente');
     return view('index',compact('fichasP'));
 })->middleware(['auth'])->name('dashboard');
 
@@ -69,31 +68,12 @@ Route::get('/inicio', function () {
 
 require __DIR__.'/auth.php';
 
-//CONSULTAACTAS
-    //ACTADEFUNCION
-    Route::get('consulta_defuncion',[BuscarActaDefuncion::class,'index'])->name('ConsultaDefuncion');
-    Route::post('validar_defuncion',[BuscarActaDefuncion::class,'search'])->name('SearchDefuncion');
-    //ACTANACIMIENTO
-    Route::get('consulta_nacimiento',[BuscarActaNacimiento::class,'index'])->name('ConsultaNacimiento');
-    Route::post('validar_nacimiento',[BuscarActaNacimiento::class,'search'])->name('SearchNacimiento');
-    //ACTAMATRIMONIO
-    Route::get('consulta_matrimonio', [BuscarActaMatrimonio::class,'index'])->name('ConsultaMatrimonio');
-    Route::post('validar_matrimonio',[BuscarActaMatrimonio::class,'search'])->name('SearchMatrimonio');
-    //Salir de Acta
-    Route::get('regresar',[BuscarActaDefuncion::class,'regresar'])->name('regresar');
-
 //USUARIO
 Route::resource('usuario',UsuarioController::class);
 
 //Administrador
 Route::resource('administrador',AdministradorController::class);
 Route::get('Administradorcancelar',[AdministradorController::class,'cancelar'])->name('administrador.cancelar');
-
-//SOLICITUD DNI
-Route::resource('solicitud-dni', SolicitudDNIController::class); 
-Route::get('solicitud-dni-cancelar', [SolicitudDNIController::class,'cancelar'])->name('solicitud-dni.cancelar');
-Route::get('form-validacion', [SolicitudDNIController::class,'inicio'])->name('solicitudDNI.inicio');
-Route::post('valida-datos', [SolicitudDNIController::class,'validar'])->name('solicitudDNI.validar');
 
 //USUARIOS
 Route::get('indexU', [RegisteredUserController::class, 'index'])->name('indexU');
@@ -144,7 +124,7 @@ Route::get('Personacancelar',[PersonaController::class,'cancelar'])->name('Perso
 Route::get('confirmarP{id}/',[PersonaController::class,'confirmar'])->name('Persona.confirmar');
 
 
-//SOLICITUD
+//CONSULTA
 Route::resource('Solicitud',SolicitudController::class);
 Route::get('confirmar{id}/',[SolicitudController::class,'confirmar'])->name('Solicitud.confirmar');
 Route::get('Solicitudcancelar',[SolicitudController::class,'cancelar'])->name('Solicitud.cancelar');
@@ -156,10 +136,11 @@ Route::get('ingresarPago/{id}/',[SolicitudController::class,'ingresarPago'])->na
 Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('Solicitud.detalle');
 Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('Solicitud.detalle');
 
+
+
 //REPORTES
 Route::get('Reporte/Crear', [ReporteController::class, 'create'])->name('reporte.create');
 Route::get('Reporte/PDF/', [ReporteController::class,'generarPDF'])->name('reporte.generarPDF');
-
 
 //1 Sprint Gestion Personal
 
@@ -178,7 +159,7 @@ Route::get('CreateP{id}/Postulacion', [PostulacionController::class,'createP'])-
 Route::get('Confirmar{id}/Postulacion', [PostulacionController::class,'confirmar'])->name('Postulacion.confirmar');
 Route::get('Postulacioncancelar',[PostulacionController::class,'cancelar'])->name('Postulacion.cancelar');
 
-
+//CARGO
 
 Route::resource('Cargo',CargoController::class);
 Route::get('Confirmar{id}/Cargo', [CargoController::class,'confirmar'])->name('Cargo.confirmar');
@@ -221,7 +202,6 @@ Route::get('Vacacioncancelar',[VacacionController::class,'cancelar'])->name('Vac
 
 //ASISTENCIA
 Route::resource('Asistencias',AsistenciaController::class);
-
 
 
 

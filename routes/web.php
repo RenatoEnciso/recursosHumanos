@@ -15,16 +15,23 @@ use App\Http\Controllers\BuscarActaMatrimonio;
 use App\Http\Controllers\BuscarActaNacimiento;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\FichaController;
-use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SolicitudDNIController;
-
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\TrabajadorController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\ContratoHorarioController;
 use App\Http\Controllers\VacacionController;
-use App\Http\Controllers\SolicitudDNIController;
+use App\Http\Controllers\EntrevistaController;
+use App\Http\Controllers\PostulacionController;
+use App\Http\Controllers\OfertaController;
+use App\Http\Controllers\CargoController;
+
+
+use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\SolicitudDNIController;
+
+
+// use App\Http\Controllers\SolicitudDNIController;
 
 
 //borrar

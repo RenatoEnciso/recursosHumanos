@@ -17,6 +17,7 @@ use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\FichaController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SolicitudDNIController;
 
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\TrabajadorController;
@@ -161,6 +162,13 @@ Route::get('Reporte/Crear', [ReporteController::class, 'create'])->name('reporte
 Route::get('Reporte/PDF/', [ReporteController::class,'generarPDF'])->name('reporte.generarPDF');
 
 
+  //SOLICITUD DNI
+Route::resource('solicitud-dni', SolicitudDNIController::class); 
+Route::get('solicitud-dni-cancelar', [SolicitudDNIController::class,'cancelar'])->name('solicitud-dni.cancelar');
+Route::get('form-validacion', [SolicitudDNIController::class,'inicio'])->name('solicitudDNI.inicio');
+Route::post('valida-datos', [SolicitudDNIController::class,'validar'])->name('solicitudDNI.validar');
+
+
 //1 Sprint Gestion Personal
 
 //OFERTAS
@@ -221,7 +229,6 @@ Route::get('Vacacioncancelar',[VacacionController::class,'cancelar'])->name('Vac
 
 //ASISTENCIA
 Route::resource('Asistencias',AsistenciaController::class);
-
 
 
 

@@ -108,7 +108,36 @@
                             {{-- <a href="{{ route('ActaDefunsion.archivo',$item->idActaPersona)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Ver</a> --}}
                             <a href="{{ route('ActaDefuncion.generada',$item->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Generar</a>
                             <a href="{{ route('ActaDefunsion.edit',$item->idActaPersona) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
-                            <a href="{{ route('ActaDefunsion.confirmar',$item->idActaPersona) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
+                            <button   class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$item->idActaPersona}}">
+                                <i class="fas fa-trash"></i>Eliminar
+                            </button>
+
+                              <!-- Modal -->
+                            <div class="modal fade " id="staticBackdrop{{$item->idActaPersona}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <span>
+                                            <b>Codigo:</b> {{$item->idActa}} 
+                                            <br> <b>Nombres:</b> {{$item->Apellido_Paterno . " " . $item->Apellido_Materno." ".$item->Nombres}}
+                                        </span>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                     
+                                      <form method="POST" action="{{route('ActaDefunsion.destroy',$item->idActaPersona)}}">
+                                        @method('delete')
+                                        @csrf
+                                            <button class="btn btn-danger"><i class="fas fa-check-square"></i> SI</button>
+                                        </form>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
                         </td>
                         </tr>
                         @endif

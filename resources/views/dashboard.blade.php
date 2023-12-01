@@ -192,9 +192,6 @@
                                 </li>
                                 @endif
                                     
-                              
-                                
-
                                 @if (Auth::user()->idRol==2)
                                 <li class="nav-item">
                                     <a data-toggle="collapse" href="#base">
@@ -241,14 +238,23 @@
                                         <p>Persona</p>
                                     </a>
                                 </li>
-                                
-                                @if (Auth::user()->idRol==4)
+                                @if (Auth::user()->idRol==2)
                                 <li class="nav-item">
-                                    <a href="{{route('administrador.index')}}">
+                                    <a href="{{route('solicitud-dni.index')}}">
                                         <i class="fas fa-user-edit"></i>
-                                        <p>Usuarios</p>
+                                        <p>Solicitudes Dnis</p>
                                     </a>
                                 </li> 
+                                @endif
+
+                                @if (Auth::user()->idRol==4)
+                                    <li class="nav-item">
+                                        <a href="{{route('administrador.index')}}">
+                                            <i class="fas fa-user-edit"></i>
+                                            <p>Usuarios</p>
+                                        </a>
+                                    </li> 
+
                                 @endif
                                 {{-- Primer sprint de gestion personal --}}
                                 @if (Auth::user()->idRol==5)
@@ -574,7 +580,10 @@
                 },1);
             ;
         </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-        </body>
-    </html>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
+    
+</body>
+</html>
 </x-app-layout>

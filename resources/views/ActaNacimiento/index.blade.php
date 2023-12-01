@@ -111,7 +111,36 @@
                                     {{-- <a href="{{route('ActaNacimiento.revisar',$acta->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Validar</a> --}}
                                     <a href="{{route('ActaNacimiento.generada',$acta->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Generar</a>
                                     <a href="{{route('ActaNacimiento.edit',$acta->idActa) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
-                                    <a  href="{{route('ActaNacimiento.confirmar',$acta->idActa) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a>
+                                    <button   class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$acta->idActa}}">
+                                        <i class="fas fa-trash"></i>Eliminar
+                                      </button>
+                                      <!-- Modal -->
+                                      <div class="modal fade " id="staticBackdrop{{$acta->idActa}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar</h1>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <span>
+                                                    <b>Codigo:</b> {{$acta->idActa}} 
+                                                    <br> <b>Nombres:</b> {{$acta->nombres}}
+                                                </span>
+                                              
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                             
+                                              <form method="POST" action="{{route('ActaNacimiento.destroy',$acta->idActa)}}">
+                                                @method('delete')
+                                                @csrf
+                                                    <button class="btn btn-danger"><i class="fas fa-check-square"></i> SI</button>
+                                                </form>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
                                 </td>
                                 </tr>
                         @endforeach

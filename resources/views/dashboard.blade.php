@@ -321,7 +321,8 @@
                                 @if (Auth::user()->idRol==5)
                                 <li class="nav-item">
                                     <a href="{{route('Contrato.index')}}">
-                                        <i class="fa-solid fa-file-signature"></i>
+                                        {{-- <i class="fa-solid fa-file-signature"></i> --}}
+                                        <i class="fa-solid fa-handshake"></i>
                                         <p class="sub-item">Contrato</p>
                                     </a>
                                 </li>
@@ -329,18 +330,63 @@
 
                                 {{-- Fin Segundo sprint de gestion personal --}}
                                 
+                               {{-- Tercer sprint de gestion personal --}}
                                 @if (Auth::user()->idRol==5)
                                 <li class="nav-item">
                                     <a href="{{route('Asistencias.index')}}">
-                                        <i class="fa-solid fa-file-signature"></i>
+                                        {{-- <i class="fa-solid fa-file-signature"></i> --}}
+                                        <i class="fa-regular fa-calendar-xmark"></i>
+                                        
                                         <p class="sub-item">Asistencia</p>
                                     </a>
                                 </li>
                                 @endif
 
+                                @if (Auth::user()->idRol==5)
+                                <li class="nav-item">
+                                    <a href="{{route('Cese.index')}}">
+                                        <i class="fa-solid fa-handshake-slash"></i>
+                                        <p class="sub-item">Cese</p>
+                                    </a>
+                                </li>
+                                @endif
+                                @if (Auth::user()->idRol==5)
+                                <li class="nav-item">
+                                    <a href="{{route('Permiso.index')}}">
+                                        <i class="fa-solid fa-business-time"></i>
+                                        {{-- <img src="{{asset('/images/noJob.png')}}" alt=""
+                                        style="display: inline-block;
+                                        width: 28px; /* ajusta el ancho según tus necesidades */
+                                        height: 24px; /* ajusta la altura según tus necesidades */
+                                        margin: 0; /* opcional: ajusta los márgenes según sea necesario */
+                                        padding: 0; /* opcional: ajusta el relleno según sea necesario */
+                                        margin-right: 10px;
+                                        vertical-align: middle; /* opcional: ajusta la alineación vertical según sea necesario */
+                                     
+            
+                                        filter: brightness(0.7) invert(1); /* cambia los píxeles negros a blanco 
+                                        filter: drop-shadow(2px 2px 2px black); /* ajusta los valores según lo gruesas que desees que sean las líneas */
+}*/"
+                                        > --}}
+                            
+                                        <p class="sub-item"> Permiso</p>
+                                    </a>
+                                </li>
+                                @endif
+
+                            
+                               
+                                {{-- Fin Segundo sprint de gestion personal --}}
 
 
-
+                                @if (Auth::user()->idRol==5)
+                                <li class="nav-item">
+                                    <a href="{{route('HoraExtra.index')}}">
+                                        <i class="fa-solid fa-calendar-plus"></i>
+                                        <p class="sub-item">Horas extra</p>
+                                    </a>
+                                </li>
+                                @endif
 
 
 

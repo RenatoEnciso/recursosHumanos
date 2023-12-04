@@ -145,7 +145,7 @@ create table permiso(
   fecha_inicio DATE DEFAULT NULL,
   fecha_fin DATE DEFAULT NULL,
   motivo varchar(80) DEFAULT NULL,
-  -- 1->Enfermedad,2->personal
+  -- 0->Enfermedad,1->personal
   tipo_permiso int  NOT NULL, 
  -- 0->Pendiente,1->Aceptado,2->Rechazado
   estadoPermiso  int NULL ,

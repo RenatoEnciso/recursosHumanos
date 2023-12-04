@@ -82,7 +82,9 @@ class AsistenciaController extends Controller
         ]);
         // Obtener el Contrato asociado al idContrato
         $contrato = Contrato::find($request->idContrato);
-
+        if($contrato->estado=!1){
+            return redirect()->back()->with('error', 'Esta persona ya no cuenta con contrato en la empresa');
+        }
         // Obtener el día actual (lunes = 1, martes = 2, ..., domingo = 7)
         $diaActual = date('N', strtotime($data['fechaRegistro']));
 
@@ -113,6 +115,7 @@ class AsistenciaController extends Controller
             [
                 'idContrato' => $contrato->idContrato,
                 'fechaRegistro' => $data['fechaRegistro'],
+                'estado' => 1,
             ],
             [$tipoRegistro => $horaActual]
         );

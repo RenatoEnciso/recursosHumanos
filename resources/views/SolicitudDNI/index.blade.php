@@ -35,7 +35,8 @@
                         <tr>
                             <th scope="col">Codigo</th>
                             <th scope="col">Nombres</th>
-                            <th scope="col">Tipo Solicitud</th>
+                            <th scope="col">Apellidos</th>
+                            <th scope="col">Fecha</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Opciones</th>
                         </tr>
@@ -51,14 +52,17 @@
                                 <tr>
                                     <td>{{$item->idSolicitud}}</td>
                                     <td>{{$item->Persona->Nombres}}</td>
-                                    <td>{{$item->TipoSolicitudDni->tipoSolicitud}}</td>
-                                    <td>{{$item->solEstado}}</td>
+                                    <td>{{$item->Persona->Apellido_Paterno." ".$item->Persona->Apellido_Materno}}</td>
+                                    <td>{{$item->solFecha}}</td>
                                     <td>
-                                        <br>
-                                       
+                                        <span class="badge bg-success font-size-10">{{$item->solEstado}}</span>
+                                    </td>
+                                    <td>
                                             <a href="{{ route('solicitud-dni.edit',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa "></i> Editar</a>
                                             <a href="{{ route('solicitud-dni.review',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa "></i>Revisar</a>
-                                    {{-- @if ($item->pago==0)
+                                            <a href="{{ route('solicitud-dni.dni',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa "></i>Dni</a>
+                                      
+                                            {{-- @if ($item->pago==0)
                                         @else
                                         <a href="{{ route('Solicitud.detalle',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Detalle </a>
                                         <a href="{{ route('Solicitud.comprobanteGenerado',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa "></i> Generar Comprobante de Pago</a>

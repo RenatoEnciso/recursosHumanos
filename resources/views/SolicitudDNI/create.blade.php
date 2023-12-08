@@ -71,13 +71,13 @@
                         <img id="preview2" class=""  width="100%" >
                     </div>
                 </div>
+                <div class="d-flex flex-row justify-content-around">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
+                    <a href="{{route('solicitud-dni.cancelar')}}" class="btn btn-danger"><i class="fas fa-ban"></i>Cancelar</a>
+                </div>
             </form>
         </div>
         <div class="card-footer">
-            <div class="d-flex flex-row justify-content-around">
-                <button class="btn btn-primary"><i class="fas fa-save"></i>Grabar</button>
-                <a href="{{route('solicitud-dni.cancelar')}}" class="btn btn-danger"><i class="fas fa-ban"></i>Cancelar</a>
-            </div>
                 @if (session('notifica'))
                 <div class="alert alert-warning alert-dismissible fade show mt-3 emergente" role="alert" style="color: white; background-color: rgb(183, 178, 31)" >
                     {{session('notifica')}}

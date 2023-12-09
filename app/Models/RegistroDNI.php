@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SolicitudDNI extends Model
+class RegistroDNI extends Model
 {
     use HasFactory;
-    protected $table = 'solicitud_dni';
-    protected $primaryKey = 'idSolicitud';
+    protected $table = 'registro_dni';
+    protected $primaryKey = 'idRegistro';
     public $timestamps = false;
     // protected $fillable = [
     //     'idTipoSolicitud',
@@ -26,9 +26,9 @@ class SolicitudDNI extends Model
     // ];
 
     public function Persona(){
-        return $this->HasOne(Persona::class,'DNI','DNI_Titular');
+        return $this->HasOne(Persona::class,'DNI','DNI');
     }   
-    public function TipoSolicitudDni(){
-        return $this->hasOne(TipoSolicitudDni::class,'idTipoSolicitud','idTipoSolicitud');
+    public function TipoDNI(){
+        return $this->hasOne(TipoDNI::class,'idTipoDni','idTipoDni');
     }  		
 }

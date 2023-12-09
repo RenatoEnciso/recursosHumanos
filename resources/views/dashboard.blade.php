@@ -258,12 +258,48 @@
                                 </a>
                             </li>
                             @if (Auth::user()->idRol == 2)
-                                <li class="nav-item">
-                                    <a href="{{ route('solicitud-dni.index') }}">
-                                        <i class="fas fa-user-edit"></i>
-                                        <p>Solicitudes Dnis</p>
-                                    </a>
-                                </li>
+                            <li class="nav-item">
+                                <a data-toggle="collapse" href="#base2">
+                                    <i class="far fa-file-alt"></i>
+                                    <p>Solicitud de DNI Azul</p>
+                                    <span class="caret"></span>
+                                </a>
+                                <div class="collapse" id="base2">
+                                    <ul class="nav nav-collapse">
+                                        <li>
+                                            <a data-toggle="collapse" href="#primera">
+                                                <span class="sub-item">Dni por primera vez</span>
+                                                <span class="caret"></span>
+                                            </a>
+                                            <div class="collapse" id="primera">
+                                                <ul class="nav nav-collapse">
+                                                    <li>
+                                                        <a href="{{ route('sol-primera.create') }}">
+                                                            <span class="sub-item">Nueva Solicitud</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ route('sol-primera.index') }}">
+                                                            <span class="sub-item">Inscripcion</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('sol-duplicado.index') }}">
+                                                <span class="sub-item">Duplicado</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('sol-renovado.index') }}">
+                                                <span class="sub-item">Renovacion</span>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </li>
                             @endif
 
                             @if (Auth::user()->idRol == 4)

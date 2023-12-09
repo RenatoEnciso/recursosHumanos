@@ -15,10 +15,8 @@ class SolDniPrimeraVezCreateRequest extends FormRequest
     {
         return [
             'DNI'=>'required',
-            'file_foto'=>'required',
-            'file_voucher'=>'required',
-            'cod_agua'=>'required',
-            'cod_luz'=>'required',
+            'codigo_voucher'=>'required',
+            'codigo_recibo'=>'required',
         ];
     }
 
@@ -26,10 +24,8 @@ class SolDniPrimeraVezCreateRequest extends FormRequest
     {
         return [
             'DNI.required'=>'Ingrese Numero de DNI',
-            'file_foto.required'=>'Inngrese la foto actual tamaño pasaporte',
-            'file_voucher.required'=>'Ingrese un vocuher',
-            'cod_agua.required'=>'Ingrese el codigo de servicio de agua',
-            'cod_luz.required'=>'Ingrese el codigo de servicio de luz',
+            'codigo_voucher.required'=>'Ingrese un vocuher',
+            'codigo_recibo.required'=>'Ingrese el codigo de servicio presentado',
         ];
     }
     

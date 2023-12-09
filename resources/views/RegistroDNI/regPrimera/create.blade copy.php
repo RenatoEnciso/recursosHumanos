@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ route('solicitud-dni.store') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('sol-primera.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-row">
                     <div class="col-4">
@@ -73,7 +73,7 @@
                 </div>
                 <div class="d-flex flex-row justify-content-around">
                     <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
-                    <a href="{{route('solicitud-dni.cancelar')}}" class="btn btn-danger"><i class="fas fa-ban"></i>Cancelar</a>
+                    <a href="{{route('sol-primera.cancelar')}}" class="btn btn-danger"><i class="fas fa-ban"></i>Cancelar</a>
                 </div>
             </form>
         </div>

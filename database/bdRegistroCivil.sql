@@ -149,40 +149,43 @@ INSERT INTO TIPO_SOLICITUD_DNI(tipoSolicitud) VALUES ("Primera Vez"),("Duplicado
 
 
 CREATE TABLE SOLICITUD_DNI(
-  idSolicitud    int AUTO_INCREMENT PRIMARY KEY,
-  idTipoSolicitud   int NOT NULL,
-  DNI             char(8) NOT NULL,
-  file_foto       varchar(255),
-  file_voucher    varchar(255),
-  cod_servicio_agua   varchar(20),
-  cod_servicio_luz   varchar(20),
-  valida_foto      TINYINT(1),
-  valida_voucher    TINYINT(1),
-  valida_serv_agua    TINYINT(1),
-  valida_serv_luz  TINYINT(1),
-  solMotivo      varchar(250),
-  solEstado          TINYINT,
+  idSolicitud         int AUTO_INCREMENT PRIMARY KEY,
+  idTipoSolicitud     int NOT NULL,
+  DNI_Titular         char(8) NOT NULL,
+  nombre_solicitante  varchar(50),
+  valida_foto         TINYINT(1),
+  valida_firma        TINYINT(1),
+  codigo_voucher      varchar(15),
+  codigo_recibo       varchar(15),
+  solMotivo           varchar(250),
+  fechaEnvioReg       datetime,
+  fechaRespuestaReg   datetime,
+  solEstado           TINYINT,
   solFecha            datetime
 );
 
 alter table SOLICITUD_DNI
   ADD FOREIGN KEY (idTipoSolicitud) REFERENCES TIPO_SOLICITUD_DNI(idTipoSolicitud),
-  ADD FOREIGN KEY (DNI) REFERENCES Persona(DNI);
+  ADD FOREIGN KEY (DNI_Titular) REFERENCES Persona(DNI);
 
 ALTER TABLE SOLICITUD_DNI
   MODIFY COLUMN solEstado ENUM('Pendiente', 'En Proceso', 'Aceptado', 'Rechazado', 'Entregado') NOT NULL DEFAULT 'Pendiente';
 
 
-CREATE TABLE DNI(
-  DNI                   char(8) PRIMARY KEY,
+CREATE TABLE Registro_DNI(
+  idRegistro            int AUTO_INCREMENT PRIMARY KEY,
+  DNI                   char(8) NOT NULL,
   idTipoDni             int NOT NULL,
-  dniFechaInscripcion   datetime,
+  file_foto             varchar(255),
+  file_firma            varchar(255),
+  direccion             varchar(100),
   dniFechaEmision       datetime,
   dniFechaCaducidad     datetime,
-  dniEstado             TINYINT(1)
+  regFecha              datetime,
+  regEstado             TINYINT(1)
 );
 
-alter table DNI
+alter table Registro_DNI
   ADD FOREIGN KEY (DNI) REFERENCES Persona(DNI),
   ADD FOREIGN KEY (idTipoDni) REFERENCES TIPO_DNI(idTipoDni);
 

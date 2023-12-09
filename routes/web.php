@@ -13,7 +13,9 @@ use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\FichaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SolicitudDNIController;
-
+use App\Http\Controllers\SolicitudDuplicadoController;
+use App\Http\Controllers\SolicitudPrimeraController;
+use App\Http\Controllers\SolicitudRenovadoController;
 //borrar
 use App\Models\User;
 
@@ -115,13 +117,16 @@ Route::get('Reporte/Crear', [ReporteController::class, 'create'])->name('reporte
 Route::get('Reporte/PDF/', [ReporteController::class,'generarPDF'])->name('reporte.generarPDF');
 
 //SOLICITUD DNI
-Route::resource('solicitud-dni', SolicitudDNIController::class);
-Route::get('solicitud-dni-cancelar', [SolicitudDNIController::class,'cancelar'])->name('solicitud-dni.cancelar');
-Route::get('solicitud-dni/{id}/revisar', [SolicitudDNIController::class,'review'])->name('solicitud-dni.review');
-Route::put('solicitud-dni/{id}/revisar2', [SolicitudDNIController::class,'review2'])->name('solicitud-dni.review2');
-Route::get('solicitud-dni/{id}/generar', [SolicitudDNIController::class,'generaPdf'])->name('solicitud-dni.dni');
-    
-//OTROS
+Route::resource('sol-primera', SolicitudPrimeraController::class);
+Route::resource('sol-duplicado', SolicitudDuplicadoController::class);
+Route::resource('sol-renovado', SolicitudRenovadoController::class);
+
+Route::get('sol-primera-cancelar', [SolicitudPrimeraController::class,'cancelar'])->name('sol-primera.cancelar');
+Route::get('sol-primera/{id}/revisar', [SolicitudPrimeraController::class,'review'])->name('sol-primera.review');
+Route::put('sol-primera/{id}/revisar2', [SolicitudPrimeraController::class,'review2'])->name('sol-primera.review2');
+Route::get('sol-primera/{id}/generar', [SolicitudPrimeraController::class,'generaPdf'])->name('sol-primera.dni');
+
+//otros
 Route::get('form-validacion', [SolicitudDNIController::class,'inicio'])->name('solicitudDNI.inicio');
 Route::post('valida-datos', [SolicitudDNIController::class,'validar'])->name('solicitudDNI.validar');
 

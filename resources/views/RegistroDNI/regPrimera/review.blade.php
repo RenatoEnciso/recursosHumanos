@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('solicitud-dni.review2', $solicitud->idSolicitud) }}">
+                <form method="POST" action="{{ route('sol-primera.review2', $solicitud->idSolicitud) }}">
                     @method('PUT')
                     @csrf
                     <div class="container">
@@ -119,10 +119,10 @@
                             <button class="btn btn-success" {{$edad>=17 && $edad<20?'':''}}>
                                 <i class="fas fa-save"></i>Aceptar
                             </button>
-                            <a href="{{ route('solicitud-dni.cancelar') }}" class="btn btn-warning">
+                            <a href="{{ route('sol-primera.cancelar') }}" class="btn btn-warning">
                                 <i class="fas fa-save"></i>Rechazar
                             </a>
-                            <a href="{{ route('solicitud-dni.cancelar') }}" class="btn btn-secondary">
+                            <a href="{{ route('sol-primera.cancelar') }}" class="btn btn-secondary">
                                 <i class="fas fa-ban"></i>Atras
                             </a>
                         </div>

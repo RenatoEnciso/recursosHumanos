@@ -25,6 +25,12 @@ use App\Http\Controllers\PostulacionController;
 use App\Http\Controllers\OfertaController;
 use App\Http\Controllers\CargoController;
 
+use App\Http\Controllers\PermisoController;
+use App\Http\Controllers\CeseController;
+use App\Http\Controllers\HoraExtraController;
+
+
+
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
@@ -235,4 +241,21 @@ Route::get('Vacacioncancelar',[VacacionController::class,'cancelar'])->name('Vac
 //Inicio 3 sprint
 
 //ASISTENCIA
+
 Route::resource('Asistencias',AsistenciaController::class);
+Route::get('Confirmar{id}/Asistencia', [AsistenciaController::class,'confirmar'])->name('Asistencia.confirmar');
+Route::get('Asistenciacancelar',[AsistenciaController::class,'cancelar'])->name('Asistencia.cancelar');
+//CESE
+Route::resource('Cese', CeseController::class); 
+Route::get('Confirmar{id}/Cese', [CeseController::class,'confirmar'])->name('Cese.confirmar');
+Route::get('Cesecancelar',[CeseController::class,'cancelar'])->name('Cese.cancelar');
+//Permiso
+Route::resource('Permiso', PermisoController::class); 
+Route::get('Confirmar{id}/Permiso', [PermisoController::class,'confirmar'])->name('Permiso.confirmar');
+Route::get('Permisocancelar',[PermisoController::class,'cancelar'])->name('Permiso.cancelar');
+//HoraExtra
+Route::resource('HoraExtra', HoraExtraController::class); 
+Route::get('Confirmar{id}/VacacHoraExtraion', [HoraExtraController::class,'confirmar'])->name('HoraExtra.confirmar');
+Route::get('HoraExtracancelar',[HoraExtraController::class,'cancelar'])->name('HoraExtra.cancelar');
+
+

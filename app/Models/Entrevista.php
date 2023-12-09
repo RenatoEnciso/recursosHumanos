@@ -10,7 +10,7 @@ class Entrevista extends Model
     use HasFactory;
     public $table ='entrevista';
     protected $primaryKey = 'idEntrevista';
-    protected $fillable = ['idEntrevista','idPostulacion','fecha','observacion','estadoEntrevista','estado'];
+    protected $fillable = ['idEntrevista','idPostulacion','fecha','observacion','estado','estadoEntrevista'];
     public $timestamps = false;
 
     public function Postulacion(){

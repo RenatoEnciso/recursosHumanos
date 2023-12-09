@@ -10,7 +10,7 @@ class Permiso extends Model
     use HasFactory;
     public $table ='permiso';
     protected $primaryKey = 'idPermiso';
-    protected $fillable = ['idPermiso','fechaRegistro','idContrato','fecha_inicio','fecha_fin','motivo','tipo_permiso','estadoPermiso','archivoCese','estado'];
+    protected $fillable = ['idPermiso','fechaRegistro','idContrato','fecha_inicio','fecha_fin','motivo','tipo_permiso','estadoPermiso','archivoPermiso','estado'];
     public $timestamps = false;
 
     public function contrato(){

@@ -6,11 +6,13 @@
     <div class="container">
         <div class="shadow-lg py-4 bg-body-tertiary rounded" style="margin-top:8vh">
             <h1 id="titulo" class="acta_title">Editar entrevista</h1>
+            {{-- {{$Entrevista}} --}}
             <form method="POST" action="{{ route('Entrevista.update', $Entrevista->idEntrevista) }}">
                 @method('PUT')
                 @csrf
                 <div class="row justify-content-center">
                     <div class="col-2 form-group">
+                        
                         <label class="control-label">Codigo</label>
                         <input type="text" class="form-control" style="color: blue" value="{{ $Entrevista->idEntrevista }}" disabled>
                     </div>

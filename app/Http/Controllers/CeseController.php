@@ -44,6 +44,7 @@ class CeseController extends Controller
 
             $contratos = Contrato::where('fecha_inicio', '<=', $fechaActual)
                 ->where('fecha_fin', '>=', $fechaActual)
+                ->where('estado', '=', '1')
                 ->get();
             
             $fecha_actual=Carbon::now();
@@ -69,6 +70,7 @@ class CeseController extends Controller
         // Puedes manejar el archivoCese si es necesario, por ejemplo, almacenarlo en el sistema de archivos
 
         $cese = Cese::create($data);
+        $cese->update(['estado' => 1]);
 
                     return redirect()->route('Cese.index')->with('datos','Registrados exitosamente...');
     }
@@ -81,6 +83,7 @@ class CeseController extends Controller
 
             $contratos = Contrato::where('fecha_inicio', '<=', $fechaActual)
                 ->where('fecha_fin', '>=', $fechaActual)
+                ->where('estado', '=', '1')
                 ->get();
             // $contratos = Contrato::all();
             $fecha_actual=Carbon::now();

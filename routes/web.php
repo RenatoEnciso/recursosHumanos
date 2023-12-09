@@ -24,9 +24,11 @@ use App\Http\Controllers\EntrevistaController;
 use App\Http\Controllers\PostulacionController;
 use App\Http\Controllers\OfertaController;
 use App\Http\Controllers\CargoController;
+
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\CeseController;
 use App\Http\Controllers\HoraExtraController;
+
 
 
 
@@ -239,6 +241,7 @@ Route::get('Vacacioncancelar',[VacacionController::class,'cancelar'])->name('Vac
 //Inicio 3 sprint
 
 //ASISTENCIA
+
 Route::resource('Asistencias',AsistenciaController::class);
 Route::get('Confirmar{id}/Asistencia', [AsistenciaController::class,'confirmar'])->name('Asistencia.confirmar');
 Route::get('Asistenciacancelar',[AsistenciaController::class,'cancelar'])->name('Asistencia.cancelar');
@@ -254,4 +257,5 @@ Route::get('Permisocancelar',[PermisoController::class,'cancelar'])->name('Permi
 Route::resource('HoraExtra', HoraExtraController::class); 
 Route::get('Confirmar{id}/VacacHoraExtraion', [HoraExtraController::class,'confirmar'])->name('HoraExtra.confirmar');
 Route::get('HoraExtracancelar',[HoraExtraController::class,'cancelar'])->name('HoraExtra.cancelar');
+
 

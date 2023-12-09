@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit00034eeea0c4ae04c73cfa6b14c1ca13
+class ComposerStaticInit6ff00e89743ea6bcaff03f5724876342
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -594,6 +594,10 @@ class ComposerStaticInit00034eeea0c4ae04c73cfa6b14c1ca13
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
+        'App\\Http\\Requests\\SolDniDuplicadoRequest' => __DIR__ . '/../..' . '/app/Http/Requests/SolDniDuplicadoRequest.php',
+        'App\\Http\\Requests\\SolDniPrimeraVezCreateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/SolDniPrimeraVezCreateRequest.php',
+        'App\\Http\\Requests\\SolDniPrimeraVezEditRequest' => __DIR__ . '/../..' . '/app/Http/Requests/SolDniPrimeraVezEditRequest.php',
+        'App\\Http\\Requests\\SolicitudDniEditRequest' => __DIR__ . '/../..' . '/app/Http/Requests/SolicitudDniEditRequest.php',
         'App\\Http\\Requests\\StorePostRequest' => __DIR__ . '/../..' . '/app/Http/Requests/StorePostRequest.php',
         'App\\Models\\Acta' => __DIR__ . '/../..' . '/app/Models/Acta.php',
         'App\\Models\\Acta_Defunsion' => __DIR__ . '/../..' . '/app/Models/Acta_Defunsion.php',
@@ -6058,9 +6062,9 @@ class ComposerStaticInit00034eeea0c4ae04c73cfa6b14c1ca13
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit00034eeea0c4ae04c73cfa6b14c1ca13::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit00034eeea0c4ae04c73cfa6b14c1ca13::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit00034eeea0c4ae04c73cfa6b14c1ca13::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit6ff00e89743ea6bcaff03f5724876342::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit6ff00e89743ea6bcaff03f5724876342::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit6ff00e89743ea6bcaff03f5724876342::$classMap;
 
         }, null, ClassLoader::class);
     }

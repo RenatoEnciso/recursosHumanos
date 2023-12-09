@@ -211,8 +211,20 @@ class SolicitudDNIController extends Controller
 
     public function generaPdf($idSolicitud){
         $solicitud=SolicitudDNI::find($idSolicitud);
+        $primer_apellido=$solicitud->Persona->Apellido_Paterno;
+        $nombres=$solicitud->Persona->Nombres;
+        $pos_2do=strpos($nombres," ");
+        $primer_nombre=substr($nombres,0,$pos_2do-1);
+        $segundo_nombre=substr($nombres,$pos_2do);
+        $linea_detalle=$primer_apellido."<<".$primer_nombre."<".$segundo_nombre;
+
+        for($i=1;$i<=30;$i++){
+            if(strlen($linea_detalle)<$i){
+                $linea_detalle= $linea_detalle."<";
+            }
+        }
         $fecha = date('Y-m-d');
-        $data = compact('solicitud','fecha');
+        $data = compact('solicitud','fecha','linea_detalle');
         $pdf = Pdf::loadView('SolicitudDNI.dniPdf', $data);
         
         //return view('SolicitudDNI/dniPdf',compact('solicitud'));

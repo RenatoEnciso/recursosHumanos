@@ -47,34 +47,68 @@
             position: absolute;
             top: 52px;
             left: 140px;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+        .anv_Apellido_Paterno_foto{
+            position: absolute;
+            top: 178px;
+            left: 42px;
+            color: red;
+            text-transform: uppercase;
+            font-size: 10px;
         }
         .anv_Apellido_Materno{
             position: absolute;
-            top: 82px;
+            top: 87px;
             left: 140px;
+            text-transform: uppercase;
+            font-size: 12px;
         }
         .anv_Nombres{
             position: absolute;
-            top: 112px;
+            top: 119px;
             left: 140px;
+            text-transform: uppercase;
+            font-size: 12px;
         }
-        .anv_DNI_horizontal{
+        .anv_fecha_nacimiento{
+            position: absolute;
+            top: 152px;
+            left: 140px;
+            font-size: 11px;
+        }
+        .anv_DNI_head{
             position: absolute;
             top: 20px;
             left: 380px;
             color: red;
         }
-        .anv_DNI_vertical{
+        .anv_DNI_foto{
             position: absolute;
-            top: 85px;
+            top: 95px;
             transform: rotate(90deg);
-            left: 7px;
+            left:0px;
             color: red;
+            letter-spacing: 2px;
         }
         .anv_DNI_detalle{
             position: absolute;
-            top: 200px;
-            left: 100px;
+            top: 203px;
+            left: 110px;
+            font-weight: bold;
+            font-size: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .anv_linea_detalle{
+            position: absolute;
+            top: 250px;
+            left: 38px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-size: 15px;
         }
     </style>
 </head>
@@ -84,13 +118,16 @@
         <div class="anverso">
             {{-- <img src="images/SolicitudDNI/dni-anverso.png" alt=""> --}}
             <img class="foto" src="{{ public_path($solicitud->file_foto) }}" alt="" width="98px" height="135px">
-            <p class="anv_Nombres">{{$solicitud->Persona->Nombres}}</p>
             <p class="anv_Apellido_Paterno">{{$solicitud->Persona->Apellido_Paterno}}</p>
             <p class="anv_Apellido_Paterno_foto">{{$solicitud->Persona->Apellido_Paterno}}</p>
             <p class="anv_Apellido_Materno">{{$solicitud->Persona->Apellido_Materno}}</p>
-            <p class="anv_DNI_horizontal">{{$solicitud->Persona->DNI}}</p>
-            <p class="anv_DNI_vertical">{{$solicitud->Persona->DNI}}</p>
+            <p class="anv_Nombres">{{$solicitud->Persona->Nombres}}</p>
+            <p class="anv_fecha_nacimiento">{{$solicitud->Persona->fecha_nacimiento}}</p>
+            <p class="anv_DNI_head">{{$solicitud->Persona->DNI}}</p>
+            <p class="anv_DNI_foto">{{$solicitud->Persona->DNI}}</p>
             <p class="anv_DNI_detalle">{{$solicitud->Persona->DNI}}</p>
+            <p class="anv_linea_detalle">{{$linea_detalle}}</p>
+          
         </div>
         <div class="reverso">
             {{-- <img src="images/SolicitudDNI/dni-reverso.png" alt=""> --}}

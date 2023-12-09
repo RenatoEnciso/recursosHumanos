@@ -185,7 +185,6 @@ class SolicitudController extends Controller
         $data = compact('solicitud','fecha');
         $pdf = Pdf::loadView('Solicitud.ComprobantePago', $data);
 
-
         return $pdf->download('ComprobanteDePagoGenerada.pdf');
 
     }

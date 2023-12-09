@@ -25,8 +25,8 @@
                 <div class="row justify-content-center">
                     <div class="col-2 form-group">
                         <label class="control-label">Fecha</label>
-                        <input type="date" class="form-control" value="" id="fecha" 
-                            name="fecha" >
+                        <input type="date" class="form-control" value="{{ date('Y-m-d') }}" id="fecha" 
+                            name="fecha"  readonly>
                     </div>
         
                     <div class="col-4 form-group">

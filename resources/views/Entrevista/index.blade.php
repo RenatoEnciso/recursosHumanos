@@ -65,6 +65,7 @@
                         <td>{{$item->fecha}}</td>
                         <td>{{$item->observacion}}</td>
                         <td>
+                            
                             @if ($item->estadoEntrevista==1)
                            
                             <i class="fa-solid fa-check"></i> 

@@ -174,7 +174,7 @@
                             </div>
                             <ul class="nav nav-primary">
 
-                                @if (Auth::user()->idRol==5)
+                                @if (Auth::user()->idRol==4)
                                 <li class="nav-item">
                                     <a  href="{{route('indexU')}}" >
                                         {{-- <i class="fa-solid fa-users" ></i> --}}
@@ -232,12 +232,12 @@
                                     
                                 @endif
                                 
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="{{route('Persona.index')}}">
                                         <i class="fas fa-user-edit"></i>
                                         <p>Persona</p>
                                     </a>
-                                </li>
+                                </li> --}}
                                 @if (Auth::user()->idRol==2)
                                 <li class="nav-item">
                                     <a href="{{route('solicitud-dni.index')}}">
@@ -257,7 +257,7 @@
 
                                 @endif
                                 {{-- Primer sprint de gestion personal --}}
-                                @if (Auth::user()->idRol==5)
+                                @if (Auth::user()->idRol==6)
                                 <li class="nav-item">
                                     <a href="{{route('Cargo.index')}}">
                                         <i class="fa-regular fa-address-card"></i>
@@ -265,7 +265,7 @@
                                     </a>
                                 </li>
                                 @endif
-                                @if (Auth::user()->idRol==5)
+                                @if (Auth::user()->idRol==6)
                                 <li class="nav-item"> 
                                     <a href="{{route('Oferta.index')}}">
                                         <i class="fa-regular fa-address-book"></i>
@@ -293,7 +293,7 @@
                                 @endif
                                 {{-- Fin Primer sprint de gestion personal --}}
                                 {{-- Segundo sprint de gestion personal --}}
-                                @if (Auth::user()->idRol==5)
+                                @if (Auth::user()->idRol==4)
                                 <li class="nav-item">
                                     <a href="{{route('Trabajador.index')}}">
                                         <i class="fa-solid fa-person-dots-from-line"></i>
@@ -302,7 +302,7 @@
                                     </a>
                                 </li>
                                 @endif
-                                @if (Auth::user()->idRol==5)
+                                @if (Auth::user()->idRol==5 || Auth::user()->idRol==4)
                                 <li class="nav-item">
                                     <a href="{{route('Horario.index')}}">
                                         <i class="fa-regular fa-calendar-days"></i>
@@ -310,7 +310,7 @@
                                     </a>
                                 </li>
                                 @endif
-                                @if (Auth::user()->idRol==5)
+                                @if (Auth::user()->idRol==4)
                                 <li class="nav-item">
                                     <a href="{{route('Vacacion.index')}}">
                                         <i class="fa-regular fa-calendar-xmark"></i>

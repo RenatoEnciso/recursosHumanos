@@ -16,9 +16,50 @@
                 </div>
                 @endif
   <video id="video" width="600" height="450" autoplay>
-    <form method="POST" action="{{ route('Contrato.store') }}" enctype="multipart/form-data">
+            'idContrato' => 'required|exists:Contrato,idContrato',
+    <form method="POST" action="{{ route('Asistencias.store') }}" enctype="multipart/form-data">
       @csrf
       <input type="text" value="{{Auth::user()->id}}" name="id" id="id" readonly>
+      
+      <select name="idContrato" id="idContrato" class="form-control @error('idContrato') is-invalid @enderror"  >
+                       
+        @foreach ($contratos as $item)
+                            <option value="{{$item->idContrato}}"
+                                {{Auth::user()->id = $item->idTrabajador?'selected':''}}
+                                >{{$item->trabajador->DNI}}-{{ $item->trabajador->persona->Nombres}} {{ $item->trabajador->persona->Apellido_Paterno}} {{ $item->trabajador->persona->Apellido_Materno}}</option> 
+                        @endforeach
+    </select>
+
+      <div class="col-4 form-group">
+        <label class="control-label">Registro</label>
+        <input type="date" class="form-control" id="fechaRegistro" name="fechaRegistro" value="{{ date('Y-m-d') }}">
+      </div>
+
+
+      <div class="col-3 form-group">
+        <label for="horaRegistroEntrada" class="control-label">Hora inicio:</label>
+        <input type="time" id="horaRegistroEntrada" name="horaRegistroEntrada" class="form-control @error('horaRegistroEntrada') is-invalid @enderror" >
+    
+                     @error('horaRegistroEntrada')
+                            <span class="invalid feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+      </div> 
+                        
+      <div class="col-3 form-group">
+        <label for="horaVariable2" class="control-label">Hora fin:</label>
+        <input type="time" id="horaVariable2" name="horaRegistroSalida" class="form-control @error('horaRegistroSalida') is-invalid @enderror">
+    
+                        @error('horaRegistroSalida')
+                            <span class="invalid feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+      </div> 
+
+
+
       @foreach ($usuarios as $item)
         <input type="text" value="{{$item->id}}" name="archivos"  readonly>
       @endforeach

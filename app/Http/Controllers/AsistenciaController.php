@@ -37,8 +37,13 @@ class AsistenciaController extends Controller
         // ->paginate($this::PAGINATION);
         
         // return view('Asistencia.index',compact('Asistencias','busqueda'));
+        $fechaActual = now();
+        $contratos = Contrato::where('fecha_inicio', '<=', $fechaActual)
+                ->where('fecha_fin', '>=', $fechaActual)
+                ->where('estado', '=', '1')
+                ->get();
         $usuarios = User::all();
-            return view('Asistencia.index',compact('usuarios'));
+            return view('Asistencia.index',compact('usuarios','contratos'));
     }
 
     public function create()
@@ -64,8 +69,13 @@ class AsistenciaController extends Controller
             // $usuarios = User::all();
             // return $fecha_actual;
             // return view('Asistencia.index',compact('contratos','fecha_actual','contratoHorarios','usuarios'));
+            $fechaActual = now();
             $usuarios = User::all();
-            return view('Asistencia.index',compact('usuarios'));
+            $contratos = Contrato::where('fecha_inicio', '<=', $fechaActual)
+                ->where('fecha_fin', '>=', $fechaActual)
+                ->where('estado', '=', '1')
+                ->get();
+            return view('Asistencia.index',compact('usuarios','contratos'));
         // } else{
         //     return redirect()->route('Asistencia.index')->with('datos','..::No tiene Acceso ..::');
         // }
@@ -73,6 +83,7 @@ class AsistenciaController extends Controller
 
     public function store(Request $request)
     {
+        
         $data = $request->validate([
             'horaRegistroEntrada' => 'required|date_format:H:i',
             'horaRegistroSalida' => 'required|date_format:H:i',
@@ -83,7 +94,8 @@ class AsistenciaController extends Controller
         // Obtener el Contrato asociado al idContrato
         $contrato = Contrato::find($request->idContrato);
         if($contrato->estado=!1){
-            return redirect()->back()->with('error', 'Esta persona ya no cuenta con contrato en la empresa');
+            return "Esta persona ya no cuenta con contrato en la empresa";
+            return redirect()->back()->with('datos', 'Esta persona ya no cuenta con contrato en la empresa');
         }
         // Obtener el día actual (lunes = 1, martes = 2, ..., domingo = 7)
         $diaActual = date('N', strtotime($data['fechaRegistro']));
@@ -107,7 +119,8 @@ class AsistenciaController extends Controller
 
         // Verificar si la hora actual está dentro del límite del ContratoHorario
         if ($tipoRegistro == 'horaRegistroEntrada' && ($horaActual < $contratoHorario->horaInicio || $horaActual > $contratoHorario->horaFin)) {
-            return redirect()->back()->with('error', 'La hora de entrada no está dentro del límite permitido por el ContratoHorario.');
+            return "La hora de entrada no está dentro del límite permitido por el ContratoHorario.";
+            return redirect()->back()->with('datos', 'La hora de entrada no está dentro del límite permitido por el ContratoHorario.');
         }
 
         // Actualizar o insertar el registro de asistencia
@@ -119,8 +132,10 @@ class AsistenciaController extends Controller
             ],
             [$tipoRegistro => $horaActual]
         );
+        return "Registrados exitosamente...";
         return redirect()->route('dashboard')->with('datos','Registrados exitosamente...');
     } else {
+        return "No tiene registrado un horario el dia de hoy";
         return redirect()->back()->with('datos', 'No tiene registrado un horario el dia de hoy');
     }
 

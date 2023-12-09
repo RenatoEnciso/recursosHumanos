@@ -16,6 +16,9 @@ use App\Http\Controllers\SolicitudDNIController;
 use App\Http\Controllers\SolicitudDuplicadoController;
 use App\Http\Controllers\SolicitudPrimeraController;
 use App\Http\Controllers\SolicitudRenovadoController;
+use App\Http\Controllers\RegistroDuplicadoController;
+use App\Http\Controllers\RegistroRenovadoController;
+use App\Http\Controllers\RegistroPrimeraController;
 //borrar
 use App\Models\User;
 
@@ -125,6 +128,18 @@ Route::get('sol-primera-cancelar', [SolicitudPrimeraController::class,'cancelar'
 Route::get('sol-primera/{id}/revisar', [SolicitudPrimeraController::class,'review'])->name('sol-primera.review');
 Route::put('sol-primera/{id}/revisar2', [SolicitudPrimeraController::class,'review2'])->name('sol-primera.review2');
 Route::get('sol-primera/{id}/generar', [SolicitudPrimeraController::class,'generaPdf'])->name('sol-primera.dni');
+//Registro
+Route::resource('reg-primera', RegistroPrimeraController::class);
+Route::resource('reg-duplicado', RegistroDuplicadoController::class);
+Route::resource('reg-renovado', RegistroRenovadoController::class);
+Route::get('reg-primera-create/{dni}', [RegistroPrimeraController::class,'createValido'])->name('reg-primera.createValido');
+
+Route::get('reg-primera-cancelar', [RegistroPrimeraController::class,'cancelar'])->name('reg-primera.cancelar');
+Route::get('reg-primera-cancelar/{idSol}', [RegistroPrimeraController::class,'cancelarRegistro'])->name('reg-primera.cancelarRegistro');
+
+Route::get('reg-primera/{id}/revisar', [RegistroPrimeraController::class,'review'])->name('reg-primera.review');
+Route::put('reg-primera/{id}/revisar2', [RegistroPrimeraController::class,'review2'])->name('reg-primera.review2');
+Route::get('reg-primera/{id}/generar', [RegistroPrimeraController::class,'generaPdf'])->name('reg-primera.dni');
 
 //otros
 Route::get('form-validacion', [SolicitudDNIController::class,'inicio'])->name('solicitudDNI.inicio');

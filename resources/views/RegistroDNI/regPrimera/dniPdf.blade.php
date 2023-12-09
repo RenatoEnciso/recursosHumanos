@@ -116,21 +116,20 @@
 <body>
     <div class="container">
         <div class="anverso">
-            {{-- <img src="images/SolicitudDNI/dni-anverso.png" alt=""> --}}
-            <img class="foto" src="{{ public_path($solicitud->file_foto) }}" alt="" width="98px" height="135px">
-            <p class="anv_Apellido_Paterno">{{$solicitud->Persona->Apellido_Paterno}}</p>
-            <p class="anv_Apellido_Paterno_foto">{{$solicitud->Persona->Apellido_Paterno}}</p>
-            <p class="anv_Apellido_Materno">{{$solicitud->Persona->Apellido_Materno}}</p>
-            <p class="anv_Nombres">{{$solicitud->Persona->Nombres}}</p>
-            <p class="anv_fecha_nacimiento">{{$solicitud->Persona->fecha_nacimiento}}</p>
-            <p class="anv_DNI_head">{{$solicitud->Persona->DNI}}</p>
-            <p class="anv_DNI_foto">{{$solicitud->Persona->DNI}}</p>
-            <p class="anv_DNI_detalle">{{$solicitud->Persona->DNI}}</p>
+            -- <img class="foto" src="{{ public_path($registro->file_foto) }}" alt="" width="98px" height="135px"> 
+            <p class="anv_Apellido_Paterno">{{$registro->Persona->Apellido_Paterno}}</p>
+            <p class="anv_Apellido_Paterno_foto">{{$registro->Persona->Apellido_Paterno}}</p>
+            <p class="anv_Apellido_Materno">{{$registro->Persona->Apellido_Materno}}</p>
+            <p class="anv_Nombres">{{$registro->Persona->Nombres}}</p>
+            <p class="anv_fecha_nacimiento">{{$registro->Persona->fecha_nacimiento}}</p>
+            <p class="anv_DNI_head">{{$registro->Persona->DNI}}</p>
+            <p class="anv_DNI_foto">{{$registro->Persona->DNI}}</p>
+            <p class="anv_DNI_detalle">{{$registro->Persona->DNI}}</p>
             <p class="anv_linea_detalle">{{$linea_detalle}}</p>
           
         </div>
         <div class="reverso">
-            {{-- <img src="images/SolicitudDNI/dni-reverso.png" alt=""> --}}
+
         </div>
     </div>
 </body>

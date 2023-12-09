@@ -174,6 +174,7 @@ ALTER TABLE SOLICITUD_DNI
 
 CREATE TABLE Registro_DNI(
   idRegistro            int AUTO_INCREMENT PRIMARY KEY,
+  idSolicitudDNI        INT NOT NULL,
   DNI                   char(8) NOT NULL,
   idTipoDni             int NOT NULL,
   file_foto             varchar(255),
@@ -187,7 +188,5 @@ CREATE TABLE Registro_DNI(
 
 alter table Registro_DNI
   ADD FOREIGN KEY (DNI) REFERENCES Persona(DNI),
+  ADD FOREIGN KEY(idSolicitudDNI) REFERENCES SOLICITUD_DNI(idSolicitud),
   ADD FOREIGN KEY (idTipoDni) REFERENCES TIPO_DNI(idTipoDni);
-
-
-

@@ -87,13 +87,15 @@ class RegistroPrimeraController extends Controller
     public function edit($id)
     {
         $registro = RegistroDNI::find($id);
+        $solicitud = SolicitudDNI::find($registro->idSolicitudDNI);
         $persona = Persona::find($registro->DNI);
-        return view('RegistroDNI.regPrimera.edit', compact('registro', 'persona'));
+        return view('RegistroDNI.regPrimera.edit', compact('registro', 'persona','solicitud'));
     }
     
     public function update(Request $request, $id)
     {
         $registro = RegistroDNI::find($id);
+        $solicitud=SolicitudDNI::find($request->idSolicitud);
         $registro->DNI = $request->DNI;
         $registro->idTipoDni = 1;  // 1= Primera vez
         $registro->direccion = $request->direccion;
@@ -114,7 +116,9 @@ class RegistroPrimeraController extends Controller
             $urlfirma = Storage::url('public/primeraVez/FirmasDNI/' . $nombreArchivo);  //obtener url de foto
             $registro->file_firma = $urlfirma;
         }
-        $registro->regEstado = 0;
+        $registro->regEstado = 1;
+        $solicitud->solEstado="Aceptado";
+        $solicitud->save();
         $registro->save();
 
         return redirect()->route('reg-primera.index')->with('notifica', 'La actualizacion fue exitosa'); ;

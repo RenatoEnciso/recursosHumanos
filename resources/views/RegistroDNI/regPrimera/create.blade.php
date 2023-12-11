@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-title">
-                    <h1 id="titulo" class="card-title text-center">REGISTRO DE SOLICITUD DNI AZUL</h1>
+                    <h1 id="titulo" class="card-title text-center">REGISTRO: SOLICITUD DE DNI AZUL - PRIMERA VEZ</h1>
                 </div>
             </div>
             <div class="card-body">
@@ -89,7 +89,6 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
-
                         <div class="col-4">
                             <label class="col-form-label">Direccion Actual</label>
                             <input name="direccion" id="" class="form-control" placeholder="Validar con Recibo de servicio">
@@ -181,5 +180,4 @@
         }
 
     </script>
-
 @endsection

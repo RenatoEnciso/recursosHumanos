@@ -64,7 +64,7 @@
 @section('contenido')
     <div class="card">
         <div class="card-header">
-            <h3 id="titulo" class="card-title">DNI AZUL POR PRIMERA VEZ</h3>
+            <h3 id="titulo" class="card-title">LISTA DE REGISTROS - DNI AZUL POR PRIMERA VEZ</h3>
         </div>
         <div class="card-body">
             <div id="mensaje">
@@ -99,7 +99,11 @@
                                 <td>{{ $item->Persona->Apellido_Paterno . ' ' . $item->Persona->Apellido_Materno }}</td>
                                 <td>{{ $item->regFecha }}</td>
                                 <td>
-                                    <span class="badge bg-success font-size-10">{{ $item->regEstado }}</span>
+                                    @if ($item->regEstado == 0)
+                                        <span class="badge font-size-10 bg-warning"> Pendiente </span>
+                                    @elseif ($item->regEstado == 1)
+                                        <span class="badge font-size-10 bg-success"> Registrado </span>
+                                    @endif
                                 </td>
                                 <td>
                                     <a href="{{ route('reg-primera.edit', $item->idRegistro) }}"

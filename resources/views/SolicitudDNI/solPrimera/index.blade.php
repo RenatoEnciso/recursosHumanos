@@ -19,7 +19,7 @@
 @section('contenido')
     <div class="card">
         <div class="card-header">
-            <h3 id="titulo" class="card-title">DNI AZUL POR PRIMERA VEZ</h3>
+            <h3 id="titulo" class="card-title">LISTA DE SOLICITUDES - DNI AZUL POR PRIMERA VEZ</h3>
         </div>
         <div class="card-body">
             <a href="{{ route('sol-primera.create') }}" class="btn btn-primary">
@@ -57,20 +57,22 @@
                                 <td>{{ $item->DNI_Titular }}</td>
                                 <td>{{ $item->solFecha }}</td>
                                 <td>
-                                    <span class="badge bg-success font-size-10">{{ $item->solEstado }}</span>
+                                    @if ($item->solEstado == 'Aceptado')
+                                        <span class="badge font-size-10 bg-success"> {{ $item->solEstado }} </span>
+                                    @elseif ($item->solEstado == 'En Proceso')
+                                        <span class="badge font-size-10 bg-warning"> {{ $item->solEstado }} </span>
+                                    @elseif ($item->solEstado == 'Rechazado')
+                                        <span class="badge font-size-10 bg-danger"> {{ $item->solEstado }} </span>
+                                    @else
+                                        <span class="badge font-size-10 bg-secondary"> {{ $item->solEstado }} </span>
+                                    @endif
                                 </td>
                                 <td>
                                     <a href="{{ route('sol-primera.edit', $item->idSolicitud) }}"
                                         class="btn btn-primary btn-sm"><i class="fa "></i> Editar</a>
                                     <a href="{{ route('sol-primera.dni', $item->idSolicitud) }}"
                                         class="btn btn-primary btn-sm"><i class="fa "></i>Dni</a>
-                                    {{-- @if ($item->pago == 0)
-                                        @else
-                                        <a href="{{ route('Solicitud.detalle',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Detalle </a>
-                                        <a href="{{ route('Solicitud.comprobanteGenerado',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa "></i> Generar Comprobante de Pago</a>
-                                        @endif 
-                                        <a href="{{ route('sol-primera.edit',$item->idSolicitud) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
-                                        <a href="{{ route('sol-primera.confirmar',$item->idSolicitud) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a> --}}
+
                                 </td>
                             </tr>
                         @endforeach

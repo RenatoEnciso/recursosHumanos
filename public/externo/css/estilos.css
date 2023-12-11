@@ -38,6 +38,56 @@ body {
     color: #fff;
 }
 
+/* Estilos personalizados para el dropdown */
+
+/* Estilos para el dropdown */
+.nav__items.dropdown .dropdown-menu {
+    background-color: #333; /* Color de fondo del dropdown */
+    border-radius: 0.25rem; /* Bordes redondeados */
+    margin-top: 0.5rem; /* Espacio entre el botón y el dropdown */
+}
+
+.nav__items.dropdown .dropdown-menu .dropdown-item {
+    color: #fff; /* Color del texto de los items */
+}
+
+.nav__items.dropdown .dropdown-menu .dropdown-item:hover {
+    background-color: #444; /* Color de fondo al pasar el mouse */
+}
+
+
+
+.dropdown-menu {
+    position: absolute;
+
+
+    display: none; /* Ocultar por defecto */
+
+}
+
+/* Mostrar el dropdown cuando se añade la clase 'show' */
+/* Mostrar el dropdown cuando se añade la clase 'show' */
+.dropdown-menu.show {
+    display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
 .hero::before {
     content: "";
     position: absolute;

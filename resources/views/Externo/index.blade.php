@@ -6,15 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RENIEC</title>
+
     {{-- <link rel="shortcut icon" href="{{asset('/externo/images/favicon.png')}}" type="image/x-icon"> 
     <link rel="shortcut icon" href="{{asset('/externo/images/favicon.png')}}" type="image/x-icon"> --}}
     <link rel="stylesheet" href="{{asset('/externo/css/normalize.css')}}">
     <link rel="stylesheet" href="{{asset('/externo/css/estilos.css')}}">
-
     <meta name="theme-color" content="#2091F9">
-
+    {{-- <link rel="stylesheet" href="{{asset('/assets/css/bootstrap.min.css')}}"> --}}
 
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> --}}
+    
 </head>
 
 <body>
@@ -45,6 +46,22 @@
                     </form>
                     {{-- <a href="{{ route('indexT', ['id' => $id]) }}" class="nav__links">Trabajos</a> --}}
                 </li>
+                <li class="nav__items dropdown">
+                    <a href="#" class="nav__links dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Consulta Actas
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="padding-left: 1vw">
+                        <a class="dropdown-item" href="{{ route('ConsultaNacimiento') }}" style="text-decoration: none">Acta Nacimiento</a> 
+                        <br>
+                        <a class="dropdown-item" href="{{ route('ConsultaDefuncion') }}" style="text-decoration: none;">Acta Defuncion</a>
+                        <br>
+                        <a class="dropdown-item" href="{{ route('ConsultaMatrimonio') }}" style="text-decoration: none;">Acta Matrimonio</a>
+                        <br>
+                    </ul>
+                </li>
+                
+
+
                 
                 <li class="nav__items">
                     <a href="/login" class="nav__links">Ingresar</a>
@@ -231,10 +248,38 @@
             <h3 class="footer__copyright">Derechos reservados &copy;</h3>
         </section>
     </footer>
-
+    {{-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     <script src="{{asset('/externo/js/slider.js')}}"></script>
     <script src="{{asset('/externo/js/questions.js')}}"></script>
     <script src="{{asset('/externo/js/menu.js')}}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var dropdownToggle = document.querySelector('.dropdown-toggle');
+    var dropdownMenu = document.querySelector('.dropdown-menu');
+
+    // Función para mostrar/ocultar el dropdown
+    function toggleDropdown(event) {
+        var isClickInsideDropdown = dropdownMenu.contains(event.target) || event.target === dropdownToggle;
+
+        if (event.target === dropdownToggle) {
+            // Prevenir comportamiento por defecto y alternar la visibilidad
+            event.preventDefault();
+            dropdownMenu.classList.toggle('show');
+        } else if (!isClickInsideDropdown && dropdownMenu.classList.contains('show')) {
+            // Ocultar el dropdown si se hace clic fuera de él
+            dropdownMenu.classList.remove('show');
+        }
+    }
+
+    // Escuchar el evento de clic en el documento
+    document.addEventListener('click', toggleDropdown);
+});
+
+    
+
+
+    </script>
 </body>
 
 </html>

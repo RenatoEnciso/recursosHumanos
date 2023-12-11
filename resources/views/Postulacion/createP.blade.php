@@ -58,7 +58,7 @@
                     
                                 <div class="col form-group">
                                     <label class="control-label">Fecha</label>
-                                    <input type="date" class="form-control @error('fecha') is-invalid @enderror" value="" id="fecha" 
+                                    <input type="date" class="form-control @error('fecha') is-invalid @enderror" value="{{ date('Y-m-d') }}" id="fecha" 
                                         name="fecha" >
                                     @error('fecha')
                                         <span class="invalid feedback" role="alert">

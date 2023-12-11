@@ -10,17 +10,10 @@ class HoraExtra extends Model
     use HasFactory;
     public $table ='horaExtra';
     protected $primaryKey = 'idHoraExtra';
-    protected $fillable = ['idHoraExtra','idTrabajador','fecha','hora_inicio','hora_fin','descripcion','estado'];
+    protected $fillable = ['idHoraExtra','idContrato','fecha','hora_inicio','hora_fin','descripcion','estado'];
     public $timestamps = false;
 
-    public function trabajador(){
-        return $this->HasOne(Trabajador::class,'idTrabajador','idTrabajador');
+    public function contrato(){
+        return $this->HasOne(Contrato::class,'idContrato','idContrato');
     }
-    // public function persona(){
-    //     return $this->HasOne(Persona::class,'DNI','DNI');
-    // }
-
-    // public function entrevista(){
-    //     return $this->HasMany(Entrevista::class,'idOferta','idOferta');
-    // }
 }

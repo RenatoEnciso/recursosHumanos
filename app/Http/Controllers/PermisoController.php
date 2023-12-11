@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 
 
-use App\Models\Vacacion;
+use App\Models\Permiso;
 use App\Models\Contrato;
 use App\Models\Trabajador;
 use Carbon\Carbon;
@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class VacacionController extends Controller
+class PermisoController extends Controller
 {
     
     const PAGINATION=7;
@@ -21,7 +21,7 @@ class VacacionController extends Controller
     public function index(Request $request){
         $busqueda=$request->get('busqueda');
         // return $busqueda;
-        $Vacaciones =  Vacacion::join('contrato', 'vacacion.idContrato', '=', 'contrato.idContrato')
+        $Permisos =  Permiso::join('contrato', 'Permiso.idContrato', '=', 'contrato.idContrato')
         ->join('trabajador', 'contrato.idTrabajador', '=', 'trabajador.idTrabajador')
         ->join('persona', 'trabajador.DNI', '=', 'persona.DNI')
         ->where(function ($query) use ($busqueda) {
@@ -30,28 +30,29 @@ class VacacionController extends Controller
                 ->orWhere('persona.Apellido_Materno', 'like', '%' . $busqueda . '%')
                 ->orWhere('persona.DNI', 'like', '%' . $busqueda . '%');
         })
-        ->where('vacacion.estado', '=', '1')
+        ->where('Permiso.estado', '=', '1')
         ->paginate($this::PAGINATION);
         
-        return view('Vacacion.index',compact('Vacaciones','busqueda'));
+        return view('Permiso.index',compact('Permisos','busqueda'));
     }
 
     public function create()
     {
         
-        // if (Auth::user()->Vacacion=='Encargado contrato'){   //boteon registrar
+        // if (Auth::user()->Permiso=='Encargado contrato'){   //boteon registrar
             $fechaActual = now(); // Puedes ajustar esto según tu lógica para obtener la fecha actual
 
             $contratos = Contrato::where('fecha_inicio', '<=', $fechaActual)
                 ->where('fecha_fin', '>=', $fechaActual)
+                ->where('estado', '=', '1')
                 ->get();
             $fecha_actual=Carbon::now();
             $fecha_actual->setLocale('es'); 
             $fecha_actual->setTimezone('America/Lima');
             // return $fecha_actual;
-            return view('Vacacion.create',compact('contratos','fecha_actual'));
+            return view('Permiso.create',compact('contratos','fecha_actual'));
         // } else{
-        //     return redirect()->route('Vacacion.index')->with('datos','..::No tiene Acceso ..::');
+        //     return redirect()->route('Permiso.index')->with('datos','..::No tiene Acceso ..::');
         // }
     }
 
@@ -81,8 +82,8 @@ class VacacionController extends Controller
                         $fechaFin = Carbon::parse($value);
                         $diferenciaDias = $fechaInicio->diffInDays($fechaFin);
                         $contrato=Contrato::findOrFail($request->idContrato);
-                        if ($diferenciaDias < 30 || $diferenciaDias>$contrato->diasVacaciones) {
-                            $fail("La fecha de fin debe ser al menos 30 días después de la fecha de inicio y como máximo {$contrato->diasVacaciones} días después. ");
+                        if ($diferenciaDias < 30 || $diferenciaDias>$contrato->diasPermisos) {
+                            $fail("La fecha de fin debe ser al menos 30 días después de la fecha de inicio y como máximo {$contrato->diasPermisos} días después. ");
                         }
                     },
                 ],
@@ -109,17 +110,19 @@ class VacacionController extends Controller
                 // Actualizar el campo 'archivoPermiso' en el modelo Cese
                 $permiso->update(['archivoPermiso' => $url]);
             }
-                    return redirect()->route('Vacacion.index')->with('datos','Registrados exitosamente...');
+            $permiso->update(['estado' => 1]);
+                    return redirect()->route('Permiso.index')->with('datos','Registrados exitosamente...');
     }
 
     public function edit($id)
     {
-        // if (Auth::user()->Vacacion=='Encargado contrato'){ //boton editar
-            $Vacacion=Vacacion::findOrFail($id);
+        // if (Auth::user()->Permiso=='Encargado contrato'){ //boton editar
+            $Permiso=Permiso::findOrFail($id);
             $fechaActual = now(); // Puedes ajustar esto según tu lógica para obtener la fecha actual
 
             $contratos = Contrato::where('fecha_inicio', '<=', $fechaActual)
                 ->where('fecha_fin', '>=', $fechaActual)
+                ->where('estado', '=', '1')
                 ->get();
             $contratos = Contrato::all();
             $fecha_actual=Carbon::now();
@@ -127,16 +130,16 @@ class VacacionController extends Controller
             $fecha_actual->setTimezone('America/Lima');
             $fecha_actual=$fecha_actual->toDateString();
             // return $fecha_actual;
-            return view('Vacacion.edit',compact('Vacacion','contratos','fecha_actual'));
+            return view('Permiso.edit',compact('Permiso','contratos','fecha_actual'));
         // }else{
-        //     return redirect()->route('Vacacion.index')->with('datos','..::No tiene Acceso ..::');
+        //     return redirect()->route('Permiso.index')->with('datos','..::No tiene Acceso ..::');
         // }
     }
 
     public function update(Request $request, $id)
     {
-        $Vacacion=Vacacion::findOrFail($id);
-        $Vacacion->fecha_inicio;
+        $Permiso=Permiso::findOrFail($id);
+        $Permiso->fecha_inicio;
         $data=request()->validate([
             // 'descripcion'=>'required|max:30',
             // // 'fecha_inicio'=>'required',
@@ -151,12 +154,12 @@ class VacacionController extends Controller
         'fecha_inicio' => [
             'required',
             'date',
-            function ($attribute, $value, $fail) use ($Vacacion, $request) {
+            function ($attribute, $value, $fail) use ($Permiso, $request) {
                 $fechaInicio = Carbon::parse($value);
                 $fechaActual = Carbon::now();
         
                 // Si estamos editando y la fecha de inicio es la misma que ya está registrada, permitirlo.
-                if ($request->filled('idTrabajador') && $fechaInicio->eq(Carbon::parse($Vacacion->fecha_inicio))) {
+                if ($request->filled('idTrabajador') && $fechaInicio->eq(Carbon::parse($Permiso->fecha_inicio))) {
                     return;
                 }
         
@@ -199,53 +202,53 @@ class VacacionController extends Controller
         //    // 'archivo_nacimiento.required'=>'Ingrese el archivo de la Acta de Nacimiento',
         ]);
         
-        $Vacacion->descripcion=$request->descripcion;
-        $Vacacion->fecha_inicio=$request->fecha_inicio;
-        $Vacacion->fecha_fin=$request->fecha_fin;
-        $Vacacion->idContrato=$request->idContrato;
-        $Vacacion->descripcion=$request->descripcion;
-        $Vacacion->save();
-        return redirect()->route('Vacacion.index')->with('datos','Registro Actualizado exitosamente...');
+        $Permiso->descripcion=$request->descripcion;
+        $Permiso->fecha_inicio=$request->fecha_inicio;
+        $Permiso->fecha_fin=$request->fecha_fin;
+        $Permiso->idContrato=$request->idContrato;
+        $Permiso->descripcion=$request->descripcion;
+        $Permiso->save();
+        return redirect()->route('Permiso.index')->with('datos','Registro Actualizado exitosamente...');
     }
 
     public function destroy($id)
     {
-            $Vacacion=Vacacion::findOrFail($id);
-            $Vacacion->estado='0';
-            $Vacacion->save();
-            return redirect()->route('Vacacion.index')->with('datos','Registro Eliminado..');
+            $Permiso=Permiso::findOrFail($id);
+            $Permiso->estado='0';
+            $Permiso->save();
+            return redirect()->route('Permiso.index')->with('datos','Registro Eliminado..');
     }
 
 
     public function confirmar($id){
-        // if (Auth::user()->Vacacion=='Encargado contrato'){ //boton eliminar
-            $Vacacion=Vacacion::findOrFail($id);
-            return view('Vacacion.confirmar',compact('Vacacion'));
+        // if (Auth::user()->Permiso=='Encargado contrato'){ //boton eliminar
+            $Permiso=Permiso::findOrFail($id);
+            return view('Permiso.confirmar',compact('Permiso'));
         // }else{
-        //     return redirect()->route('Vacacion.index')->with('datos','..::No tiene Acceso ..::');
+        //     return redirect()->route('Permiso.index')->with('datos','..::No tiene Acceso ..::');
         // }
     }
 
 
     public function cancelar(){
-        return redirect()->route('Vacacion.index')->with('datos','acciona cancelada...');
+        return redirect()->route('Permiso.index')->with('datos','acciona cancelada...');
     }
 
     // public function archivo($id){
-    //     $Vacacion=Vacacion::findOrFail($id);
+    //     $Permiso=Permiso::findOrFail($id);
     //     $cargos = Cargo::all();
     //         $fecha_actual=Carbon::now();
     //         $fecha_actual->setLocale('es'); 
     //         $fecha_actual->setTimezone('America/Lima');
-    //     return view('Vacacion.archivo',compact('cargos','fecha_actual'));
+    //     return view('Permiso.archivo',compact('cargos','fecha_actual'));
     // }
     // public function DniRepetido($dni_comprobar){
-    //     $Vacacions=Vacacion::all();
-    //     if(count($Vacacions)==0){
+    //     $Permisos=Permiso::all();
+    //     if(count($Permisos)==0){
     //         return false;
     //     }else{
-    //         foreach($Vacacions as $Vacacion){
-    //             if($Vacacion->$DNI==$dni_comprobar){
+    //         foreach($Permisos as $Permiso){
+    //             if($Permiso->$DNI==$dni_comprobar){
     //                 return true;
     //                 break;
     //             }

@@ -17,7 +17,7 @@ class EntrevistaController extends Controller
 
     public function index(Request $request){
         $busqueda=$request->get('buscarpor');
-        $Entrevistas=Entrevista::select('idEntrevista','Entrevista.idPostulacion','Entrevista.fecha','p.DNI','observacion','Entrevista.estado')
+        $Entrevistas=Entrevista::select('idEntrevista','Entrevista.idPostulacion','Entrevista.fecha','p.DNI','observacion','Entrevista.estado','Entrevista.estadoEntrevista')
         ->join('Postulacion as p','p.idPostulacion','=','Entrevista.idPostulacion')
         // ->join('Persona as pe','p.DNI','=','pe.DNI')
         
@@ -46,7 +46,16 @@ class EntrevistaController extends Controller
             $postulaciones = Postulacion::all();
             $postulacion = Postulacion::findOrFail($id);
             $oferta = Oferta::all();
-            return view('Entrevista.createP',compact('postulaciones','oferta','postulacion'));
+            $entrevista = Entrevista::where('idPostulacion', $postulacion->idPostulacion)->first();
+            if($entrevista){
+                // return route('Entrevista.index')->with('datos','Ya esta contratado!!');
+                return redirect()->back()->with('datos','Ya esta entrevistado!!');
+            }else{
+                return view('Entrevista.createP',compact('postulaciones','oferta','postulacion'));
+            }
+
+   
+           
         // } else{
         //     return redirect()->route('Entrevista.index')->with('datos','..::No tiene Acceso ..::');
         // }

@@ -30,23 +30,52 @@ function startWebcam() {
     });
 }
 
-function getLabeledFaceDescriptions() {
+// function getLabeledFaceDescriptions() {
   
+//   return Promise.all(
+//     labels.map(async (label) => {
+//       const descriptions = [];
+//       for (let i = 1; i <= 1; i++) {
+//         const img = await faceapi.fetchImage(`./storage/archivosFotoPerfil/${label}.jpg`);
+//         const detections = await faceapi
+//           .detectSingleFace(img)
+//           .withFaceLandmarks()
+//           .withFaceDescriptor();
+//         descriptions.push(detections.descriptor);
+//       }
+//       return new faceapi.LabeledFaceDescriptors(label, descriptions);
+//     })
+//   );
+// }
+function getLabeledFaceDescriptions() {
   return Promise.all(
     labels.map(async (label) => {
       const descriptions = [];
       for (let i = 1; i <= 1; i++) {
-        const img = await faceapi.fetchImage(`./storage/archivosFotoPerfil/${label}.jpg`);
-        const detections = await faceapi
-          .detectSingleFace(img)
-          .withFaceLandmarks()
-          .withFaceDescriptor();
-        descriptions.push(detections.descriptor);
+        try {
+          // Intenta cargar la imagen
+          const img = await faceapi.fetchImage(`./storage/archivosFotoPerfil/${label}.jpg`);
+          const detections = await faceapi
+            .detectSingleFace(img)
+            .withFaceLandmarks()
+            .withFaceDescriptor();
+          // Si se encuentra una cara, añade su descriptor al array
+          if (detections) {
+            descriptions.push(detections.descriptor);
+          }
+        } catch (error) {
+          // Si ocurre un error (por ejemplo, la imagen no existe), continúa con la siguiente iteración
+          console.error(`Error al cargar la imagen de ${label}:`, error);
+        }
       }
-      return new faceapi.LabeledFaceDescriptors(label, descriptions);
+      // Devuelve las descripciones de las caras etiquetadas solo si se encontraron caras
+      return descriptions.length > 0
+        ? new faceapi.LabeledFaceDescriptors(label, descriptions)
+        : null;
     })
-  );
+  ).then(descriptors => descriptors.filter(descriptor => descriptor !== null));
 }
+
 
 video.addEventListener("play", async () => {
   const labeledFaceDescriptors = await getLabeledFaceDescriptions();

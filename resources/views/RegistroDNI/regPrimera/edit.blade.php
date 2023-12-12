@@ -11,18 +11,10 @@
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('reg-primera.update', $registro->idRegistro) }}">
+                <form method="POST" action="{{ route('reg-primera.update', $registro->idRegistro) }}" enctype="multipart/form-data">
                     @method('PUT')
                     @csrf
                     <div class="form-row">
-                        <div class="col-4">
-                            <label class="control-label">Numero de Solicitud</label>
-                            <input name="idSolicitud" id="" class="form-control"
-                                value="{{ $solicitud->idSolicitud }}">
-                            @error('idSolicitud')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
                         <div class="col-4">
                             <label class="col-form-label">DNI</label>
                             <input name="DNI" id="" class="form-control" value="{{ $persona->DNI }}">
@@ -99,22 +91,6 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-4">
-                            <label class="col-form-label">Fecha de emision</label>
-                            <input name="fecha_emision" id="" class="form-control"
-                                value="{{ $registro->dniFechaEmision }}">
-                            @error('fecha_emision')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-4">
-                            <label class="col-form-label">Fecha de caducidad</label>
-                            <input name="fecha_caducidad" id="" class="form-control"
-                                value="{{ $registro->dniFechaCaducidad }}">
-                            @error('fecha_caducidad')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
                     </div>
                     <div class="form-row">
                         <div class="col-6">
@@ -126,7 +102,6 @@
                             @enderror
                             <img src="{{ $registro->file_foto }}" id="preview1" class="object-cover h-32 mt-2 w-60"
                                 height="400vh">
-
                         </div>
                         <div class="col-6">
                             <label class="control-label">Firma </label>

@@ -122,14 +122,14 @@ VALUES ("MesaPartes"),("Registrador"),("Administrador"),("Administrador de Siste
 Insert Into Persona
 (DNI, Apellido_Paterno , Apellido_Materno ,Nombres ,sexo ,estadocivil ,departamento,provincia,distrito,estado , direccion,fecha_nacimiento)
 values
-('11111111',"Baltodano","Sanchez","Maria Fernanda","F","Soltera","Lima","lima","Miraflores",1,"Hermanos Angulos 123",'1970-03-02'),
-('22222222','Villacorta','Sacristan','Rosario','F','Soltera',"La libertad","Trujillo","El porvenir",1,'Jose Olaya 123','1966-03-02'),
-('33333333','Montes','Geronimo','Jorge','F','Soltera',"Lima","lima","San isidro",1,'Garcilazo de la Vega 123','1980-03-02'),
-('44444444','Monzon','Zavaleta','Alfonso','M','Soltero',"Lima","lima","Surco",1,'Los Incas 123','1975-03-02'),
-('55555555','Rodriguez','Barrigas','Jose','M','Soltero',"Lima","lima","Santa Anita",1,'Los Incas 254','1971-03-02'),
-('66666666','Fernandez','Jurado','Pedro','M','Soltero',"Lima","lima","Chorrillos",1,'Los Incas 654','1972-03-02'),
-('77777777','Marco','Garcia','Miguel','M','Soltero',"La libertad","Trujillo","Florencia de Mora",1,'Jose Olaya 594','1973-03-02'),
-('88888888','Diaz','Festivo','Domingo','M','Soltero',"La libertad","Trujillo","Trujillo",1,'Jose Olata 789','1968-03-02');
+('11111111',"Baltodano","Sanchez","Maria Fernanda","F","Soltera","Lima","lima","Miraflores",1,"Hermanos Angulos 123",'2005-01-02'),
+('22222222','Villacorta','Sacristan','Rosario Jazmin','F','Soltera',"La libertad","Trujillo","El porvenir",1,'Jose Olaya 123','1966-07-02'),
+('33333333','Montes','Gonzales','Jorge Piter','F','Soltera',"Lima","lima","San isidro",1,'Garcilazo de la Vega 123','2006-03-02'),
+('44444444','Monzon','Zavaleta','Alfonso Luis','M','Soltero',"Lima","lima","Surco",1,'Los Incas 123 - calle florencio','2004-03-02'),
+('55555555','Rodriguez','Barrigas','Jose Luis','M','Soltero',"Lima","lima","Santa Anita",1,'Los Laureles 254 - Av. pumacahua','1971-09-02'),
+('66666666','Fernandez','Jurado','Pedro Beto','M','Soltero',"Lima","lima","Chorrillos",1,'Los Incas 654','2010-08-02'),
+('77777777','Marco','Garcia','Jose Miguel ','M','Soltero',"La libertad","Trujillo","Florencia de Mora MZ:D LT: 92",1,'Jose Olaya 594','1973-03-02'),
+('88888888','Diaz','Festivo','Diego Eduardo','M','Soltero',"La libertad","Trujillo","Trujillo",1,'Jose Olata 789','1990-11-02');
 
 -- Nuevas tablas
 create table TIPO_DNI(

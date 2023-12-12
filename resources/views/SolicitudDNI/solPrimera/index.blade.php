@@ -59,12 +59,12 @@
                                 <td>
                                     @if ($item->solEstado == 'Aceptado')
                                         <span class="badge font-size-10 bg-success"> {{ $item->solEstado }} </span>
-                                    @elseif ($item->solEstado == 'En Proceso')
+                                    @elseif ($item->solEstado == 'Pendiente')
                                         <span class="badge font-size-10 bg-warning"> {{ $item->solEstado }} </span>
                                     @elseif ($item->solEstado == 'Rechazado')
                                         <span class="badge font-size-10 bg-danger"> {{ $item->solEstado }} </span>
                                     @else
-                                        <span class="badge font-size-10 bg-secondary"> {{ $item->solEstado }} </span>
+                                        <span class="badge font-size-10 bg-warning"> {{ $item->solEstado }} </span>
                                     @endif
                                 </td>
                                 <td>

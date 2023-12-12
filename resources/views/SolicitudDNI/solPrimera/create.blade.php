@@ -22,13 +22,6 @@
                             @enderror
                         </div>
                         <div class="col-4">
-                            <label class="control-label">Nombre Solicitante (Titular)</label>
-                            <input name="solicitante" id="" class="form-control">
-                            @error('solicitante')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-4">
                             <label class="control-label">Codigo de recibo de servicio</label>
                             <input name="codigo_recibo" id="" class="form-control">
                             @error('codigo_recibo')
@@ -52,22 +45,18 @@
                         </div>
                         <div class="col-4">
                             <label class="control-label">Tipo de Solicitud</label>
-                            <input  id="" class="form-control" value="DNI AZUL Por Primera vez"  disabled>
+                            <input id="" class="form-control" value="DNI AZUL Por Primera vez" disabled>
                         </div>
                         <div class="col col-4">
                             <div class="row">
                                 <div class="col-12">
-                                    <div>
-                                        <input type="checkbox" id="idCheckEdad" disabled>
-                                        <label class="">Edad correcta para la solicitud (17-19)</label>
-                                    </div>
                                     <div>
                                         <input type="checkbox" name="valida_foto">
                                         <label for="">Adjunta foto actual</label>
                                     </div>
                                     <div>
                                         <input type="checkbox" name="valida_firma">
-                                        <label for="">Firma realizada</label>
+                                        <label for="">Adjunta Firma</label>
                                     </div>
                                 </div>
                             </div>
@@ -82,10 +71,10 @@
                 </form>
             </div>
             <div class="card-footer">
-                @if (session('notifica'))
+                @if (isset($notifica))
                     <div class="alert alert-warning alert-dismissible fade show mt-3 emergente" role="alert"
                         style="color: white; background-color: rgb(183, 178, 31)">
-                        {{ session('notifica') }}
+                        {{ $notifica }}
                     </div>
                 @endif
             </div>

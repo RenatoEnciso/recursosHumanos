@@ -11,16 +11,10 @@
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('reg-primera.store') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('reg-primera.storeValido',$registro->idRegistro) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-row">
-                        <div class="col-4">
-                            <label class="control-label">Numero de Solicitud</label>
-                            <input name="idSolicitud" id="" class="form-control" value="{{$solicitud->idSolicitud}}">
-                            @error('idSolicitud')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
+
                         <div class="col-4">
                             <label class="col-form-label">DNI</label>
                             <input name="DNI" id="" class="form-control" value="{{ $persona->DNI }}">
@@ -96,22 +90,6 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-4">
-                            <label class="col-form-label">Fecha de emision</label>
-                            <input name="fecha_emision" id="" class="form-control"
-                                type="date">
-                            @error('fecha_emision')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-4">
-                            <label class="col-form-label">Fecha de caducidad</label>
-                            <input name="fecha_caducidad" id="" class="form-control"
-                                type="date">
-                            @error('fecha_caducidad')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
                     </div>
                     <div class="form-row">
                         <div class="col-6">
@@ -137,7 +115,7 @@
                     </div>
                     <div class="d-flex flex-row justify-content-around">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>Registrar</button>
-                        <a href="{{ route('reg-primera.cancelarRegistro',$solicitud->idSolicitud) }}" class="btn btn-danger"><i
+                        <a href="{{ route('reg-primera.cancelar',$solicitud->idSolicitud) }}" class="btn btn-danger"><i
                                 class="fas fa-ban"></i>Cancelar</a>
                     </div>
                 </form>

@@ -132,10 +132,10 @@ Route::get('sol-primera/{id}/generar', [SolicitudPrimeraController::class,'gener
 Route::resource('reg-primera', RegistroPrimeraController::class);
 Route::resource('reg-duplicado', RegistroDuplicadoController::class);
 Route::resource('reg-renovado', RegistroRenovadoController::class);
-Route::get('reg-primera-create/{dni}', [RegistroPrimeraController::class,'createValido'])->name('reg-primera.createValido');
+Route::get('reg-primera-create/{idSolicitud}', [RegistroPrimeraController::class,'createValido'])->name('reg-primera.createValido');
+Route::post('reg-primera-store/{id}', [RegistroPrimeraController::class,'storeValido'])->name('reg-primera.storeValido');
 
 Route::get('reg-primera-cancelar', [RegistroPrimeraController::class,'cancelar'])->name('reg-primera.cancelar');
-Route::get('reg-primera-cancelar/{idSol}', [RegistroPrimeraController::class,'cancelarRegistro'])->name('reg-primera.cancelarRegistro');
 
 Route::get('reg-primera/{id}/revisar', [RegistroPrimeraController::class,'review'])->name('reg-primera.review');
 Route::put('reg-primera/{id}/revisar2', [RegistroPrimeraController::class,'review2'])->name('reg-primera.review2');

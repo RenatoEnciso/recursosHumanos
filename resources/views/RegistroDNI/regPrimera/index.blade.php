@@ -81,7 +81,7 @@
                         <th scope="col">Codigo</th>
                         <th scope="col">Nombres</th>
                         <th scope="col">Apellidos</th>
-                        <th scope="col">Fecha</th>
+                        <th scope="col">Fecha de Registro</th>
                         <th scope="col">Estado</th>
                         <th scope="col">Opciones</th>
                     </tr>
@@ -110,14 +110,6 @@
                                         class="btn btn-primary btn-sm"><i class="fa "></i> Editar</a>
                                     <a href="{{ route('reg-primera.dni', $item->idRegistro) }}"
                                         class="btn btn-primary btn-sm"><i class="fa "></i>Genera Dni</a>
-
-                                    {{-- @if ($item->pago == 0)
-                                        @else
-                                        <a href="{{ route('Solicitud.detalle',$item->idRegistro)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Detalle </a>
-                                        <a href="{{ route('Solicitud.comprobanteGenerado',$item->idRegistro)}}" class="btn btn-primary btn-sm"><i class="fa "></i> Generar Comprobante de Pago</a>
-                                        @endif 
-                                        <a href="{{ route('sol-primera.edit',$item->idRegistro) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
-                                        <a href="{{ route('sol-primera.confirmar',$item->idRegistro) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Eliminar</a> --}}
                                 </td>
                             </tr>
                         @endforeach

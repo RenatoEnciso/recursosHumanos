@@ -87,7 +87,7 @@ nombreDeclarante varchar(50),
 );
 
 
-CREATE TABLE ACTA_PERSONA(
+CREATE TABLE acta_persona(
   idActaPersona int AUTO_INCREMENT NOT NULL,
   idActa int NOT NULL,
   DNI  char(8) NOT NULL,

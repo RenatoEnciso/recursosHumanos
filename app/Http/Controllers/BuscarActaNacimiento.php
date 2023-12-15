@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Acta;
+use App\Models\Acta_Persona;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,7 +33,7 @@ class BuscarActaNacimiento extends Controller
                 'prenombres.required'=>'Ingresar los nombres'
             ]
         );
-        
+     
         $dato = DB::select("select * from persona as p
         inner join acta_persona as ap
         on p.dni=ap.dni

@@ -56,6 +56,6 @@ class BuscarActaNacimiento extends Controller
     }
     public function regresar()
     {
-        return view('auth.login');
+        return view('Externo.index');
     }
 }

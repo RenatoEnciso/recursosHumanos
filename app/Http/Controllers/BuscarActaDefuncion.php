@@ -52,6 +52,6 @@ class BuscarActaDefuncion extends Controller
 
   public function regresar()
   {
-      return view('auth.login');
+      return view('Externo.index');
   }
 }

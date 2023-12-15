@@ -28,10 +28,7 @@ use App\Http\Controllers\CargoController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\CeseController;
 use App\Http\Controllers\HoraExtraController;
-
-
-
-
+use App\Http\Controllers\SolicitudDNIController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\SolicitudDNIController;

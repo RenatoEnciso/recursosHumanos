@@ -39,17 +39,7 @@
                     </button>
                     </a>
                 @endif
-                <div class="btn-group">
-                    <button type="button" class="btn btn-success dropdown-toggle p-2" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Consulta Actas
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('ConsultaNacimiento') }}">Acta Nacimiento</a></li>
-                        <li><a class="dropdown-item" href="{{ route('ConsultaDefuncion') }}">Acta Defuncion</a></li>
-                        <li><a class="dropdown-item" href="{{ route('ConsultaMatrimonio') }}">Acta Matrimonio</a></li>
-                    </ul>
-                </div>
+                
     
                 <a href="{{route('solicitudDNI.inicio')}}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">
                 <button style="

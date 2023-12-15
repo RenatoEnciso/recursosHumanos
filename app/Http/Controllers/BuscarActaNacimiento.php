@@ -31,8 +31,7 @@ class BuscarActaNacimiento extends Controller
                 'prenombres.required'=>'Ingresar los nombres'
             ]
         );
-        return $request;
-
+        
         $dato = DB::select("select * from persona as p
         inner join acta_persona as ap
         on p.dni=ap.dni
@@ -49,7 +48,7 @@ class BuscarActaNacimiento extends Controller
             $success = 'Acta ubicada en RENIEC';
             return redirect()->route('ConsultaNacimiento')->with('success', $success);
         }
-
+ 
         $alert = "Acta no se encuentra, acercarse a registrar el acta de nacimiento";
         return redirect()->route('ConsultaNacimiento')->with('alert', $alert);
     }

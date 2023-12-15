@@ -91,12 +91,10 @@ class FichaController extends Controller
         $data=request()->validate([
             'fecha_registro'=>'required',
             'tipoFicha'=>'required',
-            'archivo_certificado'=>'required',
         ],
         [
             'tipoFicha.required'=>'Ingrese Observacion de la Acta de Nacimiento',
             'fecha_registro.required'=>'Ingrese una Fecha',
-            'archivo_certificado.required'=>'Ingrese el certificado',
         ]);
 
         $ficha=Ficha::findOrFail($id);
@@ -112,11 +110,21 @@ class FichaController extends Controller
 
     }
 
-    public function destroy($id){
-        $ficha=Ficha::findOrFail($id);
-        $ficha->delete();   //Elimina
-
-        return redirect()->route('Ficha.index')->with('datos','Registro Eliminado ...!');
+    public function destroy($id) {
+        try {
+            // Obtén la instancia de la ficha
+            $ficha = Ficha::findOrFail($id);
+    
+            // Elimina las filas relacionadas en la tabla acta
+            $ficha->acta()->delete();
+    
+            // Ahora, puedes eliminar la ficha
+            $ficha->delete();
+    
+            return redirect()->route('Ficha.index')->with('datos', 'Registro Eliminado ...!');
+        } catch (\Exception $e) {
+            return redirect()->route('Ficha.index')->with('error', 'Error al eliminar la ficha: ' . $e->getMessage());
+        }
     }
 
     public function confirmar($id){

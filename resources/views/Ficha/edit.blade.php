@@ -21,9 +21,11 @@
 
             <div class="col-8 form-group">
                 <label class="control-label">Tipo de Ficha</label>
-                <select name="tipoFicha" id="" class="form-control">
+                <select name="tipoFicha" id="" class="form-control" {{$ficha->estado == 'Aprobado' ? 'disabled' : ''}}>
                     @foreach ($tipoFichas as $item)
-                           <option value="{{ $item->idtipo }}" {{$item->idtipo==$ficha->idtipo?'selected':''}}>{{ $item->nombre }}</option> 
+                        <option value="{{ $item->idtipo }}" {{$item->idtipo == $ficha->idtipo ? 'selected' : ''}}>
+                            {{ $item->nombre }}
+                        </option>
                     @endforeach
                 </select>
             </div>
@@ -32,7 +34,7 @@
                 <label class="control-label">Certificado de NACIMIENTO /DEFUNCION / MATRIMONIO </label>
                 <input type="file" class="form-control @error('archivo_certificado') is-invalid @enderror"
                     placeholder="Ingrese certificado" id="archivo_certificado" name="archivo_certificado"
-                    value="{{$ficha->ruta_certificado}}" x-data="showImage()" @change="showPreview(event)" >
+                    value="{{ old('archivo_certificado') }}" x-data="showImage()" @change="showPreview(event)" >
 
                <iframe src="{{$ficha->ruta_certificado}}" id="preview" class="object-cover h-32 mt-2 w-60" height="400vh"> </iframe>
                     @error('archivo_certificado')

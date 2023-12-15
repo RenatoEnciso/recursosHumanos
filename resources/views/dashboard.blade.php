@@ -221,13 +221,13 @@
                                     </div>
                                 </li>
 
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a  href="{{route('Solicitud.index')}}">
                                         <i class="fas fa-id-card"></i>
                                         <p>Solicitud</p>
                                     </a>
 
-                                </li>
+                                </li> --}}
                      
                                     
                                 @endif

@@ -23,10 +23,6 @@
                     <h3 id="titulo"  class="card-title">LISTADO DE USUARIOS</h3>
                 </div>
                 <div class="card-body">
-
-                
-
-
                 <div id="mensaje">
                     @if (session('datos'))
                     <div class="alert alert-warning alert-dismissible fade show mt-3 emergente" role="alert" style="color: white; background-color: rgb(183, 178, 31)" >

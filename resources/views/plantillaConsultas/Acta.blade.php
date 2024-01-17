@@ -12,7 +12,12 @@
          crossorigin="anonymous">
     </script>
 </head>
-
+<style>
+    body {
+      padding-bottom: 100px; /* Ajusta este valor según la altura del footer */
+    }
+  </style>
+  
 <body>
     <nav class="navbar bg " data-bs-theme="dark" style="background: #004370;">
         <div class="container-fluid d-inline">
@@ -38,7 +43,7 @@
         </div>
     </nav>
 
-    <div class="container border mx-auto my-4" style="width:700px;">
+    <div class="container border mx-auto my-4" style="max-width: 700px; width: 100%; min-height: 400px;">
         @yield('cuerpo')
 
 
@@ -59,9 +64,9 @@
     </div>
 
 
-    <footer class="text-white text-center" style="background-color: #7E0047;">
+    <footer class="text-white text-center" style="background-color: #7E0047; position: fixed; bottom: 0; width: 100%; ">
         <!-- Grid container -->
-        <div class="container p-4"></div>
+        <div class="container p-4 d-flex flex-column"  ></div>
         <!-- Grid container -->
 
         <!-- Copyright -->

@@ -98,7 +98,6 @@ require __DIR__.'/auth.php';
     //HUELLAS
     Route::get('consulta_huella', [HuellaController::class,'index'])->name('ConsultaHuella');
     Route::post('validar_huella',[HuellaController::class,'search'])->name('SearchHuella');
-    Route::post('detalles_huella',[HuellaController::class,'search'])->name('detalleshHuella');
     //CONSULADO
     Route::get('consulta_consulado', [ConsuladoController::class,'index'])->name('ConsultaConsulado');
     Route::post('validar_consulado',[ConsuladoController::class,'search'])->name('SearchConsulado');

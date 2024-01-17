@@ -213,10 +213,12 @@ alter table Registro_DNI
   ADD FOREIGN KEY (idTipoDni) REFERENCES TIPO_DNI(idTipoDni);
 
 -- Insercion de datos
-  --Mano
-Insert Into Mano(ladoMano) 
-values('Izquierda'),('Derecha');
-  -- Huellas
+
+
+Insert Into Mano(ladoMano) values("Izquierda"),("Derecha");
+
+-- Huellas
+
 Insert Into HUELLA( nombreHuella, idMano ) 
 values ('Pulgar',1),('Indice',1),('Medio',1),('Anular',1),('Meñique',1),
 ('Pulgar',2),('Indice',2),('Medio',2),('Anular',2),('Meñique',2);

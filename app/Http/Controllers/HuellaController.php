@@ -18,13 +18,13 @@ class HuellaController extends Controller
     public function search(Request $request)
     {
         //return $request;
-
+        $mensaje='vacio';
         $response= Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify',[
             'secret'=>'6Lfn6lIpAAAAANEofGmAPHmKU_VXrXSs6MkucMQa',
             'response'=>$request->input('g-recaptcha-response')
         ])->object();
 
-        if($response->success && $response->score >=0.5){
+        // if($response->success && $response->score >=0.5){
             
             $this->validate(
                 $request,
@@ -32,45 +32,81 @@ class HuellaController extends Controller
                     'dni' => 'required|numeric'
                 ],
                 [
-                   'dni.required'=>'Ingresar el año',
+                   'dni.required'=>'Ingresar datos',
                    'dni.numeric'=>'Ingresar solo numeros' ,
                 ]
             );
 
             // Huella Izquierda
-        $huellaIzquierda = DB::select("select max(hp.calidadHuella), p.* from persona, h.* as p
-        inner join huella_persona as hp
-        on p.dni=hp.dni
-        inner join huella as h
-        on h.idHuella=hp.idHuella
-        where p.dni=$request->dni 
-        and h.idMano=1
+        $huellaIzquierda = DB::select(
+        "select max(hp.calidadHuella) as MejorHuella, 
+        p.DNI,
+        p.Apellido_Paterno,
+        p.Apellido_Materno,
+        h.idMano,
+        h.nombreHuella
+        from persona as p
+                inner join huella_persona as hp
+                on p.dni=hp.idHuellaPersona
+                inner join huella as h
+                on h.idHuella=hp.idHuella
+                where p.dni='$request->dni'
+                and h.idMano=1
+                group by p.DNI,
+        p.Apellido_Paterno,
+        p.Apellido_Materno,
+        h.idMano,
+        h.nombreHuella
         ");
-
+        
             // Huella derecha
-        $huellaDerecha = DB::select("select max(hp.calidadHuella), p.* , h.* from persona as p
-            inner join huella_persona as hp
-            on p.dni=hp.dni
-            inner join huella as h
-            on h.idHuella=hp.idHuella
-            where p.dni=$request->dni 
-            and h.idMano=2
+        $huellaDerecha = DB::select("select max(hp.calidadHuella) as MejorHuella, 
+        p.DNI,
+        p.Apellido_Paterno,
+        p.Apellido_Materno,
+        h.idMano,
+        h.nombreHuella
+        from persona as p
+                inner join huella_persona as hp
+                on p.dni=hp.idHuellaPersona
+                inner join huella as h
+                on h.idHuella=hp.idHuella
+                where p.dni='$request->dni'
+                and h.idMano=2
+                group by p.DNI,
+        p.Apellido_Paterno,
+        p.Apellido_Materno,
+        h.idMano,
+        h.nombreHuella
             ");
 
         $datos= array("huellaDerecha"=>$huellaDerecha,"huellaIzquierda"=>$huellaIzquierda);
-
-        if ($datos) {
-            $success = 'Consulta Exitosa';
-            return redirect()->route('ConsultaHuella')->with('success', $success);
+        
+        if ($huellaDerecha) {
+            $mensaje = 'Consulta Exitosa';
+            $data=[
+                'success'=>$mensaje,
+                'datos'=>$datos
+            ];
+            
+            
+          //  return $data;
+            return view('SubSistemaConsultas.ConsultaHuella.detallesHuellas')->with('data',$data);
         }
-
-        $alert = "ERROR no se encotraron sus huella, dirijase a RENIEC";
-        return redirect()->route('ConsultaHuella')->with('alert', $alert);
+        $mensaje = "AVISO";
+        $data=[
+            'success'=>$mensaje,
+            'datos'=>$datos
+        ];
+        
+       
+        
+        return view('SubSistemaConsultas.ConsultaHuella.detallesHuellas')->with('data',$data);
             
 
-        }else{
-            return 'el usuario es un bot';
-        }   
+        //  }else{
+        //      return 'el usuario es un bot';
+        //  }   
      
 
       
@@ -79,6 +115,10 @@ class HuellaController extends Controller
     public function regresar()
     {
         return view('Externo.index');
+    }
+
+    public function detallesHuellas(){
+        return view('SubSistemaConsultas.ConsultaHuella.detallesHuellas');
     }
 
 

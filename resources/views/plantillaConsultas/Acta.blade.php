@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> @yield('titulo')</title>
+    @yield('script')
     <link href="{{asset('/css/bootstrap.min.css')}}" rel="stylesheet"
          crossorigin="anonymous">
     <script src="{{asset('/js/bootstrap.bundle.min.js')}}"

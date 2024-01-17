@@ -27,7 +27,9 @@ use App\Http\Controllers\CargoController;
 
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\CeseController;
+use App\Http\Controllers\ConsuladoController;
 use App\Http\Controllers\HoraExtraController;
+use App\Http\Controllers\HuellaController;
 use App\Http\Controllers\SolicitudDNIController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
@@ -93,6 +95,14 @@ require __DIR__.'/auth.php';
     //ACTAMATRIMONIO
     Route::get('consulta_matrimonio', [BuscarActaMatrimonio::class,'index'])->name('ConsultaMatrimonio');
     Route::post('validar_matrimonio',[BuscarActaMatrimonio::class,'search'])->name('SearchMatrimonio');
+    //HUELLAS
+    Route::get('consulta_huella', [HuellaController::class,'index'])->name('ConsultaHuella');
+    Route::post('validar_huella',[HuellaController::class,'search'])->name('SearchHuella');
+    Route::post('detalles_huella',[HuellaController::class,'search'])->name('detalleshHuella');
+    //CONSULADO
+    Route::get('consulta_consulado', [ConsuladoController::class,'index'])->name('ConsultaConsulado');
+    Route::post('validar_consulado',[ConsuladoController::class,'search'])->name('SearchConsulado');
+    
     //Salir de Acta
     Route::get('regresar',[BuscarActaDefuncion::class,'regresar'])->name('regresar');
 

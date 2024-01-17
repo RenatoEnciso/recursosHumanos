@@ -18,6 +18,27 @@ CREATE TABLE persona (
   direccion varchar(50),
   fecha_nacimiento date
 );
+create table Mano(
+  idMano int primary key AUTO_INCREMENT,
+  ladoMano varchar(30)
+);
+
+CREATE TABLE HUELLA(
+  idHuella int primary key AUTO_INCREMENT,
+  nombreHuella varchar(50),
+  idMano int,
+  foreign key (idMano) references Mano(idMano)
+);
+
+CREATE TABLE HUELLA_PERSONA(
+  idHuellaPersona int primary key AUTO_INCREMENT,
+  idPersona char(8),
+  idHuella int,
+  calidadHuella float,
+  rutaHuella varchar(255),
+  foreign key (idPersona) references Persona(DNI),
+  foreign key (idHuella) references HUELLA(idHuella)
+);
 
 create table tipoFicha(
   idtipo int AUTO_INCREMENT not null PRIMARY KEY,
@@ -190,3 +211,12 @@ alter table Registro_DNI
   ADD FOREIGN KEY (DNI) REFERENCES Persona(DNI),
   ADD FOREIGN KEY(idSolicitudDNI) REFERENCES SOLICITUD_DNI(idSolicitud),
   ADD FOREIGN KEY (idTipoDni) REFERENCES TIPO_DNI(idTipoDni);
+
+-- Insercion de datos
+  --Mano
+Insert Into Mano(ladoMano) 
+values('Izquierda'),('Derecha');
+  -- Huellas
+Insert Into HUELLA( nombreHuella, idMano ) 
+values ('Pulgar',1),('Indice',1),('Medio',1),('Anular',1),('Meñique',1),
+('Pulgar',2),('Indice',2),('Medio',2),('Anular',2),('Meñique',2);

@@ -74,7 +74,7 @@
                                                     </div> 
                                                     <div class="col-auto">
                                                         <label class="control-label">Nombres</label>
-                                                <input type="text" value="{{$actaNacimiento->nombres}}" class="form-control @error('nombres') is-invalid @enderror" 
+                                                <input type="text" value="{{$nacido->Nombres}}" class="form-control @error('nombres') is-invalid @enderror" 
                                                     placeholder="Ingrese nombres" name="nombres">
                                                 @error('nombres')
                                                 <span class="invalid feedback" role="alert">

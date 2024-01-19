@@ -72,8 +72,7 @@ class ActaNacimientoController extends Controller
          //-----------------------
         // persona niño
         $persona=new Persona();
-        $n=strlen($request->idacta);
-        $dni_niño=(String)str_pad($request->idacta,9-$n,"0",STR_PAD_RIGHT);
+        $dni_niño=str_pad((string) random_int(1, 99999999), 8, '0', STR_PAD_LEFT);
         $persona->DNI=$dni_niño;
         $persona->Apellido_Paterno=$personaP->Apellido_Paterno;
         $persona->Apellido_Materno=$personaM->Apellido_Paterno;
@@ -126,12 +125,14 @@ class ActaNacimientoController extends Controller
         $ActaPersona->DNI=$dniPadre;
         $ActaPersona->idActa=$Acta->idActa;
         $ActaPersona->estado='1';
+        $ActaPersona->funcion='Padre';
         $ActaPersona->save();
         ///
         $ActaPersona1=new Acta_Persona();
         $ActaPersona1->DNI=$dniMadre;
         $ActaPersona1->idActa=$Acta->idActa;
         $ActaPersona1->estado='1';
+        $ActaPersona1->funcion='Madre';
         $ActaPersona1->save();
         
         //
@@ -139,8 +140,8 @@ class ActaNacimientoController extends Controller
         $ActaPersona2->DNI=$dni_niño;
         $ActaPersona2->idActa=$Acta->idActa;
         $ActaPersona2->estado='1';
+        $ActaPersona2->funcion='Nacido';
         $ActaPersona2->save();
-
 
         
         return redirect()->route('ActaNacimiento.index')->with('datos','Registro Nuevo Guardado ...!');
@@ -154,8 +155,12 @@ class ActaNacimientoController extends Controller
            
             // $acta=Acta_Persona::findOrFail($actaNacimiento->idActa);
              $personas = Persona::all();
+             $acta_nacido = Acta_Persona::where('funcion', '=', 'nacido')->where('idActa', '=', $id)->first();
+
+             // Obtén las personas que tienen esos DNIs
+             $nacido = Persona::where('DNI', '=', $acta_nacido->DNI)->first();
            //$fichasP = Ficha::all()->where('estado', 'Pendiente');
-            return view('ActaNacimiento.edit',compact('actaNacimiento','personas'));
+            return view('ActaNacimiento.edit',compact('actaNacimiento','personas','nacido'));
         // }else{
         //     return redirect()->route('ActaNacimiento.index')->with('datos','..::No tiene Acceso ..::');
         // }
@@ -255,45 +260,12 @@ class ActaNacimientoController extends Controller
     }
 
     public function destroy($id){
-        $actanacido=Actanacimiento::findOrFail($id);
-        $actanacido->estado=0;
+        Acta_Persona::where('idActa', $id)->update(['estado' => 0]);
         $acta=Acta::findOrFail($id);
-        $acta->estado=0;
-    //     $acta->delete();
-    //     DB::beginTransaction();
-    //     try{
-    //        //Actanacimiento
-    //     $actanacido=Actanacimiento::findOrFail($id);
-    //     $nombres=$actanacido->nombres;
-    //     $personanacida=DB::select('Select * from Persona as p WHERE concat( p.Nombres," ",p.Apellido_Paterno," ",p.Apellido_Materno) like "%'."$nombres".'%"');
-    //     $actanacido->delete();
-
-    //     //Acta_Persona
-    //     $actaPersona=DB::delete('delete from acta_persona where idActa='.$id);
-    //    // $actaPersona->delete();
-        
-    //     //Acta
-        
-    //     $acta=Acta::findOrFail($id);
-    //     $acta->delete();
-
-    //     //Persona 
-    //     //return $personanacida[0]->DNI;
-    //     $persona=Persona::findOrFail($personanacida[0]->DNI);
-    //     $persona->delete();
-
-    //     DB::commit();
+        $acta->estado='0';
+        $acta->save();
 
         return redirect()->route('ActaNacimiento.index')->with('datos','Registro Eliminado ...!');
-    
-
-        // } catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e){
-        //     DB::rollBack();
-        //     return redirect()->route('ActaNacimiento.confirmar',$id)->with('datos','Ocurrio un Error al Eliminar'.' '.$e);
-    
-        // }
-        
-        
     }
 
     public function confirmar($id){

@@ -13,7 +13,6 @@
             <input type="text" placeholder="Buscar por apellido" class="form-control" value="{{$buscarpor}}" name="buscarpor" >
         </div>
     </form>
-
 </div>
 @endsection
 @section('Notificacion')

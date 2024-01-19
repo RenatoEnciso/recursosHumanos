@@ -18,7 +18,7 @@
             <h1 id="titulo" style="margin-left:10px ">RENIEC</h1>
         </div>
         <div style="display: inline-block; float: right; text-align: center; border: solid black; border-radius:10px; padding: 10px 20px; font-size: 150%" >
-            Comprobante de Pago <br>
+            Orden de pago <br>
             N° {{$solicitud->idSolicitud}}
         </div><br>
         <span style="font-family: 200%; margin-top: 50px"> <b style="margin-left: 8px">DATOS GENERALES</b></span>
@@ -35,8 +35,7 @@
                     <th class="celda">Fecha de Registro</th>
                     <th class="celda">Observacion</th>
                     <th class="celda">Tipo de Acta</th>
-                    <th class="celda">Estado</th>
-                    <th class="celda">Fecha de Pago</th>
+                    <th class="celda">Importe</th>
                 </tr>
                 @foreach ($solicitud->Lista_Solicitud as $item)
                     <tr>
@@ -44,8 +43,7 @@
                         <td class="celda">{{$item->Acta->fecha_registro}}</td>
                         <td class="celda">{{$item->Acta->observacion}}</td>
                         <td class="celda">{{$item->Acta->TipoActa->nombre}}</td>
-                        <td class="celda">Pagado</td>
-                        <td class="celda">{{$item->Acta->fecha_registro}}</td>
+                        <td class="celda">S/12</td>
                     </tr>
                 @endforeach
             </table>

@@ -4,7 +4,7 @@
 @section('cuerpo')
     <form action="{{ route('SearchNacimiento') }}" method="post" class="px-5 py-2">
         @csrf
-
+ 
         <div>
             <img src="{{ asset('images/nacimiento.png') }}" alt="defuncion" width="100px" class="img-fluid d-block mx-auto">
         </div>

@@ -67,7 +67,7 @@ class SolicitudController extends Controller
                 $Solicitud->observacion=$request->observacion;
                 $Solicitud->DNISolicitante= $request->DNISolicitante;
                 $Solicitud->estado= 1;
-                $Solicitud->pago= 0;
+                $Solicitud->estadoPago= "Pendiente";
                 $Solicitud->save();
 
                 //Guardamos en la lista de solicitudes
@@ -81,7 +81,7 @@ class SolicitudController extends Controller
     }
 
     public function edit($id){
-        if (Auth::user()->rol=='Administrativo'){ //boton editar
+        if (Auth::user()->rol->nombreRol=='MesaPartes'){ //boton editar
             $Solicitud= Solicitud::findOrFail($id);
             $Lista_Solicitud=Lista_Solicitud::select('*')
             ->where('idSolicitud','=',$id)->get();
@@ -167,14 +167,14 @@ class SolicitudController extends Controller
     }
 
     public function OrdenGenerado($id){
-        if (Auth::user()->rol=='Recepcionista'){   //boton generar orden
+        if (Auth::user()->rol->nombreRol=='MesaPartes'){   //boton generar orden
             $solicitud=Solicitud::findOrFail($id);
             $fecha = date('Y-m-d');
             $data = compact('solicitud','fecha');
             $pdf = Pdf::loadView('Solicitud.ordenDePago', $data);
             return $pdf->download('OrdenDePagoGenerada.pdf');
         }else{
-            return redirect()->route('Solicitud.index')->with('datos','..::No tiene Acceso solo el Recepcionista ..::');
+            return redirect()->route('Solicitud.index')->with('datos','..::No tiene Acceso solo puede acceder Mesa de Partes ..::');
         }
     }
 
@@ -184,7 +184,6 @@ class SolicitudController extends Controller
         $fecha = date('Y-m-d');
         $data = compact('solicitud','fecha');
         $pdf = Pdf::loadView('Solicitud.ComprobantePago', $data);
-
 
         return $pdf->download('ComprobanteDePagoGenerada.pdf');
 
@@ -197,7 +196,7 @@ class SolicitudController extends Controller
 
             // $archivo=$request->file('archivo')->store('PagosRealizados','public');
             // $url = Storage::url($archivo);
-            $Solicitud->pago=1;
+            $Solicitud->estadoPago="Pagado";
         }
 
         $Solicitud->save();
@@ -205,7 +204,7 @@ class SolicitudController extends Controller
     }
 
     public function ingresarPago($id){
-        if (Auth::user()->rol=='Cajero'){   //Registrar orden de pago
+        if (Auth::user()->rol->nombreRol=='MesaPartes'){   //Registrar orden de pago
             $Solicitud= Solicitud::findOrFail($id);
             $Lista_Solicitud=Lista_Solicitud::select('*')
             ->where('idSolicitud','=',$id)->get();

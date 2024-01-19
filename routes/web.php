@@ -27,20 +27,24 @@ use App\Http\Controllers\CargoController;
 
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\CeseController;
+use App\Http\Controllers\ConsuladoController;
 use App\Http\Controllers\HoraExtraController;
+
 use App\Http\Controllers\PagoController;
 
-
-
-
+use App\Http\Controllers\HuellaController;
+use App\Http\Controllers\SolicitudDNIController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\SolicitudDNIController;
 
-
 // use App\Http\Controllers\SolicitudDNIController;
-
-
+use App\Http\Controllers\SolicitudDuplicadoController;
+use App\Http\Controllers\SolicitudPrimeraController;
+use App\Http\Controllers\SolicitudRenovadoController;
+use App\Http\Controllers\RegistroDuplicadoController;
+use App\Http\Controllers\RegistroRenovadoController;
+use App\Http\Controllers\RegistroPrimeraController;
 //borrar
 use App\Models\User;
 // Route::get('/', function () {
@@ -94,6 +98,13 @@ require __DIR__.'/auth.php';
     //ACTAMATRIMONIO
     Route::get('consulta_matrimonio', [BuscarActaMatrimonio::class,'index'])->name('ConsultaMatrimonio');
     Route::post('validar_matrimonio',[BuscarActaMatrimonio::class,'search'])->name('SearchMatrimonio');
+    //HUELLAS
+    Route::get('consulta_huella', [HuellaController::class,'index'])->name('ConsultaHuella');
+    Route::post('validar_huella',[HuellaController::class,'search'])->name('SearchHuella');
+    //CONSULADO
+    Route::get('consulta_consulado', [ConsuladoController::class,'index'])->name('ConsultaConsulado');
+    Route::post('validar_consulado',[ConsuladoController::class,'search'])->name('SearchConsulado');
+    
     //Salir de Acta
     Route::get('regresar',[BuscarActaDefuncion::class,'regresar'])->name('regresar');
 
@@ -174,14 +185,6 @@ Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('So
 //REPORTES
 Route::get('Reporte/Crear', [ReporteController::class, 'create'])->name('reporte.create');
 Route::get('Reporte/PDF/', [ReporteController::class,'generarPDF'])->name('reporte.generarPDF');
-
-
-  //SOLICITUD DNI
-Route::resource('solicitud-dni', SolicitudDNIController::class); 
-Route::get('solicitud-dni-cancelar', [SolicitudDNIController::class,'cancelar'])->name('solicitud-dni.cancelar');
-Route::get('form-validacion', [SolicitudDNIController::class,'inicio'])->name('solicitudDNI.inicio');
-Route::post('valida-datos', [SolicitudDNIController::class,'validar'])->name('solicitudDNI.validar');
-
 
 //1 Sprint Gestion Personal
 
@@ -267,4 +270,30 @@ Route::get('Confirmar{id}/Pago', [PagoController::class,'confirmar'])->name('Pag
 Route::get('PagoCancelar',[PagoController::class,'cancelar'])->name('Pago.cancelar');
 Route::get('CreateP{id}/Pago', [PagoController::class,'createP'])->name('Pago.createP');
 
+
+//SOLICITUD DNI
+Route::resource('sol-primera', SolicitudPrimeraController::class);
+Route::resource('sol-duplicado', SolicitudDuplicadoController::class);
+Route::resource('sol-renovado', SolicitudRenovadoController::class);
+
+Route::get('sol-primera-cancelar', [SolicitudPrimeraController::class,'cancelar'])->name('sol-primera.cancelar');
+Route::get('sol-primera/{id}/revisar', [SolicitudPrimeraController::class,'review'])->name('sol-primera.review');
+Route::put('sol-primera/{id}/revisar2', [SolicitudPrimeraController::class,'review2'])->name('sol-primera.review2');
+Route::get('sol-primera/{id}/generar', [SolicitudPrimeraController::class,'generaPdf'])->name('sol-primera.dni');
+//Registro
+Route::resource('reg-primera', RegistroPrimeraController::class);
+Route::resource('reg-duplicado', RegistroDuplicadoController::class);
+Route::resource('reg-renovado', RegistroRenovadoController::class);
+Route::get('reg-primera-create/{idSolicitud}', [RegistroPrimeraController::class,'createValido'])->name('reg-primera.createValido');
+Route::post('reg-primera-store/{id}', [RegistroPrimeraController::class,'storeValido'])->name('reg-primera.storeValido');
+
+Route::get('reg-primera-cancelar', [RegistroPrimeraController::class,'cancelar'])->name('reg-primera.cancelar');
+
+Route::get('reg-primera/{id}/revisar', [RegistroPrimeraController::class,'review'])->name('reg-primera.review');
+Route::put('reg-primera/{id}/revisar2', [RegistroPrimeraController::class,'review2'])->name('reg-primera.review2');
+Route::get('reg-primera/{id}/generar', [RegistroPrimeraController::class,'generaPdf'])->name('reg-primera.dni');
+
+//otros
+Route::get('form-validacion', [SolicitudDNIController::class,'inicio'])->name('solicitudDNI.inicio');
+Route::post('valida-datos', [SolicitudDNIController::class,'validar'])->name('solicitudDNI.validar');
 

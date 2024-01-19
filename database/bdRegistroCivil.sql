@@ -18,6 +18,27 @@ CREATE TABLE persona (
   direccion varchar(50),
   fecha_nacimiento date
 );
+create table Mano(
+  idMano int primary key AUTO_INCREMENT,
+  ladoMano varchar(30)
+);
+
+CREATE TABLE HUELLA(
+  idHuella int primary key AUTO_INCREMENT,
+  nombreHuella varchar(50),
+  idMano int,
+  foreign key (idMano) references Mano(idMano)
+);
+
+CREATE TABLE HUELLA_PERSONA(
+  idHuellaPersona int primary key AUTO_INCREMENT,
+  idPersona char(8),
+  idHuella int,
+  calidadHuella float,
+  rutaHuella varchar(255),
+  foreign key (idPersona) references Persona(DNI),
+  foreign key (idHuella) references HUELLA(idHuella)
+);
 
 create table tipoFicha(
   idtipo int AUTO_INCREMENT not null PRIMARY KEY,
@@ -87,7 +108,7 @@ nombreDeclarante varchar(50),
 );
 
 
-CREATE TABLE ACTA_PERSONA(
+CREATE TABLE acta_persona(
   idActaPersona int AUTO_INCREMENT NOT NULL,
   idActa int NOT NULL,
   DNI  char(8) NOT NULL,
@@ -104,8 +125,8 @@ CREATE TABLE SOLICITUD (
   fechaSolicitud DATE ,
   horaSolicitud TIME , 
   observacion VARCHAR(30),
+  estadoPago VARCHAR(9) not null,
   estado TINYINT not null,
-  pago longtext,
   PRIMARY KEY (idSolicitud),
   FOREIGN KEY (DNISolicitante) REFERENCES persona(DNI)
 );
@@ -122,14 +143,14 @@ CREATE TABLE LISTA_SOLICITUD (
 Insert Into Persona
 (DNI, Apellido_Paterno , Apellido_Materno ,Nombres ,sexo ,estadocivil ,departamento,provincia,distrito,estado , direccion,fecha_nacimiento)
 values
-('11111111',"Baltodano","Sanchez","Maria Fernanda","F","Soltera","Lima","lima","Miraflores",1,"Hermanos Angulos 123",'1970-03-02'),
-('22222222','Villacorta','Sacristan','Rosario','F','Soltera',"La libertad","Trujillo","El porvenir",1,'Jose Olaya 123','1966-03-02'),
-('33333333','Montes','Geronimo','Jorge','F','Soltera',"Lima","lima","San isidro",1,'Garcilazo de la Vega 123','1980-03-02'),
-('44444444','Monzon','Zavaleta','Alfonso','M','Soltero',"Lima","lima","Surco",1,'Los Incas 123','1975-03-02'),
-('55555555','Rodriguez','Barrigas','Jose','M','Soltero',"Lima","lima","Santa Anita",1,'Los Incas 254','1971-03-02'),
-('66666666','Fernandez','Jurado','Pedro','M','Soltero',"Lima","lima","Chorrillos",1,'Los Incas 654','1972-03-02'),
-('77777777','Marco','Garcia','Miguel','M','Soltero',"La libertad","Trujillo","Florencia de Mora",1,'Jose Olaya 594','1973-03-02'),
-('88888888','Diaz','Festivo','Domingo','M','Soltero',"La libertad","Trujillo","Trujillo",1,'Jose Olata 789','1968-03-02');
+('11111111',"Baltodano","Sanchez","Maria Fernanda","F","Soltera","Lima","lima","Miraflores",1,"Hermanos Angulos 123",'2005-01-02'),
+('22222222','Villacorta','Sacristan','Rosario Jazmin','F','Soltera',"La libertad","Trujillo","El porvenir",1,'Jose Olaya 123','1966-07-02'),
+('33333333','Montes','Gonzales','Jorge Piter','F','Soltera',"Lima","lima","San isidro",1,'Garcilazo de la Vega 123','2006-03-02'),
+('44444444','Monzon','Zavaleta','Alfonso Luis','M','Soltero',"Lima","lima","Surco",1,'Los Incas 123 - calle florencio','2004-03-02'),
+('55555555','Rodriguez','Barrigas','Jose Luis','M','Soltero',"Lima","lima","Santa Anita",1,'Los Laureles 254 - Av. pumacahua','1971-09-02'),
+('66666666','Fernandez','Jurado','Pedro Beto','M','Soltero',"Lima","lima","Chorrillos",1,'Los Incas 654','2010-08-02'),
+('77777777','Marco','Garcia','Jose Miguel ','M','Soltero',"La libertad","Trujillo","Florencia de Mora MZ:D LT: 92",1,'Jose Olaya 594','1973-03-02'),
+('88888888','Diaz','Festivo','Diego Eduardo','M','Soltero',"La libertad","Trujillo","Trujillo",1,'Jose Olata 789','1990-11-02');
 
 -- Nuevas tablas
 create table TIPO_DNI(
@@ -149,40 +170,55 @@ INSERT INTO TIPO_SOLICITUD_DNI(tipoSolicitud) VALUES ("Primera Vez"),("Duplicado
 
 
 CREATE TABLE SOLICITUD_DNI(
-  idSolicitud    int AUTO_INCREMENT PRIMARY KEY,
-  idTipoSolicitud   int NOT NULL,
-  DNI             char(8) NOT NULL,
-  file_foto       varchar(255),
-  valida_foto      TINYINT(1),
-  file_voucher    varchar(255),
-  valida_voucher    TINYINT(1),
-  cod_servicio_agua   varchar(20),
-  cod_servicio_luz   varchar(20),
-  solMotivo      varchar(250),
-  solEstado          TINYINT,
+  idSolicitud         int AUTO_INCREMENT PRIMARY KEY,
+  idTipoSolicitud     int NOT NULL,
+  DNI_Titular         char(8) NOT NULL,
+  nombre_solicitante  varchar(50),
+  valida_foto         TINYINT(1),
+  valida_firma        TINYINT(1),
+  codigo_voucher      varchar(15),
+  codigo_recibo       varchar(15),
+  solMotivo           varchar(250),
+  fechaEnvioReg       datetime,
+  fechaRespuestaReg   datetime,
+  solEstado           TINYINT,
   solFecha            datetime
 );
 
 alter table SOLICITUD_DNI
   ADD FOREIGN KEY (idTipoSolicitud) REFERENCES TIPO_SOLICITUD_DNI(idTipoSolicitud),
-  ADD FOREIGN KEY (DNI) REFERENCES Persona(DNI);
+  ADD FOREIGN KEY (DNI_Titular) REFERENCES Persona(DNI);
 
 ALTER TABLE SOLICITUD_DNI
   MODIFY COLUMN solEstado ENUM('Pendiente', 'En Proceso', 'Aceptado', 'Rechazado', 'Entregado') NOT NULL DEFAULT 'Pendiente';
 
 
-CREATE TABLE DNI(
-  DNI                   char(8) PRIMARY KEY,
+CREATE TABLE Registro_DNI(
+  idRegistro            int AUTO_INCREMENT PRIMARY KEY,
+  idSolicitudDNI        INT NOT NULL,
+  DNI                   char(8) NOT NULL,
   idTipoDni             int NOT NULL,
-  dniFechaInscripcion   datetime,
+  file_foto             varchar(255),
+  file_firma            varchar(255),
+  direccion             varchar(100),
   dniFechaEmision       datetime,
   dniFechaCaducidad     datetime,
-  dniEstado             TINYINT(1)
+  regFecha              datetime,
+  regEstado             TINYINT(1)
 );
 
-alter table DNI
+alter table Registro_DNI
   ADD FOREIGN KEY (DNI) REFERENCES Persona(DNI),
+  ADD FOREIGN KEY(idSolicitudDNI) REFERENCES SOLICITUD_DNI(idSolicitud),
   ADD FOREIGN KEY (idTipoDni) REFERENCES TIPO_DNI(idTipoDni);
 
+-- Insercion de datos
 
 
+Insert Into Mano(ladoMano) values("Izquierda"),("Derecha");
+
+-- Huellas
+
+Insert Into HUELLA( nombreHuella, idMano ) 
+values ('Pulgar',1),('Indice',1),('Medio',1),('Anular',1),('Meñique',1),
+('Pulgar',2),('Indice',2),('Medio',2),('Anular',2),('Meñique',2);

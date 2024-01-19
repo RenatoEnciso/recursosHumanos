@@ -452,14 +452,20 @@
                                 </li>
                             @endif
 
-                            @if (Auth::user()->idRol < 4)
+                            {{-- @if (Auth::user()->idRol < 4) --}}
                                 <li class="nav-item">
-                                    {{-- <a  href="{{route('reporte.create')}}">
+                                    <a  href="{{route('Pago.index')}}">
                                         <i class="fas fa-id-card"></i>
-                                        <p>Reportes</p>
-                                    </a> --}}
+                                        <p>PAGO</p>
+                                    </a>
                                 </li>
-                            @endif
+                                <li class="nav-item">
+                                    <a  href="{{route('Trabajador.index')}}">
+                                        <i class="fas fa-id-card"></i>
+                                        <p>Trabajador</p>
+                                    </a>
+                                </li>
+                            {{-- @endif --}}
                         </ul>
 
                     </div>

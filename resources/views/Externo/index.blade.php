@@ -59,16 +59,6 @@
                         <br>
                     </ul>
                 </li>
-                <li class="nav__items">
-                    <a href="{{route('ConsultaHuella')}}" class="nav__links">Consulta mejores huellas</a>
-                </li>
-
-                <li class="nav__items">
-                    <a href="{{route('ConsultaConsulado')}}" class="nav__links">Consulta  tramites de consulados</a>
-                </li>
-                
-
-
                 
                 <li class="nav__items">
                     <a href="/login" class="nav__links">Ingresar</a>

@@ -61,7 +61,7 @@
                                     <td>{{$item->estadoPago}}</td>
                                     <td>
                                         <br>
-                                        @if ($item->pago==0)
+                                        @if ($item->estadoPago=="Pendiente")
                                             <a href="{{ route('Solicitud.archivoGenerado',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa "></i> Generar Orden</a>
                                             <a href="{{ route('Solicitud.ingresarPago',$item->idSolicitud)}}" class="btn btn-primary btn-sm"><i class="fa "></i> Ingresar Pago</a>
                                         @else

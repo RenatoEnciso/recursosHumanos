@@ -43,7 +43,7 @@
                         <td class="celda">{{$item->Acta->idActa}}</td>
                         <td class="celda">{{$item->Acta->fecha_registro}}</td>
                         <td class="celda">{{$item->Acta->observacion}}</td>
-                        <td class="celda">{{$item->Acta->TipoActa->nombre}}</td>
+                        <td class="celda">{{$item->Acta->ficha->tipo->nombre}}</td>
                         <td class="celda">Pagado</td>
                         <td class="celda">{{$item->Acta->fecha_registro}}</td>
                     </tr>

@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Acta;
 use App\Models\Acta_Persona;
 use App\Models\Lista_Solicitud;
+use App\Models\Pago;
 use App\Models\Persona;
 use App\Models\Solicitud;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Storage;
 
 class SolicitudController extends Controller
 {
@@ -190,16 +191,38 @@ class SolicitudController extends Controller
     }
 
     public function pago(Request $request,$id){
-        $Solicitud=Solicitud::findOrFail($id);
+        $data=request()->validate([
+            'entidadBancaria'=>'required'  ,
+            'Noperacion'=>'required|min:8',
+            'fechaPago'=>'required'  ,
+            'montoPago'=>'required'  ,
+            'rutaVoucher'=>'required'  ,
+        ],
+        [
+            'Noperacion.required'=>'Ingrese el numero de opracion',
+            'Noperacion.min'=>'Ingrese el número de operacion con al menos 8 digitos',
+            /* 'Observacion.max'=>'Maximo 40 caracteres para la Observacion', */
+        ]);
 
-        if($request->archivo!=""){
-
-            // $archivo=$request->file('archivo')->store('PagosRealizados','public');
-            // $url = Storage::url($archivo);
-            $Solicitud->estadoPago="Pagado";
+        $pago=new Pago();
+        $pago->fechaPago=$request->fechaPago;
+        $pago->entidadFinanciera=$request->entidadBancaria;
+        if($request->hasFile('rutaVoucher')){
+            $archivo=$request->file('rutaVoucher')->store('ArchivosConstanciaPago','public');
+            $url = Storage::url($archivo);
+            $pago->rutaVoucher=$url;
         }
+        $pago->NumeroOperacion=$request->Noperacion;
+        $pago->Monto=$request->montoPago;
+        $pago->idSolicitud=$id;
+        $pago->estado= 1;
+        $pago->save();
 
-        $Solicitud->save();
+        $Solicitud=Solicitud::findOrFail($id);
+        if($request->hasFile('rutaVoucher')){
+            $Solicitud->estadoPago="Pagado";
+            $Solicitud->save();
+        }
         return redirect()->route('Solicitud.index')->with('datos','Pago Guardado ...!');
     }
 

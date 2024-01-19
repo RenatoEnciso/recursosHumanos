@@ -165,7 +165,7 @@ Route::get('Solicitudcancelar',[SolicitudController::class,'cancelar'])->name('S
 Route::get('archivo{id}/',[SolicitudController::class,'archivo'])->name('Solicitud.archivo');
 Route::get('archivoGenerado/{id}/',[SolicitudController::class,'OrdenGenerado'])->name('Solicitud.archivoGenerado');
 Route::get('comprobanteGenerado/{id}/',[SolicitudController::class,'ComprobanteGenerado'])->name('Solicitud.comprobanteGenerado');
-Route::put('pago/{id}/',[SolicitudController::class,'pago'])->name('Solicitud.pago');
+Route::post('pago/{id}/',[SolicitudController::class,'pago'])->name('Solicitud.pago');
 Route::get('ingresarPago/{id}/',[SolicitudController::class,'ingresarPago'])->name('Solicitud.ingresarPago');
 Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('Solicitud.detalle');
 Route::get('index{id}/Detalle',[SolicitudController::class,'detalle'])->name('Solicitud.detalle');

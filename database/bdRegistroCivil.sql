@@ -119,6 +119,18 @@ CREATE TABLE LISTA_SOLICITUD (
   FOREIGN KEY (idSolicitud) REFERENCES SOLICITUD(idSolicitud)
 );
 
+CREATE TABLE PAGO(
+idPago int AUTO_INCREMENT primary key,
+fechaPago date not null,
+entidadFinanciera VARCHAR(20) not null,
+rutaVoucher longtext not null,
+NumeroOperacion varchar(10) not null,
+Monto decimal(10, 2) not null,
+estado TINYINT not null,
+idSolicitud int not null,
+foreign key (idSolicitud) REFERENCES SOLICITUD(idSolicitud)
+);
+
 Insert Into Persona
 (DNI, Apellido_Paterno , Apellido_Materno ,Nombres ,sexo ,estadocivil ,departamento,provincia,distrito,estado , direccion,fecha_nacimiento)
 values

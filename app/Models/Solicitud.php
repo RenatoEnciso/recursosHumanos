@@ -17,5 +17,8 @@ class Solicitud extends Model
     }   
     public function Lista_Solicitud(){
         return $this->HasMany(Lista_Solicitud::class,'idSolicitud','idSolicitud');
-    }  		
+    }  	
+    public function pago(){
+        return $this->HasOne(Pago::class,'idSolicitud','idSolicitud');
+    } 	
 }

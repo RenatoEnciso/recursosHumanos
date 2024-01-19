@@ -20,7 +20,7 @@
     <div class="card">
         <div class="card-header">
             <h3 id="titulo" class="card-title" style="text-align: center">DETALLE DE ACTAS SOLICITADAS</h3>
-            <h3 style="color: aqua" class="card-title">SOLICITANTE: {{$Solicitud->Persona->Nombres." ".
+            <h3 class="card-title"><b>Solicitante: </b>   {{$Solicitud->Persona->Nombres." ".
                 $Solicitud->Persona->Apellido_Paterno ." ". $Solicitud->Persona->Apellido_Materno}}</h3>
         </div>
         <div class="card-body">
@@ -51,7 +51,7 @@
                         </tr>
                     @else
                         @foreach ($LSolicitud as $item)    
-                            @if ($item->Acta->TipoActa->idTipoActa=='2')
+                            @if ($item->Acta->ficha->tipo->id=='2')
                                 @foreach ($item->Acta->Acta_Persona as $item1)
                                     <tr>
                                         @if ($item1->idActaPersona%2==0)
@@ -72,22 +72,23 @@
                                         @endif 
                                     </tr>
                                 @endforeach
-                            
-                            @else
+                            @endif 
+                            @foreach ($item->Acta->Acta_Persona as $item1)
+                            @if ($item1->funcion=="Nacido" or $item1->funcion=="Fallecido")
                             <tr>
                                 <td>{{$itera=$itera+1}}</td>
-                                <td>{{$item->Acta->TipoActa->nombre}}</td>
-                                @foreach ($item->Acta->Acta_Persona as $personita)
-                                <td>{{$personita->Persona->Nombres}}</td>
-                                @endforeach
+                                <td>{{$item->Acta->ficha->tipo->nombre}}</td>
+                                <td>{{$item1->Persona->Nombres." ".$item1->Persona->Apellido_Paterno." ".$item1->Persona->Apellido_Materno}}</td>
                                 <td>{{$item->Acta->fecha_registro}}</td>
-                                <td>{{$item->Acta->lugar_Acta}}</td>
+                                <td>{{$item->Acta->lugar_ocurrencia}}</td>
                                 <td>{{$item->Acta->observacion}}</td>
                                 <td>
                                     <a href="{{ route('Solicitud.archivo',$item->idActa)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Ver Acta </a>
                                 </td>
                             </tr>
-                            @endif  
+                            @endif
+
+                            @endforeach 
                         @endforeach 
                     @endif
                                        

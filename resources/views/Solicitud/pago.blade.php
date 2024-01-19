@@ -6,7 +6,7 @@
 <div class="container">
     <div class="shadow-lg py-4 bg-body-tertiary rounded "style="margin-top:18vh; margin-bottom:18vh">
         <h1 id="titulo"  class="row justify-content-center">REGISTRO DE PAGO</h1>
-        <form method="POST" action="{{ route('Solicitud.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('Solicitud.pago', $Solicitud->idSolicitud) }}" enctype="multipart/form-data">
             @csrf
             <div class="row justify-content-center">
                 <div class="col-8 form-group">
@@ -48,24 +48,21 @@
                         </span>
                     @enderror
                 </div>
-                {{-- <div class="col-4">
-                    <div class="col-12">
-                        <label class="control-label">Archivo de Matrimonio</label>
-                        <input type="file" class="form-control @error('archivo_matrimonio') is-invalid @enderror"
-                            placeholder="Ingrese Archivo" name="archivo_matrimonio"
-                            value="{{old('archivo_matrimonio')}}" x-data="showImage()" @change="showPreview(event)">
-
-                        <iframe id="preview" class="object-cover h-32 mt-2 w-60" height="400vh" src="{{$ficha->ruta_certificado}}" style="display: none"> </iframe>
-
-                        @error('archivo_matrimonio')
-                            <span class="invalid feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-
-                        <br>
-                    </div>
-                </div> --}}
+                <div class="col-8 form-group">
+                    <label class="control-label">Constancia de pago </label>
+                    <input type="file" class="form-control @error('rutaVoucher') is-invalid @enderror"
+                        placeholder="Ingrese certificado" id="rutaVoucher" name="rutaVoucher"
+                        value="{{ old('rutaVoucher') }}" x-data="showImage()" @change="showPreview(event)" >
+                    @error('rutaVoucher')
+                        <span class="invalid feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    <center>
+                        <iframe id="preview" class="object-cover h-32 mt-2 w-60" height="400vh" style="display: none"> </iframe>
+                    </center>
+                    <br>
+                </div>
             </div>
             <div class="boton_div">
                 <div class="col-8 form-group flex">

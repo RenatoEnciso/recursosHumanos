@@ -54,6 +54,8 @@ class BuscarActaNacimiento extends Controller
         $alert = "Acta no se encuentra, acercarse a registrar el acta de nacimiento";
         return redirect()->route('ConsultaNacimiento')->with('alert', $alert);
     }
+
+    
     public function regresar()
     {
         return view('Externo.index');

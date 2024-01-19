@@ -40,12 +40,35 @@
                     <form action="{{ route('indexT') }}">
                         <button class="nav__links"
                             style="background-color: transparent;
-                        border: none;
-                ">
+                        border: none; ">
                             Trabajos
                         </button>
                     </form>
-                    {{-- <a href="{{ route('indexT', ['id' => $id]) }}" class="nav__links">Trabajos</a> --}}
+                </li>
+                <li class="nav__items dropdown">
+                    <a href="#" class="nav__links dropdown-toggle" id="idDropDownSolicitud" role="button"
+                        data-toggle="dropdown" aria-expanded="false">
+                        Solicitud DNI
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="idDropDownSolicitud" style="padding-left: 1vw">
+                        <a class="dropdown-item" href="{{ route('sol-duplicado.validation') }}"
+                            style="text-decoration: none">Solicitar Dni Por Duplicado</a>
+                        <br>
+                        <a class="dropdown-item" href="{{ route('sol-renovado.create') }}"
+                            style="text-decoration: none;">Solicitar Dni por Renovacion</a>
+                        <br>
+
+                        <a class="dropdown-item" href="{{ route('ConsultaNacimiento') }}"
+                            style="text-decoration: none">Acta Nacimiento</a>
+                        <br>
+                        <a class="dropdown-item" href="{{ route('ConsultaDefuncion') }}"
+                            style="text-decoration: none;">Acta Defuncion</a>
+                        <br>
+                        <a class="dropdown-item" href="{{ route('ConsultaMatrimonio') }}"
+                            style="text-decoration: none;">Acta Matrimonio</a>
+                        <br>
+
+                    </ul>
                 </li>
                 <li class="nav__items dropdown">
                     <a href="#" class="nav__links dropdown-toggle" id="navbarDropdown" role="button"
@@ -64,22 +87,7 @@
                         <br>
                     </ul>
                 </li>
-                <li class="nav__items dropdown">
-                    <a href="#" class="nav__links dropdown-toggle" id="dropDownSolicitud" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Solicitud DNI
-                    </a>
-                    <ul class="dropdown-menu2" aria-labelledby="dropDownSolicitud" style="padding-left: 1vw">
-                        <a class="dropdown-item" href="{{ route('sol-duplicado.create') }}"
-                            style="text-decoration: none">Solicitar Dni Por Duplicado</a>
-                        <br>
-                        <a class="dropdown-item" href="{{ route('ConsultaDefuncion') }}"
-                            style="text-decoration: none;">Solicitar Dni por Renovacion</a>
-                        <br>
-                    </ul>
-                </li>
-               
-
+                
                 <li class="nav__items">
                     <a href="/login" class="nav__links">Ingresar</a>
                 </li>

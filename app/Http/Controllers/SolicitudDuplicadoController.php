@@ -20,14 +20,9 @@ class SolicitudDuplicadoController extends Controller
         return view('ciudadano.index');
     }*/
 
-    public function index(Request $request)
+    public function validar2()
     {
-        //$buscarpor = $request->get('buscarpor');
-        $solicitudes = SolicitudDNI::select('*')
-            //->where('nombre_solicitante', 'like', '%' . $buscarpor . '%')
-            ->paginate($this::PAGINATION);
-
-        return view('SolicitudDNI.solDuplicado.index', compact('solicitudes'));
+        return view('SolicitudDNI.solDuplicado.validation');
     }
 
     public function create()
@@ -79,6 +74,11 @@ class SolicitudDuplicadoController extends Controller
     //         throw $e;
     //     }
     // }
+
+        public function show(){
+            //return view('SolicitudDNI.solDuplicado.validation');
+        }
+
 
     // public function edit($id)
     // {

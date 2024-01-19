@@ -40,6 +40,7 @@
                             <th scope="col">Observacion</th>
                             <th scope="col">DNI Solicitante</th>
                             <th scope="col">Solicitante</th>
+                            <th scope="col">Estado de pago</th>
                             <th scope="col">Opciones</th>
                         </tr>
                         </thead>
@@ -57,6 +58,7 @@
                                     <td>{{$item->observacion}}</td>
                                     <td>{{$item->DNISolicitante}}</td>
                                     <td>{{$item->Apellido_Paterno . " " . $item->Apellido_Materno." ".$item->Nombres}}</td>
+                                    <td>{{$item->estadoPago}}</td>
                                     <td>
                                         <br>
                                         @if ($item->pago==0)

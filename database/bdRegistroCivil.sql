@@ -104,8 +104,8 @@ CREATE TABLE SOLICITUD (
   fechaSolicitud DATE ,
   horaSolicitud TIME , 
   observacion VARCHAR(30),
+  estadoPago VARCHAR(9) not null,
   estado TINYINT not null,
-  pago longtext,
   PRIMARY KEY (idSolicitud),
   FOREIGN KEY (DNISolicitante) REFERENCES persona(DNI)
 );

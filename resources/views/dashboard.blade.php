@@ -211,6 +211,12 @@
                                         <p>Ficha de Registro</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a  href="{{route('Solicitud.index')}}">
+                                        <i class="fas fa-id-card"></i>
+                                        <p>Solicitud de actas</p>
+                                    </a>
+                                </li>
                             @endif
 
                             @if (Auth::user()->idRol == 2)

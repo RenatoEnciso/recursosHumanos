@@ -42,7 +42,7 @@
                         <td class="celda">{{$item->Acta->idActa}}</td>
                         <td class="celda">{{$item->Acta->fecha_registro}}</td>
                         <td class="celda">{{$item->Acta->observacion}}</td>
-                        <td class="celda">{{$item->Acta->TipoActa->nombre}}</td>
+                        <td class="celda">{{$item->Acta->ficha->tipo->nombre}}</td>
                         <td class="celda">S/12</td>
                     </tr>
                 @endforeach

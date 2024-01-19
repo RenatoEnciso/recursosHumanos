@@ -11,7 +11,7 @@ class Solicitud extends Model
     protected $table = 'solicitud';
     protected $primaryKey = 'idSolicitud';
     public $timestamps = false;
-    protected $fillable = ['DNISolicitante','fechaSolicitud','horaSolicitud','observacion'];
+    protected $fillable = ['DNISolicitante','fechaSolicitud','horaSolicitud','observacion','estadoPago'];
     public function Persona(){
         return $this->HasOne(Persona::class,'DNI','DNISolicitante');
     }   

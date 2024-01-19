@@ -52,28 +52,28 @@
                         @foreach ($Lista_Solicitud as $itemSol)
                             @foreach($Actas_Personas as $item)
                                 @if($itemSol->idActa==$item->Acta->idActa)
-                                    @if($item->Acta->TipoActa->idTipoActa!='2')
-                                        <option selected value="{{ $item->Acta->idActa }}">Acta de {{$item->Acta->TipoActa->nombre }} - {{$item->Persona->Nombres}}
+                                    @if($item->Acta->ficha->tipo->idtipo!='2')
+                                        <option selected value="{{ $item->Acta->idActa }}">Acta de {{$item->Acta->ficha->tipo->nombre }} - {{$item->Persona->Nombres}}
                                         {{$item->Persona->Apellido_Paterno}}</option>
                                     @else
                                         @if ($item->Persona->sexo=='M')
                                             @foreach ($item->Acta->Acta_Persona as $item2)
                                                 @if (($item->Persona->DNI)!=($item2->Persona->DNI))
-                                                    <option selected value="{{ $item->Acta->idActa }}">Acta de {{$item->Acta->TipoActa->nombre }} - {{$item->Persona->Nombres}}
+                                                    <option selected value="{{ $item->Acta->idActa }}">Acta de {{$item->Acta->ficha->tipo->nombre }} - {{$item->Persona->Nombres}}
                                                         {{$item->Persona->Apellido_Paterno}}  y {{$item2->Persona->Nombres}} {{$item2->Persona->Apellido_Paterno}}</option> 
                                                 @endif
                                             @endforeach
                                         @endif
                                     @endif
                                 @elseif($ban==0)
-                                    @if($item->Acta->TipoActa->idTipoActa!='2')
-                                        <option value="{{ $item->Acta->idActa }}">Acta de {{$item->Acta->TipoActa->nombre }} - {{$item->Persona->Nombres}}
+                                    @if($item->Acta->ficha->tipo->idtipo!='2')
+                                        <option value="{{ $item->Acta->idActa }}">Acta de {{$item->Acta->ficha->tipo->nombre }} - {{$item->Persona->Nombres}}
                                         {{$item->Persona->Apellido_Paterno}}</option>
                                     @else
                                         @if ($item->Persona->sexo=='M')
                                             @foreach ($item->Acta->Acta_Persona as $item2)
                                                 @if (($item->Persona->DNI)!=($item2->Persona->DNI))
-                                                    <option  value="{{ $item->Acta->idActa }}">Acta de {{$item->Acta->TipoActa->nombre }} - {{$item->Persona->Nombres}}
+                                                    <option  value="{{ $item->Acta->idActa }}">Acta de {{$item->Acta->ficha->tipo->nombre }} - {{$item->Persona->Nombres}}
                                                         {{$item->Persona->Apellido_Paterno}}  y {{$item2->Persona->Nombres}} {{$item2->Persona->Apellido_Paterno}}</option> 
                                                 @endif
                                             @endforeach

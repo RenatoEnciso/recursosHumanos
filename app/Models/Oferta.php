@@ -10,7 +10,7 @@ class Oferta extends Model
     use HasFactory;
     public $table ='oferta';
     protected $primaryKey = 'idOferta';
-    protected $fillable = ['idCargo','descripcion','fecha_inicio','fecha_fin','estado','idOferta','monto','requisitos','manualPostulante','resultados','convocatoria'];
+    protected $fillable = ['idCargo','descripcion','fecha_inicio','fecha_fin','estado','idOferta','monto','requisitos','manualPostulante','resultados','convocatoria','numerovacantes'];
     public $timestamps = false;
 
     public function cargo(){

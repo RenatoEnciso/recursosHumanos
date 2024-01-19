@@ -17,7 +17,11 @@ class ContratoHorario extends Model
         return $this->HasOne(Contrato::class,'idContrato','idContrato');
     }
     public function horario(){
-        return $this->HasOne(Cargo::class,'idHorario','idHorario');
+        return $this->HasOne(Horario::class,'idHorario','idHorario');
+    }
+
+    public function horarios(){
+        return $this->belongsTo(Horario::class, 'idHorario', 'idHorario');
     }
 
     // public function entrevista(){

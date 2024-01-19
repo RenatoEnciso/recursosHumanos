@@ -30,15 +30,27 @@
                     <div class="tab-pane fade show active" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                        
                         <div class="row justify-content-center ">
-                            <div class="col-2 form-group">
+                            <div class="col-1 form-group">
                                 <label class="control-label">Codigo</label>
                                 <input type="text" class="form-control" style="color: blue" value="{{ $Oferta->idOferta }}" disabled>
                             </div>
-                            <div class="col-6 form-group">
+                            <div class="col-5 form-group">
                                 <label class="control-label">Descripción</label>
                                 <textarea  type="text" class="form-control @error('descripcion') is-invalid @enderror"
                                     placeholder="Ingrese descripcion"  name="descripcion" >{{$Oferta->descripcion}}</textarea >
                                 @error('descripcion')
+                                    <span class="invalid feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-2 form-group">
+                                <label class="control-label">Numero de Vacantes</label>
+                                    {{-- <textarea  type="text" class="form-control @error('numerovacantes') is-invalid @enderror"
+                                        placeholder="Ingrese vacantes"  name="numerovacantes" ></textarea > --}}
+                                    <input type="text" class="form-control @error('numerovacantes') is-invalid @enderror"
+                                    placeholder="Ingrese vacantes"  name="numerovacantes" value="{{$Oferta->numerovacantes}}">
+                                @error('numerovacantes')
                                     <span class="invalid feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

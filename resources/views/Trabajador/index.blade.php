@@ -147,7 +147,8 @@
                                 </div>
                                 </div>
                             </div> --}}
-                     
+                            <a href="{{ route('Pago.createP',$item->idTrabajador) }}" class="btn btn-info btn-sm"><i class="fa-solid fa-receipt"></i> Pagar</a>
+                            {{-- <a href="{{ route('Trabajador.edit',$item->idTrabajador) }}" class="btn btn-info btn-sm"><i class="fa-solid fa-hand-holding-dollar"></i> Pagar</a> --}}
                             <a href="{{ route('Trabajador.edit',$item->idTrabajador) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
                             {{-- <a href="{{ route('ActaDefunsion.archivo',$item->idActaPersona)}}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>Ver</a> --}}
                            

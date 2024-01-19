@@ -16,6 +16,7 @@ class Entrevista extends Model
     public function Postulacion(){
         return $this->HasOne(Postulacion::class,'idPostulacion','idPostulacion');
     }
+    
     // public function persona(){
     //     return $this->HasOne(Persona::class,'DNI','DNI');
     // }

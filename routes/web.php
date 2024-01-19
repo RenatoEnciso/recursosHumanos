@@ -31,9 +31,6 @@ use App\Http\Controllers\HoraExtraController;
 use App\Http\Controllers\SolicitudDNIController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\SolicitudDNIController;
-
-// use App\Http\Controllers\SolicitudDNIController;
 use App\Http\Controllers\SolicitudDuplicadoController;
 use App\Http\Controllers\SolicitudPrimeraController;
 use App\Http\Controllers\SolicitudRenovadoController;
@@ -102,12 +99,6 @@ Route::resource('usuario',UsuarioController::class);
 //Administrador
 Route::resource('administrador',AdministradorController::class);
 Route::get('Administradorcancelar',[AdministradorController::class,'cancelar'])->name('administrador.cancelar');
-
-//SOLICITUD DNI
-Route::resource('solicitud-dni', SolicitudDNIController::class); 
-Route::get('solicitud-dni-cancelar', [SolicitudDNIController::class,'cancelar'])->name('solicitud-dni.cancelar');
-Route::get('form-validacion', [SolicitudDNIController::class,'inicio'])->name('solicitudDNI.inicio');
-Route::post('valida-datos', [SolicitudDNIController::class,'validar'])->name('solicitudDNI.validar');
 
 //USUARIOS
 Route::get('indexU', [RegisteredUserController::class, 'index'])->name('indexU');
@@ -260,15 +251,16 @@ Route::get('sol-primera-cancelar', [SolicitudPrimeraController::class,'cancelar'
 Route::get('sol-primera/{id}/revisar', [SolicitudPrimeraController::class,'review'])->name('sol-primera.review');
 Route::put('sol-primera/{id}/revisar2', [SolicitudPrimeraController::class,'review2'])->name('sol-primera.review2');
 Route::get('sol-primera/{id}/generar', [SolicitudPrimeraController::class,'generaPdf'])->name('sol-primera.dni');
-//Registro
+
+
+//Registro - DNI
 Route::resource('reg-primera', RegistroPrimeraController::class);
 Route::resource('reg-duplicado', RegistroDuplicadoController::class);
 Route::resource('reg-renovado', RegistroRenovadoController::class);
+
 Route::get('reg-primera-create/{idSolicitud}', [RegistroPrimeraController::class,'createValido'])->name('reg-primera.createValido');
 Route::post('reg-primera-store/{id}', [RegistroPrimeraController::class,'storeValido'])->name('reg-primera.storeValido');
-
 Route::get('reg-primera-cancelar', [RegistroPrimeraController::class,'cancelar'])->name('reg-primera.cancelar');
-
 Route::get('reg-primera/{id}/revisar', [RegistroPrimeraController::class,'review'])->name('reg-primera.review');
 Route::put('reg-primera/{id}/revisar2', [RegistroPrimeraController::class,'review2'])->name('reg-primera.review2');
 Route::get('reg-primera/{id}/generar', [RegistroPrimeraController::class,'generaPdf'])->name('reg-primera.dni');

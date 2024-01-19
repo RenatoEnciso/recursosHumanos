@@ -64,9 +64,21 @@
                         <br>
                     </ul>
                 </li>
-
-
-
+                <li class="nav__items dropdown">
+                    <a href="#" class="nav__links dropdown-toggle" id="dropDownSolicitud" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Solicitud DNI
+                    </a>
+                    <ul class="dropdown-menu2" aria-labelledby="dropDownSolicitud" style="padding-left: 1vw">
+                        <a class="dropdown-item" href="{{ route('sol-duplicado.create') }}"
+                            style="text-decoration: none">Solicitar Dni Por Duplicado</a>
+                        <br>
+                        <a class="dropdown-item" href="{{ route('ConsultaDefuncion') }}"
+                            style="text-decoration: none;">Solicitar Dni por Renovacion</a>
+                        <br>
+                    </ul>
+                </li>
+               
 
                 <li class="nav__items">
                     <a href="/login" class="nav__links">Ingresar</a>

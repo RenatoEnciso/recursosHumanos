@@ -91,28 +91,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="col-6">
-                            <label class="control-label">Foto actual</label>
-                            <input type="file" class="form-control"placeholder="Ingrese foto" id=""
-                                name="file_foto" value="{{ old('file_foto') }}" x-data="showImage1()"
-                                @change="showPreview1(event)">
-                            @error('file_foto')
-                                <span class="alert alert-danger" role="alert">{{ $message }} </span>
-                            @enderror
-                            <img id="preview1" class="object-cover h-32 mt-2 w-60" height="400vh">
-                        </div>
-                        <div class="col-6 ">
-                            <label class="control-label">Firma </label>
-                            <input type="file" class="form-control "placeholder="Ingrese Firma" id=""
-                                name="file_firma" value="{{ old('file_firma') }}" x-data="showImage2()"
-                                @change="showPreview2(event)">
-                            @error('file_firma')
-                                <span class="alert alert-danger" role="alert">{{ $message }} </span>
-                            @enderror
-                            <img id="preview2" class="" width="100%">
-                        </div>
-                    </div>
+                    
                     <div class="d-flex flex-row justify-content-around">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>Registrar</button>
                         <a href="{{ route('reg-primera.cancelar',$solicitud->idSolicitud) }}" class="btn btn-danger"><i

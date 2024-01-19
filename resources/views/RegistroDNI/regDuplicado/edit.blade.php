@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-title">
-                    <h1 id="titulo" class="card-title text-center">REGISTRAR SOLICITUD DNI AZUL</h1>
+                    <h1 id="titulo" class="card-title text-center">SOLICITUD DE DNI DUPLICADO </h1>
                 </div>
             </div>
             <div class="card-body">
@@ -86,33 +86,13 @@
 
                         <div class="col-4">
                             <label class="col-form-label">Direccion Actual</label>
-                            <input name="direccion" id="" class="form-control" value="{{ $registro->direccion }}">
+                            <input name="direccion" id="" class="form-control" value="{{ $persona->direccion }}">
                             @error('direccion')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="col-6">
-                            <label class="control-label">Foto actual</label>
-                            <input type="file" class="form-control"placeholder="Ingrese foto" id="" name="file_foto" 
-                                value="{{ old('file_foto') }}" x-data="showImage1()" @change="showPreview1(event)">
-                            @error('file_foto')
-                                <span class="alert alert-danger" role="alert">{{ $message }} </span>
-                            @enderror
-                            <img src="{{ $registro->file_foto }}" id="preview1" class="object-cover h-32 mt-2 w-60"
-                                height="400vh">
-                        </div>
-                        <div class="col-6">
-                            <label class="control-label">Firma </label>
-                            <input type="file" class="form-control "placeholder="Ingrese Firma" id="" name="file_firma" 
-                                value="{{ old('file_firma') }}" x-data="showImage2()" @change="showPreview2(event)">
-                            @error('file_firma')
-                                <span class="alert alert-danger" role="alert">{{ $message }} </span>
-                            @enderror
-                            <img src="{{ $registro->file_firma }}" id="preview2" class="" width="100%">
-                        </div>
-                    </div>
+                    
                     <div class="d-flex flex-row justify-content-around">
                         <button class="btn btn-success"><i class="fas fa-save"></i>Actualizar</button>
                         <a href="{{ route('reg-primera.cancelar') }}" class="btn btn-danger"><i

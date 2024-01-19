@@ -272,9 +272,9 @@ Route::resource('reg-primera', RegistroPrimeraController::class);
 
 //Registro DNI - duplicado
 Route::resource('reg-duplicado', RegistroDuplicadoController::class);
-Route::get('reg-duplicado/{id}/generar', [RegistroPrimeraController::class,'generaPdf'])->name('reg-duplicado.dni');
-Route::get('reg-duplicado/create/{idSolicitud}', [RegistroPrimeraController::class,'createValido'])->name('reg-duplicado.createValido');
-Route::post('reg-duplicado/store/{id}', [RegistroPrimeraController::class,'storeValido'])->name('reg-duplicado.storeValido');
+Route::get('reg-duplicado/{id}/generar', [RegistroDuplicadoController::class,'generaPdf'])->name('reg-duplicado.dni');
+Route::get('reg-duplicado/create/{idSolicitud}', [RegistroDuplicadoController::class,'createValido'])->name('reg-duplicado.createValido');
+Route::post('reg-duplicado/store/{id}', [RegistroDuplicadoController::class,'storeValido'])->name('reg-duplicado.storeValido');
 
 
 //Registro DNI - renovado

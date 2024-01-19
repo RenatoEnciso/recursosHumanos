@@ -25,14 +25,46 @@ class RegistroDuplicadoController extends Controller
          $buscarpor = $request->get('buscarpor');
         $registros = RegistroDNI::select('*')
             ->join('persona as p', 'p.DNI', '=', 'registro_dni.DNI')
+            ->join('solicitud_dni as sd', 'sd.idSolicitud', '=', 'registro_dni.idSolicitudDNI')
+            ->join('tipo_solicitud_dni as ts', 'ts.idTipoSolicitud', '=', 'sd.idTipoSolicitud')
+            ->where('ts.idTipoSolicitud', 2) // 2= duplicado
             ->where('Nombres', 'like', '%' . $buscarpor . '%')
             ->paginate($this::PAGINATION);
 
         $solicitudes = SolicitudDNI::select('*')
             ->join('tipo_solicitud_dni as ts', 'ts.idTipoSolicitud', '=', 'solicitud_dni.idTipoSolicitud')
             ->where('solicitud_dni.solEstado', 'Pendiente')
-            ->where('ts.idTipoSolicitud', 2)->get();
+            ->where('ts.idTipoSolicitud', 2)->get(); // 2= duplicado
         return view('RegistroDNI.regDuplicado.index', compact('registros', 'solicitudes', 'buscarpor'));
+    }
+
+    
+
+    public function createValido(Request $request, $idSolicitud)
+    {
+        DB::beginTransaction();
+        try {
+            $solicitud = SolicitudDNI::find($idSolicitud);
+            $persona = Persona::find($solicitud->DNI_Titular);
+            if ($persona) {
+                $solicitud->solEstado = 'En Proceso';
+                $solicitud->save();
+                $registro = new RegistroDNI();
+                $registro->idTipoDni = 2;   // 2=duplicado
+                $registro->regEstado = 0; // 0 = No registrado
+                $registro->idSolicitudDNI = $solicitud->idSolicitud;
+                $registro->DNI = $solicitud->DNI_Titular;
+                $registro->save();
+                DB::commit();
+                return view('RegistroDNI.regDuplicado.create', compact('persona', 'solicitud', 'registro'));
+            } else {
+                DB::rollBack();
+                return redirect()->route('reg-duplicado.index')->with('notifica', 'El ciudadano no existe en la base de datos');
+            }
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw new Exception("Horror: " . $e->getMessage());
+        }
     }
 
     public function conexionSunat(){
@@ -296,34 +328,6 @@ class RegistroDuplicadoController extends Controller
     }
 
 
-
-
-    // public function createValido(Request $request, $idSolicitud)
-    // {
-    //     DB::beginTransaction();
-    //     try {
-    //         $solicitud = SolicitudDNI::find($idSolicitud);
-    //         $persona = Persona::find($solicitud->DNI_Titular);
-    //         if ($persona) {
-    //             $solicitud->solEstado = 'En Proceso';
-    //             $solicitud->save();
-    //             $registro = new RegistroDNI();
-    //             $registro->idTipoDni = 1;
-    //             $registro->regEstado = 0; // 0 = No registrado
-    //             $registro->idSolicitudDNI = $solicitud->idSolicitud;
-    //             $registro->DNI = $solicitud->DNI_Titular;
-    //             $registro->save();
-    //             DB::commit();
-    //             return view('RegistroDNI.regPrimera.create', compact('persona', 'solicitud', 'registro'));
-    //         } else {
-    //             DB::rollBack();
-    //             return redirect()->route('reg-primera.index')->with('notifica', 'El ciudadano no existe en la base de datos');
-    //         }
-    //     } catch (Exception $e) {
-    //         DB::rollBack();
-    //         throw new Exception("Horror: " . $e->getMessage());
-    //     }
-    // }
 
     // public function storeValido(Request $request, $id)
     // {

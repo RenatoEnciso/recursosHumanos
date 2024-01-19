@@ -122,14 +122,27 @@ CREATE TABLE LISTA_SOLICITUD (
 Insert Into Persona
 (DNI, Apellido_Paterno , Apellido_Materno ,Nombres ,sexo ,estadocivil ,departamento,provincia,distrito,estado , direccion,fecha_nacimiento)
 values
-('11111111',"Baltodano","Sanchez","Maria Fernanda","F","Soltera","Lima","lima","Miraflores",1,"Hermanos Angulos 123",'2005-01-02'),
-('22222222','Villacorta','Sacristan','Rosario Jazmin','F','Soltera',"La libertad","Trujillo","El porvenir",1,'Jose Olaya 123','1966-07-02'),
-('33333333','Montes','Gonzales','Jorge Piter','F','Soltera',"Lima","lima","San isidro",1,'Garcilazo de la Vega 123','2006-03-02'),
-('44444444','Monzon','Zavaleta','Alfonso Luis','M','Soltero',"Lima","lima","Surco",1,'Los Incas 123 - calle florencio','2007-03-02'),
-('55555555','Rodriguez','Barrigas','Jose Luis','M','Soltero',"Lima","lima","Santa Anita",1,'Los Laureles 254 - Av. pumacahua','1971-09-02'),
-('66666666','Fernandez','Jurado','Pedro Beto','M','Soltero',"Lima","lima","Chorrillos",1,'Los Incas 654','2010-08-02'),
-('77777777','Marco','Garcia','Jose Miguel ','M','Soltero',"La libertad","Trujillo","Florencia de Mora MZ:D LT: 92",1,'Jose Olaya 594','1973-03-02'),
-('88888888','Diaz','Festivo','Diego Eduardo','M','Soltero',"La libertad","Trujillo","Trujillo",1,'Jose Olata 789','1990-11-02');
+('12345678',"Gonzalez","Perez","Maria Fernanda","F","Soltera","Lima","Lima","Miraflores",1,"Av. Pardo 123",'1990-01-01'),
+('23456789',"Lopez","Gomez","Rosario Jazmin","F","Soltera","La Libertad","Trujillo","El Porvenir",1,"Calle Bolivar 456",'1991-02-02'),
+('34567890',"Martinez","Rodriguez","Jorge Piter","M","Soltero","Lima","Lima","San Isidro",1,"Av. Petit Thouars 789",'1993-03-03'),
+('45678901',"Fernandez","Sanchez","Alfonso Luis","M","Soltero","Lima","Lima","Surco",1,"Calle Los Alamos 159",'1994-04-04'),
+('32109876',"Vargas","Rojas","Juan Jose","M","Soltero","La Libertad","Trujillo","Florencia de Mora",1,"Av. Mansiche 852",'1998-07-07'),
+('21098765',"Mendoza","Paredes","Juan Diego","M","Soltero","La Libertad","Trujillo","Trujillo",1,"Calle San Martin 963",'1999-08-08'),
+('10987654',"Castillo","Cordova","Maria Teresa","F","Soltera","Lima","Lima","Miraflores",1,"Av. Larco 741",'2000-09-09'),
+('09876543',"Gutierrez","Vega","Maria Pia","F","Soltera","Lima","Lima","Miraflores",1,"Calle Shell 852",'2001-10-10'),
+('56789012',"Garcia","Ramirez","Sandra Anais","F","Soltera","Lima","Lima","Santa Anita",1,"Av. Los Heroes 654",'2002-05-05'),
+('67890123',"Morales","Torres","Pedro Beto","M","Soltero","Lima","Lima","Chorrillos",1,"Calle Los Pinos 321",'2003-06-06'),
+('78901234',"Rojas","Vargas","Jose Miguel","M","Soltero","La Libertad","Trujillo","Florencia de Mora",1,"Av. Mansiche 987",'2004-07-07'),
+('89012345',"Paredes","Mendoza","Diego Eduardo","M","Soltero","La Libertad","Trujillo","Trujillo",1,"Calle San Martin 654",'2005-08-08'),
+('90123456',"Cordova","Castillo","Maria Isabel","F","Soltera","La Libertad","Trujillo","La esperanza",1,"Av. Larco 321",'2006-09-09'),
+('01234567',"Vega","Gutierrez","Maria Paula","F","Soltera","La Libertad","Trujillo","Huanchaco",1,"Calle Shell 147",'2000-10-10'),
+('98765432',"Perez","Gonzalez","Juan Carlos","M","Soltero","La Libertad","Trujillo","Salaverry",1,"Av. Benavides 852",'2001-01-01'),
+('87654321',"Gomez","Lopez","Juan Manuel","M","Soltero","La Libertad","Trujillo","Florencia de mora",1,"Calle Bolivar 963",'2002-02-02'),
+('76543210',"Rodriguez","Martinez","Juan Pedro","M","Soltero","Lima","Lima","San Isidro",1,"Av. Petit Thouars 741",'2003-03-03'),
+('65432109',"Sanchez","Fernandez","Juan Luis","M","Soltero","Lima","Lima","Surco",1,"Calle Los Alamos 852",'2004-04-04'),
+('54321098',"Ramirez","Garcia","Juanita Rosa","F","Soltera","Lima","Lima","Santa Anita",1,"Av. Los Heroes 963",'2005-05-05'),
+('43210987',"Torres","Morales","Juanita Carmen","F","Soltera","Lima","Lima","Chorrillos",1,"Calle Los Pinos 741",'2006-06-06');
+
 
 -- Nuevas tablas
 create table TIPO_DNI(

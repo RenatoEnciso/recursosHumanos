@@ -52,20 +52,26 @@ class SolicitudDuplicadoController extends Controller
         $list3_personas = Persona::where('provincia', $request->provincia)->get();
         $list4_personas = Persona::where('distrito', $request->distrito)->get();
 
-        $list_total_personas = $list1_personas->concat($list2_personas)->concat($list3_personas)->concat($list4_personas);
-
-        $result=0;
-        foreach ($list_total_personas as $personita) {
-            if ($personita == $persona) {
-                $result=$result+1;
-            }
-        }
-        if($result==4)
+        if ($list1_personas->contains($persona) && $list2_personas->contains($persona) && $list3_personas->contains($persona) && $list4_personas->contains($persona)) {
             return redirect()->route('sol-duplicado.create',$persona->DNI);
-        else{
-            $mensaje = "Los datos Ingresados no son validados";
+        } else {
+             $mensaje = "Los datos Ingresados no son validados";
             return redirect()->route('sol-duplicado.formValidar')->with('respuesta', $mensaje);
         }
+        // $list_total_personas = $list1_personas->concat($list2_personas)->concat($list3_personas)->concat($list4_personas);
+
+        // $result=0;
+        // foreach ($list_total_personas as $personita) {
+        //     if ($personita == $persona) {
+        //         $result=$result+1;
+        //     }
+        // }
+        // if($result==4)
+        //     return redirect()->route('sol-duplicado.create',$persona->DNI);
+        // else{
+        //     $mensaje = "Los datos Ingresados no son validados";
+        //     return redirect()->route('sol-duplicado.formValidar')->with('respuesta', $mensaje);
+        // }
     }
 
     public function create($dni)
@@ -97,8 +103,8 @@ class SolicitudDuplicadoController extends Controller
                 return redirect()->route('sol-duplicado.formValidar')->with('notifica', 'La solicitud de DNI AZUL fue exitosa');
             } else {
                 DB::rollback();
-                $mensaje= 'El Ciudadano no es mayor de edad';
-                return  view('SolicitudDNI.solDuplicado.create', compact('solicitud', 'edad'))->with('notifica', $mensaje);;
+                $mensaje= 'Error: El Ciudadano no es mayor de edad';
+                return  view('SolicitudDNI.solDuplicado.create', compact('solicitud', 'edad', 'persona'))->with('notifica', $mensaje);;
             }
         } catch (\Exception $e) {
             DB::rollback();

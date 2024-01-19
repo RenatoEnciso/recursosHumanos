@@ -71,7 +71,7 @@
                                     <a href="{{ route('sol-primera.edit', $item->idSolicitud) }}"
                                         class="btn btn-primary btn-sm"><i class="fa "></i> Editar</a>
                                     <a href="{{ route('sol-primera.dni', $item->idSolicitud) }}"
-                                        class="btn btn-primary btn-sm"><i class="fa "></i>Dni</a>
+                                        class="btn btn-danger btn-sm"><i class="fa "></i>Eliminar</a>
 
                                 </td>
                             </tr>

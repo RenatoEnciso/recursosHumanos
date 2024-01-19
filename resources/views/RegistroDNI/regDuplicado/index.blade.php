@@ -39,7 +39,7 @@
                     <div class="notif-scroll scrollbar-outer">
                         @foreach ($solicitudes as $item)
                             <div class="notif-center">
-                                <a href="{{ route('reg-primera.createValido', $item->idSolicitud) }}">
+                                <a href="{{ route('reg-duplicado.createValido', $item->idSolicitud) }}">
                                     <div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
                                     <div class="notif-content">
                                         <span class="block">
@@ -106,9 +106,9 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('reg-primera.edit', $item->idRegistro) }}"
+                                    <a href="{{ route('reg-duplicado.edit', $item->idRegistro) }}"
                                         class="btn btn-primary btn-sm"><i class="fa "></i> Editar</a>
-                                    <a href="{{ route('reg-primera.dni', $item->idRegistro) }}"
+                                    <a href="{{ route('reg-duplicado.dni', $item->idRegistro) }}"
                                         class="btn btn-primary btn-sm"><i class="fa "></i>Genera Dni</a>
                                 </td>
                             </tr>

@@ -27,13 +27,16 @@ class RegistroPrimeraController extends Controller
         $buscarpor = $request->get('buscarpor');
         $registros = RegistroDNI::select('*')
             ->join('persona as p', 'p.DNI', '=', 'registro_dni.DNI')
+            ->join('solicitud_dni as sd', 'sd.idSolicitud', '=', 'registro_dni.idSolicitudDNI')
+            ->join('tipo_solicitud_dni as ts', 'ts.idTipoSolicitud', '=', 'sd.idTipoSolicitud')
             ->where('Nombres', 'like', '%' . $buscarpor . '%')
+            ->where('ts.idTipoSolicitud',1)  // 1= primera vez
             ->paginate($this::PAGINATION);
 
         $solicitudes = SolicitudDNI::select('*')
             ->join('tipo_solicitud_dni as ts', 'ts.idTipoSolicitud', '=', 'solicitud_dni.idTipoSolicitud')
             ->where('solicitud_dni.solEstado', 'Pendiente')
-            ->where('ts.idTipoSolicitud', 1)->get();
+            ->where('ts.idTipoSolicitud', 1)->get();  // 1= primera vez
         return view('RegistroDNI.regPrimera.index', compact('registros', 'solicitudes', 'buscarpor'));
     }
 

@@ -39,50 +39,49 @@ class HuellaController extends Controller
 
             // Huella Izquierda
         $huellaIzquierda = DB::select(
-        "select max(hp.calidadHuella) as MejorHuella, 
-        p.DNI,
+        "select  p.DNI,
         p.Apellido_Paterno,
         p.Apellido_Materno,
         h.idMano,
-        h.nombreHuella
+        h.nombreHuella,
+        hp.calidadHuella 
         from persona as p
                 inner join huella_persona as hp
-                on p.dni=hp.idHuellaPersona
+                on p.dni=hp.idPersona
                 inner join huella as h
                 on h.idHuella=hp.idHuella
-                where p.dni='$request->dni'
-                and h.idMano=1
-                group by p.DNI,
-        p.Apellido_Paterno,
-        p.Apellido_Materno,
-        h.idMano,
-        h.nombreHuella
+                where p.dni=11111111
+                and h.idMano=1 and  hp.calidadHuella= (select max(hp2.calidadHuella) from huella_persona hp2 
+                inner join huella as h2
+                on
+                hp2.idHuella=h2.idHuella
+                where h2.idMano=1)
         ");
         
             // Huella derecha
-        $huellaDerecha = DB::select("select max(hp.calidadHuella) as MejorHuella, 
-        p.DNI,
+        $huellaDerecha = DB::select(
+        "select  p.DNI,
         p.Apellido_Paterno,
         p.Apellido_Materno,
         h.idMano,
-        h.nombreHuella
+        h.nombreHuella,
+        hp.calidadHuella 
         from persona as p
                 inner join huella_persona as hp
-                on p.dni=hp.idHuellaPersona
+                on p.dni=hp.idPersona
                 inner join huella as h
                 on h.idHuella=hp.idHuella
-                where p.dni='$request->dni'
-                and h.idMano=2
-                group by p.DNI,
-        p.Apellido_Paterno,
-        p.Apellido_Materno,
-        h.idMano,
-        h.nombreHuella
+                where p.dni=11111111
+                and h.idMano=2 and  hp.calidadHuella= (select max(hp2.calidadHuella) from huella_persona hp2 
+                inner join huella as h2
+                on
+                hp2.idHuella=h2.idHuella
+                where h2.idMano=2 )
             ");
 
         $datos= array("huellaDerecha"=>$huellaDerecha,"huellaIzquierda"=>$huellaIzquierda);
         
-        if ($huellaDerecha) {
+        if ($datos) {
             $mensaje = 'Consulta Exitosa';
             $data=[
                 'success'=>$mensaje,

@@ -12,7 +12,7 @@
 @section('subtitulo', 'Consulta Mejor Huella')
 @section('cuerpo')
   
-    @if ($data['success']=="Consulta Exitosa")
+    @if ($data['success']=="Consulta Exitosa" and $data['datos']['huellaDerecha'] and $data['datos']['huellaIzquierda'])
     <div>
       <div class="container-fluid"> 
         <div class="row">
@@ -25,32 +25,38 @@
     
       <img src="{{ asset('images/huella.png') }}" alt="huella" width="100px" class="img-fluid d-block mx-auto">
   </div>
+<br>
+<br>
+  <div class="row">
 
+    <div class="col-6 mx-auto" style="font-weight:bold">
+      <label class="form-label" for="">Numero de DNI: {{$data['datos']['huellaDerecha'][0]->DNI}}</label>
+
+    </div>
+  </div>
   
-  <label class="form-label" for="">Año Defuncion</label>
-  <input type="number" class="form-control  @error('ano') is-invalid @enderror" name="ano"
-      placeholder="Año(4 digitos)" value="{{ old('ano') }}">
+  
   
   <div class="row">
-      <div class="col-sm-12 col-md-6 ">
-          <label class="form-label" for="">Primer Apellido</label>
-          <input type="text" class="form-control @error('primer_apellido') is-invalid @enderror"
-              name="primer_apellido" placeholder="Primer Apellido" value ='{{ old('primer_apellido') }}'>
-          
-      </div>
-      <div class="col-sm-12 col-md-6">
-          <label class="form-label" for="">Segundo Apellido</label>
-          <input type="text" class="form-control @error('segundo_apellido') is-invalid @enderror"
-              name="segundo_apellido" placeholder="Segundo Apellido" value ='{{ old('segundo_apellido') }}'>
-         
-      </div>
+    <div class="col-6 mx-auto">
+      <label class="form-label" for="" style="font-weight:bold">Apellidos Paterno: {{$data['datos']['huellaDerecha'][0]->Apellido_Paterno}}</label> <br>
+      <label class="form-label" for="" style="font-weight:bold">Apellido Materno:  {{$data['datos']['huellaDerecha'][0]->Apellido_Materno}}</label>
+    </div>
   </div>
-  <div class="mb-3">
-      <label class="form-label" for="" class="form-label">Prenombres</label>
-      <input type="text" class="form-control @error('prenombres') is-invalid @enderror" name="prenombres"
-          placeholder="Prenombres" value ='{{ old('prenombres') }}'>
+  <div class="row">
+
+    <div class="col-6 mx-auto">
+      <label class="form-label" for="" class="form-label" style="font-weight:bold">Tus Mejores huella son: </label> <br>
+      <label class="form-label" for="" class="form-label" style="font-weight:bold">  
+        {{$data['datos']['huellaDerecha'][0]->nombreHuella}}  Derecho
+      </label>   <br>
+      <label class="form-label" for="" class="form-label" style="font-weight:bold">  
+        {{$data['datos']['huellaIzquierda'][0]->nombreHuella}}  Izquierdo
+      </label>
       
   </div>
+  </div>
+  
   
 
     @else

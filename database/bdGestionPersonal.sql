@@ -58,10 +58,10 @@ create table entrevista(
 ALTER TABLE `bdregistrocivil`.`roles` 
 ADD COLUMN `estado` TINYINT(4) NULL DEFAULT NULL AFTER `nombreRol`;
 
-INSERT INTO roles (`idRol`, `nombreRol`,`estado`) VALUES
-(5, 'Encargado contrato',1),
-(6, 'Encargado de RRHH',1),
-(7, 'Administrador',1);
+INSERT INTO roles ( `nombreRol`,`estado`) VALUES
+( 'Encargado contrato',1),
+( 'Encargado de RRHH',1),
+( 'Administrador',1);
 
 INSERT INTO cargo (descripcion,estado) VALUES
 ('Encargado contrato',1),

@@ -16,14 +16,14 @@
         <div class="container-fluid d-inline">
             <a class="navbar-brand">
                 <div class="row " >
-                    <div class="col-auto">
-                        <img src="{{ asset('images/Logo-Login.png') }}" alt="Logo" width="200" height="80"
-                            class="d-inline-block align-text-top">
+                    <div class="col-auto ">
+                        <img src="{{ asset('images/Logo-Login.png') }}" alt="Logo" width="170" height="80"
+                            class="d-inline-block align-text-top mx-5">
                     </div>
                     <div class="col-auto my-0" style="font-size: 20px;">
-                        <p style="margin-top: 15px; margin-bottom: 0;color: white">@yield('subtitulo')</p>
+                        <p style="margin-top: 15px; margin-bottom: 0;color: white"> <b>@yield('subtitulo') </b></p>
                         <hr style="margin-top: 10px; margin-bottom: 0; border-width:3px; color: white"> 
-                        <p style="margin-top: 0; margin-bottom: 0; font-style:italic; font-size:15px; color: white">Servicios en Linea</p>
+                        <p style="margin-top: 0; margin-bottom: 0; font-style:italic; font-size:15px; color: white"> <b>Servicios en Linea</b> </p>
                     </div>
                 </div>
             </a>

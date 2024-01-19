@@ -51,7 +51,7 @@
                         Solicitud DNI
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="idDropDownSolicitud" style="padding-left: 1vw">
-                        <a class="dropdown-item" href="{{ route('sol-duplicado.validation') }}"
+                        <a class="dropdown-item" href="{{ route('sol-duplicado.formValidar') }}"
                             style="text-decoration: none">Solicitar Dni Por Duplicado</a>
                         <br>
                         <a class="dropdown-item" href="{{ route('sol-renovado.create') }}"

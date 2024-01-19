@@ -7,7 +7,7 @@
             <h1 class="mb-4">Estimado Usuario,</h1>
             <p class="mb-4">Para realizar tu servicio en línea, primero debes autenticarte, selecciona el tipo de
                 autenticación.</p>
-            <form action="{{ route('solicitudDNI.validar') }}" method="POST">
+            <form action="{{ route('sol-duplicado.validation') }}" method="POST">
                 @csrf
                 <div class="form-group">
                     <h3><b>Datos Personales</b></h3>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="d-flex flex-row justify-content-around mt-4">
                     <button type="submit" class="btn btn-primary">Validar</button>
-                    <button type="submit" class="btn btn-warning">Atras</button>
+                    <a  href="{{url('/')}}" type="buttom" class="btn btn-warning">Atras</a>
                 </div>
                 @if (session('respuesta'))
                     <div class="alert alert-warning alert-dismissible fade show mt-3 emergente" role="alert"

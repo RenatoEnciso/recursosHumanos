@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests\SolDniPrimeraVezCreateRequest;
@@ -20,64 +21,95 @@ class SolicitudDuplicadoController extends Controller
         return view('ciudadano.index');
     }*/
 
-    public function validar2()
+    public function formValidar()
     {
         return view('SolicitudDNI.solDuplicado.validation');
     }
 
-    public function create()
+
+    public function validar(Request $request)
     {
-        return view('SolicitudDNI.solDuplicado.create');
+        $request->validate(
+            [
+                'dni' => 'required',
+                'fechaNacimiento' => 'required|date',
+                'departamento' => 'required',
+                'provincia' => 'required',
+                'distrito' => 'required'
+            ],
+            [
+                'dni.required' => 'Ingrese el Numero de DNI',
+                'fechaNacimiento.required' => 'Ingrese una Fecha de Nacimiento',
+                'departamento.required' => 'Ingrese el departamento de  nacimiento',
+                'provincia.required' => 'Ingrese la provincia de nacimiento',
+                'distrito.required' => 'Ingrese el distrito de nacimiento',
+            ]
+        );
+
+        $persona = Persona::findOrFail($request->dni);
+        $list1_personas = Persona::where('fecha_nacimiento', $request->fechaNacimiento)->get();
+        $list2_personas = Persona::where('departamento', $request->departamento)->get();
+        $list3_personas = Persona::where('provincia', $request->provincia)->get();
+        $list4_personas = Persona::where('distrito', $request->distrito)->get();
+
+        $list_total_personas = $list1_personas->concat($list2_personas)->concat($list3_personas)->concat($list4_personas);
+
+        $result=0;
+        foreach ($list_total_personas as $personita) {
+            if ($personita == $persona) {
+                $result=$result+1;
+            }
+        }
+        if($result==4)
+            return redirect()->route('sol-duplicado.create',$persona->DNI);
+        else{
+            $mensaje = "Los datos Ingresados no son validados";
+            return redirect()->route('sol-duplicado.formValidar')->with('respuesta', $mensaje);
+        }
     }
 
-    // public function store(SolDniPrimeraVezCreateRequest $request)
-    // {
-    //     DB::beginTransaction();
-    //     try {
-    //         $persona = Persona::find($request->DNI);
-    //         $solicitud = new SolicitudDNI();
-    //         $solicitud->DNI_Titular = $persona->DNI;
-    //         $solicitud->idTipoSolicitud = '1'; // 1= primera vez
-    //         $solicitud->codigo_recibo = $request->codigo_recibo;
-    //         $solicitud->codigo_voucher = $request->codigo_voucher;
-    //         $solicitud->nombre_solicitante = $persona->Nombres . " " . $persona->Apellido_Paterno;
+    public function create($dni)
+    {
+        $persona=Persona::findOrFail($dni);
+        return view('SolicitudDNI.solDuplicado.create', compact('persona'));
+    }
 
-    //         if ($request->has('valida_foto')) {
-    //             $solicitud->valida_foto = 1;
-    //         } else {
-    //             $solicitud->valida_foto = 0;
-    //         }
-    //         if ($request->has('valida_firma')) {
-    //             $solicitud->valida_firma = 1;
-    //         } else {
-    //             $solicitud->valida_firma = 0;
-    //         }
-    //         $solicitud->solMotivo = $request->motivo;
-    //         $solicitud->solEstado = 'Pendiente';
-    //         $solicitud->solFecha = new DateTime();
+    public function store($dni,Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $persona = Persona::find($request->DNI);
+            $solicitud = new SolicitudDNI();
+            $solicitud->DNI_Titular = $persona->DNI;
+            $solicitud->idTipoSolicitud = '2'; // 2=duplicado
+            $solicitud->nombre_solicitante = $persona->Nombres . " " . $persona->Apellido_Paterno;
+            $solicitud->solMotivo = $request->motivo;
+            $solicitud->solEstado = 'Pendiente';
+            $solicitud->solFecha = new DateTime();
 
-    //         $fechaNac = new DateTime($solicitud->persona->fecha_nacimiento);
-    //         $intervalo = date_diff(new DateTime(), $fechaNac);
-    //         $edad = $intervalo->y;
+            $fechaNac = new DateTime($solicitud->persona->fecha_nacimiento);
+            $intervalo = date_diff(new DateTime(), $fechaNac);
+            $edad = $intervalo->y;
 
-    //         if ($edad >= 17 && $edad < 19) {
-    //             $solicitud->save();
-    //             DB::commit();
-    //             return redirect()->route('sol-primera.index')->with('notifica', 'La solicitud de DNI AZUL fue exitosa');
-    //         } else {
-    //             DB::rollback();
-    //             $condEdad = 'El Ciudadano tiene ' . $edad . ' años, No cumple con el rango (17 - 19) para Solicitar DNI Azul';
-    //             return  view('SolicitudDNI.solPrimera.create', compact('solicitud', 'edad'))->with('notifica', $condEdad);;
-    //         }
-    //     } catch (\Exception $e) {
-    //         DB::rollback();
-    //         throw $e;
-    //     }
-    // }
-
-        public function show(){
-            //return view('SolicitudDNI.solDuplicado.validation');
+            if ($edad >= 18) {
+                $solicitud->save();
+                DB::commit();
+                return redirect()->route('sol-duplicado.formValidar')->with('notifica', 'La solicitud de DNI AZUL fue exitosa');
+            } else {
+                DB::rollback();
+                $mensaje= 'El Ciudadano no es mayor de edad';
+                return  view('SolicitudDNI.solDuplicado.create', compact('solicitud', 'edad'))->with('notifica', $mensaje);;
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
         }
+    }
+
+    public function show()
+    {
+        //return view('SolicitudDNI.solDuplicado.validation');
+    }
 
 
     // public function edit($id)
@@ -105,13 +137,13 @@ class SolicitudDuplicadoController extends Controller
     //     try{
     //         $persona = Persona::find($request->DNI);
     //         $solicitud = SolicitudDNI::find($id);
-    
+
     //         $solicitud->DNI_Titular = $persona->DNI;
     //         $solicitud->idTipoSolicitud = '1'; // 1= primera vez
     //         $solicitud->codigo_recibo = $request->codigo_recibo;
     //         $solicitud->codigo_voucher = $request->codigo_voucher;
     //         $solicitud->nombre_solicitante = $persona->Nombres . " " . $persona->Apellido_Paterno;
-    
+
     //         if ($request->has('valida_foto')) {
     //             $solicitud->valida_foto = 1;
     //         } else {
@@ -124,7 +156,7 @@ class SolicitudDuplicadoController extends Controller
     //         }
     //         $solicitud->solMotivo = $request->motivo;
     //         $solicitud->solEstado = 'Pendiente';
-    
+
     //         $fechaNac = new DateTime($solicitud->persona->fecha_nacimiento);
     //         $intervalo = date_diff(new DateTime(), $fechaNac);
     //         $edad = $intervalo->y;
@@ -142,7 +174,7 @@ class SolicitudDuplicadoController extends Controller
     //         DB::rollBack();
     //         throw $e;
     //     }
-    
+
     // }
 
     // public function destroy($id)
@@ -152,47 +184,6 @@ class SolicitudDuplicadoController extends Controller
     //     return view('ciudadano.index');
     // }
 
-
-    // public function validar(Request $request)
-    // {
-    //     $request->validate(
-    //         [
-    //             'dni' => 'required',
-    //             'fechaNacimiento' => 'required|date',
-    //             'departamento' => 'required',
-    //             'provincia' => 'required',
-    //             'distrito' => 'required'
-    //         ],
-    //         [
-    //             'dni.required' => 'Ingrese el Numero de DNI',
-    //             'fechaNacimiento.required' => 'Ingrese una Fecha de Nacimiento',
-    //             'departamento.required' => 'Ingrese el departamento de
-    //          nacimiento',
-    //             'provincia.required' => 'Ingrese la provincia de nacimiento',
-    //             'distrito.required' => 'Ingrese el distrito de nacimiento',
-    //         ]
-    //     );
-
-    //     try {
-    //         $persona1 = Persona::findOrFail($request->dni);
-    //         $persona2 = Persona::where('fecha_nacimiento', $request->fechaNacimiento)->first();
-    //         $persona3 = Persona::where('departamento', $request->departamento)->first();
-    //         $persona4 = Persona::where('provincia', $request->provincia)->first();
-    //         $persona5 = Persona::where('distrito', $request->distrito)->first();
-            
-    //         $mensaje = "";
-    //         if (
-    //             $persona1->dni === $persona2->dni && $persona1->dni === $persona3->dni &&
-    //             $persona1->dni === $persona4->dni && $persona1->dni === $persona5->dni
-    //         ) {
-    //             $mensaje = "Son la misma persona";
-    //             return redirect()->route('sol-primera.create')->with('respuesta', $mensaje);
-    //         }
-    //     } catch (ModelNotFoundException $ex) {
-    //         $mensaje = "Los datos no son validados";
-    //         return redirect()->route('SolicitudDNI.solPrimera.inicio')->with('respuesta', $mensaje);
-    //     }
-    // }
 
     // public function generaPdf($idSolicitud)
     // {

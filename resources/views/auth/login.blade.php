@@ -39,20 +39,7 @@
                     </button>
                     </a>
                 @endif
-                
-    
-                <a href="{{route('solicitudDNI.inicio')}}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">
-                <button style="
-                        text-decoration: none;
-                        padding: 10px;
-                        font-weight: 600;
-                        font-size: 20px;
-                        color: #ffffff;
-                        background-color: #22997f;
-                        border-radius: 6px; " >
-                    Servicio de DNI
-                </button>
-                </a>  
+            
             @endauth
         </div>
         

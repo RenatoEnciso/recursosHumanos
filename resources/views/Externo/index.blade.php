@@ -67,7 +67,6 @@
                         <a class="dropdown-item" href="{{ route('ConsultaMatrimonio') }}"
                             style="text-decoration: none;">Acta Matrimonio</a>
                         <br>
-
                     </ul>
                 </li>
                 <li class="nav__items dropdown">
@@ -87,7 +86,7 @@
                         <br>
                     </ul>
                 </li>
-                
+
                 <li class="nav__items">
                     <a href="/login" class="nav__links">Ingresar</a>
                 </li>

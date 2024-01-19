@@ -209,8 +209,8 @@ class SolicitudDuplicadoController extends Controller
     // }
 
 
-    // public function cancelar()
-    // {
-    //     return redirect()->route('sol-primera.index');
-    // }
+    public function cancelar()
+    {
+        return redirect()->route('sol-primera.index');
+    }
 }

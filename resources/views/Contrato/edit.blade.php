@@ -395,7 +395,7 @@
                             
                         </div>   
                         <div class="row justify-content-center">
-                            <div class="col-4 form-group">
+                            <div class="col-3 form-group">
                                 <label class="control-label">Inicio</label>
                             
                                 <input type="date" class="form-control"  id="fecha_inicio" 
@@ -406,12 +406,23 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-4 form-group">
+                            <div class="col-3 form-group">
                                 <label class="control-label">Fin</label>
                             
                                 <input type="date" class="form-control" id="fecha_fin" 
                                     name="fecha_fin" value={{$Contrato->fecha_fin}}>
                                 @error('fecha_fin')
+                                    <span class="invalid feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-2 form-group">
+                                <label class="control-label">Monto</label>
+                            
+                                <input type="text" class="form-control" value={{$Contrato->monto}} id="monto" 
+                                    name="monto" >
+                                @error('monto')
                                     <span class="invalid feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

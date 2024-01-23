@@ -95,6 +95,8 @@ class ContratoController extends Controller
     //    return $request->all();
             $data=request()->validate([
                 'idHorario' => 'required',
+              
+                'monto' => 'required|numeric',
                 'descripcion' => 'required|max:30',
                 'fecha_inicio' => 'required|date',
         'fecha_fin' => [
@@ -274,6 +276,8 @@ class ContratoController extends Controller
                         $Contrato->archivoContrato=$url;
                     }
                     $Contrato->diasVacaciones=$request->diasVacaciones;
+              
+                    $Contrato->monto=$request->monto;
                     $Contrato->estado='1';
                     $Contrato->save();
 
@@ -422,6 +426,8 @@ class ContratoController extends Controller
     {
         $data=request()->validate([ 'idHorario' => 'required',
         'descripcion' => 'required|max:30',
+ 
+        'monto' => 'required|numeric',
         'fecha_inicio' => 'required|date',
 'fecha_fin' => [
     'required',
@@ -521,6 +527,8 @@ class ContratoController extends Controller
             $Contrato->archivoContrato=$url;
         }
         $Contrato->diasVacaciones=$request->diasVacaciones;
+
+        $Contrato->monto=$request->monto;
         $Contrato->estado='1';
         $Contrato->save();
 

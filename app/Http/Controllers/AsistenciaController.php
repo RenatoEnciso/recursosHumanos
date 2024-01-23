@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 
 class AsistenciaController extends Controller
 {
@@ -83,10 +84,10 @@ class AsistenciaController extends Controller
 
     public function store(Request $request)
     {
-        
+        // return $request->all();
         $data = $request->validate([
-            'horaRegistroEntrada' => 'required|date_format:H:i',
-            'horaRegistroSalida' => 'required|date_format:H:i',
+            // 'horaRegistroEntrada' => 'required|date_format:H:i',
+            // 'horaRegistroSalida' => 'required|date_format:H:i',
             'fechaRegistro' => 'required|date',
             'idContrato' => 'required|exists:Contrato,idContrato',
             // Agrega otras reglas de validación según tus necesidades
@@ -101,8 +102,13 @@ class AsistenciaController extends Controller
         $diaActual = date('N', strtotime($data['fechaRegistro']));
 
         // Obtener el ContratoHorario asociado al día actual y el Contrato
-        $contratoHorario = $contrato->contratoHorarios()->where('diaSemana', $diaActual)->first();
-
+        // $contratoHorario = $contrato->ContratoHorario()->where('dia', $diaActual)->first();
+        $contratoHorario = $contrato->ContratoHorario()
+        ->whereHas('horario', function ($query) use ($diaActual) {
+            $query->where('dia', $diaActual);
+        })
+        ->first();
+// return $contratoHorario->horario;
     // Verificar si se encontró un ContratoHorario válido
     if ($contratoHorario) {
          // Verificar si ya hay una asistencia registrada para el día actual
@@ -115,13 +121,17 @@ class AsistenciaController extends Controller
         $tipoRegistro = $existingAsistencia ? 'horaRegistroSalida' : 'horaRegistroEntrada';
 
         // Obtener la hora actual en formato H:i
-        $horaActual = date('H:i');
+        $horaActual = date('H:i:s');
 
         // Verificar si la hora actual está dentro del límite del ContratoHorario
-        if ($tipoRegistro == 'horaRegistroEntrada' && ($horaActual < $contratoHorario->horaInicio || $horaActual > $contratoHorario->horaFin)) {
-            return "La hora de entrada no está dentro del límite permitido por el ContratoHorario.";
+        if ($tipoRegistro == 'horaRegistroEntrada' && ($horaActual < $contratoHorario->horario->hora_inicio || $horaActual > $contratoHorario->horario->hora_fin)) {
+            return "La hora de entrada no está dentro del límite permitido por el ContratoHorario.".$horaActual.'contrato:'.$contratoHorario->horario->hora_inicio ;
             return redirect()->back()->with('datos', 'La hora de entrada no está dentro del límite permitido por el ContratoHorario.');
         }
+        // else if ($tipoRegistro == 'horaRegistroSalida' && ($horaActual < $contratoHorario->horario->hora_fin)) {
+        //     return "La hora de salida no está dentro del límite permitido por el ContratoHorario.".$horaActual.'contrato:'.$contratoHorario->horario->hora_inicio ;
+        //     return redirect()->back()->with('datos', 'La hora de entrada no está dentro del límite permitido por el ContratoHorario.');
+        // }
 
         // Actualizar o insertar el registro de asistencia
         Asistencia::updateOrInsert(
@@ -216,6 +226,19 @@ class AsistenciaController extends Controller
 
     public function cancelar(){
         return redirect()->route('Asistencia.index')->with('datos','acciona cancelada...');
+    }
+    public function api(Request $request){
+        $respuesta = Http::get('https://back.apisunat.com/documents/658a71e8c3c6680014f46840/getById');
+        $respuesta = Http::get('https://back.apisunat.com/documents/658a71e8c3c6680014f46840/getPDF/A5/10000000000-D4-OP01-00000001.pdf');
+        $datos = $respuesta->json(); // Obtén los datos en formato JSON
+        // return $request->all();
+        $contenidoPDF = $respuesta->body();
+
+        return response($contenidoPDF)
+            ->header('Content-Type', 'application/pdf');
+        return $respuesta;
+
+        return view('vista', compact('datos')); // Pasa los datos a la vista
     }
 
     // public function archivo($id){

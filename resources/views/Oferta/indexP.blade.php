@@ -49,7 +49,8 @@
                       <h5 class="card-title">{{$item->idOferta}}-{{$item->cargo->descripcion}}</h5>
                       <br>
                       <h6 class="card-subtitle mb-2 text-body-secondary">{{$item->descripcion}}</h6>
-                  
+             
+                      <p class="card-text">Vacantes:{{$item->numerovacantes}}</p>
                       <p class="card-text">Fecha limite:{{$item->fecha_fin}}</p>
                       <a href="{{route('Postulacion.createP',$item->idOferta)}}" class="btn btn-primary"><i class="fas fa-plus"></i> Postular</a>
        

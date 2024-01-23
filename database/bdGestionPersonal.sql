@@ -4,6 +4,8 @@ create table cargo(
   descripcion varchar(80) DEFAULT NULL,
   estado tinyint(4) DEFAULT NULL
 );
+
+
 create table oferta(
   idOferta int not null auto_increment primary key,
   idCargo int not null,
@@ -19,6 +21,7 @@ create table oferta(
   -- s
   estado tinyint(4) DEFAULT NULL,
   convocatoria boolean DEFAULT null,
+  numerovacantes int not null ,
   foreign key(idCargo) references cargo(idCargo)
 );
 
@@ -92,6 +95,9 @@ create table trabajador(
 ALTER TABLE users
 ADD idTrabajador int DEFAULT 0;
 
+
+
+
 create table contrato(
   idContrato int not null auto_increment primary key,
   descripcion varchar(80) DEFAULT NULL,
@@ -101,6 +107,7 @@ create table contrato(
   idEntrevista int NOT NULL,
   idTrabajador int NOT NULL,
   archivoContrato varchar(150) DEFAULT NULL,
+  monto float not null,
   estado tinyint(4) DEFAULT NULL,
   foreign key(idTrabajador) references trabajador(idTrabajador),
   foreign key(idEntrevista) references entrevista(idEntrevista)
@@ -156,8 +163,8 @@ create table permiso(
 -- DUDA
 create table asistencia(
   idAsistencia int not null auto_increment primary key,
-  horaRegistroEntrada varchar(80) DEFAULT NULL,
-  horaRegistroSalida date DEFAULT NULL,
+  horaRegistroEntrada time DEFAULT NULL,
+  horaRegistroSalida time DEFAULT NULL,
   fechaRegistro date DEFAULT NULL,
   idContrato int not null,
   estado tinyint(4) DEFAULT NULL,
@@ -176,13 +183,17 @@ create table asistencia(
   FOREIGN KEY(idContrato) REFERENCES contrato(idContrato)
 );
 
-  -- create table Sueldo(
-  -- idSuedo int not null auto_increment primary key,
-  -- fechaRegistro date DEFAULT NULL,
-  -- idContrato int not null,
-  -- monto flot not null,
-  -- foreign key(idContrato) references contrato (idContrato)
-  -- );
+  create table Pago(
+  idSuedo int not null auto_increment primary key,
+  periodo date not null,
+  fechaRegistro date not null,
+  idContrato int not null,
+  ingresos float not null,
+  descuentos float not null,
+  aportes float not null,
+  estado TINYINT(4) DEFAULT NULL,
+  foreign key(idContrato) references contrato (idContrato)
+  );
 
 
 

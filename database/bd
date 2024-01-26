@@ -4,8 +4,6 @@ create table cargo(
   descripcion varchar(80) DEFAULT NULL,
   estado tinyint(4) DEFAULT NULL
 );
-
-
 create table oferta(
   idOferta int not null auto_increment primary key,
   idCargo int not null,
@@ -13,15 +11,11 @@ create table oferta(
   fecha_inicio date DEFAULT NULL,
   fecha_fin date DEFAULT NULL,
   monto float default NULL,
-  -- s
-
   requisitos varchar(80) DEFAULT NULL,
   manualPostulante varchar(80) DEFAULT NULL,
   resultados varchar(80) DEFAULT NULL,
-  -- s
   estado tinyint(4) DEFAULT NULL,
   convocatoria boolean DEFAULT null,
-  numerovacantes int not null ,
   foreign key(idCargo) references cargo(idCargo)
 );
 
@@ -31,10 +25,10 @@ create table postulacion(
   idOferta int not null,
   fecha date DEFAULT NULL,
   curriculum varchar(80) DEFAULT NULL,
-  -- s
+
   email varchar(80) DEFAULT NULL,
   telefono char(9) NOT NULL,
-  -- s
+
   titulo varchar(30) DEFAULT NULL,
   pais varchar(20) DEFAULT NULL,
   institucion varchar(30) DEFAULT NULL,
@@ -52,7 +46,6 @@ create table entrevista(
   idPostulacion int NOT NULL,
   fecha date DEFAULT NULL,
   observacion varchar(80) DEFAULT NULL,
-   -- 0->Pendiente,1->Aceptado,2->Rechazado
   estadoEntrevista int not null,
   estado tinyint(4) DEFAULT NULL,
   foreign key(idPostulacion) references Postulacion(idPostulacion)
@@ -61,17 +54,8 @@ create table entrevista(
 ALTER TABLE `bdregistrocivil`.`roles` 
 ADD COLUMN `estado` TINYINT(4) NULL DEFAULT NULL AFTER `nombreRol`;
 
-INSERT INTO roles ( `nombreRol`,`estado`) VALUES
-( 'Encargado contrato',1),
-( 'Encargado de RRHH',1),
-( 'Administrador',1);
 
-INSERT INTO cargo (descripcion,estado) VALUES
-('Encargado contrato',1),
-('Encargado de mantenimiento',1),
-('Administrador',1)
 
---2 Sprint
 create table horario(
   idHorario int not null auto_increment primary key,
   hora_inicio time not null,
@@ -95,9 +79,6 @@ create table trabajador(
 ALTER TABLE users
 ADD idTrabajador int DEFAULT 0;
 
-
-
-
 create table contrato(
   idContrato int not null auto_increment primary key,
   descripcion varchar(80) DEFAULT NULL,
@@ -107,7 +88,6 @@ create table contrato(
   idEntrevista int NOT NULL,
   idTrabajador int NOT NULL,
   archivoContrato varchar(150) DEFAULT NULL,
-  monto float not null,
   estado tinyint(4) DEFAULT NULL,
   foreign key(idTrabajador) references trabajador(idTrabajador),
   foreign key(idEntrevista) references entrevista(idEntrevista)
@@ -135,7 +115,7 @@ create table vacacion(
   );
 
 
---3 Sprint
+
 create table cese(
   idCese int not null auto_increment primary key,
   fechaRegistro date DEFAULT NULL,
@@ -152,15 +132,15 @@ create table permiso(
   fecha_inicio DATE DEFAULT NULL,
   fecha_fin DATE DEFAULT NULL,
   motivo varchar(80) DEFAULT NULL,
-  -- 0->Enfermedad,1->personal
+
   tipo_permiso int  NOT NULL, 
- -- 0->Pendiente,1->Aceptado,2->Rechazado
+
   estadoPermiso  int NULL ,
   estado tinyint(4) DEFAULT NULL,
   archivoPermiso varchar(150) DEFAULT NULL,
   FOREIGN KEY(idContrato) REFERENCES contrato(idContrato)
 );
--- DUDA
+
 create table asistencia(
   idAsistencia int not null auto_increment primary key,
   horaRegistroEntrada time DEFAULT NULL,
@@ -171,7 +151,7 @@ create table asistencia(
   FOREIGN KEY(idContrato) REFERENCES contrato(idContrato)
   );
 
--- VER COMO HACER QUE SI ESTA INCPACITADO UNA PERSONA , AL PONER SU NOMBRE PONER COMO REMPLAZO  CAMMBIAR
+
   CREATE TABLE HoraExtra(
   idHoraExtra INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   idContrato INT NOT NULL,
@@ -185,13 +165,9 @@ create table asistencia(
 
   create table Pago(
   idSuedo int not null auto_increment primary key,
-  periodo date not null,
-  fechaRegistro date not null,
+  fechaRegistro date DEFAULT NULL,
   idContrato int not null,
-  ingresos float not null,
-  descuentos float not null,
-  aportes float not null,
-  estado TINYINT(4) DEFAULT NULL,
+  monto flot not null,
   foreign key(idContrato) references contrato (idContrato)
   );
 

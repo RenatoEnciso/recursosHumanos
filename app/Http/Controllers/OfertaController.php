@@ -53,6 +53,7 @@ class OfertaController extends Controller
             // 'fecha_inicio'=>'required',
             'fecha_inicio' => 'required|after_or_equal:yesterday',
             'fecha_fin'=>'required|before_or_equal:'.Carbon::parse($request->fecha_inicio)->addMonth(1)->format('Y-m-d'),
+            'numerovacantes'=>'required|numeric',
         //    'archivo_nacimiento'=>'required',
            
         ],
@@ -73,6 +74,7 @@ class OfertaController extends Controller
                     $Oferta->fecha_fin=$request->fecha_fin;
                     $Oferta->idCargo=$request->idCargo;
                     $Oferta->monto=$request->monto;
+                    $Oferta->numerovacantes=$request->numerovacantes;
                     $Oferta->convocatoria=$request->convocatoria;
                     if($request->hasFile('manualPostulante')){
                         $archivo=$request->file('manualPostulante')->store('ArchivosManualPostulante','public');
@@ -109,6 +111,7 @@ class OfertaController extends Controller
     {
         $data=request()->validate([
             'descripcion'=>'required|max:80',
+            'numerovacantes'=>'required|numeric',
             // 'fecha_inicio'=>'required',
          
             'fecha_fin'=>'required|before_or_equal:'.Carbon::parse($request->fecha_inicio)->addMonth(1)->format('Y-m-d'),
@@ -135,6 +138,7 @@ class OfertaController extends Controller
         $Oferta->fecha_fin=$request->fecha_fin;
         $Oferta->idCargo=$request->idCargo;
         $Oferta->convocatoria=$request->convocatoria;
+        $Oferta->numerovacantes=$request->numerovacantes;
         $Oferta->monto=$request->monto;
         if($request->hasFile('manualPostulante')){
             $archivo=$request->file('manualPostulante')->store('ArchivosManualPostulante','public');

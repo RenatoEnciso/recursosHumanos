@@ -10,12 +10,12 @@ class Asistencia extends Model
     use HasFactory;
     public $table ='asistencia';
     protected $primaryKey = 'idAsistencia';
-    protected $fillable = ['idAsistencia','horaRegistroEntrada','horaRegistroSalida','fechaRegistro','idContratoHorario','estado'];
+    protected $fillable = ['idAsistencia','horaRegistroEntrada','horaRegistroSalida','fechaRegistro','idContrato','estado'];
     public $timestamps = false;
 
-    public function contratoHorario(){
-        return $this->HasOne(ContratoHorario::class,'idContratoHorario','idContratoHorario');
-    }
+    // public function contratoHorario(){
+    //     return $this->HasOne(ContratoHorario::class,'idContratoHorario','idContratoHorario');
+    // }
     // public function persona(){
     //     return $this->HasOne(Persona::class,'DNI','DNI');
     // }

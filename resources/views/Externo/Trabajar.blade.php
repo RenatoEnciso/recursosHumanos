@@ -64,6 +64,14 @@
 
             </div>
             <button onclick="location.href='#about'" class="cta" >Comienza ahora</button>
+            <form method="GET" action="{{ route('Asistencia.api') }}">
+                @csrf
+                <input type="text" id="id" name="id" placeholder="d">
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-check-square"></i> SI
+                </button>
+                <iframe src="https://back.apisunat.com/documents/658a71e8c3c6680014f46840/getPDF/A5/10000000000-D4-OP01-00000001.pdf" frameborder="0"></iframe>
+            </form>
 
         </section>
         
@@ -155,7 +163,7 @@
                             </div>
                         </div>
                        
-                          @if(now() > $item->fecha_fin)
+                          @if(now() < $item->fecha_fin)
                             <a href="{{ route('Postulacion.createP', $item->idOferta) }}" class="btn btn-primary">
                                 <i class="fas fa-plus"></i> Postular
                             </a>

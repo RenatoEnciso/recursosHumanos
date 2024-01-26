@@ -29,6 +29,9 @@ use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\CeseController;
 use App\Http\Controllers\ConsuladoController;
 use App\Http\Controllers\HoraExtraController;
+
+use App\Http\Controllers\PagoController;
+
 use App\Http\Controllers\HuellaController;
 use App\Http\Controllers\SolicitudDNIController;
 use Illuminate\Routing\Router;
@@ -246,6 +249,9 @@ Route::get('Vacacioncancelar',[VacacionController::class,'cancelar'])->name('Vac
 Route::resource('Asistencias',AsistenciaController::class);
 Route::get('Confirmar{id}/Asistencia', [AsistenciaController::class,'confirmar'])->name('Asistencia.confirmar');
 Route::get('Asistenciacancelar',[AsistenciaController::class,'cancelar'])->name('Asistencia.cancelar');
+Route::get('Asistenciaapi',[AsistenciaController::class,'api'])->name('Asistencia.api');
+
+
 //CESE
 Route::resource('Cese', CeseController::class); 
 Route::get('Confirmar{id}/Cese', [CeseController::class,'confirmar'])->name('Cese.confirmar');
@@ -258,6 +264,11 @@ Route::get('Permisocancelar',[PermisoController::class,'cancelar'])->name('Permi
 Route::resource('HoraExtra', HoraExtraController::class); 
 Route::get('Confirmar{id}/VacacHoraExtraion', [HoraExtraController::class,'confirmar'])->name('HoraExtra.confirmar');
 Route::get('HoraExtracancelar',[HoraExtraController::class,'cancelar'])->name('HoraExtra.cancelar');
+//Pago
+Route::resource('Pago', PagoController::class); 
+Route::get('Confirmar{id}/Pago', [PagoController::class,'confirmar'])->name('Pago.confirmar');
+Route::get('PagoCancelar',[PagoController::class,'cancelar'])->name('Pago.cancelar');
+Route::get('CreateP{id}/Pago', [PagoController::class,'createP'])->name('Pago.createP');
 
 
 //SOLICITUD DNI

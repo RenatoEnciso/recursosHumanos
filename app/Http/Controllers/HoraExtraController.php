@@ -59,7 +59,7 @@ class HoraExtraController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'idContrato' => 'required',
             'fecha' => 'required',
             'hora_inicio' => 'required',

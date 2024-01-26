@@ -43,6 +43,7 @@
                         <th scope="col"style="font-weight: bold;">Fin</th>
                         <th scope="col"style="font-weight: bold;">Cargo</th>
                         <th scope="col"style="font-weight: bold;">Monto</th>
+                        <th scope="col"style="font-weight: bold;">Vacantes</th>
                         <th scope="col"style="font-weight: bold;">Archivos</th>
                         <th scope="col"style="font-weight: bold;">Opciones</th>
                     </tr>
@@ -63,6 +64,7 @@
                         <td>{{$item->fecha_fin}}</td>
                         <td>{{$item->cargo->descripcion}}</td>
                         <td>S/.{{$item->monto}}</td>
+                        <td>{{$item->numerovacantes}}</td>
                         <td>
                         <button   class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdropr{{$item->idOferta}}">
                             <i class="fa-solid fa-file-circle-check"></i>Requisito de postulante

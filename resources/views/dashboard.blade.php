@@ -369,10 +369,10 @@
                                         <p class="sub-item">Entrevista</p>
                                     </a>
                                 </li>
-                            @endif
-                            {{-- Fin Primer sprint de gestion personal --}}
-                            {{-- Segundo sprint de gestion personal --}}
-                            @if (Auth::user()->idRol == 4)
+                                @endif
+                                {{-- Fin Primer sprint de gestion personal --}}
+                                {{-- Segundo sprint de gestion personal --}}
+                                @if (Auth::user()->idRol==4)
                                 <li class="nav-item">
                                     <a href="{{ route('Trabajador.index') }}">
                                         <i class="fa-solid fa-person-dots-from-line"></i>
@@ -380,8 +380,8 @@
                                         <p class="sub-item">Trabajador</p>
                                     </a>
                                 </li>
-                            @endif
-                            @if (Auth::user()->idRol == 5 || Auth::user()->idRol == 4)
+                                @endif
+                                @if (Auth::user()->idRol==5 || Auth::user()->idRol==4)
                                 <li class="nav-item">
                                     <a href="{{ route('Horario.index') }}">
                                         <i class="fa-regular fa-calendar-days"></i>
@@ -412,10 +412,10 @@
                                 </li>
                             @endif
 
-                            {{-- Fin Segundo sprint de gestion personal --}}
-
-                            {{-- Tercer sprint de gestion personal --}}
-                            @if (Auth::user()->idRol == 5)
+                                {{-- Fin Segundo sprint de gestion personal --}}
+                                
+                               {{-- Tercer sprint de gestion personal --}}
+                                @if (Auth::user()->idRol==5)
                                 <li class="nav-item">
                                     <a href="{{ route('Asistencias.index') }}">
                                         {{-- <i class="fa-solid fa-file-signature"></i> --}}
@@ -424,7 +424,7 @@
                                         <p class="sub-item">Asistencia</p>
                                     </a>
                                 </li>
-                            @endif
+                                @endif
 
                             @if (Auth::user()->idRol == 5)
                                 <li class="nav-item">
@@ -452,14 +452,20 @@
                                 </li>
                             @endif
 
-                            @if (Auth::user()->idRol < 4)
+                            {{-- @if (Auth::user()->idRol < 4) --}}
                                 <li class="nav-item">
-                                    {{-- <a  href="{{route('reporte.create')}}">
+                                    <a  href="{{route('Pago.index')}}">
                                         <i class="fas fa-id-card"></i>
-                                        <p>Reportes</p>
-                                    </a> --}}
+                                        <p>PAGO</p>
+                                    </a>
                                 </li>
-                            @endif
+                                <li class="nav-item">
+                                    <a  href="{{route('Trabajador.index')}}">
+                                        <i class="fas fa-id-card"></i>
+                                        <p>Trabajador</p>
+                                    </a>
+                                </li>
+                            {{-- @endif --}}
                         </ul>
 
                     </div>

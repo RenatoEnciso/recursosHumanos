@@ -20,5 +20,8 @@ class Horario extends Model
     // public function entrevista(){
     //     return $this->HasMany(Contrato_Horario::class,'idHorario','idHorario');
     // }
+    public function contratoHorarios(){
+        return $this->hasMany(ContratoHorario::class, 'idHorario', 'idHorario');
+    }
     
 }

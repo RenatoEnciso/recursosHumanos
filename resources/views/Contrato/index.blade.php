@@ -42,6 +42,7 @@
                         <th scope="col">Dias de vacaciones</th>
                         <th scope="col">Trabajador</th>
                         <th scope="col">Cargo</th>
+                        <th scope="col">Monto</th>
                         <th scope="col">Archivo</th>
                         <th scope="col">Opciones</th>
                     </tr>
@@ -61,7 +62,8 @@
                             <td>{{$item->fecha_fin}}</td>
                             <td>{{$item->diasVacaciones}}</td>
                             <td> {{$item->trabajador->persona->Apellido_Paterno}} {{$item->trabajador->persona->Apellido_Materno}} {{$item->trabajador->persona->Nombres}}-DNI:{{$item->trabajador->DNI}}</td>
-                            <td>{{$item->entrevista->Postulacion->oferta->cargo->descripcion}}</td>
+                            <td>{{$item->entrevista->Postulacion->oferta->cargo->descripcion}}</td>             
+                            <td>{{$item->monto}}</td>
                             <td>
                                 <button   class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdropp{{$item->idContrato}}">
                                 <i class="fa-solid fa-file-circle-check"></i>

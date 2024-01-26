@@ -48,7 +48,7 @@
                 </li>
                 <li class="nav__items dropdown">
                     <a href="#" class="nav__links dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Consulta Actas
+                        Consultas
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="padding-left: 1vw">
                         <a class="dropdown-item" href="{{ route('ConsultaNacimiento') }}" style="text-decoration: none">Acta Nacimiento</a> 
@@ -57,14 +57,11 @@
                         <br>
                         <a class="dropdown-item" href="{{ route('ConsultaMatrimonio') }}" style="text-decoration: none;">Acta Matrimonio</a>
                         <br>
+                        <a  class="dropdown-item" href="{{route('ConsultaHuella')}}"  style="text-decoration: none;">Mejores huellas</a>
+                        <br>
+                        <a class="dropdown-item" href="{{route('ConsultaConsulado')}}"  style="text-decoration: none;">Tramites de consulados</a>
+                        <br>
                     </ul>
-                </li>
-                <li class="nav__items">
-                    <a href="{{route('ConsultaHuella')}}" class="nav__links">Consulta mejores huellas</a>
-                </li>
-
-                <li class="nav__items">
-                    <a href="{{route('ConsultaConsulado')}}" class="nav__links">Consulta  tramites de consulados</a>
                 </li>
                 
 

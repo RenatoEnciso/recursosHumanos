@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('sol-primera.update', $solicitud->idSolicitud) }}" >
+                <form method="POST" action="{{ route('reg-duplicado.update', $solicitud->idSolicitud) }}" >
                     @method('PUT')
                     @csrf
                     <div class="form-row">
@@ -68,7 +68,7 @@
                     </div>
                     <div class="d-flex flex-row justify-content-around">
                         <button class="btn btn-success" type="submit"><i class="fas fa-save"></i>Actualizar</button>
-                        <a href="{{ route('sol-primera.cancelar') }}" class="btn btn-danger"><i
+                        <a href="{{ route('reg-duplicado.cancelar') }}" class="btn btn-danger"><i
                                 class="fas fa-ban"></i>Cancelar</a>
                     </div>
                 </form>

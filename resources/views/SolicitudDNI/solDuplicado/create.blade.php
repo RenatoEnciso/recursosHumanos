@@ -12,7 +12,7 @@
             <form method="POST" action="{{ route('sol-duplicado.store',$persona->DNI) }}">
                 @csrf
                 <div class="form-group">
-                    <h3><b>Datos Personales del Solicitante</b></h3>
+                    <h5><b>Datos Personales:</b></h5>
                 </div>
                 <div class="form-row">
                     <div class="col-6">
@@ -92,12 +92,12 @@
                     </div>
 
                 </div>
-                <div class="form-group">
-                    <h3><b>Información de contacto</b></h3>
+                <div class="form-group mt-5">
+                    <h5><b>Información de contacto:</b></h5>
                 </div>
                 <div class="form-row">
                     <div class="col-6">
-                        <label class="col-form-label">Telefono</label>
+                        <label class="col-form-label">Telefono / Celular</label>
                         <input name="telefono" id="" class="form-control">
                         @error('telefono')
                             <div class="alert alert-danger">{{ $message }}</div>
@@ -111,8 +111,8 @@
                         @enderror
                     </div>
                 </div>
-                <div class="form-group">
-                    <h3><b>Información de Denuncia</b></h3>
+                <div class="form-group mt-5">
+                    <h5><b>Información de Denuncia:</b></h5>
                 </div>
                 <div class="form-row">
                     <div class="col-6">
@@ -124,55 +124,27 @@
                     </div>
                     <div class="col-6">
                         <label class="col-form-label">Codigo de denuncia</label>
-                        <input name="denuncia" id="" class="form-control">
-                        @error('denuncia')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="col-6">
-                        <label class="col-form-label">Fecha de denuncia</label>
-                        <input type="date" name="fechadenuncia" id="" class="form-control">
-                        @error('fechadenuncia')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="col-6">
-                        <label class="col-form-label">Comisaria</label>
-                        <input name="comisaria" id="" class="form-control">
-                        @error('comisaria')
+                        <input name="nro_denuncia" id="" class="form-control">
+                        @error('nro_denuncia')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
-                <div class="form-group">
-                    <h3><b>Información del Pago</b></h3>
+                <div class="form-group mt-5">
+                    <h5><b>Información del Pago:</b></h5>
                 </div>
                 <div class="form-row">
                     <div class="col-6">
                         <label class="col-form-label">Numero de Operación</label>
-                        <input name="motivo" id="" class="form-control" placeholder="Perdida / robo">
-                        @error('motivo')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="col-6">
-                        <label class="col-form-label">Fecha de pago</label>
-                        <input type="date" name="denuncia" id="" class="form-control">
-                        @error('denuncia')
+                        <input name="numero_op" id="" class="form-control" placeholder="Numero de operacion">
+                        @error('numero_op')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-6">
                         <label class="col-form-label">Monto de pago</label>
-                        <input name="fechadenuncia" id="" class="form-control">
-                        @error('fechadenuncia')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="col-6">
-                        <label class="col-form-label">Lugar de pago</label>
-                        <input name="comisaria" id="" class="form-control">
-                        @error('comisaria')
+                        <input name="monto" id="" class="form-control">
+                        @error('monto')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>

@@ -17,9 +17,16 @@ use Illuminate\Support\Facades\DB;
 class SolicitudDuplicadoController extends Controller
 {
     const PAGINATION = 10;
-    /* public function inicio(Request $request){
-        return view('ciudadano.index');
-    }*/
+    public function index(Request $request){
+        
+        $buscarpor = $request->get('buscarpor');
+        $solicitudes = SolicitudDNI::select('*')
+            ->where('numero_solicitante', 'like', '%' . $buscarpor . '%')
+            ->paginate($this::PAGINATION);
+
+        return view('SolicitudDNI.solDuplicado.index', compact('solicitudes', 'buscarpor'));
+   
+    }
 
     public function formValidar()
     {
@@ -58,20 +65,7 @@ class SolicitudDuplicadoController extends Controller
              $mensaje = "Los datos Ingresados no son validados";
             return redirect()->route('sol-duplicado.formValidar')->with('respuesta', $mensaje);
         }
-        // $list_total_personas = $list1_personas->concat($list2_personas)->concat($list3_personas)->concat($list4_personas);
-
-        // $result=0;
-        // foreach ($list_total_personas as $personita) {
-        //     if ($personita == $persona) {
-        //         $result=$result+1;
-        //     }
-        // }
-        // if($result==4)
-        //     return redirect()->route('sol-duplicado.create',$persona->DNI);
-        // else{
-        //     $mensaje = "Los datos Ingresados no son validados";
-        //     return redirect()->route('sol-duplicado.formValidar')->with('respuesta', $mensaje);
-        // }
+       
     }
 
     public function create($dni)
@@ -87,12 +81,16 @@ class SolicitudDuplicadoController extends Controller
             $persona = Persona::find($request->DNI);
             $solicitud = new SolicitudDNI();
             $solicitud->DNI_Titular = $persona->DNI;
-            $solicitud->idTipoSolicitud = '2'; // 2=duplicado
-            $solicitud->nombre_solicitante = $persona->Nombres . " " . $persona->Apellido_Paterno;
+            $solicitud->idTipoSolicitud = '2';        // 2=duplicado
+            $solicitud->numero_solicitante = $request->telefono;
+            $solicitud->correo_solicitante = $request->correo;
+            $solicitud->codigo_denuncia = $request->nro_denuncia;
             $solicitud->solMotivo = $request->motivo;
+            $solicitud->monto_pago = $request->monto;
+            $solicitud->codigo_voucher = $request->numero_op;
             $solicitud->solEstado = 'Pendiente';
-            $solicitud->solFecha = new DateTime();
 
+            $solicitud->solFecha = new DateTime();
             $fechaNac = new DateTime($solicitud->persona->fecha_nacimiento);
             $intervalo = date_diff(new DateTime(), $fechaNac);
             $edad = $intervalo->y;
@@ -100,7 +98,8 @@ class SolicitudDuplicadoController extends Controller
             if ($edad >= 18) {
                 $solicitud->save();
                 DB::commit();
-                return redirect()->route('sol-duplicado.formValidar')->with('notifica', 'La solicitud de DNI AZUL fue exitosa');
+                $mensaje="La solicitud de DNI AZUL por DUPLICADO fue exitosa";
+                return redirect()->route('sol-duplicado.formValidar')->with('notifica', $mensaje);
             } else {
                 DB::rollback();
                 $mensaje= 'Error: El Ciudadano no es mayor de edad';
@@ -111,7 +110,7 @@ class SolicitudDuplicadoController extends Controller
             throw $e;
         }
     }
-
+    
     public function show()
     {
         //return view('SolicitudDNI.solDuplicado.validation');

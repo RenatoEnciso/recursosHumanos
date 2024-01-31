@@ -122,26 +122,26 @@ CREATE TABLE LISTA_SOLICITUD (
 Insert Into Persona
 (DNI, Apellido_Paterno , Apellido_Materno ,Nombres ,sexo ,estadocivil ,departamento,provincia,distrito,estado , direccion,fecha_nacimiento)
 values
-('12345678',"Gonzalez","Perez","Maria Fernanda","F","Soltera","Lima","Lima","Miraflores",1,"Av. Pardo 123",'1990-01-01'),
-('23456789',"Lopez","Gomez","Rosario Jazmin","F","Soltera","La Libertad","Trujillo","El Porvenir",1,"Calle Bolivar 456",'1991-02-02'),
-('34567890',"Martinez","Rodriguez","Jorge Piter","M","Soltero","Lima","Lima","San Isidro",1,"Av. Petit Thouars 789",'1993-03-03'),
-('45678901',"Fernandez","Sanchez","Alfonso Luis","M","Soltero","Lima","Lima","Surco",1,"Calle Los Alamos 159",'1994-04-04'),
-('32109876',"Vargas","Rojas","Juan Jose","M","Soltero","La Libertad","Trujillo","Florencia de Mora",1,"Av. Mansiche 852",'1998-07-07'),
-('21098765',"Mendoza","Paredes","Juan Diego","M","Soltero","La Libertad","Trujillo","Trujillo",1,"Calle San Martin 963",'1999-08-08'),
-('10987654',"Castillo","Cordova","Maria Teresa","F","Soltera","Lima","Lima","Miraflores",1,"Av. Larco 741",'2000-09-09'),
-('09876543',"Gutierrez","Vega","Maria Pia","F","Soltera","Lima","Lima","Miraflores",1,"Calle Shell 852",'2001-10-10'),
-('56789012',"Garcia","Ramirez","Sandra Anais","F","Soltera","Lima","Lima","Santa Anita",1,"Av. Los Heroes 654",'2002-05-05'),
-('67890123',"Morales","Torres","Pedro Beto","M","Soltero","Lima","Lima","Chorrillos",1,"Calle Los Pinos 321",'2003-06-06'),
-('78901234',"Rojas","Vargas","Jose Miguel","M","Soltero","La Libertad","Trujillo","Florencia de Mora",1,"Av. Mansiche 987",'2004-07-07'),
-('89012345',"Paredes","Mendoza","Diego Eduardo","M","Soltero","La Libertad","Trujillo","Trujillo",1,"Calle San Martin 654",'2005-08-08'),
-('90123456',"Cordova","Castillo","Maria Isabel","F","Soltera","La Libertad","Trujillo","La esperanza",1,"Av. Larco 321",'2006-09-09'),
-('01234567',"Vega","Gutierrez","Maria Paula","F","Soltera","La Libertad","Trujillo","Huanchaco",1,"Calle Shell 147",'2000-10-10'),
-('98765432',"Perez","Gonzalez","Juan Carlos","M","Soltero","La Libertad","Trujillo","Salaverry",1,"Av. Benavides 852",'2001-01-01'),
-('87654321',"Gomez","Lopez","Juan Manuel","M","Soltero","La Libertad","Trujillo","Florencia de mora",1,"Calle Bolivar 963",'2002-02-02'),
-('76543210',"Rodriguez","Martinez","Juan Pedro","M","Soltero","Lima","Lima","San Isidro",1,"Av. Petit Thouars 741",'2003-03-03'),
-('65432109',"Sanchez","Fernandez","Juan Luis","M","Soltero","Lima","Lima","Surco",1,"Calle Los Alamos 852",'2004-04-04'),
-('54321098',"Ramirez","Garcia","Juanita Rosa","F","Soltera","Lima","Lima","Santa Anita",1,"Av. Los Heroes 963",'2005-05-05'),
-('43210987',"Torres","Morales","Juanita Carmen","F","Soltera","Lima","Lima","Chorrillos",1,"Calle Los Pinos 741",'2006-06-06');
+('11111111',"Gonzalez","Perez","Maria Fernanda","F","Soltera","Lima","Lima","Miraflores",1,"Av. Pardo 123",'1990-01-01'),
+('11111112',"Lopez","Gomez","Rosario Jazmin","F","Soltera","La Libertad","Trujillo","El Porvenir",1,"Calle Bolivar 456",'1991-02-02'),
+('11111113',"Martinez","Rodriguez","Jorge Piter","M","Soltero","Lima","Lima","San Isidro",1,"Av. Petit Thouars 789",'1993-03-03'),
+('11111114',"Fernandez","Sanchez","Alfonso Luis","M","Soltero","Lima","Lima","Surco",1,"Calle Los Alamos 159",'1994-04-04'),
+('11111115',"Vargas","Rojas","Juan Jose","M","Soltero","La Libertad","Trujillo","Florencia de Mora",1,"Av. Mansiche 852",'1998-07-07'),
+('11111116',"Mendoza","Paredes","Juan Diego","M","Soltero","La Libertad","Trujillo","Trujillo",1,"Calle San Martin 963",'1999-08-08'),
+('11111117',"Castillo","Cordova","Maria Teresa","F","Soltera","Lima","Lima","Miraflores",1,"Av. Larco 741",'2000-09-09'),
+('11111118',"Gutierrez","Vega","Maria Pia","F","Soltera","Lima","Lima","Miraflores",1,"Calle Shell 852",'2001-10-10'),
+('11111119',"Garcia","Ramirez","Sandra Anais","F","Soltera","Lima","Lima","Santa Anita",1,"Av. Los Heroes 654",'2002-05-05'),
+('11111110',"Morales","Torres","Pedro Beto","M","Soltero","Lima","Lima","Chorrillos",1,"Calle Los Pinos 321",'2003-06-06'),
+('22222221',"Rojas","Vargas","Jose Miguel","M","Soltero","La Libertad","Trujillo","Florencia de Mora",1,"Av. Mansiche 987",'2004-07-07'),
+('22222222',"Paredes","Mendoza","Diego Eduardo","M","Soltero","La Libertad","Trujillo","Trujillo",1,"Calle San Martin 654",'2005-08-08'),
+('22222223',"Cordova","Castillo","Maria Isabel","F","Soltera","La Libertad","Trujillo","La esperanza",1,"Av. Larco 321",'2006-09-09'),
+('22222224',"Vega","Gutierrez","Maria Paula","F","Soltera","La Libertad","Trujillo","Huanchaco",1,"Calle Shell 147",'2000-10-10'),
+('22222225',"Perez","Gonzalez","Juan Carlos","M","Soltero","La Libertad","Trujillo","Salaverry",1,"Av. Benavides 852",'2001-01-01'),
+('22222226',"Gomez","Lopez","Juan Manuel","M","Soltero","La Libertad","Trujillo","Florencia de mora",1,"Calle Bolivar 963",'2002-02-02'),
+('22222227',"Rodriguez","Martinez","Juan Pedro","M","Soltero","Lima","Lima","San Isidro",1,"Av. Petit Thouars 741",'2003-03-03'),
+('22222228',"Sanchez","Fernandez","Juan Luis","M","Soltero","Lima","Lima","Surco",1,"Calle Los Alamos 852",'2004-04-04'),
+('22222229',"Ramirez","Garcia","Juanita Rosa","F","Soltera","Lima","Lima","Santa Anita",1,"Av. Los Heroes 963",'2005-05-05'),
+('22222210',"Torres","Morales","Juanita Carmen","F","Soltera","Lima","Lima","Chorrillos",1,"Calle Los Pinos 741",'2006-06-06');
 
 
 -- Nuevas tablas
@@ -151,7 +151,6 @@ create table TIPO_DNI(
 );
 
 INSERT INTO TIPO_DNI(tipoDNI) VALUES ("Original"),("Duplicado");
-
 
 CREATE TABLE TIPO_SOLICITUD_DNI(
   idTipoSolicitud int AUTO_INCREMENT PRIMARY KEY,
@@ -165,14 +164,15 @@ CREATE TABLE SOLICITUD_DNI(
   idSolicitud         int AUTO_INCREMENT PRIMARY KEY,
   idTipoSolicitud     int NOT NULL,
   DNI_Titular         char(8) NOT NULL,
-  nombre_solicitante  varchar(50),
+  numero_solicitante  varchar(50),
+  correo_solicitante  varchar(50),
   valida_foto         TINYINT(1),
   valida_firma        TINYINT(1),
-  codigo_voucher      varchar(15),
-  codigo_recibo       varchar(15),
+  codigo_recibo       varchar(8),
+  codigo_voucher      varchar(8),
+  monto_pago          FLOAT,
   solMotivo           varchar(250),
-  fechaEnvioReg       datetime,
-  fechaRespuestaReg   datetime,
+  codigo_denuncia     varchar(8),
   solEstado           TINYINT,
   solFecha            datetime
 );
@@ -203,3 +203,4 @@ alter table Registro_DNI
   ADD FOREIGN KEY (DNI) REFERENCES Persona(DNI),
   ADD FOREIGN KEY(idSolicitudDNI) REFERENCES SOLICITUD_DNI(idSolicitud),
   ADD FOREIGN KEY (idTipoDni) REFERENCES TIPO_DNI(idTipoDni);
+

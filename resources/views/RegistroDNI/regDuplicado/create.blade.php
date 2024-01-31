@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('reg-primera.storeValido',$registro->idRegistro) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('reg-duplicado.storeValido',$registro->idRegistro) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-row">
 
@@ -94,7 +94,7 @@
                     
                     <div class="d-flex flex-row justify-content-around">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>Registrar</button>
-                        <a href="{{ route('reg-primera.cancelar',$solicitud->idSolicitud) }}" class="btn btn-danger"><i
+                        <a href="{{ route('reg-duplicado.cancelar',$solicitud->idSolicitud) }}" class="btn btn-danger"><i
                                 class="fas fa-ban"></i>Cancelar</a>
                     </div>
                 </form>

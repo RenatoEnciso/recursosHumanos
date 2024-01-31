@@ -265,11 +265,11 @@
                                                     <span class="sub-item">Primera vez</span>
                                                 </a>
                                             </li>
-                                            {{-- <li>
+                                            <li>
                                                 <a href="{{ route('sol-duplicado.index') }}">
                                                     <span class="sub-item">Duplicado</span>
                                                 </a>
-                                            </li> --}}
+                                            </li>
                                             <li>
                                                 <a href="{{ route('sol-renovado.index') }}">
                                                     <span class="sub-item">Renovacion</span>

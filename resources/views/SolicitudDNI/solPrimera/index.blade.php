@@ -53,7 +53,8 @@
                         @foreach ($solicitudes as $item)
                             <tr>
                                 <td>{{ $item->idSolicitud }}</td>
-                                <td>{{ $item->nombre_solicitante }}</td>
+                  
+                                <td>{{ $item->Persona->Nombres }}</td>
                                 <td>{{ $item->DNI_Titular }}</td>
                                 <td>{{ $item->solFecha }}</td>
                                 <td>

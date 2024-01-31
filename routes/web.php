@@ -249,17 +249,17 @@ Route::get('sol-primera/{id}/generar', [SolicitudPrimeraController::class,'gener
 Route::resource('sol-primera', SolicitudPrimeraController::class);
 
 //SOLICITUD DNI - duplicado
-Route::get('solic-duplicado/form-validar', [SolicitudDuplicadoController::class,'formValidar'])->name('sol-duplicado.formValidar');
-Route::post('solic-duplicado/validacion', [SolicitudDuplicadoController::class,'validar'])->name('sol-duplicado.validation');
+Route::get('sol-duplicado/index', [SolicitudDuplicadoController::class,'index'])->name('sol-duplicado.index');
+Route::get('sol-duplicado/form-validar', [SolicitudDuplicadoController::class,'formValidar'])->name('sol-duplicado.formValidar');
+Route::post('sol-duplicado/validacion', [SolicitudDuplicadoController::class,'validar'])->name('sol-duplicado.validation');
 Route::get('sol-duplicado/create/{idPersona}', [SolicitudDuplicadoController::class,'create'])->name('sol-duplicado.create');
 Route::post('sol-duplicado/store/{idPersona}', [SolicitudDuplicadoController::class,'store'])->name('sol-duplicado.store');
+Route::post('sol-duplicado/edit/{idSolicitud}', [SolicitudDuplicadoController::class,'edit'])->name('sol-duplicado.edit');
 Route::get('sol-duplicado/cancelar', [SolicitudDuplicadoController::class,'cancelar'])->name('sol-duplicado.cancelar');
 Route::get('sol-duplicado/{id}/generar', [SolicitudPrimeraController::class,'generaPdf'])->name('sol-duplicado.dni');
 
 //SOLICITUD DNI - renovado
 Route::resource('sol-renovado', SolicitudRenovadoController::class);
-
-
 
 //Registro DNI - primera vez
 Route::get('reg-primera-create/{idSolicitud}', [RegistroPrimeraController::class,'createValido'])->name('reg-primera.createValido');
@@ -271,11 +271,12 @@ Route::get('reg-primera/{id}/generar', [RegistroPrimeraController::class,'genera
 Route::resource('reg-primera', RegistroPrimeraController::class);
 
 //Registro DNI - duplicado
-Route::resource('reg-duplicado', RegistroDuplicadoController::class);
+
 Route::get('reg-duplicado/{id}/generar', [RegistroDuplicadoController::class,'generaPdf'])->name('reg-duplicado.dni');
+Route::get('reg-duplicado/cancelar', [RegistroDuplicadoController::class,'cancelar'])->name('reg-duplicado.cancelar');
 Route::get('reg-duplicado/create/{idSolicitud}', [RegistroDuplicadoController::class,'createValido'])->name('reg-duplicado.createValido');
 Route::post('reg-duplicado/store/{id}', [RegistroDuplicadoController::class,'storeValido'])->name('reg-duplicado.storeValido');
-
+Route::resource('reg-duplicado', RegistroDuplicadoController::class);
 
 //Registro DNI - renovado
 Route::resource('reg-renovado', RegistroRenovadoController::class);

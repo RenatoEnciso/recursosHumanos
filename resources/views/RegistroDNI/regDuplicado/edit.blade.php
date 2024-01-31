@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-title">
-                    <h1 id="titulo" class="card-title text-center">SOLICITUD DE DNI DUPLICADO </h1>
+                    <h1 id="titulo" class="card-title text-center">REGISTRO DE DNI DUPLICADO </h1>
                 </div>
             </div>
             <div class="card-body">

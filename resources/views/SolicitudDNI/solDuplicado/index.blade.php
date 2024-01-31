@@ -1,4 +1,4 @@
-{{-- @extends('dashboard')
+ @extends('dashboard')
 
 @section('titulo', 'INICIO')
 @section('buscar')
@@ -19,10 +19,10 @@
 @section('contenido')
     <div class="card">
         <div class="card-header">
-            <h3 id="titulo" class="card-title">LISTA DE SOLICITUDES - DNI AZUL POR PRIMERA VEZ</h3>
+            <h3 id="titulo" class="card-title">LISTA DE SOLICITUDES POR DUPLICADO</h3>
         </div>
         <div class="card-body">
-            <a href="{{ route('sol-primera.create') }}" class="btn btn-primary">
+            <a href="" class="btn btn-primary">
                 <i class="fas fa-plus"></i>Nueva Solicitud
             </a>
             <div id="mensaje">
@@ -36,9 +36,12 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Codigo</th>
                         <th scope="col">Solicitante</th>
                         <th scope="col">DNI</th>
+                        <th scope="col">Contacto</th>
+                        <th scope="col">Motivo</th>
+                        <th scope="col">N° Voucher</th>
+                        <th scope="col">N° Denuncia</th>
                         <th scope="col">Fecha Recepcion</th>
                         <th scope="col">Estado</th>
                         <th scope="col">Opciones</th>
@@ -47,14 +50,17 @@
                 <tbody>
                     @if (count($solicitudes) <= 0)
                         <tr>
-                            <td colspan="3"><b>No hay registros</b></td>
+                            <td colspan="3"><b>No hay Solicitudes</b></td>
                         </tr>
                     @else
                         @foreach ($solicitudes as $item)
                             <tr>
-                                <td>{{ $item->idSolicitud }}</td>
-                                <td>{{ $item->nombre_solicitante }}</td>
+                                <td>{{ $item->Persona->Nombres }}</td>
                                 <td>{{ $item->DNI_Titular }}</td>
+                                <td>{{ $item->numero_solicitante }}</td>
+                                <td>{{ $item->solMotivo }}</td>
+                                <td>{{ $item->codigo_voucher}}</td>
+                                <td>{{ $item->codigo_denuncia}}</td>
                                 <td>{{ $item->solFecha }}</td>
                                 <td>
                                     @if ($item->solEstado == 'Aceptado')
@@ -68,11 +74,10 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('sol-primera.edit', $item->idSolicitud) }}"
+                                    <a href="{{ route('sol-duplicado.edit', $item->idSolicitud) }}"
                                         class="btn btn-primary btn-sm"><i class="fa "></i> Editar</a>
-                                    <a href="{{ route('sol-primera.dni', $item->idSolicitud) }}"
-                                        class="btn btn-primary btn-sm"><i class="fa "></i>Dni</a>
-
+                                    <a href="#"
+                                        class="btn btn-danger btn-sm"><i class="fa "></i>Eliminar</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -83,4 +88,4 @@
         </div>
 
     </div>
-@endsection --}}
+@endsection

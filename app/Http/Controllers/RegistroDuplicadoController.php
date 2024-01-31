@@ -38,8 +38,6 @@ class RegistroDuplicadoController extends Controller
         return view('RegistroDNI.regDuplicado.index', compact('registros', 'solicitudes', 'buscarpor'));
     }
 
-    
-
     public function createValido(Request $request, $idSolicitud)
     {
         DB::beginTransaction();
@@ -112,7 +110,6 @@ class RegistroDuplicadoController extends Controller
     {
         DB::beginTransaction();
         try{
-            
             $registro = RegistroDNI::find($id);
             $solicitud = SolicitudDNI::find($registro->idSolicitudDNI);
             $registro->DNI = $request->DNI;
@@ -140,6 +137,11 @@ class RegistroDuplicadoController extends Controller
             throw new Exception("Horror: " . $e->getMessage());
         }
 
+    }
+
+    public function cancelar()
+    {
+        return redirect()->route('reg-duplicado.index');
     }
 
     // public function generaPdf($idRegistro)
